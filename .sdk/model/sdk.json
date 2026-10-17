@@ -17298,8 +17298,8 @@
         }
       },
       "text": {
-        "about_md": "",
-        "docs_url": "",
+        "about_md": "\nResend is an email API for developers: transactional email, domains, contacts,\nsegments, broadcasts, templates, webhooks and inboxes. This SDK covers all 89\npaths of the official [Resend OpenAPI spec](https://github.com/resend/resend-openapi)\n(v1.5.1) as 41 entities.\n\nThe entity grouping is corrected in [.sdk/model/guide/guide.aontu](.sdk/model/guide/guide.aontu).\nA live smoke test against api.resend.com is in [live/smoke.js](live/smoke.js),\nand notes on building this SDK with the Voxgig generator are in [REPORT.md](REPORT.md).\n",
+        "docs_url": "https://resend.com/docs/api-reference/introduction",
         "entity_desc": {
           "broadcast": "A marketing email sent to a segment.",
           "contact": "A person on your contact list.",

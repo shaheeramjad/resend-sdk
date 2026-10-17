@@ -17,6 +17,17 @@
 
 main: kit: text: {
   tagline: 'Send email, manage domains, contacts and broadcasts on Resend from TypeScript, Python and Go.'
+  docs_url: 'https://resend.com/docs/api-reference/introduction'
+  about_md: `
+Resend is an email API for developers: transactional email, domains, contacts,
+segments, broadcasts, templates, webhooks and inboxes. This SDK covers all 89
+paths of the official [Resend OpenAPI spec](https://github.com/resend/resend-openapi)
+(v1.5.1) as 41 entities.
+
+The entity grouping is corrected in [.sdk/model/guide/guide.aontu](.sdk/model/guide/guide.aontu).
+A live smoke test against api.resend.com is in [live/smoke.js](live/smoke.js),
+and notes on building this SDK with the Voxgig generator are in [REPORT.md](REPORT.md).
+`
   entity_desc: {
     email: 'A transactional email sent through Resend.'
     domain: 'A sending domain and its DNS verification state.'
