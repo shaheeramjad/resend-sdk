@@ -48,7 +48,7 @@ Times are wall-clock time on the build machine.
 | Build and test: TypeScript, Python, Go | 32 s, 19 s, 23 s |
 | Build the CLI and the MCP server | 9 s, 14 s |
 | Correct the entity model in `guide.aontu`, regenerate, retest | about 10 min |
-| End to end, from picking the API to a green, identity-corrected SDK | about 35 min |
+| End to end, from picking the API to a green, identity-corrected SDK | 27 min |
 
 ## Test results
 
