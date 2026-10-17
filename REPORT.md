@@ -5,9 +5,10 @@ for the Voxgig team.
 
 ## Summary
 
-The generator took the official Resend OpenAPI spec to working TypeScript,
-Python and Go SDKs, a Go CLI and a Go MCP server in under a minute of tool
-time, and the tooling is fast, deterministic and very well documented. The
+The generator took the official Resend OpenAPI spec to TypeScript, Python and
+Go SDKs, a Go CLI and a Go MCP server in about 45 seconds of tool time
+(scaffold, add targets and features, generate), and the tooling is fast,
+deterministic and very well documented. The
 weak point is the entity model the spec produces: out of the box it gave 84
 entities, many named after response schemas such as
 `RemoveTemplateResponseSuccess`, with one resource's operations scattered
