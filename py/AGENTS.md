@@ -46,6 +46,7 @@ the runtime under `.sdk/tm/py/feature/` and regenerate.
 | **debug** — Debug capture | `feature/debug_feature.py` | `PreDone`, `PreRequest`, `PreResponse`, `PreUnexpected` |
 | **idempotency** — Idempotency | `feature/idempotency_feature.py` | `PreRequest` |
 | **metrics** — Metrics | `feature/metrics_feature.py` | `PreDone`, `PrePoint`, `PreUnexpected` |
+| **netsim** — Network simulation | `feature/netsim_feature.py` | — |
 | **paging** — Paging | `feature/paging_feature.py` | `PreRequest`, `PreResult` |
 | **ratelimit** — Rate limiting | `feature/ratelimit_feature.py` | — |
 | **retry** — Retry | `feature/retry_feature.py` | — |

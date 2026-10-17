@@ -40,6 +40,7 @@ component.* After editing a component run `npm run build` before
 - [`debug`](./src/feature/debug/AGENTS.md) — Debug capture
 - [`idempotency`](./src/feature/idempotency/AGENTS.md) — Idempotency
 - [`metrics`](./src/feature/metrics/AGENTS.md) — Metrics
+- [`netsim`](./src/feature/netsim/AGENTS.md) — Network simulation
 - [`paging`](./src/feature/paging/AGENTS.md) — Paging
 - [`ratelimit`](./src/feature/ratelimit/AGENTS.md) — Rate limiting
 - [`retry`](./src/feature/retry/AGENTS.md) — Retry

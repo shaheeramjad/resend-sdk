@@ -3825,6 +3825,7 @@ Return the entity name.
 | `debug` | 0.0.1 | Debug capture |
 | `idempotency` | 0.0.1 | Idempotency |
 | `metrics` | 0.0.1 | Metrics |
+| `netsim` | 0.0.1 | Network simulation |
 | `paging` | 0.0.1 | Paging |
 | `ratelimit` | 0.0.1 | Rate limiting |
 | `retry` | 0.0.1 | Retry |
@@ -3840,6 +3841,7 @@ client = ResendSDK({
         "debug": {"active": True},
         "idempotency": {"active": True},
         "metrics": {"active": True},
+        "netsim": {"active": True},
         "paging": {"active": True},
         "ratelimit": {"active": True},
         "retry": {"active": True},
@@ -3861,7 +3863,7 @@ transport, and the order you list them in is the order they nest.
 
 #### Ordering
 
-`ratelimit`, `retry`, `timeout` wrap the transport. Each
+`netsim`, `ratelimit`, `retry`, `timeout` wrap the transport. Each
 wraps whatever is already installed, so **activation order is nesting order**:
 a feature activated later sits OUTSIDE one activated earlier, and sees the call
 first.
@@ -3961,6 +3963,44 @@ its default unless you name it.
 
 - Attaches to pipeline hooks, not the transport, so activation order does
   not change what it observes.
+- Inactive by default: leaving it out costs nothing at runtime.
+
+#### `netsim`
+
+Network simulation.
+
+**Configuration**
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `errorTimes` | `0` |
+| `failEvery` | `0` |
+| `failRate` | `0` |
+| `failStatus` | `503` |
+| `failTimes` | `0` |
+| `latency` | `0` |
+| `offline` | `false` |
+| `rateLimitTimes` | `0` |
+| `retryAfter` | `0` |
+| `seed` | `1` |
+
+| Option | Type |
+|---|---|
+| `sleep` | function |
+
+These take no default: the feature behaves one way when you supply them and
+another when you do not.
+
+**Usage**
+
+Set `feature.netsim.active` to true in the client options, and override any option above in the same entry. Every option keeps
+its default unless you name it.
+
+**Considerations**
+
+- Wraps the transport: its place in the activation order decides what it
+  sees. See [Ordering](#ordering) above.
 - Inactive by default: leaving it out costs nothing at runtime.
 
 #### `paging`

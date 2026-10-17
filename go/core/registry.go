@@ -10,6 +10,8 @@ var NewIdempotencyFeatureFunc func() Feature
 
 var NewMetricsFeatureFunc func() Feature
 
+var NewNetsimFeatureFunc func() Feature
+
 var NewPagingFeatureFunc func() Feature
 
 var NewRatelimitFeatureFunc func() Feature

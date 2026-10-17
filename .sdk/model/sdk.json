@@ -13486,6 +13486,107 @@
           "transport": "none",
           "version": "0.0.1"
         },
+        "netsim": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "errorTimes": 0,
+              "failEvery": 0,
+              "failRate": 0,
+              "failStatus": 503,
+              "failTimes": 0,
+              "latency": 0,
+              "offline": false,
+              "rateLimitTimes": 0,
+              "retryAfter": 0,
+              "seed": 1
+            },
+            "optspec": {
+              "latency": [
+                "`$ONE`",
+                "`$NUMBER`",
+                "`$MAP`"
+              ],
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "description": "Network behaviour simulation for offline testing (latency, failures, outages)",
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "netsim",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Network simulation",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "paging": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",

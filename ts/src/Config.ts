@@ -3,6 +3,7 @@ import { BaseFeature } from './feature/base/BaseFeature'
 import { DebugFeature } from './feature/debug/DebugFeature'
 import { IdempotencyFeature } from './feature/idempotency/IdempotencyFeature'
 import { MetricsFeature } from './feature/metrics/MetricsFeature'
+import { NetsimFeature } from './feature/netsim/NetsimFeature'
 import { PagingFeature } from './feature/paging/PagingFeature'
 import { RatelimitFeature } from './feature/ratelimit/RatelimitFeature'
 import { RetryFeature } from './feature/retry/RetryFeature'
@@ -15,6 +16,7 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
    debug: DebugFeature,
  idempotency: IdempotencyFeature,
  metrics: MetricsFeature,
+ netsim: NetsimFeature,
  paging: PagingFeature,
  ratelimit: RatelimitFeature,
  retry: RetryFeature,
@@ -107,6 +109,31 @@ class Config {
       },
       "strict": false,
       "transport": "none"
+    },
+ netsim:     {
+      "options": {
+        "active": false,
+        "errorTimes": 0,
+        "failEvery": 0,
+        "failRate": 0,
+        "failStatus": 503,
+        "failTimes": 0,
+        "latency": 0,
+        "offline": false,
+        "rateLimitTimes": 0,
+        "retryAfter": 0,
+        "seed": 1
+      },
+      "optspec": {
+        "latency": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$MAP`"
+        ],
+        "sleep": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
     },
  paging:     {
       "options": {

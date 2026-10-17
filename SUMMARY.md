@@ -778,6 +778,7 @@ Features supply behaviour around API calls, such as request handling, diagnostic
 - `debug`: Request/response capture ring buffer for debugging
 - `idempotency`: Idempotency keys for safe retries of mutating operations
 - `metrics`: Statistics capture: per-operation counters and latency
+- `netsim`: Network behaviour simulation for offline testing (latency, failures, outages)
 - `paging`: Pagination signals for list operations
 - `ratelimit`: Client-side rate limiting via a token bucket
 - `retry`: Automatic retry of transient failures with exponential backoff

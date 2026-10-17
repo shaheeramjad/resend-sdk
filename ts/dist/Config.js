@@ -4,6 +4,7 @@ exports.FEATURE_PLUGINS = exports.config = void 0;
 const DebugFeature_1 = require("./feature/debug/DebugFeature");
 const IdempotencyFeature_1 = require("./feature/idempotency/IdempotencyFeature");
 const MetricsFeature_1 = require("./feature/metrics/MetricsFeature");
+const NetsimFeature_1 = require("./feature/netsim/NetsimFeature");
 const PagingFeature_1 = require("./feature/paging/PagingFeature");
 const RatelimitFeature_1 = require("./feature/ratelimit/RatelimitFeature");
 const RetryFeature_1 = require("./feature/retry/RetryFeature");
@@ -13,6 +14,7 @@ const FEATURE_CLASS = {
     debug: DebugFeature_1.DebugFeature,
     idempotency: IdempotencyFeature_1.IdempotencyFeature,
     metrics: MetricsFeature_1.MetricsFeature,
+    netsim: NetsimFeature_1.NetsimFeature,
     paging: PagingFeature_1.PagingFeature,
     ratelimit: RatelimitFeature_1.RatelimitFeature,
     retry: RetryFeature_1.RetryFeature,
@@ -92,6 +94,31 @@ class Config {
             },
             "strict": false,
             "transport": "none"
+        },
+        netsim: {
+            "options": {
+                "active": false,
+                "errorTimes": 0,
+                "failEvery": 0,
+                "failRate": 0,
+                "failStatus": 503,
+                "failTimes": 0,
+                "latency": 0,
+                "offline": false,
+                "rateLimitTimes": 0,
+                "retryAfter": 0,
+                "seed": 1
+            },
+            "optspec": {
+                "latency": [
+                    "`$ONE`",
+                    "`$NUMBER`",
+                    "`$MAP`"
+                ],
+                "sleep": "`$FUNCTION`"
+            },
+            "strict": false,
+            "transport": "wrap"
         },
         paging: {
             "options": {

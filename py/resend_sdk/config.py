@@ -94,6 +94,31 @@ def make_config():
         "strict": False,
         "transport": "none",
       },
+            "netsim": {
+        "options": {
+          "active": False,
+          "errorTimes": 0,
+          "failEvery": 0,
+          "failRate": 0,
+          "failStatus": 503,
+          "failTimes": 0,
+          "latency": 0,
+          "offline": False,
+          "rateLimitTimes": 0,
+          "retryAfter": 0,
+          "seed": 1,
+        },
+        "optspec": {
+          "latency": [
+            "`$ONE`",
+            "`$NUMBER`",
+            "`$MAP`",
+          ],
+          "sleep": "`$FUNCTION`",
+        },
+        "strict": False,
+        "transport": "wrap",
+      },
             "paging": {
         "options": {
           "active": False,

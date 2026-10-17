@@ -69,6 +69,31 @@ func MakeConfig() map[string]any {
 				"strict": false,
 				"transport": "none",
 			},
+			"netsim": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"errorTimes": 0,
+					"failEvery": 0,
+					"failRate": 0,
+					"failStatus": 503,
+					"failTimes": 0,
+					"latency": 0,
+					"offline": false,
+					"rateLimitTimes": 0,
+					"retryAfter": 0,
+					"seed": 1,
+				},
+				"optspec": map[string]any{
+					"latency": []any{
+						"`$ONE`",
+						"`$NUMBER`",
+						"`$MAP`",
+					},
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
 			"paging": map[string]any{
 				"options": map[string]any{
 					"active": false,
@@ -11624,6 +11649,10 @@ func makeFeature(name string) Feature {
 	case "metrics":
 		if NewMetricsFeatureFunc != nil {
 			return NewMetricsFeatureFunc()
+		}
+	case "netsim":
+		if NewNetsimFeatureFunc != nil {
+			return NewNetsimFeatureFunc()
 		}
 	case "paging":
 		if NewPagingFeatureFunc != nil {

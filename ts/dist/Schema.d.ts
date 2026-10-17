@@ -72,6 +72,21 @@ declare const OPTSPEC: {
             active: string[];
             now: string[];
         })[];
+        netsim: (string | {
+            "`$OPEN`": boolean;
+            active: string[];
+            errorTimes: string[];
+            failEvery: string[];
+            failRate: string[];
+            failStatus: string[];
+            failTimes: string[];
+            latency: string[];
+            offline: string[];
+            rateLimitTimes: string[];
+            retryAfter: string[];
+            seed: string[];
+            sleep: string[];
+        })[];
         paging: (string | {
             "`$OPEN`": boolean;
             active: string[];

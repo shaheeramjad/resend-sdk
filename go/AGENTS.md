@@ -45,6 +45,7 @@ the runtime under `.sdk/tm/go/feature/` and regenerate.
 | **debug** — Debug capture | `feature/debug_feature.go` | `PreDone`, `PreRequest`, `PreResponse`, `PreUnexpected` |
 | **idempotency** — Idempotency | `feature/idempotency_feature.go` | `PreRequest` |
 | **metrics** — Metrics | `feature/metrics_feature.go` | `PreDone`, `PrePoint`, `PreUnexpected` |
+| **netsim** — Network simulation | `feature/netsim_feature.go` | — |
 | **paging** — Paging | `feature/paging_feature.go` | `PreRequest`, `PreResult` |
 | **ratelimit** — Rate limiting | `feature/ratelimit_feature.go` | — |
 | **retry** — Retry | `feature/retry_feature.go` | — |

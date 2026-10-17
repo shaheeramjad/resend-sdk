@@ -39,6 +39,9 @@ func init() {
 	core.NewMetricsFeatureFunc = func() core.Feature {
 		return feature.NewMetricsFeature()
 	}
+	core.NewNetsimFeatureFunc = func() core.Feature {
+		return feature.NewNetsimFeature()
+	}
 	core.NewPagingFeatureFunc = func() core.Feature {
 		return feature.NewPagingFeature()
 	}
@@ -200,6 +203,7 @@ var NewBaseFeature = feature.NewBaseFeature
 var NewDebugFeature = feature.NewDebugFeature
 var NewIdempotencyFeature = feature.NewIdempotencyFeature
 var NewMetricsFeature = feature.NewMetricsFeature
+var NewNetsimFeature = feature.NewNetsimFeature
 var NewPagingFeature = feature.NewPagingFeature
 var NewRatelimitFeature = feature.NewRatelimitFeature
 var NewRetryFeature = feature.NewRetryFeature

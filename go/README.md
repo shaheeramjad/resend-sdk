@@ -3165,7 +3165,7 @@ for _, item := range webhookEventAttempts.([]any) {
 
 ## Features
 
-This SDK ships 8 optional features. Each is **inactive until you
+This SDK ships 9 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -3177,13 +3177,14 @@ above:
 | [`debug`](#debug) | Debug capture |
 | [`idempotency`](#idempotency) | Idempotency |
 | [`metrics`](#metrics) | Metrics |
+| [`netsim`](#netsim) | Network simulation |
 | [`paging`](#paging) | Paging |
 | [`ratelimit`](#ratelimit) | Rate limiting |
 | [`retry`](#retry) | Retry |
 | [`test`](#test) | Test transport |
 | [`timeout`](#timeout) | Timeout |
 
-> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> **Order matters for `netsim`, `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
 > activate them in IS the nesting order. Activating them as an ordered list
 > rather than a map is what fixes that order.
@@ -3222,6 +3223,30 @@ Metrics.
 | `active` | `false` |
 
 Set `feature.metrics.active` to enable it, then override any of the options above.
+
+### netsim
+
+Network simulation.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `errorTimes` | `0` |
+| `failEvery` | `0` |
+| `failRate` | `0` |
+| `failStatus` | `503` |
+| `failTimes` | `0` |
+| `latency` | `0` |
+| `offline` | `false` |
+| `rateLimitTimes` | `0` |
+| `retryAfter` | `0` |
+| `seed` | `1` |
+
+Set `feature.netsim.active` to enable it, then override any of the options above.
+
+`netsim` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### paging
 
@@ -3359,6 +3384,7 @@ The SDK ships with built-in features:
 - **DebugFeature**: Debug capture
 - **IdempotencyFeature**: Idempotency
 - **MetricsFeature**: Metrics
+- **NetsimFeature**: Network simulation
 - **PagingFeature**: Paging
 - **RatelimitFeature**: Rate limiting
 - **RetryFeature**: Retry

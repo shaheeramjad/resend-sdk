@@ -4,6 +4,7 @@ from resend_sdk.feature.base_feature import ResendBaseFeature
 from resend_sdk.feature.debug_feature import ResendDebugFeature
 from resend_sdk.feature.idempotency_feature import ResendIdempotencyFeature
 from resend_sdk.feature.metrics_feature import ResendMetricsFeature
+from resend_sdk.feature.netsim_feature import ResendNetsimFeature
 from resend_sdk.feature.paging_feature import ResendPagingFeature
 from resend_sdk.feature.ratelimit_feature import ResendRatelimitFeature
 from resend_sdk.feature.retry_feature import ResendRetryFeature
@@ -16,6 +17,7 @@ _FEATURES = {
     "debug": lambda: ResendDebugFeature(),
     "idempotency": lambda: ResendIdempotencyFeature(),
     "metrics": lambda: ResendMetricsFeature(),
+    "netsim": lambda: ResendNetsimFeature(),
     "paging": lambda: ResendPagingFeature(),
     "ratelimit": lambda: ResendRatelimitFeature(),
     "retry": lambda: ResendRetryFeature(),

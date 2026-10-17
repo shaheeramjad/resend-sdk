@@ -141,6 +141,74 @@ const OPTSPEC = {
       },
       "`$NIL`"
     ],
+    "netsim": [
+      "`$ONE`",
+      {
+        "`$OPEN`": true,
+        "active": [
+          "`$ONE`",
+          "`$BOOLEAN`",
+          "`$NIL`"
+        ],
+        "errorTimes": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "failEvery": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "failRate": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "failStatus": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "failTimes": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "latency": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$MAP`",
+          "`$NIL`"
+        ],
+        "offline": [
+          "`$ONE`",
+          "`$BOOLEAN`",
+          "`$NIL`"
+        ],
+        "rateLimitTimes": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "retryAfter": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "seed": [
+          "`$ONE`",
+          "`$NUMBER`",
+          "`$NIL`"
+        ],
+        "sleep": [
+          "`$ONE`",
+          "`$FUNCTION`",
+          "`$NIL`"
+        ]
+      },
+      "`$NIL`"
+    ],
     "paging": [
       "`$ONE`",
       {

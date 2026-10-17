@@ -46,6 +46,27 @@ declare class Config {
             strict: boolean;
             transport: string;
         };
+        netsim: {
+            options: {
+                active: boolean;
+                errorTimes: number;
+                failEvery: number;
+                failRate: number;
+                failStatus: number;
+                failTimes: number;
+                latency: number;
+                offline: boolean;
+                rateLimitTimes: number;
+                retryAfter: number;
+                seed: number;
+            };
+            optspec: {
+                latency: string[];
+                sleep: string;
+            };
+            strict: boolean;
+            transport: string;
+        };
         paging: {
             options: {
                 active: boolean;
