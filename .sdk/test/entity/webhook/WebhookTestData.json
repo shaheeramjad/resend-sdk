@@ -43,12 +43,32 @@
     }
   },
   "requests": {
+    "POST /webhooks/{webhook_id}/signing-secret/rotate": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /webhooks": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /webhooks": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /webhooks/{webhook_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
     },
     "DELETE /webhooks/{webhook_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /webhooks/{webhook_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

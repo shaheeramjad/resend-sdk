@@ -7,6 +7,22 @@ main: kit: flow: BasicAutomationRunFlow:
   name: "BasicAutomationRunFlow",
   step: [
     {
+      m: {
+        automation_id: "automation01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "automation_run_ref01"
+          }
+        }
+      ]
+    }
+
+    {
       i: {
         ref: "automation_run_ref01",
         srcdatavar: "automation_run_ref01_data",

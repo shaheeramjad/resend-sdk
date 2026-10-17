@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 var pendingSections = map[string]bool{

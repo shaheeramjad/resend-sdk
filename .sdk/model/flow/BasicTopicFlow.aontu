@@ -8,6 +8,45 @@ main: kit: flow: BasicTopicFlow:
   step: [
     {
       i: {
+        ref: "topic_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "topic_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "topic_ref01",
+        srcdatavar: "topic_ref01_data",
+        suffix: "_up0",
+        textfield: "created_at"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-topic_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
         ref: "topic_ref01",
         srcdatavar: "topic_ref01_data",
         suffix: "_dt0"
@@ -23,6 +62,35 @@ main: kit: flow: BasicTopicFlow:
           apply: "TextFieldMark",
           def: {
             mark: "Mark01-topic_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "topic_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "topic01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "topic_ref01"
           }
         }
       ]

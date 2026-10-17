@@ -3,7 +3,7 @@ package utility
 import (
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 func makeErrorUtil(ctx *core.Context, err error) (any, error) {

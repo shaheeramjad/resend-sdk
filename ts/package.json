@@ -1,22 +1,21 @@
 {
-  "name": "@voxgig-sdk/resend-sdk",
+  "name": "@shaheeramjad/resend-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the Resend public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [
-    "voxgig",
     "sdk",
     "generated-sdk",
     "openapi",
     "api-client",
     "resend"
   ],
-  "homepage": "https://github.com/voxgig-sdk/resend-sdk#readme",
+  "homepage": "https://github.com/shaheeramjad/resend-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/voxgig-sdk/resend-sdk.git"
+    "url": "git+https://github.com/shaheeramjad/resend-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/voxgig-sdk/resend-sdk/issues"
+    "url": "https://github.com/shaheeramjad/resend-sdk/issues"
   },
   "main": "dist/ResendSDK.js",
   "type": "commonjs",
@@ -42,8 +41,8 @@
     "reset": "npm run clean && npm i && npm run build && npm test"
   },
   "author": {
-    "name": "Voxgig",
-    "url": "https://voxgig.com"
+    "name": "shaheeramjad",
+    "url": "https://github.com/shaheeramjad"
   },
   "license": "MIT",
   "engines": {

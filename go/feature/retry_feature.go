@@ -4,7 +4,7 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 type RetryFeature struct {

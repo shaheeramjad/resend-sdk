@@ -7,7 +7,10 @@ from resend_sdk.core import helpers
 from resend_sdk.resend_types import (
     Template,
     TemplateLoadMatch,
+    TemplateListMatch,
     TemplateCreateData,
+    TemplateUpdateData,
+    TemplateRemoveMatch,
 )
 
 
@@ -228,6 +231,28 @@ class TemplateEntity:
 
 
     
+    def list(self, reqmatch=None, ctrl=None) -> list[TemplateEntity]:
+        utility = self._utility
+        # reqmatch is optional: an omitted match lists all records. Treat None
+        # as an empty match so client.Template().list() works with no args.
+        if reqmatch is None:
+            reqmatch = {}
+        ctx = utility.make_context({
+            "opname": "list",
+            "ctrl": ctrl,
+            "match": self._match,
+            "data": self._data,
+            "reqmatch": reqmatch,
+        }, self._entctx)
+
+        def post_done():
+            if ctx.result is not None:
+                if ctx.result.resmatch is not None:
+                    self._match = ctx.result.resmatch
+
+        return self._run_op(ctx, post_done)
+
+
 
     
     def create(self, reqdata: TemplateCreateData, ctrl=None) -> TemplateEntity:
@@ -250,10 +275,55 @@ class TemplateEntity:
 
 
     
+    def update(self, reqdata: TemplateUpdateData, ctrl=None) -> TemplateEntity:
+        utility = self._utility
+        ctx = utility.make_context({
+            "opname": "update",
+            "ctrl": ctrl,
+            "match": self._match,
+            "data": self._data,
+            "reqdata": reqdata,
+        }, self._entctx)
+
+        def post_done():
+            if ctx.result is not None:
+                if ctx.result.resmatch is not None:
+                    self._match = ctx.result.resmatch
+                if ctx.result.resdata is not None:
+                    self._data = helpers.to_map(vs.clone(ctx.result.resdata)) or {}
+
+        return self._run_op(ctx, post_done)
+
+
 
     
 
     
+    def remove(self, reqmatch=None, ctrl=None) -> TemplateEntity:
+        utility = self._utility
+        # reqmatch is optional: an entity with no id-like key removes with no
+        # match. Treat None as an empty match so client.Template().remove()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
+        ctx = utility.make_context({
+            "opname": "remove",
+            "ctrl": ctrl,
+            "match": self._match,
+            "data": self._data,
+            "reqmatch": reqmatch,
+        }, self._entctx)
+
+        def post_done():
+            if ctx.result is not None:
+                if ctx.result.resmatch is not None:
+                    self._match = ctx.result.resmatch
+                if ctx.result.resdata is not None:
+                    self._data = helpers.to_map(vs.clone(ctx.result.resdata)) or {}
+
+        return self._run_op(ctx, post_done)
+
+
 
     def _run_op(self, ctx, post_done):
         utility = self._utility

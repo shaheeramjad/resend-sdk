@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestDomainEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load", "remove"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "domain." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -234,6 +235,30 @@ func TestDomainEntity(t *testing.T) {
 		foundItem := vs.Select(entityListToData(domainRef01List), map[string]any{"id": domainRef01Data["id"]})
 		if vs.IsEmpty(foundItem) {
 			t.Fatal("expected to find created entity in list")
+		}
+
+		// UPDATE
+		domainRef01DataUp0Up := map[string]any{
+			"id": domainRef01Data["id"],
+		}
+
+		domainRef01MarkdefUp0Name := "created_at"
+		domainRef01MarkdefUp0Value := fmt.Sprintf("Mark01-domain_ref01_%d", setup.now)
+		domainRef01DataUp0Up[domainRef01MarkdefUp0Name] = domainRef01MarkdefUp0Value
+
+		domainRef01ResdataUp0Result, err := domainRef01Ent.Update(domainRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		domainRef01ResdataUp0 := core.ToMapAny(entityData(domainRef01ResdataUp0Result))
+		if domainRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if domainRef01ResdataUp0["id"] != domainRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if domainRef01ResdataUp0[domainRef01MarkdefUp0Name] != domainRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", domainRef01MarkdefUp0Name, domainRef01ResdataUp0[domainRef01MarkdefUp0Name])
 		}
 
 		// LOAD

@@ -1,0 +1,61 @@
+# BasicInboxThreadLabelFlow
+
+main: kit: flow: BasicInboxThreadLabelFlow:
+{
+  entity: "inbox_thread_label",
+  kind: "basic",
+  name: "BasicInboxThreadLabelFlow",
+  step: [
+    {
+      i: {
+        ref: "inbox_thread_label_ref01"
+      }
+
+      m: {
+        inbox_id: "inbox01",
+        thread_id: "thread01"
+      }
+
+      o: "create"
+    }
+
+    {
+      d: {
+        inbox_id: "inbox01"
+      }
+
+      i: {
+        ref: "inbox_thread_label_ref01",
+        srcdatavar: "inbox_thread_label_ref01_data",
+        suffix: "_up0",
+        textfield: "object"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-inbox_thread_label_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "inbox_thread_label_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "inbox_thread_label01",
+        inbox_id: "inbox01",
+        thread_id: "thread01"
+      }
+
+      o: "remove"
+    }
+  ],
+  "key$": "BasicInboxThreadLabelFlow"
+}

@@ -53,6 +53,16 @@
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
+    },
+    "DELETE /contact-properties/{id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /contact-properties/{id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
     }
   }
 }

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -34,7 +34,7 @@ func TestInboxLabelDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"inbox_label01"} {
+			for _, _liveKey := range []string{"inbox01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					liveMiss(t, inbox_labelDirectLiveStrict, "Live test blocked: needs %s via RESEND_TEST_INBOX_LABEL_ENTID", _liveKey)
 					return
@@ -45,13 +45,13 @@ func TestInboxLabelDirect(t *testing.T) {
 
 		params := map[string]any{}
 		if setup.live {
-			params["id"] = setup.idmap["inbox_label01"]
+			params["inbox_id"] = setup.idmap["inbox01"]
 		} else {
-			params["id"] = "direct01"
+			params["inbox_id"] = "direct01"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "inboxes/{id}/labels",
+			"path":   "inboxes/{inbox_id}/labels",
 			"method": "GET",
 			"params": params,
 		})

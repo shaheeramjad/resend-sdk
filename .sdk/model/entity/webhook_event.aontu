@@ -135,6 +135,71 @@ main: kit: entity: webhook_event: {
         }
       ]
     }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /webhooks/{webhook_id}/events"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "webhook_id"
+                or: "webhook_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/webhooks/{webhook_id}/events"
+          q: {
+            exist: [
+              "webhook_id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+            {
+              var: "webhook_id"
+            }
+            {
+              lit: "events"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [

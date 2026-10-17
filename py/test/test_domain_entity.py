@@ -139,7 +139,7 @@ class TestDomainEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load", "remove"]:
+        for _op in ["create", "list", "update", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "domain." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -165,6 +165,20 @@ class TestDomainEntity:
             runner.entity_list_to_data(domain_ref01_list_result),
             {"id": domain_ref01_data["id"]})
         assert not vs.isempty(found_item)
+
+        # UPDATE
+        domain_ref01_data_up0_up = {
+            "id": domain_ref01_data["id"],
+        }
+
+        domain_ref01_markdef_up0_name = "created_at"
+        domain_ref01_markdef_up0_value = "Mark01-domain_ref01_" + str(setup["now"])
+        domain_ref01_data_up0_up[domain_ref01_markdef_up0_name] = domain_ref01_markdef_up0_value
+
+        domain_ref01_resdata_up0 = helpers.to_map(runner.entity_data(domain_ref01_ent.update(domain_ref01_data_up0_up, None)))
+        assert domain_ref01_resdata_up0 is not None
+        assert domain_ref01_resdata_up0["id"] == domain_ref01_data_up0_up["id"]
+        assert domain_ref01_resdata_up0[domain_ref01_markdef_up0_name] == domain_ref01_markdef_up0_value
 
         # LOAD
         domain_ref01_match_dt0 = {

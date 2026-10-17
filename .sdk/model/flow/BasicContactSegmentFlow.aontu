@@ -1,0 +1,73 @@
+# BasicContactSegmentFlow
+
+main: kit: flow: BasicContactSegmentFlow:
+{
+  entity: "contact_segment",
+  kind: "basic",
+  name: "BasicContactSegmentFlow",
+  step: [
+    {
+      i: {
+        ref: "contact_segment_ref01"
+      }
+
+      m: {
+        contact_id: "contact01",
+        segment_id: "segment01"
+      }
+
+      o: "create"
+    }
+
+    {
+      m: {
+        contact_id: "contact01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contact_segment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "contact_segment_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        contact_id: "contact01",
+        id: "contact_segment01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      m: {
+        contact_id: "contact01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "contact_segment_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContactSegmentFlow"
+}

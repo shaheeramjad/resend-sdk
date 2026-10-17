@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestBroadcastEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "broadcast." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -201,33 +202,63 @@ func TestBroadcastEntity(t *testing.T) {
 		}
 		client := setup.client
 		_ = client
-		if setup.live {
-			liveExisting(t, broadcastEntityLiveStrict, setup.data, "broadcast", func() (any, error) {
-				return client.Broadcast(nil).List(map[string]any{}, nil)
-			})
-		}
 
-		// Bootstrap entity data from existing test data (no create step in flow).
-		broadcastRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.broadcast")))
-		var broadcastRef01Data map[string]any
-		if len(broadcastRef01DataRaw) > 0 {
-			broadcastRef01Data = core.ToMapAny(broadcastRef01DataRaw[0][1])
+		// CREATE
+		broadcastRef01Ent := client.Broadcast(nil)
+		broadcastRef01Data := core.ToMapAny(vs.GetProp(
+			vs.GetPath(setup.data, []any{"new", "broadcast"}), "broadcast_ref01"))
+
+		broadcastRef01DataResult, err := broadcastRef01Ent.Create(broadcastRef01Data, nil)
+		if err != nil {
+			t.Fatalf("create failed: %v", err)
 		}
-		// Discard guards against Go's unused-var check when the flow's steps
-		// happen not to consume the bootstrap data (e.g. list-only flows).
-		_ = broadcastRef01Data
+		broadcastRef01Data = core.ToMapAny(entityData(broadcastRef01DataResult))
+		if broadcastRef01Data == nil {
+			t.Fatal("expected create result to be a map")
+		}
+		if broadcastRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
-		broadcastRef01Ent := client.Broadcast(nil)
 		broadcastRef01Match := map[string]any{}
 
 		broadcastRef01ListResult, err := broadcastRef01Ent.List(broadcastRef01Match, nil)
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, broadcastRef01ListOk := broadcastRef01ListResult.([]any)
+		broadcastRef01List, broadcastRef01ListOk := broadcastRef01ListResult.([]any)
 		if !broadcastRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", broadcastRef01ListResult)
+		}
+
+		foundItem := vs.Select(entityListToData(broadcastRef01List), map[string]any{"id": broadcastRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
+		// UPDATE
+		broadcastRef01DataUp0Up := map[string]any{
+			"id": broadcastRef01Data["id"],
+		}
+
+		broadcastRef01MarkdefUp0Name := "created_at"
+		broadcastRef01MarkdefUp0Value := fmt.Sprintf("Mark01-broadcast_ref01_%d", setup.now)
+		broadcastRef01DataUp0Up[broadcastRef01MarkdefUp0Name] = broadcastRef01MarkdefUp0Value
+
+		broadcastRef01ResdataUp0Result, err := broadcastRef01Ent.Update(broadcastRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		broadcastRef01ResdataUp0 := core.ToMapAny(entityData(broadcastRef01ResdataUp0Result))
+		if broadcastRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if broadcastRef01ResdataUp0["id"] != broadcastRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if broadcastRef01ResdataUp0[broadcastRef01MarkdefUp0Name] != broadcastRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", broadcastRef01MarkdefUp0Name, broadcastRef01ResdataUp0[broadcastRef01MarkdefUp0Name])
 		}
 
 		// LOAD
@@ -244,6 +275,32 @@ func TestBroadcastEntity(t *testing.T) {
 		}
 		if broadcastRef01DataDt0LoadResult["id"] != broadcastRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		broadcastRef01MatchRm0 := map[string]any{
+			"id": broadcastRef01Data["id"],
+		}
+		_, err = broadcastRef01Ent.Remove(broadcastRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		broadcastRef01MatchRt0 := map[string]any{}
+
+		broadcastRef01ListRt0Result, err := broadcastRef01Ent.List(broadcastRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		broadcastRef01ListRt0, broadcastRef01ListRt0Ok := broadcastRef01ListRt0Result.([]any)
+		if !broadcastRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", broadcastRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(broadcastRef01ListRt0), map[string]any{"id": broadcastRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type WebhookEntity struct {
@@ -333,19 +333,112 @@ func (e *WebhookEntity) LoadTyped(reqmatch WebhookLoadMatch, ctrl map[string]any
 
 
 
-func (e *WebhookEntity) List(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("list", e.name)
+
+func (e *WebhookEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "list",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+		}
+	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// WebhookListMatch and returns []Webhook. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *WebhookEntity) ListTyped(reqmatch WebhookListMatch, ctrl map[string]any) ([]Webhook, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Webhook](res), nil
 }
 
 
-func (e *WebhookEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("create", e.name)
+
+
+func (e *WebhookEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "create",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// WebhookCreateData and returns an Webhook. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *WebhookEntity) CreateTyped(reqdata WebhookCreateData, ctrl map[string]any) (Webhook, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Webhook{}, err
+	}
+	return typedFrom[Webhook](res), nil
 }
 
 
-func (e *WebhookEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+
+func (e *WebhookEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// WebhookUpdateData and returns an Webhook. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *WebhookEntity) UpdateTyped(reqdata WebhookUpdateData, ctrl map[string]any) (Webhook, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Webhook{}, err
+	}
+	return typedFrom[Webhook](res), nil
+}
+
 
 
 func (e *WebhookEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {

@@ -37,7 +37,7 @@ class TestAutomationRunEntity:
         client = ResendSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.AutomationRun(None).load({"automation_id": 1, "id": "x"}, None)
+            client.AutomationRun(None).list({"automation_id": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -46,14 +46,19 @@ class TestAutomationRunEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["load"]:
+        for _op in ["list", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "automation_run." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
         if setup["live"]:
-            runner.live_miss(LIVE_STRICT, "Live entity test blocked: " + "the flow loads a automation_run record it has no list to find")
+            for _live_key in ["automation01"]:
+                if setup.get("synthetic_only") or setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live entity test blocked: needs {_live_key} via RESEND_TEST_AUTOMATION_RUN_ENTID")
         client = setup["client"]
+        if setup["live"]:
+            runner.live_existing(setup, LIVE_STRICT, "automation_run",
+                                 lambda: client.AutomationRun(None).list({"automation_id": setup["idmap"].get("automation01")}, None))
 
         # Bootstrap entity data from existing test data.
         automation_run_ref01_data_raw = vs.items(helpers.to_map(
@@ -62,8 +67,16 @@ class TestAutomationRunEntity:
         if len(automation_run_ref01_data_raw) > 0:
             automation_run_ref01_data = helpers.to_map(automation_run_ref01_data_raw[0][1])
 
-        # LOAD
+        # LIST
         automation_run_ref01_ent = client.AutomationRun(None)
+        automation_run_ref01_match = {
+            "automation_id": setup["idmap"]["automation01"],
+        }
+
+        automation_run_ref01_list_result = automation_run_ref01_ent.list(automation_run_ref01_match, None)
+        assert isinstance(automation_run_ref01_list_result, list)
+
+        # LOAD
         automation_run_ref01_match_dt0 = {
             "id": automation_run_ref01_data["id"],
         }

@@ -43,13 +43,34 @@ describe('SuppressionDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-suppression', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["suppression01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.id = setup.idmap['suppression01']
+      const listResult: any = await client.direct({
+        path: 'suppressions',
+        method: 'GET',
+        params: {
+
+        },
+      })
+      if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list discovery failed: ' + describeLive(listResult))
+      }
+      const listArr = unwrapListData(listResult.data)
+      if (null == listArr) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list discovery returned no list: ' + describeLive(listResult))
+      }
+      if (0 === listArr.length) {
+        return void liveEmpty(t, 'The account has no suppression record to load')
+      }
+      const candidateId = listArr[0]?.id ?? listArr[0]?.id
+      if (null == candidateId) {
+        return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
+      }
+      params.id = candidateId
+
     } else {
       params.id = 'direct01'
     }
@@ -76,6 +97,41 @@ describe('SuppressionDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
+    }
+  })
+
+  test('direct-list-suppression', async (t: any) => {
+    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
+    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
+    if (maybeSkipControl(t, 'direct', 'direct-list-suppression', setup.live)) return
+    const { client, calls } = setup
+
+    const params: any = {}
+    const query: any = {}
+
+    const result: any = await client.direct({
+      path: 'suppressions',
+      method: 'GET',
+      params,
+      query,
+    })
+
+    if (setup.live) {
+      if (!result.ok || result.status < 200 || result.status >= 300) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list failed: ' + describeLive(result))
+      }
+      if (!(Array.isArray(unwrapListData(result.data)))) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list returned no list: ' + describeLive(result))
+      }
+    } else {
+      assert(result.ok === true)
+      assert(result.status === 200)
+      assert(null != result.data)
+      const listArr = unwrapListData(result.data)
+      assert(Array.isArray(listArr))
+      assert(listArr!.length === 2)
+      assert(calls.length === 1)
+      assert(calls[0].init.method === 'GET')
     }
   })
 

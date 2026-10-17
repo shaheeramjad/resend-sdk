@@ -351,6 +351,64 @@ main: kit: entity: domain: {
         }
       ]
     }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "capabilities"
+            "click_tracking"
+            "open_tracking"
+            "tls"
+            "tracking_subdomain"
+          ]
+          co: {
+            id: "PATCH /domains/{domain_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "domain_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/domains/{domain_id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              domain_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "domains"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
   }
 
 

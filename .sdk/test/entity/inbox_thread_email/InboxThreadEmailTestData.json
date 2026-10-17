@@ -77,7 +77,22 @@
     }
   },
   "requests": {
+    "POST /inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /inboxes/{inbox_id}/threads/{thread_id}/emails": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

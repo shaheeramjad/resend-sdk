@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type InboxLabelEntity struct {
@@ -332,14 +332,79 @@ func (e *InboxLabelEntity) ListTyped(reqmatch InboxLabelListMatch, ctrl map[stri
 
 
 
-func (e *InboxLabelEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("create", e.name)
+
+func (e *InboxLabelEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "create",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// InboxLabelCreateData and returns an InboxLabel. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *InboxLabelEntity) CreateTyped(reqdata InboxLabelCreateData, ctrl map[string]any) (InboxLabel, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return InboxLabel{}, err
+	}
+	return typedFrom[InboxLabel](res), nil
 }
 
 
-func (e *InboxLabelEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+
+func (e *InboxLabelEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// InboxLabelUpdateData and returns an InboxLabel. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *InboxLabelEntity) UpdateTyped(reqdata InboxLabelUpdateData, ctrl map[string]any) (InboxLabel, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return InboxLabel{}, err
+	}
+	return typedFrom[InboxLabel](res), nil
+}
+
 
 
 func (e *InboxLabelEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
@@ -347,9 +412,43 @@ func (e *InboxLabelEntity) Patch(_ map[string]any, _ map[string]any) (any, error
 }
 
 
-func (e *InboxLabelEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *InboxLabelEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// InboxLabelRemoveMatch and returns an InboxLabel. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *InboxLabelEntity) RemoveTyped(reqmatch InboxLabelRemoveMatch, ctrl map[string]any) (InboxLabel, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return InboxLabel{}, err
+	}
+	return typedFrom[InboxLabel](res), nil
+}
+
 
 
 func (e *InboxLabelEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

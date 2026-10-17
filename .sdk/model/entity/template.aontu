@@ -43,6 +43,12 @@ main: kit: entity: template: {
     html: {
       h: "Html"
       n: "html"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The HTML version of the template."
       t: "`$STRING`"
@@ -57,6 +63,12 @@ main: kit: entity: template: {
     name: {
       h: "Name"
       n: "name"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The name of the template."
       t: "`$STRING`"
@@ -235,6 +247,90 @@ main: kit: entity: template: {
             res: "`body`"
           }
         }
+        {
+          bf: [
+            "alias"
+            "from"
+            "html"
+            "name"
+            "reply_to"
+            "subject"
+            "text"
+            "variables"
+          ]
+          co: {
+            id: "POST /templates"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/templates"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "templates"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /templates"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/templates"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "templates"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
       ]
     }
     load: {
@@ -258,6 +354,108 @@ main: kit: entity: template: {
             ]
           }
           m: "GET"
+          o: "/templates/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "templates"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /templates/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/templates/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "templates"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "alias"
+            "from"
+            "html"
+            "name"
+            "reply_to"
+            "subject"
+            "text"
+            "variables"
+          ]
+          co: {
+            id: "PATCH /templates/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/templates/{id}"
           q: {
             exist: [

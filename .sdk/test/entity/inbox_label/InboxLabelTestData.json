@@ -2,36 +2,58 @@
   "existing": {
     "inbox_label": {
       "INBOX_LABEL00": {
-        "color": "s28",
-        "created_at": "s29",
+        "color": "s32",
+        "created_at": "s33",
         "id": "INBOX_LABEL00",
-        "name": "s2b"
+        "name": "s35",
+        "object": "s36",
+        "inbox_id": "INBOX01"
       },
       "INBOX_LABEL01": {
-        "color": "s50",
-        "created_at": "s51",
+        "color": "s64",
+        "created_at": "s65",
         "id": "INBOX_LABEL01",
-        "name": "s53"
+        "name": "s67",
+        "object": "s68",
+        "inbox_id": "INBOX01"
       },
       "INBOX_LABEL02": {
-        "color": "s78",
-        "created_at": "s79",
+        "color": "s96",
+        "created_at": "s97",
         "id": "INBOX_LABEL02",
-        "name": "s7b"
+        "name": "s99",
+        "object": "s9a",
+        "inbox_id": "INBOX01"
       }
     }
   },
   "new": {
     "inbox_label": {
       "inbox_label_ref01": {
-        "color": "sa0",
-        "created_at": "sa1",
-        "name": "sa3"
+        "color": "sc8",
+        "created_at": "sc9",
+        "name": "scb",
+        "object": "scc"
       }
     }
   },
   "requests": {
+    "POST /inboxes/{inbox_id}/labels": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /inboxes/{inbox_id}/labels": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /inboxes/{inbox_id}/labels/{label_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /inboxes/{inbox_id}/labels/{label_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

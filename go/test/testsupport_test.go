@@ -12,7 +12,7 @@ import (
 	"sync"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 )
 
 var envLocalOnce sync.Once

@@ -139,29 +139,46 @@ class TestBroadcastEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list", "load"]:
+        for _op in ["create", "list", "update", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "broadcast." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
         client = setup["client"]
-        if setup["live"]:
-            runner.live_existing(setup, LIVE_STRICT, "broadcast",
-                                 lambda: client.Broadcast(None).list({}, None))
 
-        # Bootstrap entity data from existing test data.
-        broadcast_ref01_data_raw = vs.items(helpers.to_map(
-            vs.getpath(setup["data"], "existing.broadcast")))
-        broadcast_ref01_data = None
-        if len(broadcast_ref01_data_raw) > 0:
-            broadcast_ref01_data = helpers.to_map(broadcast_ref01_data_raw[0][1])
+        # CREATE
+        broadcast_ref01_ent = client.Broadcast(None)
+        broadcast_ref01_data = helpers.to_map(vs.getprop(
+            vs.getpath(setup["data"], "new.broadcast"), "broadcast_ref01"))
+
+        broadcast_ref01_data = helpers.to_map(runner.entity_data(broadcast_ref01_ent.create(broadcast_ref01_data, None)))
+        assert broadcast_ref01_data is not None
+        assert broadcast_ref01_data["id"] is not None
 
         # LIST
-        broadcast_ref01_ent = client.Broadcast(None)
         broadcast_ref01_match = {}
 
         broadcast_ref01_list_result = broadcast_ref01_ent.list(broadcast_ref01_match, None)
         assert isinstance(broadcast_ref01_list_result, list)
+
+        found_item = vs.select(
+            runner.entity_list_to_data(broadcast_ref01_list_result),
+            {"id": broadcast_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
+        # UPDATE
+        broadcast_ref01_data_up0_up = {
+            "id": broadcast_ref01_data["id"],
+        }
+
+        broadcast_ref01_markdef_up0_name = "created_at"
+        broadcast_ref01_markdef_up0_value = "Mark01-broadcast_ref01_" + str(setup["now"])
+        broadcast_ref01_data_up0_up[broadcast_ref01_markdef_up0_name] = broadcast_ref01_markdef_up0_value
+
+        broadcast_ref01_resdata_up0 = helpers.to_map(runner.entity_data(broadcast_ref01_ent.update(broadcast_ref01_data_up0_up, None)))
+        assert broadcast_ref01_resdata_up0 is not None
+        assert broadcast_ref01_resdata_up0["id"] == broadcast_ref01_data_up0_up["id"]
+        assert broadcast_ref01_resdata_up0[broadcast_ref01_markdef_up0_name] == broadcast_ref01_markdef_up0_value
 
         # LOAD
         broadcast_ref01_match_dt0 = {
@@ -171,6 +188,23 @@ class TestBroadcastEntity:
         broadcast_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(broadcast_ref01_data_dt0_loaded))
         assert broadcast_ref01_data_dt0_load_result is not None
         assert broadcast_ref01_data_dt0_load_result["id"] == broadcast_ref01_data["id"]
+
+        # REMOVE
+        broadcast_ref01_match_rm0 = {
+            "id": broadcast_ref01_data["id"],
+        }
+        broadcast_ref01_ent.remove(broadcast_ref01_match_rm0, None)
+
+        # LIST
+        broadcast_ref01_match_rt0 = {}
+
+        broadcast_ref01_list_rt0_result = broadcast_ref01_ent.list(broadcast_ref01_match_rt0, None)
+        assert isinstance(broadcast_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(broadcast_ref01_list_rt0_result),
+            {"id": broadcast_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

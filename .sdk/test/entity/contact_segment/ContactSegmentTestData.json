@@ -1,0 +1,58 @@
+{
+  "existing": {
+    "contact_segment": {
+      "CONTACT_SEGMENT00": {
+        "contact_id": "CONTACT01",
+        "created_at": "s3d",
+        "id": "CONTACT_SEGMENT00",
+        "name": "s3f",
+        "object": "s40",
+        "segment_id": "SEGMENT01"
+      },
+      "CONTACT_SEGMENT01": {
+        "contact_id": "CONTACT01",
+        "created_at": "s79",
+        "id": "CONTACT_SEGMENT01",
+        "name": "s7b",
+        "object": "s7c",
+        "segment_id": "SEGMENT01"
+      },
+      "CONTACT_SEGMENT02": {
+        "contact_id": "CONTACT01",
+        "created_at": "sb5",
+        "id": "CONTACT_SEGMENT02",
+        "name": "sb7",
+        "object": "sb8",
+        "segment_id": "SEGMENT01"
+      }
+    }
+  },
+  "new": {
+    "contact_segment": {
+      "contact_segment_ref01": {
+        "contact_id": "CONTACT01",
+        "created_at": "sf1",
+        "name": "sf3",
+        "object": "sf4",
+        "segment_id": "SEGMENT01"
+      }
+    }
+  },
+  "requests": {
+    "POST /contacts/{contact_id}/segments/{segment_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /contacts/{contact_id}/segments": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /contacts/{contact_id}/segments/{segment_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

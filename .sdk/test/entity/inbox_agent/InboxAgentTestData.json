@@ -1,0 +1,52 @@
+{
+  "existing": {
+    "inbox_agent": {
+      "INBOX_AGENT00": {
+        "actions": [],
+        "id": "INBOX_AGENT00",
+        "instructions": "s34",
+        "object": "s35",
+        "tone": "s36",
+        "inbox_id": "INBOX01"
+      },
+      "INBOX_AGENT01": {
+        "actions": [],
+        "id": "INBOX_AGENT01",
+        "instructions": "s66",
+        "object": "s67",
+        "tone": "s68",
+        "inbox_id": "INBOX01"
+      },
+      "INBOX_AGENT02": {
+        "actions": [],
+        "id": "INBOX_AGENT02",
+        "instructions": "s98",
+        "object": "s99",
+        "tone": "s9a",
+        "inbox_id": "INBOX01"
+      }
+    }
+  },
+  "new": {
+    "inbox_agent": {
+      "inbox_agent_ref01": {
+        "actions": [],
+        "instructions": "sca",
+        "object": "scb",
+        "tone": "scc"
+      }
+    }
+  },
+  "requests": {
+    "GET /inboxes/{inbox_id}/agent": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /inboxes/{inbox_id}/agent": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

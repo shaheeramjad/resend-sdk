@@ -50,6 +50,10 @@ main: kit: entity: inbox: {
           req: false
           type: "`$STRING`"
         }
+        update: {
+          req: false
+          type: "`$STRING`"
+        }
       }
       r: true
       sh: "The name recipients see when mail is sent from this inbox."
@@ -88,6 +92,10 @@ main: kit: entity: inbox: {
       n: "name"
       op: {
         create: {
+          req: false
+          type: "`$STRING`"
+        }
+        update: {
           req: false
           type: "`$STRING`"
         }
@@ -277,17 +285,12 @@ main: kit: entity: inbox: {
         }
       ]
     }
-    update: {
-      name: "update"
+    remove: {
+      name: "remove"
       points: [
         {
-          bf: [
-            "actions"
-            "instructions"
-            "tone"
-          ]
           co: {
-            id: "PATCH /inboxes/{inbox_id}/agent"
+            id: "DELETE /inboxes/{inbox_id}"
             source: "openapi3"
             version: 2
           }
@@ -303,10 +306,9 @@ main: kit: entity: inbox: {
               }
             ]
           }
-          m: "PATCH"
-          o: "/inboxes/{inbox_id}/agent"
+          m: "DELETE"
+          o: "/inboxes/{inbox_id}"
           q: {
-            "$action": "agent"
             exist: [
               "id"
             ]
@@ -327,8 +329,61 @@ main: kit: entity: inbox: {
             {
               var: "id"
             }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "from_name"
+            "name"
+          ]
+          co: {
+            id: "PATCH /inboxes/{inbox_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/inboxes/{inbox_id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              inbox_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
             {
-              lit: "agent"
+              lit: "inboxes"
+            }
+            {
+              var: "id"
             }
           ]
           t: {

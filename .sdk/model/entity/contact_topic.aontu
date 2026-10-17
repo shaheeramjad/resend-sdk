@@ -1,0 +1,213 @@
+# Entity: contact_topic
+
+main: kit: entity: contact_topic: {
+
+  alias: field: {}
+
+  fields: {
+    contact_id: {
+      h: "Contact Id"
+      n: "contact_id"
+      r: false
+      sh: "The ID of the contact."
+      t: "`$STRING`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "Description of the topic."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the topic."
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      sh: "Name of the topic."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      sh: "The object type."
+      t: "`$STRING`"
+    }
+    subscription: {
+      h: "Subscription"
+      n: "subscription"
+      r: false
+      sh: "The subscription status for this topic."
+      t: "`$STRING`"
+    }
+    topics: {
+      h: "Topics"
+      n: "topics"
+      op: {
+        update: {
+          req: true
+          type: "`$ARRAY`"
+        }
+      }
+      r: false
+      sh: "Array of updated topic subscriptions."
+      t: "`$ARRAY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "contact_topic"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /contacts/{contact_id}/topics"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "contact_id"
+                or: "contact_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/contacts/{contact_id}/topics"
+          q: {
+            exist: [
+              "contact_id"
+            ]
+          }
+          r: {
+            param: {
+              contact_id: "contact_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "contacts"
+            }
+            {
+              var: "contact_id"
+            }
+            {
+              lit: "topics"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "topics"
+          ]
+          co: {
+            id: "PATCH /contacts/{contact_id}/topics"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "contact_id"
+                or: "contact_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/contacts/{contact_id}/topics"
+          q: {
+            exist: [
+              "contact_id"
+            ]
+          }
+          r: {
+            param: {
+              contact_id: "contact_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "contacts"
+            }
+            {
+              var: "contact_id"
+            }
+            {
+              lit: "topics"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.contact")]
+  ]
+
+}

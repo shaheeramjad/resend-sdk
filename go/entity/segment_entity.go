@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type SegmentEntity struct {
@@ -333,19 +333,112 @@ func (e *SegmentEntity) LoadTyped(reqmatch SegmentLoadMatch, ctrl map[string]any
 
 
 
-func (e *SegmentEntity) List(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("list", e.name)
+
+func (e *SegmentEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "list",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+		}
+	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// SegmentListMatch and returns []Segment. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *SegmentEntity) ListTyped(reqmatch SegmentListMatch, ctrl map[string]any) ([]Segment, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Segment](res), nil
 }
 
 
-func (e *SegmentEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("create", e.name)
+
+
+func (e *SegmentEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "create",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// SegmentCreateData and returns an Segment. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *SegmentEntity) CreateTyped(reqdata SegmentCreateData, ctrl map[string]any) (Segment, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Segment{}, err
+	}
+	return typedFrom[Segment](res), nil
 }
 
 
-func (e *SegmentEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+
+func (e *SegmentEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// SegmentUpdateData and returns an Segment. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *SegmentEntity) UpdateTyped(reqdata SegmentUpdateData, ctrl map[string]any) (Segment, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Segment{}, err
+	}
+	return typedFrom[Segment](res), nil
+}
+
 
 
 func (e *SegmentEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
@@ -353,9 +446,43 @@ func (e *SegmentEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
 }
 
 
-func (e *SegmentEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *SegmentEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// SegmentRemoveMatch and returns an Segment. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *SegmentEntity) RemoveTyped(reqmatch SegmentRemoveMatch, ctrl map[string]any) (Segment, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Segment{}, err
+	}
+	return typedFrom[Segment](res), nil
+}
+
 
 
 func (e *SegmentEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

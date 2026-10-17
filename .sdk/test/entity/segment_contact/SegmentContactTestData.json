@@ -1,0 +1,51 @@
+{
+  "existing": {
+    "segment_contact": {
+      "SEGMENT_CONTACT00": {
+        "created_at": "s3c",
+        "email": "s3d",
+        "first_name": "s3e",
+        "id": "SEGMENT_CONTACT00",
+        "last_name": "s40",
+        "unsubscribed": false,
+        "segment_id": "SEGMENT01"
+      },
+      "SEGMENT_CONTACT01": {
+        "created_at": "s78",
+        "email": "s79",
+        "first_name": "s7a",
+        "id": "SEGMENT_CONTACT01",
+        "last_name": "s7c",
+        "unsubscribed": false,
+        "segment_id": "SEGMENT01"
+      },
+      "SEGMENT_CONTACT02": {
+        "created_at": "sb4",
+        "email": "sb5",
+        "first_name": "sb6",
+        "id": "SEGMENT_CONTACT02",
+        "last_name": "sb8",
+        "unsubscribed": false,
+        "segment_id": "SEGMENT01"
+      }
+    }
+  },
+  "new": {
+    "segment_contact": {
+      "segment_contact_ref01": {
+        "created_at": "sf0",
+        "email": "sf1",
+        "first_name": "sf2",
+        "last_name": "sf4",
+        "unsubscribed": false
+      }
+    }
+  },
+  "requests": {
+    "GET /segments/{id}/contacts": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

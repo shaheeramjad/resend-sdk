@@ -14,3 +14,14 @@
 #
 # The slots are title, summary, website, tagline, about_md, homepage,
 # docs_url, meta_source and entity_desc. Any other key fails the model build.
+
+main: kit: text: {
+  tagline: 'Send email, manage domains, contacts and broadcasts on Resend from TypeScript, Python and Go.'
+  entity_desc: {
+    email: 'A transactional email sent through Resend.'
+    domain: 'A sending domain and its DNS verification state.'
+    contact: 'A person on your contact list.'
+    broadcast: 'A marketing email sent to a segment.'
+    webhook: 'An endpoint Resend posts delivery events to.'
+  }
+}

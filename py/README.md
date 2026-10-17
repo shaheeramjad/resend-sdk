@@ -1,10 +1,10 @@
 # Resend Python SDK
 
-
+Send email, manage domains, contacts and broadcasts on Resend from TypeScript, Python and Go.
 
 The Python SDK for the Resend API — an entity-oriented client following Pythonic conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.AddContactToSegmentResponseSuccess()` — each
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.ApiKey()` — each
 carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/resend-sdk/tags)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/shaheeramjad/resend-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -39,15 +39,29 @@ client = ResendSDK({
 })
 ```
 
-### 3. Load an automationrun
+### 2. List apikey records
 
-AutomationRun is nested under automation, so provide the `automation_id`.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
+
+```python
+try:
+    apikeys = client.ApiKey().list()
+    for apikey in apikeys:
+        print(apikey.data_get())
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+### 3. Load an attachment
+
+Attachment is nested under email, so provide the `email_id`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    automationrun = client.AutomationRun().load({"automation_id": "example_automation_id", "id": "example_id"})
-    print(automationrun.data_get())
+    attachment = client.Attachment().load({"email_id": "example_email_id", "id": "example_id"})
+    print(attachment.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -56,8 +70,13 @@ except Exception as err:
 
 ```python
 # Create — returns the ENTITY (call data_get() for the record)
-created = client.AddContactToSegmentResponseSuccess().create({"contact_id": "example_contact_id", "segment_id": "example_segment_id"})
+created = client.ApiKey().create({"name": "example_name"})
 
+# Update — the created entity's record holds its id
+client.ApiKey().update({"id": created.data_get()["id"], "name": "example_name"})
+
+# Remove
+client.ApiKey().remove({"id": created.data_get()["id"]})
 ```
 
 
@@ -67,10 +86,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    automationrun = client.AutomationRun().load({"automation_id": "example", "id": "example_id"})
-    print(automationrun.data_get())
+    oauthgrants = client.OauthGrant().list()
+    print([item.data_get() for item in oauthgrants])
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -135,7 +154,7 @@ Create a mock client for unit testing — no server required:
 client = ResendSDK.test()
 
 # Entity ops return the entity, and list one per record; they raise on error.
-automationrun = client.AutomationRun().load({"id": "test01", "automation_id": "example"})
+oauthgrant = client.OauthGrant().list()
 # data_get() on an entity reads its mock response record
 ```
 
@@ -214,90 +233,47 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `AddContactToSegmentResponseSuccess` | `(data) -> AddContactToSegmentResponseSuccessEntity` | Create an AddContactToSegmentResponseSuccess entity instance. |
-| `AddInboxThreadLabelsResponseSuccess` | `(data) -> AddInboxThreadLabelsResponseSuccessEntity` | Create an AddInboxThreadLabelsResponseSuccess entity instance. |
 | `ApiKey` | `(data) -> ApiKeyEntity` | Create an ApiKey entity instance. |
+| `Attachment` | `(data) -> AttachmentEntity` | Create an Attachment entity instance. |
 | `Audience` | `(data) -> AudienceEntity` | Create an Audience entity instance. |
 | `Automation` | `(data) -> AutomationEntity` | Create an Automation entity instance. |
 | `AutomationRun` | `(data) -> AutomationRunEntity` | Create an AutomationRun entity instance. |
-| `AutomationRunListItem` | `(data) -> AutomationRunListItemEntity` | Create an AutomationRunListItem entity instance. |
-| `BatchAddSuppressionsResponseSuccess` | `(data) -> BatchAddSuppressionsResponseSuccessEntity` | Create a BatchAddSuppressionsResponseSuccess entity instance. |
-| `BatchRemoveSuppressionsResponseSuccess` | `(data) -> BatchRemoveSuppressionsResponseSuccessEntity` | Create a BatchRemoveSuppressionsResponseSuccess entity instance. |
 | `Broadcast` | `(data) -> BroadcastEntity` | Create a Broadcast entity instance. |
+| `BroadcastClickedLink` | `(data) -> BroadcastClickedLinkEntity` | Create a BroadcastClickedLink entity instance. |
+| `BroadcastRecipient` | `(data) -> BroadcastRecipientEntity` | Create a BroadcastRecipient entity instance. |
 | `Contact` | `(data) -> ContactEntity` | Create a Contact entity instance. |
-| `ContactImportResponseSuccess` | `(data) -> ContactImportResponseSuccessEntity` | Create a ContactImportResponseSuccess entity instance. |
+| `ContactImport` | `(data) -> ContactImportEntity` | Create a ContactImport entity instance. |
 | `ContactProperty` | `(data) -> ContactPropertyEntity` | Create a ContactProperty entity instance. |
-| `ContactTopicsResponseSuccess` | `(data) -> ContactTopicsResponseSuccessEntity` | Create a ContactTopicsResponseSuccess entity instance. |
-| `CreateApiKey` | `(data) -> CreateApiKeyEntity` | Create a CreateApiKey entity instance. |
-| `CreateBatchEmail` | `(data) -> CreateBatchEmailEntity` | Create a CreateBatchEmail entity instance. |
-| `CreateBroadcastResponseSuccess` | `(data) -> CreateBroadcastResponseSuccessEntity` | Create a CreateBroadcastResponseSuccess entity instance. |
-| `CreateInboxDraftResponseSuccess` | `(data) -> CreateInboxDraftResponseSuccessEntity` | Create a CreateInboxDraftResponseSuccess entity instance. |
-| `CreateInboxLabelResponseSuccess` | `(data) -> CreateInboxLabelResponseSuccessEntity` | Create a CreateInboxLabelResponseSuccess entity instance. |
+| `ContactSegment` | `(data) -> ContactSegmentEntity` | Create a ContactSegment entity instance. |
+| `ContactTopic` | `(data) -> ContactTopicEntity` | Create a ContactTopic entity instance. |
 | `Domain` | `(data) -> DomainEntity` | Create a Domain entity instance. |
 | `DomainClaim` | `(data) -> DomainClaimEntity` | Create a DomainClaim entity instance. |
 | `Email` | `(data) -> EmailEntity` | Create an Email entity instance. |
+| `EmailBatch` | `(data) -> EmailBatchEntity` | Create an EmailBatch entity instance. |
 | `EmailsMetric` | `(data) -> EmailsMetricEntity` | Create an EmailsMetric entity instance. |
 | `Event` | `(data) -> EventEntity` | Create an Event entity instance. |
 | `Inbox` | `(data) -> InboxEntity` | Create an Inbox entity instance. |
-| `InboxAgentResponseSuccess` | `(data) -> InboxAgentResponseSuccessEntity` | Create an InboxAgentResponseSuccess entity instance. |
-| `InboxDraftListItem` | `(data) -> InboxDraftListItemEntity` | Create an InboxDraftListItem entity instance. |
-| `InboxDraftResponseSuccess` | `(data) -> InboxDraftResponseSuccessEntity` | Create an InboxDraftResponseSuccess entity instance. |
+| `InboxAgent` | `(data) -> InboxAgentEntity` | Create an InboxAgent entity instance. |
+| `InboxDraft` | `(data) -> InboxDraftEntity` | Create an InboxDraft entity instance. |
 | `InboxLabel` | `(data) -> InboxLabelEntity` | Create an InboxLabel entity instance. |
 | `InboxThread` | `(data) -> InboxThreadEntity` | Create an InboxThread entity instance. |
 | `InboxThreadEmail` | `(data) -> InboxThreadEmailEntity` | Create an InboxThreadEmail entity instance. |
-| `InboxThreadEmailResponseSuccess` | `(data) -> InboxThreadEmailResponseSuccessEntity` | Create an InboxThreadEmailResponseSuccess entity instance. |
-| `InboxThreadResponseSuccess` | `(data) -> InboxThreadResponseSuccessEntity` | Create an InboxThreadResponseSuccess entity instance. |
-| `ListAttachment` | `(data) -> ListAttachmentEntity` | Create a ListAttachment entity instance. |
-| `ListBroadcastClickedLinksResponseSuccess` | `(data) -> ListBroadcastClickedLinksResponseSuccessEntity` | Create a ListBroadcastClickedLinksResponseSuccess entity instance. |
-| `ListBroadcastRecipientsResponseSuccess` | `(data) -> ListBroadcastRecipientsResponseSuccessEntity` | Create a ListBroadcastRecipientsResponseSuccess entity instance. |
-| `ListContactSegmentsResponseSuccess` | `(data) -> ListContactSegmentsResponseSuccessEntity` | Create a ListContactSegmentsResponseSuccess entity instance. |
-| `ListContactsResponseSuccess` | `(data) -> ListContactsResponseSuccessEntity` | Create a ListContactsResponseSuccess entity instance. |
-| `ListWebhookEvent` | `(data) -> ListWebhookEventEntity` | Create a ListWebhookEvent entity instance. |
-| `ListWebhookEventAttempt` | `(data) -> ListWebhookEventAttemptEntity` | Create a ListWebhookEventAttempt entity instance. |
+| `InboxThreadLabel` | `(data) -> InboxThreadLabelEntity` | Create an InboxThreadLabel entity instance. |
 | `Log` | `(data) -> LogEntity` | Create a Log entity instance. |
+| `OauthGrant` | `(data) -> OauthGrantEntity` | Create an OauthGrant entity instance. |
+| `ReceivedAttachment` | `(data) -> ReceivedAttachmentEntity` | Create a ReceivedAttachment entity instance. |
 | `ReceivedEmail` | `(data) -> ReceivedEmailEntity` | Create a ReceivedEmail entity instance. |
-| `RemoveAudienceResponseSuccess` | `(data) -> RemoveAudienceResponseSuccessEntity` | Create a RemoveAudienceResponseSuccess entity instance. |
-| `RemoveBroadcastResponseSuccess` | `(data) -> RemoveBroadcastResponseSuccessEntity` | Create a RemoveBroadcastResponseSuccess entity instance. |
-| `RemoveContactFromSegmentResponseSuccess` | `(data) -> RemoveContactFromSegmentResponseSuccessEntity` | Create a RemoveContactFromSegmentResponseSuccess entity instance. |
-| `RemoveContactPropertyResponseSuccess` | `(data) -> RemoveContactPropertyResponseSuccessEntity` | Create a RemoveContactPropertyResponseSuccess entity instance. |
-| `RemoveContactResponseSuccess` | `(data) -> RemoveContactResponseSuccessEntity` | Create a RemoveContactResponseSuccess entity instance. |
-| `RemoveEvent` | `(data) -> RemoveEventEntity` | Create a RemoveEvent entity instance. |
-| `RemoveInboxDraftResponseSuccess` | `(data) -> RemoveInboxDraftResponseSuccessEntity` | Create a RemoveInboxDraftResponseSuccess entity instance. |
-| `RemoveInboxLabelResponseSuccess` | `(data) -> RemoveInboxLabelResponseSuccessEntity` | Create a RemoveInboxLabelResponseSuccess entity instance. |
-| `RemoveInboxResponseSuccess` | `(data) -> RemoveInboxResponseSuccessEntity` | Create a RemoveInboxResponseSuccess entity instance. |
-| `RemoveInboxThreadLabelResponseSuccess` | `(data) -> RemoveInboxThreadLabelResponseSuccessEntity` | Create a RemoveInboxThreadLabelResponseSuccess entity instance. |
-| `RemoveInboxThreadResponseSuccess` | `(data) -> RemoveInboxThreadResponseSuccessEntity` | Create a RemoveInboxThreadResponseSuccess entity instance. |
-| `RemoveSegmentResponseSuccess` | `(data) -> RemoveSegmentResponseSuccessEntity` | Create a RemoveSegmentResponseSuccess entity instance. |
-| `RemoveSuppressionResponseSuccess` | `(data) -> RemoveSuppressionResponseSuccessEntity` | Create a RemoveSuppressionResponseSuccess entity instance. |
-| `RemoveTemplateResponseSuccess` | `(data) -> RemoveTemplateResponseSuccessEntity` | Create a RemoveTemplateResponseSuccess entity instance. |
-| `RemoveTopicResponseSuccess` | `(data) -> RemoveTopicResponseSuccessEntity` | Create a RemoveTopicResponseSuccess entity instance. |
-| `RetrievedAttachment` | `(data) -> RetrievedAttachmentEntity` | Create a RetrievedAttachment entity instance. |
-| `RevokeOAuthGrant` | `(data) -> RevokeOAuthGrantEntity` | Create a RevokeOAuthGrant entity instance. |
-| `Rotate` | `(data) -> RotateEntity` | Create a Rotate entity instance. |
 | `Segment` | `(data) -> SegmentEntity` | Create a Segment entity instance. |
-| `SetInboxThreadLabelsResponseSuccess` | `(data) -> SetInboxThreadLabelsResponseSuccessEntity` | Create a SetInboxThreadLabelsResponseSuccess entity instance. |
+| `SegmentContact` | `(data) -> SegmentContactEntity` | Create a SegmentContact entity instance. |
 | `Suppression` | `(data) -> SuppressionEntity` | Create a Suppression entity instance. |
+| `SuppressionBatchAdd` | `(data) -> SuppressionBatchAddEntity` | Create a SuppressionBatchAdd entity instance. |
+| `SuppressionBatchRemove` | `(data) -> SuppressionBatchRemoveEntity` | Create a SuppressionBatchRemove entity instance. |
 | `Template` | `(data) -> TemplateEntity` | Create a Template entity instance. |
 | `Topic` | `(data) -> TopicEntity` | Create a Topic entity instance. |
-| `UpdateApiKey` | `(data) -> UpdateApiKeyEntity` | Create an UpdateApiKey entity instance. |
-| `UpdateBroadcastResponseSuccess` | `(data) -> UpdateBroadcastResponseSuccessEntity` | Create an UpdateBroadcastResponseSuccess entity instance. |
-| `UpdateContactPropertyResponseSuccess` | `(data) -> UpdateContactPropertyResponseSuccessEntity` | Create an UpdateContactPropertyResponseSuccess entity instance. |
-| `UpdateContactResponseSuccess` | `(data) -> UpdateContactResponseSuccessEntity` | Create an UpdateContactResponseSuccess entity instance. |
-| `UpdateContactTopicsResponseSuccess` | `(data) -> UpdateContactTopicsResponseSuccessEntity` | Create an UpdateContactTopicsResponseSuccess entity instance. |
-| `UpdateDomainResponseSuccess` | `(data) -> UpdateDomainResponseSuccessEntity` | Create an UpdateDomainResponseSuccess entity instance. |
-| `UpdateEmailOption` | `(data) -> UpdateEmailOptionEntity` | Create an UpdateEmailOption entity instance. |
-| `UpdateEvent` | `(data) -> UpdateEventEntity` | Create an UpdateEvent entity instance. |
-| `UpdateInboxDraftResponseSuccess` | `(data) -> UpdateInboxDraftResponseSuccessEntity` | Create an UpdateInboxDraftResponseSuccess entity instance. |
-| `UpdateInboxLabelResponseSuccess` | `(data) -> UpdateInboxLabelResponseSuccessEntity` | Create an UpdateInboxLabelResponseSuccess entity instance. |
-| `UpdateInboxResponseSuccess` | `(data) -> UpdateInboxResponseSuccessEntity` | Create an UpdateInboxResponseSuccess entity instance. |
-| `UpdateInboxThreadResponseSuccess` | `(data) -> UpdateInboxThreadResponseSuccessEntity` | Create an UpdateInboxThreadResponseSuccess entity instance. |
-| `UpdateSegmentResponseSuccess` | `(data) -> UpdateSegmentResponseSuccessEntity` | Create an UpdateSegmentResponseSuccess entity instance. |
-| `UpdateTemplateResponseSuccess` | `(data) -> UpdateTemplateResponseSuccessEntity` | Create an UpdateTemplateResponseSuccess entity instance. |
-| `UpdateTopicResponseSuccess` | `(data) -> UpdateTopicResponseSuccessEntity` | Create an UpdateTopicResponseSuccess entity instance. |
-| `UpdateWebhook` | `(data) -> UpdateWebhookEntity` | Create an UpdateWebhook entity instance. |
 | `Usage` | `(data) -> UsageEntity` | Create an Usage entity instance. |
 | `Webhook` | `(data) -> WebhookEntity` | Create a Webhook entity instance. |
 | `WebhookEvent` | `(data) -> WebhookEventEntity` | Create a WebhookEvent entity instance. |
+| `WebhookEventAttempt` | `(data) -> WebhookEventAttemptEntity` | Create a WebhookEventAttempt entity instance. |
 
 ### Entity interface
 
@@ -337,42 +313,39 @@ On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
 
-#### AddContactToSegmentResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `contact_id` | The ID of the contact. |
-| `object` | The object type. |
-| `segment_id` | The ID of the segment. |
-
-Operations: Create.
-
-API path: `/contacts/{contact_id}/segments/{segment_id}`
-
-#### AddInboxThreadLabelsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `data` | Every label on the thread after the change. |
-| `labels` | The IDs of the labels to apply to the thread. |
-| `object` | Type of the response object. |
-
-Operations: Create.
-
-API path: `/inboxes/{inbox_id}/threads/{thread_id}/labels`
-
 #### ApiKey
 
 | Field | Description |
 | --- | --- |
 | `created_at` | The date and time the API key was created. |
+| `domain_id` | Restrict an API key to send emails only from a specific domain. |
 | `id` | The ID of the API key. |
 | `last_used_at` | The date and time the API key was last used. |
-| `name` | The name of the API key. |
+| `name` | The API key name. |
+| `object` | The type of object. |
+| `permission` | The API key can have full access to Resend’s API or be only restricted to send emails. |
 
-Operations: List, Remove.
+Operations: Create, List, Remove, Update.
 
 API path: `/api-keys`
+
+#### Attachment
+
+| Field | Description |
+| --- | --- |
+| `content_disposition` | How the attachment should be displayed. |
+| `content_id` | The content ID for inline attachments. |
+| `content_type` | The MIME type of the attachment. |
+| `download_url` | Signed URL to download the attachment content. |
+| `expires_at` | Timestamp when the download URL expires. |
+| `filename` | The filename of the attachment. |
+| `id` | The ID of the attachment. |
+| `object` | The type of object. |
+| `size` | Size of the attachment in bytes. |
+
+Operations: List, Load.
+
+API path: `/emails/{email_id}/attachments`
 
 #### Audience
 
@@ -383,7 +356,7 @@ API path: `/api-keys`
 | `name` | The name of the audience. |
 | `object` | The object of the audience. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Remove.
 
 API path: `/audiences`
 
@@ -416,45 +389,9 @@ API path: `/automations/{automation_id}/duplicate`
 | `status` | The current status of the automation run. |
 | `steps` | The steps executed in this run, sorted in graph order. |
 
-Operations: Load.
-
-API path: `/automations/{automation_id}/runs/{run_id}`
-
-#### AutomationRunListItem
-
-| Field | Description |
-| --- | --- |
-| `completed_at` | The date and time the run completed. |
-| `created_at` | The date and time the run was created. |
-| `id` | The ID of the automation run. |
-| `started_at` | The date and time the run started. |
-| `status` | The current status of the automation run. |
-
-Operations: List.
+Operations: List, Load.
 
 API path: `/automations/{automation_id}/runs`
-
-#### BatchAddSuppressionsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `emails` | Email addresses to suppress. |
-
-Operations: Create.
-
-API path: `/suppressions/batch/add`
-
-#### BatchRemoveSuppressionsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `data` | Array containing the removed suppressions. |
-| `emails` | Email addresses to remove from the suppression list. |
-| `ids` | Suppression IDs to remove from the suppression list. |
-
-Operations: Create.
-
-API path: `/suppressions/batch/remove`
 
 #### Broadcast
 
@@ -466,19 +403,49 @@ API path: `/suppressions/batch/remove`
 | `html` | The HTML version of the broadcast content. |
 | `id` | Unique identifier for the broadcast. |
 | `name` | Name of the broadcast. |
+| `object` | The object type of the response. |
 | `preview_text` | The preview text of the email. |
 | `reply_to` | The email addresses to which replies should be sent. |
 | `scheduled_at` | Timestamp indicating when the broadcast is scheduled to be sent. |
 | `segment_id` | Unique identifier of the segment this broadcast will be sent to. |
+| `send` | Whether to send the broadcast immediately or keep it as a draft. |
 | `sent_at` | Timestamp indicating when the broadcast was sent. |
 | `status` | The status of the broadcast. |
 | `subject` | The subject line of the email. |
 | `text` | The plain text version of the broadcast content. |
 | `topic_id` | The topic ID that the broadcast is scoped to. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/broadcasts/{id}/cancel`
+
+#### BroadcastClickedLink
+
+| Field | Description |
+| --- | --- |
+| `clicks` | Total number of clicks on this URL. |
+| `id` | An opaque cursor for this row, used only for pagination. |
+| `unique_clicks` | Number of unique clicks on this URL. |
+| `url` | The URL that was clicked. |
+
+Operations: List.
+
+API path: `/broadcasts/{id}/clicked-links`
+
+#### BroadcastRecipient
+
+| Field | Description |
+| --- | --- |
+| `bounce_type` | The type of bounce. |
+| `clicked_links` | The links this recipient clicked. |
+| `contact_id` | The ID of the contact associated with this recipient, if one exists. |
+| `count` | The number of times this recipient triggered the event. |
+| `email` | The recipient's email address. |
+| `id` | Opaque cursor identifying this row, used for pagination. |
+
+Operations: List.
+
+API path: `/broadcasts/{id}/recipients`
 
 #### Contact
 
@@ -496,11 +463,11 @@ API path: `/broadcasts/{id}/cancel`
 | `topics` | Array of topic subscriptions for the contact. |
 | `unsubscribed` | Indicates if the contact is unsubscribed. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/contacts`
 
-#### ContactImportResponseSuccess
+#### ContactImport
 
 | Field | Description |
 | --- | --- |
@@ -531,94 +498,40 @@ API path: `/contacts/imports`
 | `object` | The object type. |
 | `type` | The property type. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/contact-properties`
 
-#### ContactTopicsResponseSuccess
+#### ContactSegment
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
+| `contact_id` | The ID of the contact. |
+| `created_at` | Timestamp indicating when the contact was added to the segment. |
+| `id` | Unique identifier for the segment. |
+| `name` | Name of the segment. |
+| `object` | The object type. |
+| `segment_id` | The ID of the segment. |
 
-Operations: List.
+Operations: Create, List, Remove.
+
+API path: `/contacts/{contact_id}/segments/{segment_id}`
+
+#### ContactTopic
+
+| Field | Description |
+| --- | --- |
+| `contact_id` | The ID of the contact. |
+| `description` | Description of the topic. |
+| `id` | Unique identifier for the topic. |
+| `name` | Name of the topic. |
+| `object` | The object type. |
+| `subscription` | The subscription status for this topic. |
+| `topics` | Array of updated topic subscriptions. |
+
+Operations: List, Update.
 
 API path: `/contacts/{contact_id}/topics`
-
-#### CreateApiKey
-
-| Field | Description |
-| --- | --- |
-| `domain_id` | Restrict an API key to send emails only from a specific domain. |
-| `name` | The API key name. |
-| `permission` | The API key can have full access to Resend’s API or be only restricted to send emails. |
-
-Operations: Create.
-
-API path: `/api-keys`
-
-#### CreateBatchEmail
-
-| Field | Description |
-| --- | --- |
-| `data` |  |
-| `send_emails` |  |
-
-Operations: Create.
-
-API path: `/emails/batch`
-
-#### CreateBroadcastResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `audience_id` | Use `segment_id` instead. |
-| `from` | The email address of the sender. |
-| `html` | The HTML version of the message. |
-| `name` | Name of the broadcast. |
-| `preview_text` | The preview text of the email. |
-| `reply_to` | The email addresses to which replies should be sent. |
-| `scheduled_at` | Schedule time to send the broadcast. |
-| `segment_id` | Unique identifier of the segment this broadcast will be sent to. |
-| `send` | Whether to send the broadcast immediately or keep it as a draft. |
-| `subject` | The subject line of the email. |
-| `text` | The plain text version of the message. |
-| `topic_id` | The topic ID that the broadcast will be scoped to. |
-
-Operations: Create.
-
-API path: `/broadcasts`
-
-#### CreateInboxDraftResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `attachments` | Files to store on the draft. |
-| `bcc` | The BCC recipients. |
-| `cc` | The CC recipients. |
-| `html` | The HTML body. |
-| `id` | The ID of the draft. |
-| `object` | Type of the response object. |
-| `reply_to_email_id` | The Email ID to reply to, as returned in `data[].id` by the list thread emails endpoint. |
-| `subject` | The subject. |
-| `text` | The plain text body. |
-| `thread_id` | The Thread ID to reply in. |
-| `to` | The recipients. |
-
-Operations: Create.
-
-API path: `/inboxes/{inbox_id}/drafts`
-
-#### CreateInboxLabelResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `color` | The color of the label, as a `#RRGGBB` hex color. |
-| `name` | The name of the label. |
-
-Operations: Create.
-
-API path: `/inboxes/{inbox_id}/labels`
 
 #### Domain
 
@@ -638,7 +551,7 @@ API path: `/inboxes/{inbox_id}/labels`
 | `tls` | TLS mode. |
 | `tracking_subdomain` | The subdomain used for click and open tracking. |
 
-Operations: Create, List, Load, Remove.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/domains/{domain_id}/verify`
 
@@ -690,9 +603,20 @@ API path: `/domains/{domain_id}/claim/verify`
 | `to` | Recipient email address. |
 | `topic_id` | The topic ID to scope the email to. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Update.
 
 API path: `/emails/{email_id}/cancel`
+
+#### EmailBatch
+
+| Field | Description |
+| --- | --- |
+| `data` |  |
+| `send_emails` |  |
+
+Operations: Create.
+
+API path: `/emails/batch`
 
 #### EmailsMetric
 
@@ -720,7 +644,7 @@ API path: `/emails/metrics`
 | `schema` | A flat key/type map defining the event payload schema. |
 | `updated_at` | The date and time the event was last updated. |
 
-Operations: Create, List, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/events`
 
@@ -742,41 +666,25 @@ API path: `/events`
 | `unread` | The number of unread threads in the Inbox folder. |
 | `updated_at` | ISO 8601 timestamp when the inbox was last updated. |
 
-Operations: Create, List, Load, Update.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/inboxes`
 
-#### InboxAgentResponseSuccess
+#### InboxAgent
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
+| `actions` | The actions the agent can take, in the order of the enum. |
+| `id` | The ID of the inbox agent. |
+| `instructions` | Instructions the agent follows when it handles the threads of the inbox. |
+| `object` | The object type. |
+| `tone` | The tone the agent writes in. |
 
-Operations: List.
+Operations: Load, Update.
 
 API path: `/inboxes/{inbox_id}/agent`
 
-#### InboxDraftListItem
-
-| Field | Description |
-| --- | --- |
-| `attachments` | The files stored on the draft. |
-| `bcc` | The BCC recipients. |
-| `cc` | The CC recipients. |
-| `id` | The ID of the draft. |
-| `reply_to_email_id` | The Email ID the draft replies to. |
-| `snippet` | A short preview of the body. |
-| `subject` | The subject. |
-| `thread_id` | The Thread ID when the draft is a reply. |
-| `to` | The recipients. |
-| `type` | `reply` when the draft replies to an email in an existing thread. |
-| `updated_at` | Timestamp when the draft was last saved. |
-
-Operations: List.
-
-API path: `/inboxes/{inbox_id}/drafts`
-
-#### InboxDraftResponseSuccess
+#### InboxDraft
 
 | Field | Description |
 | --- | --- |
@@ -789,6 +697,7 @@ API path: `/inboxes/{inbox_id}/drafts`
 | `id` | The ID of the draft. |
 | `object` | The object type. |
 | `reply_to_email_id` | The Email ID the draft replies to. |
+| `snippet` | A short preview of the body. |
 | `subject` | The subject. |
 | `text` | The plain text body. |
 | `thread_id` | The Thread ID when the draft is a reply. |
@@ -796,7 +705,7 @@ API path: `/inboxes/{inbox_id}/drafts`
 | `type` | `reply` when the draft replies to an email in an existing thread. |
 | `updated_at` | Timestamp when the draft was last saved. |
 
-Operations: Create, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/inboxes/{inbox_id}/drafts/{draft_id}/send`
 
@@ -804,12 +713,13 @@ API path: `/inboxes/{inbox_id}/drafts/{draft_id}/send`
 
 | Field | Description |
 | --- | --- |
-| `color` | The color of the label, as a `#RRGGBB` hex color in uppercase. |
+| `color` | The color of the label, as a `#RRGGBB` hex color. |
 | `created_at` | Timestamp when the label was created. |
-| `id` | The ID of the label. |
+| `id` | The ID of the updated label. |
 | `name` | The name of the label. |
+| `object` | Type of the response object. |
 
-Operations: List.
+Operations: Create, List, Remove, Update.
 
 API path: `/inboxes/{inbox_id}/labels`
 
@@ -826,13 +736,13 @@ API path: `/inboxes/{inbox_id}/labels`
 | `has_draft` | Whether the thread has an unsent draft. |
 | `id` | The ID of the thread. |
 | `labels` | The labels attached to the thread. |
-| `matched_email_id` | The ID of the email in the thread that matched the search. |
+| `object` | The object type. |
 | `read` | True only when every email in the thread is read. |
 | `received_at` | Timestamp when the thread was last active. |
 | `subject` | The subject of the thread. |
 | `to` | The recipients of the most recent email. |
 
-Operations: List.
+Operations: List, Load, Remove, Update.
 
 API path: `/inboxes/{inbox_id}/threads`
 
@@ -855,145 +765,22 @@ API path: `/inboxes/{inbox_id}/threads`
 | `text` | The plain-text body. |
 | `to` | The recipients of the message. |
 
-Operations: List.
-
-API path: `/inboxes/{inbox_id}/threads/{thread_id}/emails`
-
-#### InboxThreadEmailResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `attachments` | The attachments of the message. |
-| `bcc` | The BCC recipients of the message. |
-| `cc` | The CC recipients of the message. |
-| `direction` | Whether the inbox received the message (`inbound`) or sent it (`outbound`). |
-| `from` | Sender email address. |
-| `html` | The HTML body. |
-| `id` | The ID of the message. |
-| `message_id` | The Message-ID header of the message. |
-| `read` | Whether the message has been read. |
-| `received_at` | Timestamp when the inbox received the message, or when the inbox sent it. |
-| `reply_to` | The Reply-To addresses of the message. |
-| `subject` | The subject of the message. |
-| `text` | The plain-text body. |
-| `to` | The recipients of the message. |
-
-Operations: Create, Load.
+Operations: Create, List, Load.
 
 API path: `/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward`
 
-#### InboxThreadResponseSuccess
+#### InboxThreadLabel
 
 | Field | Description |
 | --- | --- |
-| `folder` | The folder the thread is in. |
-| `id` | The ID of the thread. |
-| `labels` | The labels attached to the thread. |
-| `object` | The object type. |
-| `read` | True only when every email in the thread is read. |
-| `subject` | The subject of the thread. |
+| `data` | Every label on the thread after the change. |
+| `id` |  |
+| `labels` | The IDs of the labels to apply to the thread. |
+| `object` | Type of the response object. |
 
-Operations: Load.
+Operations: Create, Remove, Update.
 
-API path: `/inboxes/{inbox_id}/threads/{thread_id}`
-
-#### ListAttachment
-
-| Field | Description |
-| --- | --- |
-| `content_disposition` | How the attachment should be displayed. |
-| `content_id` | The content ID for inline attachments. |
-| `content_type` | The MIME type of the attachment. |
-| `download_url` | Signed URL to download the attachment content. |
-| `expires_at` | Timestamp when the download URL expires. |
-| `filename` | The filename of the attachment. |
-| `id` | The ID of the attachment. |
-| `size` | Size of the attachment in bytes. |
-
-Operations: List.
-
-API path: `/emails/{email_id}/attachments`
-
-#### ListBroadcastClickedLinksResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `clicks` | Total number of clicks on this URL. |
-| `id` | An opaque cursor for this row, used only for pagination. |
-| `unique_clicks` | Number of unique clicks on this URL. |
-| `url` | The URL that was clicked. |
-
-Operations: List.
-
-API path: `/broadcasts/{id}/clicked-links`
-
-#### ListBroadcastRecipientsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `bounce_type` | The type of bounce. |
-| `clicked_links` | The links this recipient clicked. |
-| `contact_id` | The ID of the contact associated with this recipient, if one exists. |
-| `count` | The number of times this recipient triggered the event. |
-| `email` | The recipient's email address. |
-| `id` | Opaque cursor identifying this row, used for pagination. |
-
-Operations: List.
-
-API path: `/broadcasts/{id}/recipients`
-
-#### ListContactSegmentsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the contact was added to the segment. |
-| `id` | Unique identifier for the segment. |
-| `name` | Name of the segment. |
-
-Operations: List.
-
-API path: `/contacts/{contact_id}/segments`
-
-#### ListContactsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the contact was created. |
-| `email` | Email address of the contact. |
-| `first_name` | First name of the contact. |
-| `id` | Unique identifier for the contact. |
-| `last_name` | Last name of the contact. |
-| `unsubscribed` | Indicates if the contact is unsubscribed. |
-
-Operations: List.
-
-API path: `/segments/{id}/contacts`
-
-#### ListWebhookEvent
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the event was created. |
-| `id` | The ID of the webhook event. |
-| `status` | The delivery status of the event for this webhook. |
-| `type` | The type of the event. |
-
-Operations: List.
-
-API path: `/webhooks/{webhook_id}/events`
-
-#### ListWebhookEventAttempt
-
-| Field | Description |
-| --- | --- |
-| `http_status_code` | The HTTP status code returned by the webhook endpoint. |
-| `id` | The ID of the webhook event attempt. |
-| `response` | The response body returned by the webhook endpoint. |
-| `sent_at` | Timestamp indicating when the attempt was sent. |
-
-Operations: List.
-
-API path: `/webhooks/{webhook_id}/events/{event_id}/attempts`
+API path: `/inboxes/{inbox_id}/threads/{thread_id}/labels`
 
 #### Log
 
@@ -1012,6 +799,40 @@ API path: `/webhooks/{webhook_id}/events/{event_id}/attempts`
 Operations: List, Load.
 
 API path: `/logs`
+
+#### OauthGrant
+
+| Field | Description |
+| --- | --- |
+| `client` | The OAuth client the grant was issued to. |
+| `client_id` | The ID of the OAuth client the grant was issued to. |
+| `created_at` | The date and time the OAuth grant was created. |
+| `id` | The ID of the OAuth grant. |
+| `revoked_at` | The date and time the OAuth grant was revoked, or null if it is still active. |
+| `revoked_reason` | The reason the OAuth grant was revoked, or null if it is still active. |
+| `scopes` | The scopes granted to the OAuth client. |
+
+Operations: List, Remove.
+
+API path: `/oauth/grants`
+
+#### ReceivedAttachment
+
+| Field | Description |
+| --- | --- |
+| `content_disposition` | How the attachment should be displayed. |
+| `content_id` | The content ID for inline attachments. |
+| `content_type` | The MIME type of the attachment. |
+| `download_url` | Signed URL to download the attachment content. |
+| `expires_at` | Timestamp when the download URL expires. |
+| `filename` | The filename of the attachment. |
+| `id` | The ID of the attachment. |
+| `object` | The type of object. |
+| `size` | Size of the attachment in bytes. |
+
+Operations: List, Load.
+
+API path: `/emails/receiving/{email_id}/attachments`
 
 #### ReceivedEmail
 
@@ -1037,221 +858,6 @@ Operations: List, Load.
 
 API path: `/emails/receiving`
 
-#### RemoveAudienceResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `id` |  |
-
-Operations: Remove.
-
-API path: `/audiences/{id}`
-
-#### RemoveBroadcastResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `id` |  |
-
-Operations: Remove.
-
-API path: `/broadcasts/{id}`
-
-#### RemoveContactFromSegmentResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/contacts/{contact_id}/segments/{segment_id}`
-
-#### RemoveContactPropertyResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `id` |  |
-
-Operations: Remove.
-
-API path: `/contact-properties/{id}`
-
-#### RemoveContactResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `id` |  |
-
-Operations: Remove.
-
-API path: `/contacts/{id}`
-
-#### RemoveEvent
-
-| Field | Description |
-| --- | --- |
-| `id` |  |
-
-Operations: Remove.
-
-API path: `/events/{identifier}`
-
-#### RemoveInboxDraftResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/inboxes/{inbox_id}/drafts/{draft_id}`
-
-#### RemoveInboxLabelResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/inboxes/{inbox_id}/labels/{label_id}`
-
-#### RemoveInboxResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/inboxes/{inbox_id}`
-
-#### RemoveInboxThreadLabelResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}`
-
-#### RemoveInboxThreadResponseSuccess
-
-| Field | Description |
-| --- | --- |
-
-Operations: Remove.
-
-API path: `/inboxes/{inbox_id}/threads/{thread_id}`
-
-#### RemoveSegmentResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `audience_id` | The ID of the audience this segment belongs to. |
-| `created_at` | Timestamp indicating when the segment was created. |
-| `filter` | Filter conditions for the segment. |
-| `id` | Unique identifier for the segment. |
-| `name` | The name of the segment. |
-
-Operations: Create, List, Remove.
-
-API path: `/segments`
-
-#### RemoveSuppressionResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the suppression was created. |
-| `email` | Email address to suppress. |
-| `id` | Unique identifier for the suppression. |
-| `origin` | Origin of the suppression. |
-| `source_id` | Identifier of the event that caused the suppression, such as the email that bounced or complained. |
-
-Operations: Create, List, Remove.
-
-API path: `/suppressions`
-
-#### RemoveTemplateResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `alias` | The alias of the template. |
-| `created_at` | Timestamp indicating when the template was created. |
-| `from` | Sender email address. |
-| `html` | The HTML version of the template. |
-| `id` | The ID of the template. |
-| `name` | The name of the template. |
-| `published_at` | Timestamp indicating when the template was published. |
-| `reply_to` | Reply-to email addresses. |
-| `status` | The publication status of the template. |
-| `subject` | Email subject. |
-| `text` | The plain text version of the template. |
-| `updated_at` | Timestamp indicating when the template was last updated. |
-| `variables` |  |
-
-Operations: Create, List, Remove.
-
-API path: `/templates`
-
-#### RemoveTopicResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the topic was created. |
-| `default_subscription` | The default subscription status for the topic. |
-| `description` | A description of the topic. |
-| `id` | Unique identifier for the topic. |
-| `name` | The name of the topic. |
-| `visibility` | The visibility of the topic. |
-
-Operations: Create, List, Remove.
-
-API path: `/topics`
-
-#### RetrievedAttachment
-
-| Field | Description |
-| --- | --- |
-| `content_disposition` | How the attachment should be displayed. |
-| `content_id` | The content ID for inline attachments. |
-| `content_type` | The MIME type of the attachment. |
-| `download_url` | Signed URL to download the attachment content. |
-| `expires_at` | Timestamp when the download URL expires. |
-| `filename` | The filename of the attachment. |
-| `id` | The ID of the attachment. |
-| `object` | The type of object. |
-| `size` | Size of the attachment in bytes. |
-
-Operations: Load.
-
-API path: `/emails/{email_id}/attachments/{attachment_id}`
-
-#### RevokeOAuthGrant
-
-| Field | Description |
-| --- | --- |
-| `client` | The OAuth client the grant was issued to. |
-| `client_id` | The ID of the OAuth client the grant was issued to. |
-| `created_at` | The date and time the OAuth grant was created. |
-| `id` | The ID of the OAuth grant. |
-| `revoked_at` | The date and time the OAuth grant was revoked, or null if it is still active. |
-| `revoked_reason` | The reason the OAuth grant was revoked, or null if it is still active. |
-| `scopes` | The scopes granted to the OAuth client. |
-
-Operations: List, Remove.
-
-API path: `/oauth/grants`
-
-#### Rotate
-
-| Field | Description |
-| --- | --- |
-| `id` | The ID of the webhook. |
-| `object` | The type of object. |
-| `signing_secret` | The new secret key used to verify webhook payloads. |
-
-Operations: Create.
-
-API path: `/webhooks/{webhook_id}/signing-secret/rotate`
-
 #### Segment
 
 | Field | Description |
@@ -1263,21 +869,24 @@ API path: `/webhooks/{webhook_id}/signing-secret/rotate`
 | `name` | The name of the segment. |
 | `object` | The object type. |
 
-Operations: Load.
+Operations: Create, List, Load, Remove, Update.
 
-API path: `/segments/{id}`
+API path: `/segments`
 
-#### SetInboxThreadLabelsResponseSuccess
+#### SegmentContact
 
 | Field | Description |
 | --- | --- |
-| `data` | Every label on the thread after the change. |
-| `labels` | The IDs of the labels the thread carries after the change. |
-| `object` | Type of the response object. |
+| `created_at` | Timestamp indicating when the contact was created. |
+| `email` | Email address of the contact. |
+| `first_name` | First name of the contact. |
+| `id` | Unique identifier for the contact. |
+| `last_name` | Last name of the contact. |
+| `unsubscribed` | Indicates if the contact is unsubscribed. |
 
-Operations: Update.
+Operations: List.
 
-API path: `/inboxes/{inbox_id}/threads/{thread_id}/labels`
+API path: `/segments/{id}/contacts`
 
 #### Suppression
 
@@ -1290,9 +899,31 @@ API path: `/inboxes/{inbox_id}/threads/{thread_id}/labels`
 | `origin` | Origin of the suppression. |
 | `source_id` | Identifier of the event that caused the suppression, such as the email that bounced or complained. |
 
-Operations: Load.
+Operations: Create, List, Load, Remove.
 
-API path: `/suppressions/{suppression}`
+API path: `/suppressions`
+
+#### SuppressionBatchAdd
+
+| Field | Description |
+| --- | --- |
+| `emails` | Email addresses to suppress. |
+
+Operations: Create.
+
+API path: `/suppressions/batch/add`
+
+#### SuppressionBatchRemove
+
+| Field | Description |
+| --- | --- |
+| `data` | Array containing the removed suppressions. |
+| `emails` | Email addresses to remove from the suppression list. |
+| `ids` | Suppression IDs to remove from the suppression list. |
+
+Operations: Create.
+
+API path: `/suppressions/batch/remove`
 
 #### Template
 
@@ -1315,7 +946,7 @@ API path: `/suppressions/{suppression}`
 | `updated_at` | Timestamp indicating when the template was last updated. |
 | `variables` |  |
 
-Operations: Create, Load.
+Operations: Create, List, Load, Remove, Update.
 
 API path: `/templates/{id}/duplicate`
 
@@ -1331,239 +962,9 @@ API path: `/templates/{id}/duplicate`
 | `object` | The object type. |
 | `visibility` | The visibility of the topic. |
 
-Operations: Load.
+Operations: Create, List, Load, Remove, Update.
 
-API path: `/topics/{id}`
-
-#### UpdateApiKey
-
-| Field | Description |
-| --- | --- |
-| `id` | The ID of the API key. |
-| `name` | The API key name. |
-| `object` | The type of object. |
-
-Operations: Update.
-
-API path: `/api-keys/{api_key_id}`
-
-#### UpdateBroadcastResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `audience_id` | Use `segment_id` instead. |
-| `from` | The email address of the sender. |
-| `html` | The HTML version of the message. |
-| `id` | The ID of the broadcast. |
-| `name` | Name of the broadcast. |
-| `object` | The object type of the response. |
-| `preview_text` | The preview text of the email. |
-| `reply_to` | The email addresses to which replies should be sent. |
-| `segment_id` | Unique identifier of the segment this broadcast will be sent to. |
-| `subject` | The subject line of the email. |
-| `text` | The plain text version of the message. |
-| `topic_id` | The topic ID that the broadcast will be scoped to. |
-
-Operations: Update.
-
-API path: `/broadcasts/{id}`
-
-#### UpdateContactPropertyResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `fallback_value` | The default value to use when the property is not set for a contact. |
-| `id` | The ID of the contact property. |
-| `object` | The object type. |
-
-Operations: Update.
-
-API path: `/contact-properties/{id}`
-
-#### UpdateContactResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address of the contact. |
-| `first_name` | First name of the contact. |
-| `id` | Unique identifier for the updated contact. |
-| `last_name` | Last name of the contact. |
-| `object` | Type of the response object. |
-| `properties` | A map of custom property keys and values to update. |
-| `unsubscribed` | The Contact's global subscription status. |
-
-Operations: Update.
-
-API path: `/contacts/{id}`
-
-#### UpdateContactTopicsResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `contact_id` | The ID of the contact. |
-| `object` | The object type. |
-| `topics` | Array of updated topic subscriptions. |
-
-Operations: Update.
-
-API path: `/contacts/{contact_id}/topics`
-
-#### UpdateDomainResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `capabilities` | Configure the domain capabilities for sending and receiving emails. |
-| `click_tracking` | Track clicks within the body of each HTML email. |
-| `id` | The ID of the updated domain. |
-| `object` | The object type representing the updated domain. |
-| `open_tracking` | Track the open rate of each email. |
-| `tls` | enforced | opportunistic. |
-| `tracking_subdomain` | The subdomain to use for click and open tracking. |
-
-Operations: Update.
-
-API path: `/domains/{domain_id}`
-
-#### UpdateEmailOption
-
-| Field | Description |
-| --- | --- |
-| `scheduled_at` | Schedule email to be sent later. |
-
-Operations: Update.
-
-API path: `/emails/{email_id}`
-
-#### UpdateEvent
-
-| Field | Description |
-| --- | --- |
-| `id` | The ID of the updated event. |
-| `object` | Type of the response object. |
-| `schema` | A flat key/type map defining the event payload schema. |
-
-Operations: Update.
-
-API path: `/events/{identifier}`
-
-#### UpdateInboxDraftResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `attachments` | Files to store on the draft. |
-| `bcc` | The BCC recipients. |
-| `cc` | The CC recipients. |
-| `html` | The HTML body. |
-| `id` | The ID of the draft. |
-| `object` | The object type. |
-| `subject` | The subject. |
-| `text` | The plain text body. |
-| `to` | The recipients. |
-
-Operations: Update.
-
-API path: `/inboxes/{inbox_id}/drafts/{draft_id}`
-
-#### UpdateInboxLabelResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `color` | A new color for the label, as a `#RRGGBB` hex color. |
-| `id` | The ID of the updated label. |
-| `name` | A new name for the label. |
-| `object` | Type of the response object. |
-
-Operations: Update.
-
-API path: `/inboxes/{inbox_id}/labels/{label_id}`
-
-#### UpdateInboxResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `from_name` | The name recipients see when mail is sent from this inbox. |
-| `id` | The ID of the inbox. |
-| `name` | New internal name for the inbox. |
-| `object` | The object type. |
-
-Operations: Update.
-
-API path: `/inboxes/{inbox_id}`
-
-#### UpdateInboxThreadResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `folder` | The folder the thread is in. |
-| `id` | The ID of the thread. |
-| `labels` | The labels attached to the thread. |
-| `object` | The object type. |
-| `read` | True only when every email in the thread is read. |
-| `subject` | The subject of the thread. |
-
-Operations: Update.
-
-API path: `/inboxes/{inbox_id}/threads/{thread_id}`
-
-#### UpdateSegmentResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `id` | The ID of the segment. |
-| `name` | The name of the segment. |
-| `object` | The object type. |
-
-Operations: Update.
-
-API path: `/segments/{id}`
-
-#### UpdateTemplateResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `alias` | The alias of the template. |
-| `from` | Sender email address. |
-| `html` | The HTML version of the template. |
-| `id` | The ID of the template. |
-| `name` | The name of the template. |
-| `object` | The object type of the response. |
-| `reply_to` | Reply-to email addresses. |
-| `subject` | Email subject. |
-| `text` | The plain text version of the template. |
-| `variables` |  |
-
-Operations: Update.
-
-API path: `/templates/{id}`
-
-#### UpdateTopicResponseSuccess
-
-| Field | Description |
-| --- | --- |
-| `description` | A description of the topic. |
-| `id` | The ID of the topic. |
-| `name` | The name of the topic. |
-| `object` | The object type. |
-| `visibility` | The visibility of the topic. |
-
-Operations: Update.
-
-API path: `/topics/{id}`
-
-#### UpdateWebhook
-
-| Field | Description |
-| --- | --- |
-| `created_at` | Timestamp indicating when the webhook was created. |
-| `endpoint` | The URL where webhook events will be sent. |
-| `events` | Array of event types to subscribe to. |
-| `id` | The ID of the updated webhook. |
-| `object` | The type of object. |
-| `status` | The status of the webhook. |
-
-Operations: Create, List, Update.
-
-API path: `/webhooks`
+API path: `/topics`
 
 #### Usage
 
@@ -1595,9 +996,9 @@ API path: `/usage`
 | `signing_secret` | The secret key used to verify webhook payloads. |
 | `status` | The status of the webhook. |
 
-Operations: Load, Remove.
+Operations: Create, List, Load, Remove, Update.
 
-API path: `/webhooks/{webhook_id}`
+API path: `/webhooks/{webhook_id}/signing-secret/rotate`
 
 #### WebhookEvent
 
@@ -1611,70 +1012,26 @@ API path: `/webhooks/{webhook_id}`
 | `status` | The delivery status of the event for this webhook. |
 | `type` | The type of the event. |
 
-Operations: Create, Load.
+Operations: Create, List, Load.
 
 API path: `/webhooks/{webhook_id}/events/{event_id}/replay`
+
+#### WebhookEventAttempt
+
+| Field | Description |
+| --- | --- |
+| `http_status_code` | The HTTP status code returned by the webhook endpoint. |
+| `id` | The ID of the webhook event attempt. |
+| `response` | The response body returned by the webhook endpoint. |
+| `sent_at` | Timestamp indicating when the attempt was sent. |
+
+Operations: List.
+
+API path: `/webhooks/{webhook_id}/events/{event_id}/attempts`
 
 
 
 ## Entities
-
-
-### AddContactToSegmentResponseSuccess
-
-Create an instance: `add_contact_to_segment_response_success = client.AddContactToSegmentResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `contact_id` | `str` | The ID of the contact. |
-| `object` | `str` | The object type. |
-| `segment_id` | `str` | The ID of the segment. |
-
-#### Example: Create
-
-```python
-add_contact_to_segment_response_success = client.AddContactToSegmentResponseSuccess().create({
-    "contact_id": "example_contact_id",  # str
-    "segment_id": "example_segment_id",  # str
-})
-```
-
-
-### AddInboxThreadLabelsResponseSuccess
-
-Create an instance: `add_inbox_thread_labels_response_success = client.AddInboxThreadLabelsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `data` | `list` | Every label on the thread after the change. |
-| `labels` | `list` | The IDs of the labels to apply to the thread. |
-| `object` | `str` | Type of the response object. |
-
-#### Example: Create
-
-```python
-add_inbox_thread_labels_response_success = client.AddInboxThreadLabelsResponseSuccess().create({
-    "inbox_id": "example_inbox_id",  # str
-    "thread_id": "example_thread_id",  # str
-    "labels": [],  # list
-})
-```
 
 
 ### ApiKey
@@ -1685,22 +1042,73 @@ Create an instance: `api_key = client.ApiKey()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `str` | The date and time the API key was created. |
+| `domain_id` | `str` | Restrict an API key to send emails only from a specific domain. |
 | `id` | `str` | The ID of the API key. |
 | `last_used_at` | `str | None` | The date and time the API key was last used. |
-| `name` | `str` | The name of the API key. |
+| `name` | `str` | The API key name. |
+| `object` | `str` | The type of object. |
+| `permission` | `str` | The API key can have full access to Resend’s API or be only restricted to send emails. |
 
 #### Example: List
 
 ```python
 api_keys = client.ApiKey().list()
+```
+
+#### Example: Create
+
+```python
+api_key = client.ApiKey().create({
+    "name": "example_name",  # str
+})
+```
+
+
+### Attachment
+
+Create an instance: `attachment = client.Attachment()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `content_disposition` | `str | None` | How the attachment should be displayed. |
+| `content_id` | `str` | The content ID for inline attachments. |
+| `content_type` | `str` | The MIME type of the attachment. |
+| `download_url` | `str` | Signed URL to download the attachment content. |
+| `expires_at` | `str` | Timestamp when the download URL expires. |
+| `filename` | `str | None` | The filename of the attachment. |
+| `id` | `str` | The ID of the attachment. |
+| `object` | `str` | The type of object. |
+| `size` | `int` | Size of the attachment in bytes. |
+
+#### Example: Load
+
+```python
+attachment = client.Attachment().load({"id": "attachment_id", "email_id": "email_id"})
+```
+
+#### Example: List
+
+```python
+attachments = client.Attachment().list({"email_id": "example"})
 ```
 
 
@@ -1715,6 +1123,7 @@ Create an instance: `audience = client.Audience()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
 
 #### Fields
 
@@ -1804,6 +1213,7 @@ Create an instance: `automation_run = client.AutomationRun()`
 
 | Method | Description |
 | --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -1824,82 +1234,10 @@ Create an instance: `automation_run = client.AutomationRun()`
 automation_run = client.AutomationRun().load({"id": "automation_run_id", "automation_id": "automation_id"})
 ```
 
-
-### AutomationRunListItem
-
-Create an instance: `automation_run_list_item = client.AutomationRunListItem()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `completed_at` | `str | None` | The date and time the run completed. |
-| `created_at` | `str` | The date and time the run was created. |
-| `id` | `str` | The ID of the automation run. |
-| `started_at` | `str | None` | The date and time the run started. |
-| `status` | `str` | The current status of the automation run. |
-
 #### Example: List
 
 ```python
-automation_run_list_items = client.AutomationRunListItem().list({"id": "example"})
-```
-
-
-### BatchAddSuppressionsResponseSuccess
-
-Create an instance: `batch_add_suppressions_response_success = client.BatchAddSuppressionsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `emails` | `list` | Email addresses to suppress. |
-
-#### Example: Create
-
-```python
-batch_add_suppressions_response_success = client.BatchAddSuppressionsResponseSuccess().create({
-    "emails": [],  # list
-})
-```
-
-
-### BatchRemoveSuppressionsResponseSuccess
-
-Create an instance: `batch_remove_suppressions_response_success = client.BatchRemoveSuppressionsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `data` | `list` | Array containing the removed suppressions. |
-| `emails` | `list` | Email addresses to remove from the suppression list. |
-| `ids` | `list` | Suppression IDs to remove from the suppression list. |
-
-#### Example: Create
-
-```python
-batch_remove_suppressions_response_success = client.BatchRemoveSuppressionsResponseSuccess().create({
-})
+automation_runs = client.AutomationRun().list({"automation_id": "example"})
 ```
 
 
@@ -1914,6 +1252,8 @@ Create an instance: `broadcast = client.Broadcast()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -1925,10 +1265,12 @@ Create an instance: `broadcast = client.Broadcast()`
 | `html` | `str | None` | The HTML version of the broadcast content. |
 | `id` | `str` | Unique identifier for the broadcast. |
 | `name` | `str` | Name of the broadcast. |
+| `object` | `str` | The object type of the response. |
 | `preview_text` | `str` | The preview text of the email. |
 | `reply_to` | `list` | The email addresses to which replies should be sent. |
 | `scheduled_at` | `str` | Timestamp indicating when the broadcast is scheduled to be sent. |
 | `segment_id` | `str | None` | Unique identifier of the segment this broadcast will be sent to. |
+| `send` | `bool` | Whether to send the broadcast immediately or keep it as a draft. |
 | `sent_at` | `str` | Timestamp indicating when the broadcast was sent. |
 | `status` | `str` | The status of the broadcast. |
 | `subject` | `str` | The subject line of the email. |
@@ -1947,6 +1289,70 @@ broadcast = client.Broadcast().load({"id": "broadcast_id"})
 broadcasts = client.Broadcast().list()
 ```
 
+#### Example: Create
+
+```python
+broadcast = client.Broadcast().create({
+    "from": "example_from",  # str
+    "segment_id": "example_segment_id",  # str | None
+    "subject": "example_subject",  # str
+})
+```
+
+
+### BroadcastClickedLink
+
+Create an instance: `broadcast_clicked_link = client.BroadcastClickedLink()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `clicks` | `int` | Total number of clicks on this URL. |
+| `id` | `str` | An opaque cursor for this row, used only for pagination. |
+| `unique_clicks` | `int` | Number of unique clicks on this URL. |
+| `url` | `str` | The URL that was clicked. |
+
+#### Example: List
+
+```python
+broadcast_clicked_links = client.BroadcastClickedLink().list({"broadcast_id": "example"})
+```
+
+
+### BroadcastRecipient
+
+Create an instance: `broadcast_recipient = client.BroadcastRecipient()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `bounce_type` | `str` | The type of bounce. |
+| `clicked_links` | `list` | The links this recipient clicked. |
+| `contact_id` | `str | None` | The ID of the contact associated with this recipient, if one exists. |
+| `count` | `int` | The number of times this recipient triggered the event. |
+| `email` | `str` | The recipient's email address. |
+| `id` | `str` | Opaque cursor identifying this row, used for pagination. |
+
+#### Example: List
+
+```python
+broadcast_recipients = client.BroadcastRecipient().list({"broadcast_id": "example", "type": "example"})
+```
+
 
 ### Contact
 
@@ -1959,6 +1365,8 @@ Create an instance: `contact = client.Contact()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -1997,9 +1405,9 @@ contact = client.Contact().create({
 ```
 
 
-### ContactImportResponseSuccess
+### ContactImport
 
-Create an instance: `contact_import_response_success = client.ContactImportResponseSuccess()`
+Create an instance: `contact_import = client.ContactImport()`
 
 #### Operations
 
@@ -2028,19 +1436,19 @@ Create an instance: `contact_import_response_success = client.ContactImportRespo
 #### Example: Load
 
 ```python
-contact_import_response_success = client.ContactImportResponseSuccess().load({"id": "contact_import_response_success_id"})
+contact_import = client.ContactImport().load({"id": "contact_import_id"})
 ```
 
 #### Example: List
 
 ```python
-contact_import_response_successs = client.ContactImportResponseSuccess().list()
+contact_imports = client.ContactImport().list()
 ```
 
 #### Example: Create
 
 ```python
-contact_import_response_success = client.ContactImportResponseSuccess().create({
+contact_import = client.ContactImport().create({
     "file": "example_file",  # str
 })
 ```
@@ -2057,6 +1465,8 @@ Create an instance: `contact_property = client.ContactProperty()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2091,178 +1501,72 @@ contact_property = client.ContactProperty().create({
 ```
 
 
-### ContactTopicsResponseSuccess
+### ContactSegment
 
-Create an instance: `contact_topics_response_success = client.ContactTopicsResponseSuccess()`
+Create an instance: `contact_segment = client.ContactSegment()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
+| `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `contact_id` | `str` | The ID of the contact. |
+| `created_at` | `str` | Timestamp indicating when the contact was added to the segment. |
+| `id` | `str` | Unique identifier for the segment. |
+| `name` | `str` | Name of the segment. |
+| `object` | `str` | The object type. |
+| `segment_id` | `str` | The ID of the segment. |
+
+#### Example: List
+
+```python
+contact_segments = client.ContactSegment().list({"contact_id": "example"})
+```
+
+#### Example: Create
+
+```python
+contact_segment = client.ContactSegment().create({
+    "contact_id": "example_contact_id",  # str
+    "id": "example_id",  # str
+})
+```
+
+
+### ContactTopic
+
+Create an instance: `contact_topic = client.ContactTopic()`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `str` |  |
+| `contact_id` | `str` | The ID of the contact. |
+| `description` | `str` | Description of the topic. |
+| `id` | `str` | Unique identifier for the topic. |
+| `name` | `str` | Name of the topic. |
+| `object` | `str` | The object type. |
+| `subscription` | `str` | The subscription status for this topic. |
+| `topics` | `list` | Array of updated topic subscriptions. |
 
 #### Example: List
 
 ```python
-contact_topics_response_successs = client.ContactTopicsResponseSuccess().list({"id": "example"})
-```
-
-
-### CreateApiKey
-
-Create an instance: `create_api_key = client.CreateApiKey()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `domain_id` | `str` | Restrict an API key to send emails only from a specific domain. |
-| `name` | `str` | The API key name. |
-| `permission` | `str` | The API key can have full access to Resend’s API or be only restricted to send emails. |
-
-#### Example: Create
-
-```python
-create_api_key = client.CreateApiKey().create({
-    "name": "example_name",  # str
-})
-```
-
-
-### CreateBatchEmail
-
-Create an instance: `create_batch_email = client.CreateBatchEmail()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `data` | `list` |  |
-| `send_emails` | `list` |  |
-
-#### Example: Create
-
-```python
-create_batch_email = client.CreateBatchEmail().create({
-})
-```
-
-
-### CreateBroadcastResponseSuccess
-
-Create an instance: `create_broadcast_response_success = client.CreateBroadcastResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `audience_id` | `str` | Use `segment_id` instead. |
-| `from` | `str` | The email address of the sender. |
-| `html` | `str` | The HTML version of the message. |
-| `name` | `str` | Name of the broadcast. |
-| `preview_text` | `str` | The preview text of the email. |
-| `reply_to` | `list` | The email addresses to which replies should be sent. |
-| `scheduled_at` | `str` | Schedule time to send the broadcast. |
-| `segment_id` | `str` | Unique identifier of the segment this broadcast will be sent to. |
-| `send` | `bool` | Whether to send the broadcast immediately or keep it as a draft. |
-| `subject` | `str` | The subject line of the email. |
-| `text` | `str` | The plain text version of the message. |
-| `topic_id` | `str` | The topic ID that the broadcast will be scoped to. |
-
-#### Example: Create
-
-```python
-create_broadcast_response_success = client.CreateBroadcastResponseSuccess().create({
-    "from": "example_from",  # str
-    "segment_id": "example_segment_id",  # str
-    "subject": "example_subject",  # str
-})
-```
-
-
-### CreateInboxDraftResponseSuccess
-
-Create an instance: `create_inbox_draft_response_success = client.CreateInboxDraftResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `attachments` | `list | None` | Files to store on the draft. |
-| `bcc` | `Any` | The BCC recipients. |
-| `cc` | `Any` | The CC recipients. |
-| `html` | `str | None` | The HTML body. |
-| `id` | `str` | The ID of the draft. |
-| `object` | `str` | Type of the response object. |
-| `reply_to_email_id` | `str` | The Email ID to reply to, as returned in `data[].id` by the list thread emails endpoint. |
-| `subject` | `str | None` | The subject. |
-| `text` | `str | None` | The plain text body. |
-| `thread_id` | `str` | The Thread ID to reply in. |
-| `to` | `Any` | The recipients. |
-
-#### Example: Create
-
-```python
-create_inbox_draft_response_success = client.CreateInboxDraftResponseSuccess().create({
-    "inbox_id": "example_inbox_id",  # str
-})
-```
-
-
-### CreateInboxLabelResponseSuccess
-
-Create an instance: `create_inbox_label_response_success = client.CreateInboxLabelResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `color` | `str` | The color of the label, as a `#RRGGBB` hex color. |
-| `name` | `str` | The name of the label. |
-
-#### Example: Create
-
-```python
-create_inbox_label_response_success = client.CreateInboxLabelResponseSuccess().create({
-    "inbox_id": "example_inbox_id",  # str
-    "name": "example_name",  # str
-})
+contact_topics = client.ContactTopic().list({"contact_id": "example"})
 ```
 
 
@@ -2278,6 +1582,7 @@ Create an instance: `domain = client.Domain()`
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2375,6 +1680,7 @@ Create an instance: `email = client.Email()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2423,6 +1729,31 @@ email = client.Email().create({
 ```
 
 
+### EmailBatch
+
+Create an instance: `email_batch = client.EmailBatch()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `data` | `list` |  |
+| `send_emails` | `list` |  |
+
+#### Example: Create
+
+```python
+email_batch = client.EmailBatch().create({
+})
+```
+
+
 ### EmailsMetric
 
 Create an instance: `emails_metric = client.EmailsMetric()`
@@ -2462,6 +1793,8 @@ Create an instance: `event = client.Event()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2506,6 +1839,7 @@ Create an instance: `inbox = client.Inbox()`
 | `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
 | `update(data)` | Update an existing entity. |
 
 #### Fields
@@ -2547,72 +1881,47 @@ inbox = client.Inbox().create({
 ```
 
 
-### InboxAgentResponseSuccess
+### InboxAgent
 
-Create an instance: `inbox_agent_response_success = client.InboxAgentResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-#### Example: List
-
-```python
-inbox_agent_response_successs = client.InboxAgentResponseSuccess().list({"id": "example"})
-```
-
-
-### InboxDraftListItem
-
-Create an instance: `inbox_draft_list_item = client.InboxDraftListItem()`
+Create an instance: `inbox_agent = client.InboxAgent()`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `attachments` | `list` | The files stored on the draft. |
-| `bcc` | `list` | The BCC recipients. |
-| `cc` | `list` | The CC recipients. |
-| `id` | `str` | The ID of the draft. |
-| `reply_to_email_id` | `str | None` | The Email ID the draft replies to. |
-| `snippet` | `str | None` | A short preview of the body. |
-| `subject` | `str | None` | The subject. |
-| `thread_id` | `str | None` | The Thread ID when the draft is a reply. |
-| `to` | `list | None` | The recipients. |
-| `type` | `str` | `reply` when the draft replies to an email in an existing thread. |
-| `updated_at` | `str` | Timestamp when the draft was last saved. |
+| `actions` | `list` | The actions the agent can take, in the order of the enum. |
+| `id` | `str` | The ID of the inbox agent. |
+| `instructions` | `str | None` | Instructions the agent follows when it handles the threads of the inbox. |
+| `object` | `str` | The object type. |
+| `tone` | `str | None` | The tone the agent writes in. |
 
-#### Example: List
+#### Example: Load
 
 ```python
-inbox_draft_list_items = client.InboxDraftListItem().list({"id": "example"})
+inbox_agent = client.InboxAgent().load({"inbox_id": "inbox_id"})
 ```
 
 
-### InboxDraftResponseSuccess
+### InboxDraft
 
-Create an instance: `inbox_draft_response_success = client.InboxDraftResponseSuccess()`
+Create an instance: `inbox_draft = client.InboxDraft()`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2627,6 +1936,7 @@ Create an instance: `inbox_draft_response_success = client.InboxDraftResponseSuc
 | `id` | `str` | The ID of the draft. |
 | `object` | `str` | The object type. |
 | `reply_to_email_id` | `str | None` | The Email ID the draft replies to. |
+| `snippet` | `str | None` | A short preview of the body. |
 | `subject` | `str | None` | The subject. |
 | `text` | `str | None` | The plain text body. |
 | `thread_id` | `str | None` | The Thread ID when the draft is a reply. |
@@ -2637,14 +1947,19 @@ Create an instance: `inbox_draft_response_success = client.InboxDraftResponseSuc
 #### Example: Load
 
 ```python
-inbox_draft_response_success = client.InboxDraftResponseSuccess().load({"draft_id": "draft_id", "inbox_id": "inbox_id"})
+inbox_draft = client.InboxDraft().load({"id": "inbox_draft_id", "inbox_id": "inbox_id"})
+```
+
+#### Example: List
+
+```python
+inbox_drafts = client.InboxDraft().list({"inbox_id": "example"})
 ```
 
 #### Example: Create
 
 ```python
-inbox_draft_response_success = client.InboxDraftResponseSuccess().create({
-    "draft_id": "example_draft_id",  # str
+inbox_draft = client.InboxDraft().create({
     "inbox_id": "example_inbox_id",  # str
 })
 ```
@@ -2658,21 +1973,34 @@ Create an instance: `inbox_label = client.InboxLabel()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `color` | `str` | The color of the label, as a `#RRGGBB` hex color in uppercase. |
+| `color` | `str` | The color of the label, as a `#RRGGBB` hex color. |
 | `created_at` | `str` | Timestamp when the label was created. |
-| `id` | `str` | The ID of the label. |
+| `id` | `str` | The ID of the updated label. |
 | `name` | `str` | The name of the label. |
+| `object` | `str` | Type of the response object. |
 
 #### Example: List
 
 ```python
-inbox_labels = client.InboxLabel().list({"id": "example"})
+inbox_labels = client.InboxLabel().list({"inbox_id": "example"})
+```
+
+#### Example: Create
+
+```python
+inbox_label = client.InboxLabel().create({
+    "inbox_id": "example_inbox_id",  # str
+    "name": "example_name",  # str
+})
 ```
 
 
@@ -2685,6 +2013,9 @@ Create an instance: `inbox_thread = client.InboxThread()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -2699,16 +2030,22 @@ Create an instance: `inbox_thread = client.InboxThread()`
 | `has_draft` | `bool` | Whether the thread has an unsent draft. |
 | `id` | `str` | The ID of the thread. |
 | `labels` | `list` | The labels attached to the thread. |
-| `matched_email_id` | `str | None` | The ID of the email in the thread that matched the search. |
+| `object` | `str` | The object type. |
 | `read` | `bool` | True only when every email in the thread is read. |
 | `received_at` | `str` | Timestamp when the thread was last active. |
 | `subject` | `str | None` | The subject of the thread. |
 | `to` | `list` | The recipients of the most recent email. |
 
+#### Example: Load
+
+```python
+inbox_thread = client.InboxThread().load({"id": "inbox_thread_id", "inbox_id": "inbox_id"})
+```
+
 #### Example: List
 
 ```python
-inbox_threads = client.InboxThread().list({"id": "example"})
+inbox_threads = client.InboxThread().list({"inbox_id": "example"})
 ```
 
 
@@ -2720,7 +2057,9 @@ Create an instance: `inbox_thread_email = client.InboxThreadEmail()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -2740,6 +2079,12 @@ Create an instance: `inbox_thread_email = client.InboxThreadEmail()`
 | `subject` | `str | None` | The subject of the message. |
 | `text` | `str | None` | The plain-text body. |
 | `to` | `list` | The recipients of the message. |
+
+#### Example: Load
+
+```python
+inbox_thread_email = client.InboxThreadEmail().load({"id": "inbox_thread_email_id", "inbox_id": "inbox_id", "thread_id": "thread_id"})
+```
 
 #### Example: List
 
@@ -2748,257 +2093,35 @@ inbox_thread_emails = client.InboxThreadEmail().list({"inbox_id": "example", "th
 ```
 
 
-### InboxThreadEmailResponseSuccess
+### InboxThreadLabel
 
-Create an instance: `inbox_thread_email_response_success = client.InboxThreadEmailResponseSuccess()`
+Create an instance: `inbox_thread_label = client.InboxThreadLabel()`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `attachments` | `list` | The attachments of the message. |
-| `bcc` | `list` | The BCC recipients of the message. |
-| `cc` | `list` | The CC recipients of the message. |
-| `direction` | `str` | Whether the inbox received the message (`inbound`) or sent it (`outbound`). |
-| `from` | `str` | Sender email address. |
-| `html` | `str | None` | The HTML body. |
-| `id` | `str` | The ID of the message. |
-| `message_id` | `str | None` | The Message-ID header of the message. |
-| `read` | `bool` | Whether the message has been read. |
-| `received_at` | `str` | Timestamp when the inbox received the message, or when the inbox sent it. |
-| `reply_to` | `list` | The Reply-To addresses of the message. |
-| `subject` | `str | None` | The subject of the message. |
-| `text` | `str | None` | The plain-text body. |
-| `to` | `list` | The recipients of the message. |
+| `data` | `list` | Every label on the thread after the change. |
+| `id` | `str` |  |
+| `labels` | `list` | The IDs of the labels to apply to the thread. |
+| `object` | `str` | Type of the response object. |
 
-#### Example: Load
+#### Example: Create
 
 ```python
-inbox_thread_email_response_success = client.InboxThreadEmailResponseSuccess().load({"email_id": "email_id", "inbox_id": "inbox_id", "thread_id": "thread_id"})
-```
-
-
-### InboxThreadResponseSuccess
-
-Create an instance: `inbox_thread_response_success = client.InboxThreadResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `folder` | `str` | The folder the thread is in. |
-| `id` | `str` | The ID of the thread. |
-| `labels` | `list` | The labels attached to the thread. |
-| `object` | `str` | The object type. |
-| `read` | `bool` | True only when every email in the thread is read. |
-| `subject` | `str | None` | The subject of the thread. |
-
-#### Example: Load
-
-```python
-inbox_thread_response_success = client.InboxThreadResponseSuccess().load({"inbox_id": "inbox_id", "thread_id": "thread_id"})
-```
-
-
-### ListAttachment
-
-Create an instance: `list_attachment = client.ListAttachment()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `content_disposition` | `str | None` | How the attachment should be displayed. |
-| `content_id` | `str` | The content ID for inline attachments. |
-| `content_type` | `str` | The MIME type of the attachment. |
-| `download_url` | `str` | Signed URL to download the attachment content. |
-| `expires_at` | `str` | Timestamp when the download URL expires. |
-| `filename` | `str | None` | The filename of the attachment. |
-| `id` | `str` | The ID of the attachment. |
-| `size` | `int` | Size of the attachment in bytes. |
-
-#### Example: List
-
-```python
-list_attachments = client.ListAttachment().list({"email_id": "example"})
-```
-
-
-### ListBroadcastClickedLinksResponseSuccess
-
-Create an instance: `list_broadcast_clicked_links_response_success = client.ListBroadcastClickedLinksResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `clicks` | `int` | Total number of clicks on this URL. |
-| `id` | `str` | An opaque cursor for this row, used only for pagination. |
-| `unique_clicks` | `int` | Number of unique clicks on this URL. |
-| `url` | `str` | The URL that was clicked. |
-
-#### Example: List
-
-```python
-list_broadcast_clicked_links_response_successs = client.ListBroadcastClickedLinksResponseSuccess().list({"broadcast_id": "example"})
-```
-
-
-### ListBroadcastRecipientsResponseSuccess
-
-Create an instance: `list_broadcast_recipients_response_success = client.ListBroadcastRecipientsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `bounce_type` | `str` | The type of bounce. |
-| `clicked_links` | `list` | The links this recipient clicked. |
-| `contact_id` | `str | None` | The ID of the contact associated with this recipient, if one exists. |
-| `count` | `int` | The number of times this recipient triggered the event. |
-| `email` | `str` | The recipient's email address. |
-| `id` | `str` | Opaque cursor identifying this row, used for pagination. |
-
-#### Example: List
-
-```python
-list_broadcast_recipients_response_successs = client.ListBroadcastRecipientsResponseSuccess().list({"broadcast_id": "example", "type": "example"})
-```
-
-
-### ListContactSegmentsResponseSuccess
-
-Create an instance: `list_contact_segments_response_success = client.ListContactSegmentsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the contact was added to the segment. |
-| `id` | `str` | Unique identifier for the segment. |
-| `name` | `str` | Name of the segment. |
-
-#### Example: List
-
-```python
-list_contact_segments_response_successs = client.ListContactSegmentsResponseSuccess().list({"contact_id": "example"})
-```
-
-
-### ListContactsResponseSuccess
-
-Create an instance: `list_contacts_response_success = client.ListContactsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the contact was created. |
-| `email` | `str` | Email address of the contact. |
-| `first_name` | `str | None` | First name of the contact. |
-| `id` | `str` | Unique identifier for the contact. |
-| `last_name` | `str | None` | Last name of the contact. |
-| `unsubscribed` | `bool` | Indicates if the contact is unsubscribed. |
-
-#### Example: List
-
-```python
-list_contacts_response_successs = client.ListContactsResponseSuccess().list({"segment_id": "example"})
-```
-
-
-### ListWebhookEvent
-
-Create an instance: `list_webhook_event = client.ListWebhookEvent()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the event was created. |
-| `id` | `str` | The ID of the webhook event. |
-| `status` | `str` | The delivery status of the event for this webhook. |
-| `type` | `str` | The type of the event. |
-
-#### Example: List
-
-```python
-list_webhook_events = client.ListWebhookEvent().list({"webhook_id": "example"})
-```
-
-
-### ListWebhookEventAttempt
-
-Create an instance: `list_webhook_event_attempt = client.ListWebhookEventAttempt()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `http_status_code` | `int` | The HTTP status code returned by the webhook endpoint. |
-| `id` | `str` | The ID of the webhook event attempt. |
-| `response` | `str` | The response body returned by the webhook endpoint. |
-| `sent_at` | `str` | Timestamp indicating when the attempt was sent. |
-
-#### Example: List
-
-```python
-list_webhook_event_attempts = client.ListWebhookEventAttempt().list({"event_id": "example", "webhook_id": "example"})
+inbox_thread_label = client.InboxThreadLabel().create({
+    "inbox_id": "example_inbox_id",  # str
+    "thread_id": "example_thread_id",  # str
+    "labels": [],  # list
+})
 ```
 
 
@@ -3037,6 +2160,74 @@ log = client.Log().load({"id": "log_id"})
 
 ```python
 logs = client.Log().list()
+```
+
+
+### OauthGrant
+
+Create an instance: `oauth_grant = client.OauthGrant()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+| `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `client` | `dict` | The OAuth client the grant was issued to. |
+| `client_id` | `str` | The ID of the OAuth client the grant was issued to. |
+| `created_at` | `str` | The date and time the OAuth grant was created. |
+| `id` | `str` | The ID of the OAuth grant. |
+| `revoked_at` | `str | None` | The date and time the OAuth grant was revoked, or null if it is still active. |
+| `revoked_reason` | `str | None` | The reason the OAuth grant was revoked, or null if it is still active. |
+| `scopes` | `list` | The scopes granted to the OAuth client. |
+
+#### Example: List
+
+```python
+oauth_grants = client.OauthGrant().list()
+```
+
+
+### ReceivedAttachment
+
+Create an instance: `received_attachment = client.ReceivedAttachment()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `content_disposition` | `str | None` | How the attachment should be displayed. |
+| `content_id` | `str` | The content ID for inline attachments. |
+| `content_type` | `str` | The MIME type of the attachment. |
+| `download_url` | `str` | Signed URL to download the attachment content. |
+| `expires_at` | `str` | Timestamp when the download URL expires. |
+| `filename` | `str | None` | The filename of the attachment. |
+| `id` | `str` | The ID of the attachment. |
+| `object` | `str` | The type of object. |
+| `size` | `int` | Size of the attachment in bytes. |
+
+#### Example: Load
+
+```python
+received_attachment = client.ReceivedAttachment().load({"id": "received_attachment_id", "email_id": "email_id"})
+```
+
+#### Example: List
+
+```python
+received_attachments = client.ReceivedAttachment().list({"email_id": "example"})
 ```
 
 
@@ -3084,404 +2275,6 @@ received_emails = client.ReceivedEmail().list()
 ```
 
 
-### RemoveAudienceResponseSuccess
-
-Create an instance: `remove_audience_response_success = client.RemoveAudienceResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-
-### RemoveBroadcastResponseSuccess
-
-Create an instance: `remove_broadcast_response_success = client.RemoveBroadcastResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-
-### RemoveContactFromSegmentResponseSuccess
-
-Create an instance: `remove_contact_from_segment_response_success = client.RemoveContactFromSegmentResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveContactPropertyResponseSuccess
-
-Create an instance: `remove_contact_property_response_success = client.RemoveContactPropertyResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-
-### RemoveContactResponseSuccess
-
-Create an instance: `remove_contact_response_success = client.RemoveContactResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-
-### RemoveEvent
-
-Create an instance: `remove_event = client.RemoveEvent()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` |  |
-
-
-### RemoveInboxDraftResponseSuccess
-
-Create an instance: `remove_inbox_draft_response_success = client.RemoveInboxDraftResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveInboxLabelResponseSuccess
-
-Create an instance: `remove_inbox_label_response_success = client.RemoveInboxLabelResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveInboxResponseSuccess
-
-Create an instance: `remove_inbox_response_success = client.RemoveInboxResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveInboxThreadLabelResponseSuccess
-
-Create an instance: `remove_inbox_thread_label_response_success = client.RemoveInboxThreadLabelResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveInboxThreadResponseSuccess
-
-Create an instance: `remove_inbox_thread_response_success = client.RemoveInboxThreadResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `remove(match)` | Remove the matching entity. |
-
-
-### RemoveSegmentResponseSuccess
-
-Create an instance: `remove_segment_response_success = client.RemoveSegmentResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `audience_id` | `str` | The ID of the audience this segment belongs to. |
-| `created_at` | `str` | Timestamp indicating when the segment was created. |
-| `filter` | `dict` | Filter conditions for the segment. |
-| `id` | `str` | Unique identifier for the segment. |
-| `name` | `str` | The name of the segment. |
-
-#### Example: List
-
-```python
-remove_segment_response_successs = client.RemoveSegmentResponseSuccess().list()
-```
-
-#### Example: Create
-
-```python
-remove_segment_response_success = client.RemoveSegmentResponseSuccess().create({
-    "name": "example_name",  # str
-})
-```
-
-
-### RemoveSuppressionResponseSuccess
-
-Create an instance: `remove_suppression_response_success = client.RemoveSuppressionResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the suppression was created. |
-| `email` | `str` | Email address to suppress. |
-| `id` | `str` | Unique identifier for the suppression. |
-| `origin` | `str` | Origin of the suppression. |
-| `source_id` | `str | None` | Identifier of the event that caused the suppression, such as the email that bounced or complained. |
-
-#### Example: List
-
-```python
-remove_suppression_response_successs = client.RemoveSuppressionResponseSuccess().list()
-```
-
-#### Example: Create
-
-```python
-remove_suppression_response_success = client.RemoveSuppressionResponseSuccess().create({
-    "email": "example_email",  # str
-})
-```
-
-
-### RemoveTemplateResponseSuccess
-
-Create an instance: `remove_template_response_success = client.RemoveTemplateResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `alias` | `str` | The alias of the template. |
-| `created_at` | `str` | Timestamp indicating when the template was created. |
-| `from` | `str` | Sender email address. |
-| `html` | `str` | The HTML version of the template. |
-| `id` | `str` | The ID of the template. |
-| `name` | `str` | The name of the template. |
-| `published_at` | `str | None` | Timestamp indicating when the template was published. |
-| `reply_to` | `list` | Reply-to email addresses. |
-| `status` | `str` | The publication status of the template. |
-| `subject` | `str` | Email subject. |
-| `text` | `str` | The plain text version of the template. |
-| `updated_at` | `str` | Timestamp indicating when the template was last updated. |
-| `variables` | `list` |  |
-
-#### Example: List
-
-```python
-remove_template_response_successs = client.RemoveTemplateResponseSuccess().list()
-```
-
-#### Example: Create
-
-```python
-remove_template_response_success = client.RemoveTemplateResponseSuccess().create({
-    "html": "example_html",  # str
-    "name": "example_name",  # str
-})
-```
-
-
-### RemoveTopicResponseSuccess
-
-Create an instance: `remove_topic_response_success = client.RemoveTopicResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the topic was created. |
-| `default_subscription` | `str` | The default subscription status for the topic. |
-| `description` | `str` | A description of the topic. |
-| `id` | `str` | Unique identifier for the topic. |
-| `name` | `str` | The name of the topic. |
-| `visibility` | `str` | The visibility of the topic. |
-
-#### Example: List
-
-```python
-remove_topic_response_successs = client.RemoveTopicResponseSuccess().list()
-```
-
-#### Example: Create
-
-```python
-remove_topic_response_success = client.RemoveTopicResponseSuccess().create({
-    "default_subscription": "example_default_subscription",  # str
-    "name": "example_name",  # str
-})
-```
-
-
-### RetrievedAttachment
-
-Create an instance: `retrieved_attachment = client.RetrievedAttachment()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `content_disposition` | `str | None` | How the attachment should be displayed. |
-| `content_id` | `str` | The content ID for inline attachments. |
-| `content_type` | `str` | The MIME type of the attachment. |
-| `download_url` | `str` | Signed URL to download the attachment content. |
-| `expires_at` | `str` | Timestamp when the download URL expires. |
-| `filename` | `str | None` | The filename of the attachment. |
-| `id` | `str` | The ID of the attachment. |
-| `object` | `str` | The type of object. |
-| `size` | `int` | Size of the attachment in bytes. |
-
-#### Example: Load
-
-```python
-retrieved_attachment = client.RetrievedAttachment().load({"id": "retrieved_attachment_id", "email_id": "email_id"})
-```
-
-
-### RevokeOAuthGrant
-
-Create an instance: `revoke_o_auth_grant = client.RevokeOAuthGrant()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `client` | `dict` | The OAuth client the grant was issued to. |
-| `client_id` | `str` | The ID of the OAuth client the grant was issued to. |
-| `created_at` | `str` | The date and time the OAuth grant was created. |
-| `id` | `str` | The ID of the OAuth grant. |
-| `revoked_at` | `str | None` | The date and time the OAuth grant was revoked, or null if it is still active. |
-| `revoked_reason` | `str | None` | The reason the OAuth grant was revoked, or null if it is still active. |
-| `scopes` | `list` | The scopes granted to the OAuth client. |
-
-#### Example: List
-
-```python
-revoke_o_auth_grants = client.RevokeOAuthGrant().list()
-```
-
-
-### Rotate
-
-Create an instance: `rotate = client.Rotate()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` | The ID of the webhook. |
-| `object` | `str` | The type of object. |
-| `signing_secret` | `str` | The new secret key used to verify webhook payloads. |
-
-#### Example: Create
-
-```python
-rotate = client.Rotate().create({
-    "webhook_id": "example_webhook_id",  # str
-})
-```
-
-
 ### Segment
 
 Create an instance: `segment = client.Segment()`
@@ -3490,7 +2283,11 @@ Create an instance: `segment = client.Segment()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -3509,24 +2306,47 @@ Create an instance: `segment = client.Segment()`
 segment = client.Segment().load({"id": "segment_id"})
 ```
 
+#### Example: List
 
-### SetInboxThreadLabelsResponseSuccess
+```python
+segments = client.Segment().list()
+```
 
-Create an instance: `set_inbox_thread_labels_response_success = client.SetInboxThreadLabelsResponseSuccess()`
+#### Example: Create
+
+```python
+segment = client.Segment().create({
+    "name": "example_name",  # str
+})
+```
+
+
+### SegmentContact
+
+Create an instance: `segment_contact = client.SegmentContact()`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
-| `update(data)` | Update an existing entity. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `list` | Every label on the thread after the change. |
-| `labels` | `list` | The IDs of the labels the thread carries after the change. |
-| `object` | `str` | Type of the response object. |
+| `created_at` | `str` | Timestamp indicating when the contact was created. |
+| `email` | `str` | Email address of the contact. |
+| `first_name` | `str | None` | First name of the contact. |
+| `id` | `str` | Unique identifier for the contact. |
+| `last_name` | `str | None` | Last name of the contact. |
+| `unsubscribed` | `bool` | Indicates if the contact is unsubscribed. |
+
+#### Example: List
+
+```python
+segment_contacts = client.SegmentContact().list({"segment_id": "example"})
+```
 
 
 ### Suppression
@@ -3537,7 +2357,10 @@ Create an instance: `suppression = client.Suppression()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
 
 #### Fields
 
@@ -3556,6 +2379,71 @@ Create an instance: `suppression = client.Suppression()`
 suppression = client.Suppression().load({"id": "suppression_id"})
 ```
 
+#### Example: List
+
+```python
+suppressions = client.Suppression().list()
+```
+
+#### Example: Create
+
+```python
+suppression = client.Suppression().create({
+    "email": "example_email",  # str
+})
+```
+
+
+### SuppressionBatchAdd
+
+Create an instance: `suppression_batch_add = client.SuppressionBatchAdd()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `emails` | `list` | Email addresses to suppress. |
+
+#### Example: Create
+
+```python
+suppression_batch_add = client.SuppressionBatchAdd().create({
+    "emails": [],  # list
+})
+```
+
+
+### SuppressionBatchRemove
+
+Create an instance: `suppression_batch_remove = client.SuppressionBatchRemove()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `data` | `list` | Array containing the removed suppressions. |
+| `emails` | `list` | Email addresses to remove from the suppression list. |
+| `ids` | `list` | Suppression IDs to remove from the suppression list. |
+
+#### Example: Create
+
+```python
+suppression_batch_remove = client.SuppressionBatchRemove().create({
+})
+```
+
 
 ### Template
 
@@ -3566,7 +2454,10 @@ Create an instance: `template = client.Template()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -3595,6 +2486,21 @@ Create an instance: `template = client.Template()`
 template = client.Template().load({"id": "template_id"})
 ```
 
+#### Example: List
+
+```python
+templates = client.Template().list()
+```
+
+#### Example: Create
+
+```python
+template = client.Template().create({
+    "html": "example_html",  # str
+    "name": "example_name",  # str
+})
+```
+
 
 ### Topic
 
@@ -3604,7 +2510,11 @@ Create an instance: `topic = client.Topic()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -3624,362 +2534,18 @@ Create an instance: `topic = client.Topic()`
 topic = client.Topic().load({"id": "topic_id"})
 ```
 
-
-### UpdateApiKey
-
-Create an instance: `update_api_key = client.UpdateApiKey()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` | The ID of the API key. |
-| `name` | `str` | The API key name. |
-| `object` | `str` | The type of object. |
-
-
-### UpdateBroadcastResponseSuccess
-
-Create an instance: `update_broadcast_response_success = client.UpdateBroadcastResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `audience_id` | `str` | Use `segment_id` instead. |
-| `from` | `str` | The email address of the sender. |
-| `html` | `str` | The HTML version of the message. |
-| `id` | `str` | The ID of the broadcast. |
-| `name` | `str` | Name of the broadcast. |
-| `object` | `str` | The object type of the response. |
-| `preview_text` | `str` | The preview text of the email. |
-| `reply_to` | `list` | The email addresses to which replies should be sent. |
-| `segment_id` | `str` | Unique identifier of the segment this broadcast will be sent to. |
-| `subject` | `str` | The subject line of the email. |
-| `text` | `str` | The plain text version of the message. |
-| `topic_id` | `str` | The topic ID that the broadcast will be scoped to. |
-
-
-### UpdateContactPropertyResponseSuccess
-
-Create an instance: `update_contact_property_response_success = client.UpdateContactPropertyResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `fallback_value` | `Any` | The default value to use when the property is not set for a contact. |
-| `id` | `str` | The ID of the contact property. |
-| `object` | `str` | The object type. |
-
-
-### UpdateContactResponseSuccess
-
-Create an instance: `update_contact_response_success = client.UpdateContactResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `str` | Email address of the contact. |
-| `first_name` | `str` | First name of the contact. |
-| `id` | `str` | Unique identifier for the updated contact. |
-| `last_name` | `str` | Last name of the contact. |
-| `object` | `str` | Type of the response object. |
-| `properties` | `dict` | A map of custom property keys and values to update. |
-| `unsubscribed` | `bool` | The Contact's global subscription status. |
-
-
-### UpdateContactTopicsResponseSuccess
-
-Create an instance: `update_contact_topics_response_success = client.UpdateContactTopicsResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `contact_id` | `str` | The ID of the contact. |
-| `object` | `str` | The object type. |
-| `topics` | `list` | Array of updated topic subscriptions. |
-
-
-### UpdateDomainResponseSuccess
-
-Create an instance: `update_domain_response_success = client.UpdateDomainResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `capabilities` | `dict` | Configure the domain capabilities for sending and receiving emails. |
-| `click_tracking` | `bool` | Track clicks within the body of each HTML email. |
-| `id` | `str` | The ID of the updated domain. |
-| `object` | `str` | The object type representing the updated domain. |
-| `open_tracking` | `bool` | Track the open rate of each email. |
-| `tls` | `str` | enforced | opportunistic. |
-| `tracking_subdomain` | `str` | The subdomain to use for click and open tracking. |
-
-
-### UpdateEmailOption
-
-Create an instance: `update_email_option = client.UpdateEmailOption()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `scheduled_at` | `str` | Schedule email to be sent later. |
-
-
-### UpdateEvent
-
-Create an instance: `update_event = client.UpdateEvent()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` | The ID of the updated event. |
-| `object` | `str` | Type of the response object. |
-| `schema` | `dict | None` | A flat key/type map defining the event payload schema. |
-
-
-### UpdateInboxDraftResponseSuccess
-
-Create an instance: `update_inbox_draft_response_success = client.UpdateInboxDraftResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `attachments` | `list | None` | Files to store on the draft. |
-| `bcc` | `Any` | The BCC recipients. |
-| `cc` | `Any` | The CC recipients. |
-| `html` | `str | None` | The HTML body. |
-| `id` | `str` | The ID of the draft. |
-| `object` | `str` | The object type. |
-| `subject` | `str | None` | The subject. |
-| `text` | `str | None` | The plain text body. |
-| `to` | `Any` | The recipients. |
-
-
-### UpdateInboxLabelResponseSuccess
-
-Create an instance: `update_inbox_label_response_success = client.UpdateInboxLabelResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `color` | `str` | A new color for the label, as a `#RRGGBB` hex color. |
-| `id` | `str` | The ID of the updated label. |
-| `name` | `str` | A new name for the label. |
-| `object` | `str` | Type of the response object. |
-
-
-### UpdateInboxResponseSuccess
-
-Create an instance: `update_inbox_response_success = client.UpdateInboxResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `from_name` | `str` | The name recipients see when mail is sent from this inbox. |
-| `id` | `str` | The ID of the inbox. |
-| `name` | `str` | New internal name for the inbox. |
-| `object` | `str` | The object type. |
-
-
-### UpdateInboxThreadResponseSuccess
-
-Create an instance: `update_inbox_thread_response_success = client.UpdateInboxThreadResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `folder` | `str` | The folder the thread is in. |
-| `id` | `str` | The ID of the thread. |
-| `labels` | `list` | The labels attached to the thread. |
-| `object` | `str` | The object type. |
-| `read` | `bool` | True only when every email in the thread is read. |
-| `subject` | `str | None` | The subject of the thread. |
-
-
-### UpdateSegmentResponseSuccess
-
-Create an instance: `update_segment_response_success = client.UpdateSegmentResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `str` | The ID of the segment. |
-| `name` | `str` | The name of the segment. |
-| `object` | `str` | The object type. |
-
-
-### UpdateTemplateResponseSuccess
-
-Create an instance: `update_template_response_success = client.UpdateTemplateResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `alias` | `str` | The alias of the template. |
-| `from` | `str` | Sender email address. |
-| `html` | `str` | The HTML version of the template. |
-| `id` | `str` | The ID of the template. |
-| `name` | `str` | The name of the template. |
-| `object` | `str` | The object type of the response. |
-| `reply_to` | `list` | Reply-to email addresses. |
-| `subject` | `str` | Email subject. |
-| `text` | `str` | The plain text version of the template. |
-| `variables` | `list` |  |
-
-
-### UpdateTopicResponseSuccess
-
-Create an instance: `update_topic_response_success = client.UpdateTopicResponseSuccess()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `description` | `str` | A description of the topic. |
-| `id` | `str` | The ID of the topic. |
-| `name` | `str` | The name of the topic. |
-| `object` | `str` | The object type. |
-| `visibility` | `str` | The visibility of the topic. |
-
-
-### UpdateWebhook
-
-Create an instance: `update_webhook = client.UpdateWebhook()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `update(data)` | Update an existing entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `created_at` | `str` | Timestamp indicating when the webhook was created. |
-| `endpoint` | `str` | The URL where webhook events will be sent. |
-| `events` | `list` | Array of event types to subscribe to. |
-| `id` | `str` | The ID of the updated webhook. |
-| `object` | `str` | The type of object. |
-| `status` | `str` | The status of the webhook. |
-
 #### Example: List
 
 ```python
-update_webhooks = client.UpdateWebhook().list()
+topics = client.Topic().list()
 ```
 
 #### Example: Create
 
 ```python
-update_webhook = client.UpdateWebhook().create({
-    "endpoint": "example_endpoint",  # str
-    "events": [],  # list
+topic = client.Topic().create({
+    "default_subscription": "example_default_subscription",  # str
+    "name": "example_name",  # str
 })
 ```
 
@@ -4023,8 +2589,11 @@ Create an instance: `webhook = client.Webhook()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
 
 #### Fields
 
@@ -4044,6 +2613,21 @@ Create an instance: `webhook = client.Webhook()`
 webhook = client.Webhook().load({"id": "webhook_id"})
 ```
 
+#### Example: List
+
+```python
+webhooks = client.Webhook().list()
+```
+
+#### Example: Create
+
+```python
+webhook = client.Webhook().create({
+    "endpoint": "example_endpoint",  # str
+    "events": [],  # list | None
+})
+```
+
 
 ### WebhookEvent
 
@@ -4054,6 +2638,7 @@ Create an instance: `webhook_event = client.WebhookEvent()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -4074,6 +2659,12 @@ Create an instance: `webhook_event = client.WebhookEvent()`
 webhook_event = client.WebhookEvent().load({"id": "webhook_event_id", "webhook_id": "webhook_id"})
 ```
 
+#### Example: List
+
+```python
+webhook_events = client.WebhookEvent().list({"webhook_id": "example"})
+```
+
 #### Example: Create
 
 ```python
@@ -4081,6 +2672,32 @@ webhook_event = client.WebhookEvent().create({
     "event_id": "example_event_id",  # str
     "webhook_id": "example_webhook_id",  # str
 })
+```
+
+
+### WebhookEventAttempt
+
+Create an instance: `webhook_event_attempt = client.WebhookEventAttempt()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `http_status_code` | `int` | The HTTP status code returned by the webhook endpoint. |
+| `id` | `str` | The ID of the webhook event attempt. |
+| `response` | `str` | The response body returned by the webhook endpoint. |
+| `sent_at` | `str` | Timestamp indicating when the attempt was sent. |
+
+#### Example: List
+
+```python
+webhook_event_attempts = client.WebhookEventAttempt().list({"event_id": "example", "webhook_id": "example"})
 ```
 
 ## Features
@@ -4222,9 +2839,9 @@ activated earlier.
 
 ## Open types
 
-3 fields are carried as open values rather than typed structures.
+1 field is carried as open values rather than typed structures.
 This follows from the API definition, not from a gap in this SDK: the
-definition describes them with untagged unions —
+definition describes it with untagged unions —
 `oneOf`/`anyOf` branches with no `discriminator` — so it never states which
 variant a given value is. Nothing can select a branch reliably, so the SDK
 passes the value through unchanged rather than assert a shape the API does not
@@ -4232,9 +2849,7 @@ guarantee.
 
 | Entity | Field | Variants | Nesting |
 | --- | --- | --- | --- |
-| `remove_template_response_success` | `variables` | 5 | 3 levels |
 | `template` | `variables` | 5 | 3 levels |
-| `update_template_response_success` | `variables` | 5 | 3 levels |
 
 These values round-trip unchanged — read them, modify them, send them back. If
 the API adds a `discriminator` to the definition, regenerating will type them.
@@ -4319,15 +2934,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-automationrun = client.AutomationRun()
-automationrun.load({"automation_id": "example", "id": "example_id"})
+oauthgrant = client.OauthGrant()
+oauthgrant.list()
 
-# automationrun.data_get() now returns the automationrun data from the last load
-# automationrun.match_get() returns the last match criteria
+# oauthgrant.data_get() now returns the oauthgrant data from the last list
+# oauthgrant.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

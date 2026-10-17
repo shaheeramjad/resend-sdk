@@ -46,7 +46,7 @@ class TestInboxThreadEmailEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list"]:
+        for _op in ["list", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "inbox_thread_email." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -56,6 +56,9 @@ class TestInboxThreadEmailEntity:
                 if setup.get("synthetic_only") or setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live entity test blocked: needs {_live_key} via RESEND_TEST_INBOX_THREAD_EMAIL_ENTID")
         client = setup["client"]
+        if setup["live"]:
+            runner.live_existing(setup, LIVE_STRICT, "inbox_thread_email",
+                                 lambda: client.InboxThreadEmail(None).list({"inbox_id": setup["idmap"].get("inbox01"), "thread_id": setup["idmap"].get("thread01")}, None))
 
         # Bootstrap entity data from existing test data.
         inbox_thread_email_ref01_data_raw = vs.items(helpers.to_map(
@@ -73,6 +76,17 @@ class TestInboxThreadEmailEntity:
 
         inbox_thread_email_ref01_list_result = inbox_thread_email_ref01_ent.list(inbox_thread_email_ref01_match, None)
         assert isinstance(inbox_thread_email_ref01_list_result, list)
+
+        # LOAD
+        inbox_thread_email_ref01_match_dt0 = {
+            "id": inbox_thread_email_ref01_data["id"],
+        }
+        inbox_thread_email_ref01_match_dt0["inbox_id"] = setup["idmap"].get("inbox_id") or setup["idmap"].get("inbox01")
+        inbox_thread_email_ref01_match_dt0["thread_id"] = setup["idmap"].get("thread_id") or setup["idmap"].get("thread01")
+        inbox_thread_email_ref01_data_dt0_loaded = inbox_thread_email_ref01_ent.load(inbox_thread_email_ref01_match_dt0, None)
+        inbox_thread_email_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(inbox_thread_email_ref01_data_dt0_loaded))
+        assert inbox_thread_email_ref01_data_dt0_load_result is not None
+        assert inbox_thread_email_ref01_data_dt0_load_result["id"] == inbox_thread_email_ref01_data["id"]
 
 
 

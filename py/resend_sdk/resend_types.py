@@ -16,38 +16,17 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class AddContactToSegmentResponseSuccess(TypedDict, total=False):
-    contact_id: str
-    object: str
-    segment_id: str
+class ApiKeyRequired(TypedDict):
+    name: str
 
 
-class AddContactToSegmentResponseSuccessCreateDataRequired(TypedDict):
-    contact_id: str
-    segment_id: str
-
-
-class AddContactToSegmentResponseSuccessCreateData(AddContactToSegmentResponseSuccessCreateDataRequired, total=False):
-    object: str
-
-
-class AddInboxThreadLabelsResponseSuccess(TypedDict):
-    data: list
-    labels: list
-    object: str
-
-
-class AddInboxThreadLabelsResponseSuccessCreateData(TypedDict):
-    inbox_id: str
-    thread_id: str
-    labels: list
-
-
-class ApiKey(TypedDict, total=False):
+class ApiKey(ApiKeyRequired, total=False):
     created_at: str
+    domain_id: str
     id: str
     last_used_at: str | None
-    name: str
+    object: str
+    permission: str
 
 
 class ApiKeyListMatch(TypedDict, total=False):
@@ -56,8 +35,52 @@ class ApiKeyListMatch(TypedDict, total=False):
     limit: int
 
 
+class ApiKeyCreateDataRequired(TypedDict):
+    name: str
+
+
+class ApiKeyCreateData(ApiKeyCreateDataRequired, total=False):
+    domain_id: str
+    permission: str
+
+
+class ApiKeyUpdateDataRequired(TypedDict):
+    id: str
+
+
+class ApiKeyUpdateData(ApiKeyUpdateDataRequired, total=False):
+    name: str
+
+
 class ApiKeyRemoveMatch(TypedDict):
     id: str
+
+
+class Attachment(TypedDict, total=False):
+    content_disposition: str | None
+    content_id: str
+    content_type: str
+    download_url: str
+    expires_at: str
+    filename: str | None
+    id: str
+    object: str
+    size: int
+
+
+class AttachmentLoadMatch(TypedDict):
+    email_id: str
+    id: str
+
+
+class AttachmentListMatchRequired(TypedDict):
+    email_id: str
+
+
+class AttachmentListMatch(AttachmentListMatchRequired, total=False):
+    after: str
+    before: str
+    limit: int
 
 
 class Audience(TypedDict, total=False):
@@ -80,6 +103,10 @@ class AudienceListMatch(TypedDict, total=False):
 
 class AudienceCreateData(TypedDict):
     name: str
+
+
+class AudienceRemoveMatch(TypedDict):
+    id: str
 
 
 class Automation(TypedDict, total=False):
@@ -144,42 +171,15 @@ class AutomationRunLoadMatch(TypedDict):
     id: str
 
 
-class AutomationRunListItem(TypedDict, total=False):
-    completed_at: str | None
-    created_at: str
-    id: str
-    started_at: str | None
-    status: str
+class AutomationRunListMatchRequired(TypedDict):
+    automation_id: str
 
 
-class AutomationRunListItemListMatchRequired(TypedDict):
-    id: str
-
-
-class AutomationRunListItemListMatch(AutomationRunListItemListMatchRequired, total=False):
+class AutomationRunListMatch(AutomationRunListMatchRequired, total=False):
     after: str
     before: str
     limit: int
     status: str
-
-
-class BatchAddSuppressionsResponseSuccess(TypedDict):
-    emails: list
-
-
-class BatchAddSuppressionsResponseSuccessCreateData(TypedDict):
-    emails: list
-
-
-class BatchRemoveSuppressionsResponseSuccess(TypedDict, total=False):
-    data: list
-    emails: list
-    ids: list
-
-
-class BatchRemoveSuppressionsResponseSuccessCreateData(TypedDict, total=False):
-    emails: list
-    ids: list
 
 
 class Broadcast(TypedDict, total=False):
@@ -188,10 +188,12 @@ class Broadcast(TypedDict, total=False):
     html: str | None
     id: str
     name: str
+    object: str
     preview_text: str
     reply_to: list
     scheduled_at: str
     segment_id: str | None
+    send: bool
     sent_at: str
     status: str
     subject: str
@@ -210,23 +212,79 @@ class BroadcastListMatch(TypedDict, total=False):
 
 
 class BroadcastCreateDataRequired(TypedDict):
-    id: str
+    segment_id: str | None
+    subject: str
 
 
 class BroadcastCreateData(BroadcastCreateDataRequired, total=False):
     audience_id: str | None
-    created_at: str
     html: str | None
     name: str
     preview_text: str
     reply_to: list
     scheduled_at: str
+    send: bool
+    text: str | None
+    topic_id: str | None
+
+
+class BroadcastUpdateDataRequired(TypedDict):
+    id: str
+
+
+class BroadcastUpdateData(BroadcastUpdateDataRequired, total=False):
+    audience_id: str | None
+    html: str | None
+    name: str
+    preview_text: str
+    reply_to: list
     segment_id: str | None
-    sent_at: str
-    status: str
     subject: str
     text: str | None
     topic_id: str | None
+
+
+class BroadcastRemoveMatch(TypedDict):
+    id: str
+
+
+class BroadcastClickedLink(TypedDict, total=False):
+    clicks: int
+    id: str
+    unique_clicks: int
+    url: str
+
+
+class BroadcastClickedLinkListMatchRequired(TypedDict):
+    broadcast_id: str
+
+
+class BroadcastClickedLinkListMatch(BroadcastClickedLinkListMatchRequired, total=False):
+    after: str
+    before: str
+    limit: int
+
+
+class BroadcastRecipient(TypedDict, total=False):
+    bounce_type: str
+    clicked_links: list
+    contact_id: str | None
+    count: int
+    email: str
+    id: str
+
+
+class BroadcastRecipientListMatchRequired(TypedDict):
+    broadcast_id: str
+    type: str
+
+
+class BroadcastRecipientListMatch(BroadcastRecipientListMatchRequired, total=False):
+    after: str
+    before: str
+    bounce_type: str
+    email: str
+    limit: int
 
 
 class Contact(TypedDict, total=False):
@@ -267,11 +325,27 @@ class ContactCreateData(ContactCreateDataRequired, total=False):
     unsubscribed: bool
 
 
-class ContactImportResponseSuccessRequired(TypedDict):
+class ContactUpdateDataRequired(TypedDict):
+    id: str
+
+
+class ContactUpdateData(ContactUpdateDataRequired, total=False):
+    email: str
+    first_name: str | None
+    last_name: str | None
+    properties: dict
+    unsubscribed: bool
+
+
+class ContactRemoveMatch(TypedDict):
+    id: str
+
+
+class ContactImportRequired(TypedDict):
     file: str
 
 
-class ContactImportResponseSuccess(ContactImportResponseSuccessRequired, total=False):
+class ContactImport(ContactImportRequired, total=False):
     column_map: str
     completed_at: str | None
     counts: dict
@@ -284,22 +358,22 @@ class ContactImportResponseSuccess(ContactImportResponseSuccessRequired, total=F
     topics: str
 
 
-class ContactImportResponseSuccessLoadMatch(TypedDict):
+class ContactImportLoadMatch(TypedDict):
     id: str
 
 
-class ContactImportResponseSuccessListMatch(TypedDict, total=False):
+class ContactImportListMatch(TypedDict, total=False):
     after: str
     before: str
     limit: int
     status: str
 
 
-class ContactImportResponseSuccessCreateDataRequired(TypedDict):
+class ContactImportCreateDataRequired(TypedDict):
     file: str
 
 
-class ContactImportResponseSuccessCreateData(ContactImportResponseSuccessCreateDataRequired, total=False):
+class ContactImportCreateData(ContactImportCreateDataRequired, total=False):
     column_map: str
     completed_at: str | None
     counts: dict
@@ -340,129 +414,80 @@ class ContactPropertyCreateData(ContactPropertyCreateDataRequired, total=False):
     fallback_value: Any
 
 
-class ContactTopicsResponseSuccess(TypedDict, total=False):
+class ContactPropertyUpdateDataRequired(TypedDict):
     id: str
 
 
-class ContactTopicsResponseSuccessListMatchRequired(TypedDict):
+class ContactPropertyUpdateData(ContactPropertyUpdateDataRequired, total=False):
+    fallback_value: Any
+
+
+class ContactPropertyRemoveMatch(TypedDict):
     id: str
 
 
-class ContactTopicsResponseSuccessListMatch(ContactTopicsResponseSuccessListMatchRequired, total=False):
+class ContactSegment(TypedDict, total=False):
+    contact_id: str
+    created_at: str
+    id: str
+    name: str
+    object: str
+    segment_id: str
+
+
+class ContactSegmentListMatchRequired(TypedDict):
+    contact_id: str
+
+
+class ContactSegmentListMatch(ContactSegmentListMatchRequired, total=False):
     after: str
     before: str
     limit: int
 
 
-class CreateApiKeyRequired(TypedDict):
-    name: str
-
-
-class CreateApiKey(CreateApiKeyRequired, total=False):
-    domain_id: str
-    permission: str
-
-
-class CreateApiKeyCreateDataRequired(TypedDict):
-    name: str
-
-
-class CreateApiKeyCreateData(CreateApiKeyCreateDataRequired, total=False):
-    domain_id: str
-    permission: str
-
-
-class CreateBatchEmail(TypedDict, total=False):
-    data: list
-    send_emails: list
-
-
-class CreateBatchEmailCreateData(TypedDict, total=False):
-    send_emails: list
-
-
-class CreateBroadcastResponseSuccessRequired(TypedDict):
-    segment_id: str
-    subject: str
-
-
-class CreateBroadcastResponseSuccess(CreateBroadcastResponseSuccessRequired, total=False):
-    audience_id: str
-    html: str
-    name: str
-    preview_text: str
-    reply_to: list
-    scheduled_at: str
-    send: bool
-    text: str
-    topic_id: str
-
-
-class CreateBroadcastResponseSuccessCreateDataRequired(TypedDict):
-    segment_id: str
-    subject: str
-
-
-class CreateBroadcastResponseSuccessCreateData(CreateBroadcastResponseSuccessCreateDataRequired, total=False):
-    audience_id: str
-    html: str
-    name: str
-    preview_text: str
-    reply_to: list
-    scheduled_at: str
-    send: bool
-    text: str
-    topic_id: str
-
-
-class CreateInboxDraftResponseSuccessRequired(TypedDict):
+class ContactSegmentCreateDataRequired(TypedDict):
+    contact_id: str
     id: str
+
+
+class ContactSegmentCreateData(ContactSegmentCreateDataRequired, total=False):
+    created_at: str
+    name: str
     object: str
+    segment_id: str
 
 
-class CreateInboxDraftResponseSuccess(CreateInboxDraftResponseSuccessRequired, total=False):
-    attachments: list | None
-    bcc: Any
-    cc: Any
-    html: str | None
-    reply_to_email_id: str
-    subject: str | None
-    text: str | None
-    thread_id: str
-    to: Any
+class ContactSegmentRemoveMatch(TypedDict):
+    contact_id: str
+    id: str
 
 
-class CreateInboxDraftResponseSuccessCreateDataRequired(TypedDict):
-    inbox_id: str
-
-
-class CreateInboxDraftResponseSuccessCreateData(CreateInboxDraftResponseSuccessCreateDataRequired, total=False):
-    attachments: list | None
-    bcc: Any
-    cc: Any
-    html: str | None
-    reply_to_email_id: str
-    subject: str | None
-    text: str | None
-    thread_id: str
-    to: Any
-
-
-class CreateInboxLabelResponseSuccessRequired(TypedDict):
+class ContactTopic(TypedDict, total=False):
+    contact_id: str
+    description: str
+    id: str
     name: str
+    object: str
+    subscription: str
+    topics: list
 
 
-class CreateInboxLabelResponseSuccess(CreateInboxLabelResponseSuccessRequired, total=False):
-    color: str
+class ContactTopicListMatchRequired(TypedDict):
+    contact_id: str
 
 
-class CreateInboxLabelResponseSuccessCreateDataRequired(TypedDict):
-    inbox_id: str
-    name: str
+class ContactTopicListMatch(ContactTopicListMatchRequired, total=False):
+    after: str
+    before: str
+    limit: int
 
 
-class CreateInboxLabelResponseSuccessCreateData(CreateInboxLabelResponseSuccessCreateDataRequired, total=False):
-    color: str
+class ContactTopicUpdateDataRequired(TypedDict):
+    contact_id: str
+
+
+class ContactTopicUpdateData(ContactTopicUpdateDataRequired, total=False):
+    topics: list
 
 
 class Domain(TypedDict, total=False):
@@ -501,6 +526,18 @@ class DomainCreateData(DomainCreateDataRequired, total=False):
     custom_return_path: str
     open_tracking: bool
     region: str
+    tls: str
+    tracking_subdomain: str
+
+
+class DomainUpdateDataRequired(TypedDict):
+    id: str
+
+
+class DomainUpdateData(DomainUpdateDataRequired, total=False):
+    capabilities: dict
+    click_tracking: bool
+    open_tracking: bool
     tls: str
     tracking_subdomain: str
 
@@ -602,6 +639,39 @@ class EmailCreateData(EmailCreateDataRequired, total=False):
     topic_id: str
 
 
+class EmailUpdateDataRequired(TypedDict):
+    id: str
+
+
+class EmailUpdateData(EmailUpdateDataRequired, total=False):
+    attachments: list
+    bcc: list
+    cc: list
+    created_at: str
+    headers: dict
+    html: str
+    last_event: str
+    message_id: str
+    object: str
+    reply_to: list
+    scheduled_at: str
+    subject: str
+    tags: list
+    template: Any
+    text: str
+    to: list
+    topic_id: str
+
+
+class EmailBatch(TypedDict, total=False):
+    data: list
+    send_emails: list
+
+
+class EmailBatchCreateData(TypedDict, total=False):
+    send_emails: list
+
+
 class EmailsMetric(TypedDict, total=False):
     broadcast_id: str
     broadcast_name: str
@@ -650,6 +720,18 @@ class EventCreateData(EventCreateDataRequired, total=False):
     schema: dict | None
 
 
+class EventUpdateDataRequired(TypedDict):
+    id: str
+
+
+class EventUpdateData(EventUpdateDataRequired, total=False):
+    schema: dict | None
+
+
+class EventRemoveMatch(TypedDict):
+    id: str
+
+
 class InboxRequired(TypedDict):
     created_at: str
     domain_id: str
@@ -694,44 +776,37 @@ class InboxUpdateDataRequired(TypedDict):
 
 
 class InboxUpdateData(InboxUpdateDataRequired, total=False):
-    actions: Any
-    instructions: Any
-    tone: Any
+    from_name: str | None
+    name: str
 
 
-class InboxAgentResponseSuccess(TypedDict, total=False):
+class InboxRemoveMatch(TypedDict):
     id: str
 
 
-class InboxAgentResponseSuccessListMatch(TypedDict):
+class InboxAgent(TypedDict):
+    actions: list
     id: str
+    instructions: str | None
+    object: str
+    tone: str | None
 
 
-class InboxDraftListItem(TypedDict):
-    attachments: list
-    bcc: list
-    cc: list
-    id: str
-    reply_to_email_id: str | None
-    snippet: str | None
-    subject: str | None
-    thread_id: str | None
-    to: list | None
-    type: str
-    updated_at: str
+class InboxAgentLoadMatch(TypedDict):
+    inbox_id: str
 
 
-class InboxDraftListItemListMatchRequired(TypedDict):
-    id: str
+class InboxAgentUpdateDataRequired(TypedDict):
+    inbox_id: str
 
 
-class InboxDraftListItemListMatch(InboxDraftListItemListMatchRequired, total=False):
-    after: str
-    before: str
-    limit: int
+class InboxAgentUpdateData(InboxAgentUpdateDataRequired, total=False):
+    actions: list
+    instructions: str | None
+    tone: str | None
 
 
-class InboxDraftResponseSuccess(TypedDict):
+class InboxDraft(TypedDict):
     attachments: list
     bcc: list
     cc: list
@@ -741,6 +816,7 @@ class InboxDraftResponseSuccess(TypedDict):
     id: str
     object: str
     reply_to_email_id: str | None
+    snippet: str | None
     subject: str | None
     text: str | None
     thread_id: str | None
@@ -749,29 +825,94 @@ class InboxDraftResponseSuccess(TypedDict):
     updated_at: str
 
 
-class InboxDraftResponseSuccessLoadMatch(TypedDict):
-    draft_id: str
+class InboxDraftLoadMatch(TypedDict):
+    id: str
     inbox_id: str
 
 
-class InboxDraftResponseSuccessCreateDataRequired(TypedDict):
-    draft_id: str
+class InboxDraftListMatchRequired(TypedDict):
     inbox_id: str
 
 
-class InboxDraftResponseSuccessCreateData(InboxDraftResponseSuccessCreateDataRequired, total=False):
-    headers: Any
+class InboxDraftListMatch(InboxDraftListMatchRequired, total=False):
+    after: str
+    before: str
+    limit: int
 
 
-class InboxLabel(TypedDict):
-    color: str
+class InboxDraftCreateDataRequired(TypedDict):
+    inbox_id: str
+
+
+class InboxDraftCreateData(InboxDraftCreateDataRequired, total=False):
+    attachments: list
+    bcc: list
+    cc: list
+    html: str | None
+    reply_to_email_id: str | None
+    subject: str | None
+    text: str | None
+    thread_id: str | None
+    to: list | None
+
+
+class InboxDraftUpdateDataRequired(TypedDict):
+    id: str
+    inbox_id: str
+
+
+class InboxDraftUpdateData(InboxDraftUpdateDataRequired, total=False):
+    attachments: list
+    bcc: list
+    cc: list
+    html: str | None
+    subject: str | None
+    text: str | None
+    to: list | None
+
+
+class InboxDraftRemoveMatch(TypedDict):
+    id: str
+    inbox_id: str
+
+
+class InboxLabelRequired(TypedDict):
     created_at: str
     id: str
     name: str
+    object: str
+
+
+class InboxLabel(InboxLabelRequired, total=False):
+    color: str
 
 
 class InboxLabelListMatch(TypedDict):
+    inbox_id: str
+
+
+class InboxLabelCreateDataRequired(TypedDict):
+    inbox_id: str
+    name: str
+
+
+class InboxLabelCreateData(InboxLabelCreateDataRequired, total=False):
+    color: str
+
+
+class InboxLabelUpdateDataRequired(TypedDict):
     id: str
+    inbox_id: str
+
+
+class InboxLabelUpdateData(InboxLabelUpdateDataRequired, total=False):
+    color: str
+    name: str
+
+
+class InboxLabelRemoveMatch(TypedDict):
+    id: str
+    inbox_id: str
 
 
 class InboxThread(TypedDict):
@@ -783,15 +924,20 @@ class InboxThread(TypedDict):
     has_draft: bool
     id: str
     labels: list
-    matched_email_id: str | None
+    object: str
     read: bool
     received_at: str
     subject: str | None
     to: list
 
 
-class InboxThreadListMatchRequired(TypedDict):
+class InboxThreadLoadMatch(TypedDict):
     id: str
+    inbox_id: str
+
+
+class InboxThreadListMatchRequired(TypedDict):
+    inbox_id: str
 
 
 class InboxThreadListMatch(InboxThreadListMatchRequired, total=False):
@@ -801,6 +947,21 @@ class InboxThreadListMatch(InboxThreadListMatchRequired, total=False):
     label: list
     limit: int
     read: bool
+
+
+class InboxThreadUpdateDataRequired(TypedDict):
+    id: str
+    inbox_id: str
+
+
+class InboxThreadUpdateData(InboxThreadUpdateDataRequired, total=False):
+    folder: str
+    read: bool
+
+
+class InboxThreadRemoveMatch(TypedDict):
+    id: str
+    inbox_id: str
 
 
 class InboxThreadEmail(TypedDict):
@@ -819,6 +980,12 @@ class InboxThreadEmail(TypedDict):
     to: list
 
 
+class InboxThreadEmailLoadMatch(TypedDict):
+    id: str
+    inbox_id: str
+    thread_id: str
+
+
 class InboxThreadEmailListMatchRequired(TypedDict):
     inbox_id: str
     thread_id: str
@@ -830,30 +997,8 @@ class InboxThreadEmailListMatch(InboxThreadEmailListMatchRequired, total=False):
     limit: int
 
 
-class InboxThreadEmailResponseSuccess(TypedDict):
-    attachments: list
-    bcc: list
-    cc: list
-    direction: str
-    html: str | None
+class InboxThreadEmailCreateDataRequired(TypedDict):
     id: str
-    message_id: str | None
-    read: bool
-    received_at: str
-    reply_to: list
-    subject: str | None
-    text: str | None
-    to: list
-
-
-class InboxThreadEmailResponseSuccessLoadMatch(TypedDict):
-    email_id: str
-    inbox_id: str
-    thread_id: str
-
-
-class InboxThreadEmailResponseSuccessCreateDataRequired(TypedDict):
-    email_id: str
     inbox_id: str
     thread_id: str
     attachments: list
@@ -865,151 +1010,40 @@ class InboxThreadEmailResponseSuccessCreateDataRequired(TypedDict):
     to: list
 
 
-class InboxThreadEmailResponseSuccessCreateData(InboxThreadEmailResponseSuccessCreateDataRequired, total=False):
+class InboxThreadEmailCreateData(InboxThreadEmailCreateDataRequired, total=False):
     headers: Any
     reply_all: Any
 
 
-class InboxThreadResponseSuccess(TypedDict):
-    folder: str
-    id: str
+class InboxThreadLabelRequired(TypedDict):
+    data: list
     labels: list
     object: str
-    read: bool
-    subject: str | None
 
 
-class InboxThreadResponseSuccessLoadMatch(TypedDict):
+class InboxThreadLabel(InboxThreadLabelRequired, total=False):
+    id: str
+
+
+class InboxThreadLabelCreateData(TypedDict):
+    inbox_id: str
+    thread_id: str
+    labels: list
+
+
+class InboxThreadLabelUpdateDataRequired(TypedDict):
     inbox_id: str
     thread_id: str
 
 
-class ListAttachment(TypedDict, total=False):
-    content_disposition: str | None
-    content_id: str
-    content_type: str
-    download_url: str
-    expires_at: str
-    filename: str | None
+class InboxThreadLabelUpdateData(InboxThreadLabelUpdateDataRequired, total=False):
+    labels: list
+
+
+class InboxThreadLabelRemoveMatch(TypedDict):
     id: str
-    size: int
-
-
-class ListAttachmentListMatchRequired(TypedDict):
-    email_id: str
-
-
-class ListAttachmentListMatch(ListAttachmentListMatchRequired, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class ListBroadcastClickedLinksResponseSuccess(TypedDict, total=False):
-    clicks: int
-    id: str
-    unique_clicks: int
-    url: str
-
-
-class ListBroadcastClickedLinksResponseSuccessListMatchRequired(TypedDict):
-    broadcast_id: str
-
-
-class ListBroadcastClickedLinksResponseSuccessListMatch(ListBroadcastClickedLinksResponseSuccessListMatchRequired, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class ListBroadcastRecipientsResponseSuccess(TypedDict, total=False):
-    bounce_type: str
-    clicked_links: list
-    contact_id: str | None
-    count: int
-    email: str
-    id: str
-
-
-class ListBroadcastRecipientsResponseSuccessListMatchRequired(TypedDict):
-    broadcast_id: str
-    type: str
-
-
-class ListBroadcastRecipientsResponseSuccessListMatch(ListBroadcastRecipientsResponseSuccessListMatchRequired, total=False):
-    after: str
-    before: str
-    bounce_type: str
-    email: str
-    limit: int
-
-
-class ListContactSegmentsResponseSuccess(TypedDict, total=False):
-    created_at: str
-    id: str
-    name: str
-
-
-class ListContactSegmentsResponseSuccessListMatchRequired(TypedDict):
-    contact_id: str
-
-
-class ListContactSegmentsResponseSuccessListMatch(ListContactSegmentsResponseSuccessListMatchRequired, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class ListContactsResponseSuccess(TypedDict, total=False):
-    created_at: str
-    email: str
-    first_name: str | None
-    id: str
-    last_name: str | None
-    unsubscribed: bool
-
-
-class ListContactsResponseSuccessListMatchRequired(TypedDict):
-    segment_id: str
-
-
-class ListContactsResponseSuccessListMatch(ListContactsResponseSuccessListMatchRequired, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class ListWebhookEvent(TypedDict, total=False):
-    created_at: str
-    id: str
-    status: str
-    type: str
-
-
-class ListWebhookEventListMatchRequired(TypedDict):
-    webhook_id: str
-
-
-class ListWebhookEventListMatch(ListWebhookEventListMatchRequired, total=False):
-    after: str
-    limit: int
-
-
-class ListWebhookEventAttempt(TypedDict, total=False):
-    http_status_code: int
-    id: str
-    response: str
-    sent_at: str
-
-
-class ListWebhookEventAttemptListMatchRequired(TypedDict):
-    event_id: str
-    webhook_id: str
-
-
-class ListWebhookEventAttemptListMatch(ListWebhookEventAttemptListMatchRequired, total=False):
-    after: str
-    limit: int
+    inbox_id: str
+    thread_id: str
 
 
 class Log(TypedDict, total=False):
@@ -1029,6 +1063,53 @@ class LogLoadMatch(TypedDict):
 
 
 class LogListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
+
+
+class OauthGrant(TypedDict, total=False):
+    client: dict
+    client_id: str
+    created_at: str
+    id: str
+    revoked_at: str | None
+    revoked_reason: str | None
+    scopes: list
+
+
+class OauthGrantListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
+
+
+class OauthGrantRemoveMatch(TypedDict):
+    id: str
+
+
+class ReceivedAttachment(TypedDict, total=False):
+    content_disposition: str | None
+    content_id: str
+    content_type: str
+    download_url: str
+    expires_at: str
+    filename: str | None
+    id: str
+    object: str
+    size: int
+
+
+class ReceivedAttachmentLoadMatch(TypedDict):
+    email_id: str
+    id: str
+
+
+class ReceivedAttachmentListMatchRequired(TypedDict):
+    email_id: str
+
+
+class ReceivedAttachmentListMatch(ReceivedAttachmentListMatchRequired, total=False):
     after: str
     before: str
     limit: int
@@ -1061,286 +1142,6 @@ class ReceivedEmailListMatch(TypedDict, total=False):
     limit: int
 
 
-class RemoveAudienceResponseSuccess(TypedDict, total=False):
-    id: str
-
-
-class RemoveAudienceResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveBroadcastResponseSuccess(TypedDict, total=False):
-    id: str
-
-
-class RemoveBroadcastResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveContactFromSegmentResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveContactFromSegmentResponseSuccessRemoveMatch(TypedDict):
-    contact_id: str
-    segment_id: str
-
-
-class RemoveContactPropertyResponseSuccess(TypedDict, total=False):
-    id: str
-
-
-class RemoveContactPropertyResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveContactResponseSuccess(TypedDict, total=False):
-    id: str
-
-
-class RemoveContactResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveEvent(TypedDict, total=False):
-    id: str
-
-
-class RemoveEventRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveInboxDraftResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveInboxDraftResponseSuccessRemoveMatch(TypedDict):
-    draft_id: str
-    inbox_id: str
-
-
-class RemoveInboxLabelResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveInboxLabelResponseSuccessRemoveMatch(TypedDict):
-    inbox_id: str
-    label_id: str
-
-
-class RemoveInboxResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveInboxResponseSuccessRemoveMatch(TypedDict):
-    inbox_id: str
-
-
-class RemoveInboxThreadLabelResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveInboxThreadLabelResponseSuccessRemoveMatch(TypedDict):
-    inbox_id: str
-    label_id: str
-    thread_id: str
-
-
-class RemoveInboxThreadResponseSuccess(TypedDict):
-    pass
-
-
-class RemoveInboxThreadResponseSuccessRemoveMatch(TypedDict):
-    inbox_id: str
-    thread_id: str
-
-
-class RemoveSegmentResponseSuccessRequired(TypedDict):
-    name: str
-
-
-class RemoveSegmentResponseSuccess(RemoveSegmentResponseSuccessRequired, total=False):
-    audience_id: str
-    created_at: str
-    filter: dict
-    id: str
-
-
-class RemoveSegmentResponseSuccessListMatch(TypedDict, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class RemoveSegmentResponseSuccessCreateDataRequired(TypedDict):
-    name: str
-
-
-class RemoveSegmentResponseSuccessCreateData(RemoveSegmentResponseSuccessCreateDataRequired, total=False):
-    audience_id: str
-    filter: dict
-
-
-class RemoveSegmentResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveSuppressionResponseSuccessRequired(TypedDict):
-    email: str
-
-
-class RemoveSuppressionResponseSuccess(RemoveSuppressionResponseSuccessRequired, total=False):
-    created_at: str
-    id: str
-    origin: str
-    source_id: str | None
-
-
-class RemoveSuppressionResponseSuccessListMatch(TypedDict, total=False):
-    after: str
-    before: str
-    limit: int
-    origin: str
-
-
-class RemoveSuppressionResponseSuccessCreateData(TypedDict):
-    email: str
-
-
-class RemoveSuppressionResponseSuccessRemoveMatch(TypedDict):
-    suppression: str
-
-
-class RemoveTemplateResponseSuccessRequired(TypedDict):
-    html: str
-    name: str
-
-
-class RemoveTemplateResponseSuccess(RemoveTemplateResponseSuccessRequired, total=False):
-    alias: str
-    created_at: str
-    id: str
-    published_at: str | None
-    reply_to: list
-    status: str
-    subject: str
-    text: str
-    updated_at: str
-    variables: list
-
-
-class RemoveTemplateResponseSuccessListMatch(TypedDict, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class RemoveTemplateResponseSuccessCreateDataRequired(TypedDict):
-    html: str
-    name: str
-
-
-class RemoveTemplateResponseSuccessCreateData(RemoveTemplateResponseSuccessCreateDataRequired, total=False):
-    alias: str
-    reply_to: list
-    subject: str
-    text: str
-    variables: list
-
-
-class RemoveTemplateResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RemoveTopicResponseSuccessRequired(TypedDict):
-    default_subscription: str
-    name: str
-
-
-class RemoveTopicResponseSuccess(RemoveTopicResponseSuccessRequired, total=False):
-    created_at: str
-    description: str
-    id: str
-    visibility: str
-
-
-class RemoveTopicResponseSuccessListMatch(TypedDict, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class RemoveTopicResponseSuccessCreateDataRequired(TypedDict):
-    default_subscription: str
-    name: str
-
-
-class RemoveTopicResponseSuccessCreateData(RemoveTopicResponseSuccessCreateDataRequired, total=False):
-    description: str
-    visibility: str
-
-
-class RemoveTopicResponseSuccessRemoveMatch(TypedDict):
-    id: str
-
-
-class RetrievedAttachment(TypedDict, total=False):
-    content_disposition: str | None
-    content_id: str
-    content_type: str
-    download_url: str
-    expires_at: str
-    filename: str | None
-    id: str
-    object: str
-    size: int
-
-
-class RetrievedAttachmentLoadMatchRequired(TypedDict):
-    id: str
-
-
-class RetrievedAttachmentLoadMatch(RetrievedAttachmentLoadMatchRequired, total=False):
-    email_id: str
-    receiving_id: str
-
-
-class RevokeOAuthGrant(TypedDict, total=False):
-    client: dict
-    client_id: str
-    created_at: str
-    id: str
-    revoked_at: str | None
-    revoked_reason: str | None
-    scopes: list
-
-
-class RevokeOAuthGrantListMatch(TypedDict, total=False):
-    after: str
-    before: str
-    limit: int
-
-
-class RevokeOAuthGrantRemoveMatch(TypedDict):
-    id: str
-
-
-class Rotate(TypedDict, total=False):
-    id: str
-    object: str
-    signing_secret: str
-
-
-class RotateCreateDataRequired(TypedDict):
-    webhook_id: str
-
-
-class RotateCreateData(RotateCreateDataRequired, total=False):
-    id: str
-    object: str
-    signing_secret: str
-
-
 class Segment(TypedDict, total=False):
     audience_id: str
     created_at: str
@@ -1354,19 +1155,50 @@ class SegmentLoadMatch(TypedDict):
     id: str
 
 
-class SetInboxThreadLabelsResponseSuccess(TypedDict):
-    data: list
-    labels: list
-    object: str
+class SegmentListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
 
 
-class SetInboxThreadLabelsResponseSuccessUpdateDataRequired(TypedDict):
-    inbox_id: str
-    thread_id: str
+class SegmentCreateDataRequired(TypedDict):
+    name: str
 
 
-class SetInboxThreadLabelsResponseSuccessUpdateData(SetInboxThreadLabelsResponseSuccessUpdateDataRequired, total=False):
-    labels: list
+class SegmentCreateData(SegmentCreateDataRequired, total=False):
+    audience_id: str
+    filter: dict
+
+
+class SegmentUpdateDataRequired(TypedDict):
+    id: str
+
+
+class SegmentUpdateData(SegmentUpdateDataRequired, total=False):
+    name: str
+
+
+class SegmentRemoveMatch(TypedDict):
+    id: str
+
+
+class SegmentContact(TypedDict, total=False):
+    created_at: str
+    email: str
+    first_name: str | None
+    id: str
+    last_name: str | None
+    unsubscribed: bool
+
+
+class SegmentContactListMatchRequired(TypedDict):
+    segment_id: str
+
+
+class SegmentContactListMatch(SegmentContactListMatchRequired, total=False):
+    after: str
+    before: str
+    limit: int
 
 
 class Suppression(TypedDict, total=False):
@@ -1380,6 +1212,40 @@ class Suppression(TypedDict, total=False):
 
 class SuppressionLoadMatch(TypedDict):
     id: str
+
+
+class SuppressionListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
+    origin: str
+
+
+class SuppressionCreateData(TypedDict):
+    email: str
+
+
+class SuppressionRemoveMatch(TypedDict):
+    id: str
+
+
+class SuppressionBatchAdd(TypedDict):
+    emails: list
+
+
+class SuppressionBatchAddCreateData(TypedDict):
+    emails: list
+
+
+class SuppressionBatchRemove(TypedDict, total=False):
+    data: list
+    emails: list
+    ids: list
+
+
+class SuppressionBatchRemoveCreateData(TypedDict, total=False):
+    emails: list
+    ids: list
 
 
 class Template(TypedDict, total=False):
@@ -1404,25 +1270,41 @@ class TemplateLoadMatch(TypedDict):
     id: str
 
 
+class TemplateListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
+
+
 class TemplateCreateDataRequired(TypedDict):
-    id: str
+    html: str
+    name: str
 
 
 class TemplateCreateData(TemplateCreateDataRequired, total=False):
     alias: str
-    created_at: str
-    current_version_id: str
-    has_unpublished_versions: bool
-    html: str
-    name: str
-    object: str
-    published_at: str | None
     reply_to: list | None
-    status: str
     subject: str
     text: str
-    updated_at: str
     variables: list
+
+
+class TemplateUpdateDataRequired(TypedDict):
+    id: str
+
+
+class TemplateUpdateData(TemplateUpdateDataRequired, total=False):
+    alias: str
+    html: str
+    name: str
+    reply_to: list | None
+    subject: str
+    text: str
+    variables: list
+
+
+class TemplateRemoveMatch(TypedDict):
+    id: str
 
 
 class Topic(TypedDict, total=False):
@@ -1439,334 +1321,34 @@ class TopicLoadMatch(TypedDict):
     id: str
 
 
-class UpdateApiKeyRequired(TypedDict):
-    name: str
-
-
-class UpdateApiKey(UpdateApiKeyRequired, total=False):
-    id: str
-    object: str
-
-
-class UpdateApiKeyUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateApiKeyUpdateData(UpdateApiKeyUpdateDataRequired, total=False):
-    name: str
-
-
-class UpdateBroadcastResponseSuccess(TypedDict, total=False):
-    audience_id: str
-    html: str
-    id: str
-    name: str
-    object: str
-    preview_text: str
-    reply_to: list
-    segment_id: str
-    subject: str
-    text: str
-    topic_id: str
-
-
-class UpdateBroadcastResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateBroadcastResponseSuccessUpdateData(UpdateBroadcastResponseSuccessUpdateDataRequired, total=False):
-    audience_id: str
-    html: str
-    name: str
-    preview_text: str
-    reply_to: list
-    segment_id: str
-    subject: str
-    text: str
-    topic_id: str
-
-
-class UpdateContactPropertyResponseSuccess(TypedDict, total=False):
-    fallback_value: Any
-    id: str
-    object: str
-
-
-class UpdateContactPropertyResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateContactPropertyResponseSuccessUpdateData(UpdateContactPropertyResponseSuccessUpdateDataRequired, total=False):
-    fallback_value: Any
-
-
-class UpdateContactResponseSuccess(TypedDict, total=False):
-    email: str
-    first_name: str
-    id: str
-    last_name: str
-    object: str
-    properties: dict
-    unsubscribed: bool
-
-
-class UpdateContactResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateContactResponseSuccessUpdateData(UpdateContactResponseSuccessUpdateDataRequired, total=False):
-    email: str
-    first_name: str
-    last_name: str
-    properties: dict
-    unsubscribed: bool
-
-
-class UpdateContactTopicsResponseSuccess(TypedDict, total=False):
-    contact_id: str
-    object: str
-    topics: list
-
-
-class UpdateContactTopicsResponseSuccessUpdateDataRequired(TypedDict):
-    contact_id: str
-
-
-class UpdateContactTopicsResponseSuccessUpdateData(UpdateContactTopicsResponseSuccessUpdateDataRequired, total=False):
-    topics: list
-
-
-class UpdateDomainResponseSuccess(TypedDict, total=False):
-    capabilities: dict
-    click_tracking: bool
-    id: str
-    object: str
-    open_tracking: bool
-    tls: str
-    tracking_subdomain: str
-
-
-class UpdateDomainResponseSuccessUpdateDataRequired(TypedDict):
-    domain_id: str
-
-
-class UpdateDomainResponseSuccessUpdateData(UpdateDomainResponseSuccessUpdateDataRequired, total=False):
-    capabilities: dict
-    click_tracking: bool
-    open_tracking: bool
-    tls: str
-    tracking_subdomain: str
-
-
-class UpdateEmailOption(TypedDict, total=False):
-    scheduled_at: str
-
-
-class UpdateEmailOptionUpdateDataRequired(TypedDict):
-    email_id: str
-
-
-class UpdateEmailOptionUpdateData(UpdateEmailOptionUpdateDataRequired, total=False):
-    scheduled_at: str
-
-
-class UpdateEventRequired(TypedDict):
-    schema: dict | None
-
-
-class UpdateEvent(UpdateEventRequired, total=False):
-    id: str
-    object: str
-
-
-class UpdateEventUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateEventUpdateData(UpdateEventUpdateDataRequired, total=False):
-    schema: dict | None
-
-
-class UpdateInboxDraftResponseSuccessRequired(TypedDict):
-    id: str
-    object: str
-
-
-class UpdateInboxDraftResponseSuccess(UpdateInboxDraftResponseSuccessRequired, total=False):
-    attachments: list | None
-    bcc: Any
-    cc: Any
-    html: str | None
-    subject: str | None
-    text: str | None
-    to: Any
-
-
-class UpdateInboxDraftResponseSuccessUpdateDataRequired(TypedDict):
-    draft_id: str
-    inbox_id: str
-
-
-class UpdateInboxDraftResponseSuccessUpdateData(UpdateInboxDraftResponseSuccessUpdateDataRequired, total=False):
-    attachments: list | None
-    bcc: Any
-    cc: Any
-    html: str | None
-    subject: str | None
-    text: str | None
-    to: Any
-
-
-class UpdateInboxLabelResponseSuccessRequired(TypedDict):
-    id: str
-    object: str
-
-
-class UpdateInboxLabelResponseSuccess(UpdateInboxLabelResponseSuccessRequired, total=False):
-    color: str
-    name: str
-
-
-class UpdateInboxLabelResponseSuccessUpdateDataRequired(TypedDict):
-    inbox_id: str
-    label_id: str
-
-
-class UpdateInboxLabelResponseSuccessUpdateData(UpdateInboxLabelResponseSuccessUpdateDataRequired, total=False):
-    color: str
-    name: str
-
-
-class UpdateInboxResponseSuccessRequired(TypedDict):
-    id: str
-    object: str
-
-
-class UpdateInboxResponseSuccess(UpdateInboxResponseSuccessRequired, total=False):
-    from_name: str
-    name: str
-
-
-class UpdateInboxResponseSuccessUpdateDataRequired(TypedDict):
-    inbox_id: str
-
-
-class UpdateInboxResponseSuccessUpdateData(UpdateInboxResponseSuccessUpdateDataRequired, total=False):
-    from_name: str
-    name: str
-
-
-class UpdateInboxThreadResponseSuccess(TypedDict):
-    folder: str
-    id: str
-    labels: list
-    object: str
-    read: bool
-    subject: str | None
-
-
-class UpdateInboxThreadResponseSuccessUpdateDataRequired(TypedDict):
-    inbox_id: str
-    thread_id: str
-
-
-class UpdateInboxThreadResponseSuccessUpdateData(UpdateInboxThreadResponseSuccessUpdateDataRequired, total=False):
-    folder: str
-    read: bool
-
-
-class UpdateSegmentResponseSuccessRequired(TypedDict):
-    name: str
-
-
-class UpdateSegmentResponseSuccess(UpdateSegmentResponseSuccessRequired, total=False):
-    id: str
-    object: str
-
-
-class UpdateSegmentResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateSegmentResponseSuccessUpdateData(UpdateSegmentResponseSuccessUpdateDataRequired, total=False):
-    name: str
-
-
-class UpdateTemplateResponseSuccess(TypedDict, total=False):
-    alias: str
-    html: str
-    id: str
-    name: str
-    object: str
-    reply_to: list
-    subject: str
-    text: str
-    variables: list
-
-
-class UpdateTemplateResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateTemplateResponseSuccessUpdateData(UpdateTemplateResponseSuccessUpdateDataRequired, total=False):
-    alias: str
-    html: str
-    name: str
-    reply_to: list
-    subject: str
-    text: str
-    variables: list
-
-
-class UpdateTopicResponseSuccess(TypedDict, total=False):
-    description: str
-    id: str
-    name: str
-    object: str
-    visibility: str
-
-
-class UpdateTopicResponseSuccessUpdateDataRequired(TypedDict):
-    id: str
-
-
-class UpdateTopicResponseSuccessUpdateData(UpdateTopicResponseSuccessUpdateDataRequired, total=False):
-    description: str
-    name: str
-    visibility: str
-
-
-class UpdateWebhookRequired(TypedDict):
-    endpoint: str
-    events: list
-
-
-class UpdateWebhook(UpdateWebhookRequired, total=False):
-    created_at: str
-    id: str
-    object: str
-    status: str
-
-
-class UpdateWebhookListMatch(TypedDict, total=False):
+class TopicListMatch(TypedDict, total=False):
     after: str
     before: str
     limit: int
 
 
-class UpdateWebhookCreateData(TypedDict):
-    endpoint: str
-    events: list
+class TopicCreateDataRequired(TypedDict):
+    default_subscription: str
+    name: str
 
 
-class UpdateWebhookUpdateDataRequired(TypedDict):
+class TopicCreateData(TopicCreateDataRequired, total=False):
+    description: str
+    visibility: str
+
+
+class TopicUpdateDataRequired(TypedDict):
     id: str
 
 
-class UpdateWebhookUpdateData(UpdateWebhookUpdateDataRequired, total=False):
-    endpoint: str
-    events: list
-    status: str
+class TopicUpdateData(TopicUpdateDataRequired, total=False):
+    description: str
+    name: str
+    visibility: str
+
+
+class TopicRemoveMatch(TypedDict):
+    id: str
 
 
 class Usage(TypedDict, total=False):
@@ -1807,6 +1389,27 @@ class WebhookLoadMatch(TypedDict):
     id: str
 
 
+class WebhookListMatch(TypedDict, total=False):
+    after: str
+    before: str
+    limit: int
+
+
+class WebhookCreateData(TypedDict):
+    endpoint: str
+    events: list | None
+
+
+class WebhookUpdateDataRequired(TypedDict):
+    id: str
+
+
+class WebhookUpdateData(WebhookUpdateDataRequired, total=False):
+    endpoint: str
+    events: list | None
+    status: str
+
+
 class WebhookRemoveMatch(TypedDict):
     id: str
 
@@ -1826,6 +1429,15 @@ class WebhookEventLoadMatch(TypedDict):
     webhook_id: str
 
 
+class WebhookEventListMatchRequired(TypedDict):
+    webhook_id: str
+
+
+class WebhookEventListMatch(WebhookEventListMatchRequired, total=False):
+    after: str
+    limit: int
+
+
 class WebhookEventCreateDataRequired(TypedDict):
     event_id: str
     webhook_id: str
@@ -1839,3 +1451,20 @@ class WebhookEventCreateData(WebhookEventCreateDataRequired, total=False):
     payload: dict
     status: str
     type: str
+
+
+class WebhookEventAttempt(TypedDict, total=False):
+    http_status_code: int
+    id: str
+    response: str
+    sent_at: str
+
+
+class WebhookEventAttemptListMatchRequired(TypedDict):
+    event_id: str
+    webhook_id: str
+
+
+class WebhookEventAttemptListMatch(WebhookEventAttemptListMatchRequired, total=False):
+    after: str
+    limit: int

@@ -1,0 +1,36 @@
+{
+  "existing": {
+    "email_batch": {
+      "EMAIL_BATCH00": {
+        "data": [],
+        "send_emails": [],
+        "id": "EMAIL_BATCH00"
+      },
+      "EMAIL_BATCH01": {
+        "data": [],
+        "send_emails": [],
+        "id": "EMAIL_BATCH01"
+      },
+      "EMAIL_BATCH02": {
+        "data": [],
+        "send_emails": [],
+        "id": "EMAIL_BATCH02"
+      }
+    }
+  },
+  "new": {
+    "email_batch": {
+      "email_batch_ref01": {
+        "data": [],
+        "send_emails": []
+      }
+    }
+  },
+  "requests": {
+    "POST /emails/batch": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

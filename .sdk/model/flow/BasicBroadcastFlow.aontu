@@ -30,6 +30,25 @@ main: kit: flow: BasicBroadcastFlow:
       i: {
         ref: "broadcast_ref01",
         srcdatavar: "broadcast_ref01_data",
+        suffix: "_up0",
+        textfield: "created_at"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-broadcast_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "broadcast_ref01",
+        srcdatavar: "broadcast_ref01_data",
         suffix: "_dt0"
       }
 
@@ -43,6 +62,35 @@ main: kit: flow: BasicBroadcastFlow:
           apply: "TextFieldMark",
           def: {
             mark: "Mark01-broadcast_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "broadcast_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "broadcast01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "broadcast_ref01"
           }
         }
       ]

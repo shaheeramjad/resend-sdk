@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 )
 
 // Requests in flight at once on one client. Each resolves its operation

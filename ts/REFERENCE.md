@@ -49,30 +49,6 @@ const client = ResendSDK.test()
 
 ### Instance Methods
 
-#### `AddContactToSegmentResponseSuccess(data?: object)`
-
-Create a new `AddContactToSegmentResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `AddContactToSegmentResponseSuccessEntity` instance.
-
-#### `AddInboxThreadLabelsResponseSuccess(data?: object)`
-
-Create a new `AddInboxThreadLabelsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `AddInboxThreadLabelsResponseSuccessEntity` instance.
-
 #### `ApiKey(data?: object)`
 
 Create a new `ApiKey` entity instance.
@@ -84,6 +60,18 @@ Create a new `ApiKey` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `ApiKeyEntity` instance.
+
+#### `Attachment(data?: object)`
+
+Create a new `Attachment` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `AttachmentEntity` instance.
 
 #### `Audience(data?: object)`
 
@@ -121,42 +109,6 @@ Create a new `AutomationRun` entity instance.
 
 **Returns:** `AutomationRunEntity` instance.
 
-#### `AutomationRunListItem(data?: object)`
-
-Create a new `AutomationRunListItem` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `AutomationRunListItemEntity` instance.
-
-#### `BatchAddSuppressionsResponseSuccess(data?: object)`
-
-Create a new `BatchAddSuppressionsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `BatchAddSuppressionsResponseSuccessEntity` instance.
-
-#### `BatchRemoveSuppressionsResponseSuccess(data?: object)`
-
-Create a new `BatchRemoveSuppressionsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `BatchRemoveSuppressionsResponseSuccessEntity` instance.
-
 #### `Broadcast(data?: object)`
 
 Create a new `Broadcast` entity instance.
@@ -168,6 +120,30 @@ Create a new `Broadcast` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `BroadcastEntity` instance.
+
+#### `BroadcastClickedLink(data?: object)`
+
+Create a new `BroadcastClickedLink` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `BroadcastClickedLinkEntity` instance.
+
+#### `BroadcastRecipient(data?: object)`
+
+Create a new `BroadcastRecipient` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `BroadcastRecipientEntity` instance.
 
 #### `Contact(data?: object)`
 
@@ -181,9 +157,9 @@ Create a new `Contact` entity instance.
 
 **Returns:** `ContactEntity` instance.
 
-#### `ContactImportResponseSuccess(data?: object)`
+#### `ContactImport(data?: object)`
 
-Create a new `ContactImportResponseSuccess` entity instance.
+Create a new `ContactImport` entity instance.
 
 **Parameters:**
 
@@ -191,7 +167,7 @@ Create a new `ContactImportResponseSuccess` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `ContactImportResponseSuccessEntity` instance.
+**Returns:** `ContactImportEntity` instance.
 
 #### `ContactProperty(data?: object)`
 
@@ -205,21 +181,9 @@ Create a new `ContactProperty` entity instance.
 
 **Returns:** `ContactPropertyEntity` instance.
 
-#### `ContactTopicsResponseSuccess(data?: object)`
+#### `ContactSegment(data?: object)`
 
-Create a new `ContactTopicsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ContactTopicsResponseSuccessEntity` instance.
-
-#### `CreateApiKey(data?: object)`
-
-Create a new `CreateApiKey` entity instance.
+Create a new `ContactSegment` entity instance.
 
 **Parameters:**
 
@@ -227,23 +191,11 @@ Create a new `CreateApiKey` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `CreateApiKeyEntity` instance.
+**Returns:** `ContactSegmentEntity` instance.
 
-#### `CreateBatchEmail(data?: object)`
+#### `ContactTopic(data?: object)`
 
-Create a new `CreateBatchEmail` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `CreateBatchEmailEntity` instance.
-
-#### `CreateBroadcastResponseSuccess(data?: object)`
-
-Create a new `CreateBroadcastResponseSuccess` entity instance.
+Create a new `ContactTopic` entity instance.
 
 **Parameters:**
 
@@ -251,31 +203,7 @@ Create a new `CreateBroadcastResponseSuccess` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `CreateBroadcastResponseSuccessEntity` instance.
-
-#### `CreateInboxDraftResponseSuccess(data?: object)`
-
-Create a new `CreateInboxDraftResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `CreateInboxDraftResponseSuccessEntity` instance.
-
-#### `CreateInboxLabelResponseSuccess(data?: object)`
-
-Create a new `CreateInboxLabelResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `CreateInboxLabelResponseSuccessEntity` instance.
+**Returns:** `ContactTopicEntity` instance.
 
 #### `Domain(data?: object)`
 
@@ -313,6 +241,18 @@ Create a new `Email` entity instance.
 
 **Returns:** `EmailEntity` instance.
 
+#### `EmailBatch(data?: object)`
+
+Create a new `EmailBatch` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `EmailBatchEntity` instance.
+
 #### `EmailsMetric(data?: object)`
 
 Create a new `EmailsMetric` entity instance.
@@ -349,21 +289,9 @@ Create a new `Inbox` entity instance.
 
 **Returns:** `InboxEntity` instance.
 
-#### `InboxAgentResponseSuccess(data?: object)`
+#### `InboxAgent(data?: object)`
 
-Create a new `InboxAgentResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `InboxAgentResponseSuccessEntity` instance.
-
-#### `InboxDraftListItem(data?: object)`
-
-Create a new `InboxDraftListItem` entity instance.
+Create a new `InboxAgent` entity instance.
 
 **Parameters:**
 
@@ -371,11 +299,11 @@ Create a new `InboxDraftListItem` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `InboxDraftListItemEntity` instance.
+**Returns:** `InboxAgentEntity` instance.
 
-#### `InboxDraftResponseSuccess(data?: object)`
+#### `InboxDraft(data?: object)`
 
-Create a new `InboxDraftResponseSuccess` entity instance.
+Create a new `InboxDraft` entity instance.
 
 **Parameters:**
 
@@ -383,7 +311,7 @@ Create a new `InboxDraftResponseSuccess` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `InboxDraftResponseSuccessEntity` instance.
+**Returns:** `InboxDraftEntity` instance.
 
 #### `InboxLabel(data?: object)`
 
@@ -421,21 +349,9 @@ Create a new `InboxThreadEmail` entity instance.
 
 **Returns:** `InboxThreadEmailEntity` instance.
 
-#### `InboxThreadEmailResponseSuccess(data?: object)`
+#### `InboxThreadLabel(data?: object)`
 
-Create a new `InboxThreadEmailResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `InboxThreadEmailResponseSuccessEntity` instance.
-
-#### `InboxThreadResponseSuccess(data?: object)`
-
-Create a new `InboxThreadResponseSuccess` entity instance.
+Create a new `InboxThreadLabel` entity instance.
 
 **Parameters:**
 
@@ -443,91 +359,7 @@ Create a new `InboxThreadResponseSuccess` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `InboxThreadResponseSuccessEntity` instance.
-
-#### `ListAttachment(data?: object)`
-
-Create a new `ListAttachment` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListAttachmentEntity` instance.
-
-#### `ListBroadcastClickedLinksResponseSuccess(data?: object)`
-
-Create a new `ListBroadcastClickedLinksResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListBroadcastClickedLinksResponseSuccessEntity` instance.
-
-#### `ListBroadcastRecipientsResponseSuccess(data?: object)`
-
-Create a new `ListBroadcastRecipientsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListBroadcastRecipientsResponseSuccessEntity` instance.
-
-#### `ListContactSegmentsResponseSuccess(data?: object)`
-
-Create a new `ListContactSegmentsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListContactSegmentsResponseSuccessEntity` instance.
-
-#### `ListContactsResponseSuccess(data?: object)`
-
-Create a new `ListContactsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListContactsResponseSuccessEntity` instance.
-
-#### `ListWebhookEvent(data?: object)`
-
-Create a new `ListWebhookEvent` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListWebhookEventEntity` instance.
-
-#### `ListWebhookEventAttempt(data?: object)`
-
-Create a new `ListWebhookEventAttempt` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `ListWebhookEventAttemptEntity` instance.
+**Returns:** `InboxThreadLabelEntity` instance.
 
 #### `Log(data?: object)`
 
@@ -541,6 +373,30 @@ Create a new `Log` entity instance.
 
 **Returns:** `LogEntity` instance.
 
+#### `OauthGrant(data?: object)`
+
+Create a new `OauthGrant` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `OauthGrantEntity` instance.
+
+#### `ReceivedAttachment(data?: object)`
+
+Create a new `ReceivedAttachment` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `ReceivedAttachmentEntity` instance.
+
 #### `ReceivedEmail(data?: object)`
 
 Create a new `ReceivedEmail` entity instance.
@@ -552,222 +408,6 @@ Create a new `ReceivedEmail` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `ReceivedEmailEntity` instance.
-
-#### `RemoveAudienceResponseSuccess(data?: object)`
-
-Create a new `RemoveAudienceResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveAudienceResponseSuccessEntity` instance.
-
-#### `RemoveBroadcastResponseSuccess(data?: object)`
-
-Create a new `RemoveBroadcastResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveBroadcastResponseSuccessEntity` instance.
-
-#### `RemoveContactFromSegmentResponseSuccess(data?: object)`
-
-Create a new `RemoveContactFromSegmentResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveContactFromSegmentResponseSuccessEntity` instance.
-
-#### `RemoveContactPropertyResponseSuccess(data?: object)`
-
-Create a new `RemoveContactPropertyResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveContactPropertyResponseSuccessEntity` instance.
-
-#### `RemoveContactResponseSuccess(data?: object)`
-
-Create a new `RemoveContactResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveContactResponseSuccessEntity` instance.
-
-#### `RemoveEvent(data?: object)`
-
-Create a new `RemoveEvent` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveEventEntity` instance.
-
-#### `RemoveInboxDraftResponseSuccess(data?: object)`
-
-Create a new `RemoveInboxDraftResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveInboxDraftResponseSuccessEntity` instance.
-
-#### `RemoveInboxLabelResponseSuccess(data?: object)`
-
-Create a new `RemoveInboxLabelResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveInboxLabelResponseSuccessEntity` instance.
-
-#### `RemoveInboxResponseSuccess(data?: object)`
-
-Create a new `RemoveInboxResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveInboxResponseSuccessEntity` instance.
-
-#### `RemoveInboxThreadLabelResponseSuccess(data?: object)`
-
-Create a new `RemoveInboxThreadLabelResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveInboxThreadLabelResponseSuccessEntity` instance.
-
-#### `RemoveInboxThreadResponseSuccess(data?: object)`
-
-Create a new `RemoveInboxThreadResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveInboxThreadResponseSuccessEntity` instance.
-
-#### `RemoveSegmentResponseSuccess(data?: object)`
-
-Create a new `RemoveSegmentResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveSegmentResponseSuccessEntity` instance.
-
-#### `RemoveSuppressionResponseSuccess(data?: object)`
-
-Create a new `RemoveSuppressionResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveSuppressionResponseSuccessEntity` instance.
-
-#### `RemoveTemplateResponseSuccess(data?: object)`
-
-Create a new `RemoveTemplateResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveTemplateResponseSuccessEntity` instance.
-
-#### `RemoveTopicResponseSuccess(data?: object)`
-
-Create a new `RemoveTopicResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RemoveTopicResponseSuccessEntity` instance.
-
-#### `RetrievedAttachment(data?: object)`
-
-Create a new `RetrievedAttachment` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RetrievedAttachmentEntity` instance.
-
-#### `RevokeOAuthGrant(data?: object)`
-
-Create a new `RevokeOAuthGrant` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RevokeOAuthGrantEntity` instance.
-
-#### `Rotate(data?: object)`
-
-Create a new `Rotate` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `RotateEntity` instance.
 
 #### `Segment(data?: object)`
 
@@ -781,9 +421,9 @@ Create a new `Segment` entity instance.
 
 **Returns:** `SegmentEntity` instance.
 
-#### `SetInboxThreadLabelsResponseSuccess(data?: object)`
+#### `SegmentContact(data?: object)`
 
-Create a new `SetInboxThreadLabelsResponseSuccess` entity instance.
+Create a new `SegmentContact` entity instance.
 
 **Parameters:**
 
@@ -791,7 +431,7 @@ Create a new `SetInboxThreadLabelsResponseSuccess` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `SetInboxThreadLabelsResponseSuccessEntity` instance.
+**Returns:** `SegmentContactEntity` instance.
 
 #### `Suppression(data?: object)`
 
@@ -804,6 +444,30 @@ Create a new `Suppression` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `SuppressionEntity` instance.
+
+#### `SuppressionBatchAdd(data?: object)`
+
+Create a new `SuppressionBatchAdd` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `SuppressionBatchAddEntity` instance.
+
+#### `SuppressionBatchRemove(data?: object)`
+
+Create a new `SuppressionBatchRemove` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `SuppressionBatchRemoveEntity` instance.
 
 #### `Template(data?: object)`
 
@@ -828,198 +492,6 @@ Create a new `Topic` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `TopicEntity` instance.
-
-#### `UpdateApiKey(data?: object)`
-
-Create a new `UpdateApiKey` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateApiKeyEntity` instance.
-
-#### `UpdateBroadcastResponseSuccess(data?: object)`
-
-Create a new `UpdateBroadcastResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateBroadcastResponseSuccessEntity` instance.
-
-#### `UpdateContactPropertyResponseSuccess(data?: object)`
-
-Create a new `UpdateContactPropertyResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateContactPropertyResponseSuccessEntity` instance.
-
-#### `UpdateContactResponseSuccess(data?: object)`
-
-Create a new `UpdateContactResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateContactResponseSuccessEntity` instance.
-
-#### `UpdateContactTopicsResponseSuccess(data?: object)`
-
-Create a new `UpdateContactTopicsResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateContactTopicsResponseSuccessEntity` instance.
-
-#### `UpdateDomainResponseSuccess(data?: object)`
-
-Create a new `UpdateDomainResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateDomainResponseSuccessEntity` instance.
-
-#### `UpdateEmailOption(data?: object)`
-
-Create a new `UpdateEmailOption` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateEmailOptionEntity` instance.
-
-#### `UpdateEvent(data?: object)`
-
-Create a new `UpdateEvent` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateEventEntity` instance.
-
-#### `UpdateInboxDraftResponseSuccess(data?: object)`
-
-Create a new `UpdateInboxDraftResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateInboxDraftResponseSuccessEntity` instance.
-
-#### `UpdateInboxLabelResponseSuccess(data?: object)`
-
-Create a new `UpdateInboxLabelResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateInboxLabelResponseSuccessEntity` instance.
-
-#### `UpdateInboxResponseSuccess(data?: object)`
-
-Create a new `UpdateInboxResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateInboxResponseSuccessEntity` instance.
-
-#### `UpdateInboxThreadResponseSuccess(data?: object)`
-
-Create a new `UpdateInboxThreadResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateInboxThreadResponseSuccessEntity` instance.
-
-#### `UpdateSegmentResponseSuccess(data?: object)`
-
-Create a new `UpdateSegmentResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateSegmentResponseSuccessEntity` instance.
-
-#### `UpdateTemplateResponseSuccess(data?: object)`
-
-Create a new `UpdateTemplateResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateTemplateResponseSuccessEntity` instance.
-
-#### `UpdateTopicResponseSuccess(data?: object)`
-
-Create a new `UpdateTopicResponseSuccess` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateTopicResponseSuccessEntity` instance.
-
-#### `UpdateWebhook(data?: object)`
-
-Create a new `UpdateWebhook` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `UpdateWebhookEntity` instance.
 
 #### `Usage(data?: object)`
 
@@ -1056,6 +528,18 @@ Create a new `WebhookEvent` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `WebhookEventEntity` instance.
+
+#### `WebhookEventAttempt(data?: object)`
+
+Create a new `WebhookEventAttempt` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `WebhookEventAttemptEntity` instance.
 
 #### `options()`
 
@@ -1114,117 +598,6 @@ as `callopts.signal`, and ends when it aborts.
 
 ---
 
-## AddContactToSegmentResponseSuccessEntity
-
-```ts
-const add_contact_to_segment_response_success = client.AddContactToSegmentResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `contact_id` | `string` | No | The ID of the contact. |
-| `object` | `string` | No | The object type. |
-| `segment_id` | `string` | No | The ID of the segment. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.AddContactToSegmentResponseSuccess().create({
-  contact_id: 'example_contact_id',
-  segment_id: 'example_segment_id',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `AddContactToSegmentResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## AddInboxThreadLabelsResponseSuccessEntity
-
-```ts
-const add_inbox_thread_labels_response_success = client.AddInboxThreadLabelsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `data` | `any[]` | Yes | Every label on the thread after the change. |
-| `labels` | `any[]` | Yes | The IDs of the labels to apply to the thread. |
-| `object` | `string` | Yes | Type of the response object. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.AddInboxThreadLabelsResponseSuccess().create({
-  inbox_id: 'example_inbox_id',
-  thread_id: 'example_thread_id',
-  labels: [],
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `AddInboxThreadLabelsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
 ## ApiKeyEntity
 
 ```ts
@@ -1236,11 +609,36 @@ const api_key = client.ApiKey()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No | The date and time the API key was created. |
+| `domain_id` | `string` | No | Restrict an API key to send emails only from a specific domain. |
 | `id` | `string` | No | The ID of the API key. |
 | `last_used_at` | `string | null` | No | The date and time the API key was last used. |
-| `name` | `string` | No | The name of the API key. |
+| `name` | `string` | Yes | The API key name. |
+| `object` | `string` | No | The type of object. |
+| `permission` | `string` | No | The API key can have full access to Resend’s API or be only restricted to send emails. |
+
+### Field Usage by Operation
+
+| Field | list | create | update | remove |
+| --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - |
+| `domain_id` | - | - | - | - |
+| `id` | - | - | - | - |
+| `last_used_at` | - | - | - | - |
+| `name` | Yes | - | - | - |
+| `object` | - | - | - | - |
+| `permission` | - | - | - | - |
 
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.ApiKey().create({
+  name: 'example_name',
+})
+```
 
 #### `list(match: object, ctrl?: object)`
 
@@ -1256,6 +654,17 @@ Remove the entity matching the given criteria. Resolves to the entity, marked as
 
 ```ts
 const result = await client.ApiKey().remove({ id: 'api_key_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.ApiKey().update({
+  id: 'api_key_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -1286,6 +695,72 @@ Return a copy of the entity options.
 
 ---
 
+## AttachmentEntity
+
+```ts
+const attachment = client.Attachment()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `content_disposition` | `string | null` | No | How the attachment should be displayed. |
+| `content_id` | `string` | No | The content ID for inline attachments. |
+| `content_type` | `string` | No | The MIME type of the attachment. |
+| `download_url` | `string` | No | Signed URL to download the attachment content. |
+| `expires_at` | `string` | No | Timestamp when the download URL expires. |
+| `filename` | `string | null` | No | The filename of the attachment. |
+| `id` | `string` | No | The ID of the attachment. |
+| `object` | `string` | No | The type of object. |
+| `size` | `number` | No | Size of the attachment in bytes. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Attachment().list({ email_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+
+```ts
+const result = await client.Attachment().load({ id: 'attachment_id', email_id: 'email_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `AttachmentEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
 ## AudienceEntity
 
 ```ts
@@ -1303,12 +778,12 @@ const audience = client.Audience()
 
 ### Field Usage by Operation
 
-| Field | load | list | create |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `id` | - | - | - |
-| `name` | - | - | Yes |
-| `object` | - | - | - |
+| Field | load | list | create | remove |
+| --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - |
+| `id` | - | - | - | - |
+| `name` | - | - | Yes | - |
+| `object` | - | - | - | - |
 
 ### Operations
 
@@ -1336,6 +811,14 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Audience().load({ id: 'audience_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Audience().remove({ id: 'audience_id' })
 ```
 
 ### Common Methods
@@ -1516,6 +999,14 @@ const automation_run = client.AutomationRun()
 
 ### Operations
 
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.AutomationRun().list({ automation_id: "example" })
+```
+
 #### `load(match: object, ctrl?: object)`
 
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
@@ -1552,185 +1043,6 @@ Return a copy of the entity options.
 
 ---
 
-## AutomationRunListItemEntity
-
-```ts
-const automation_run_list_item = client.AutomationRunListItem()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `completed_at` | `string | null` | No | The date and time the run completed. |
-| `created_at` | `string` | No | The date and time the run was created. |
-| `id` | `string` | No | The ID of the automation run. |
-| `started_at` | `string | null` | No | The date and time the run started. |
-| `status` | `string` | No | The current status of the automation run. |
-
-### Actions
-
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
-
-| Action | Route | Call |
-| --- | --- | --- |
-| `runs` | `/automations/{automation_id}/runs` | `client.AutomationRunListItem().list({ $action: 'runs', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-AutomationRunListItem record — check the API definition for its shape.
-
-```ts
-const result = await client.AutomationRunListItem().list({
-  $action: 'runs',
-  /* ...the action's own arguments */
-})
-```
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.AutomationRunListItem().list({ id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `AutomationRunListItemEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## BatchAddSuppressionsResponseSuccessEntity
-
-```ts
-const batch_add_suppressions_response_success = client.BatchAddSuppressionsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `emails` | `any[]` | Yes | Email addresses to suppress. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.BatchAddSuppressionsResponseSuccess().create({
-  emails: [],
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `BatchAddSuppressionsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## BatchRemoveSuppressionsResponseSuccessEntity
-
-```ts
-const batch_remove_suppressions_response_success = client.BatchRemoveSuppressionsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `data` | `any[]` | No | Array containing the removed suppressions. |
-| `emails` | `any[]` | No | Email addresses to remove from the suppression list. |
-| `ids` | `any[]` | No | Suppression IDs to remove from the suppression list. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.BatchRemoveSuppressionsResponseSuccess().create({
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `BatchRemoveSuppressionsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
 ## BroadcastEntity
 
 ```ts
@@ -1747,15 +1059,39 @@ const broadcast = client.Broadcast()
 | `html` | `string | null` | No | The HTML version of the broadcast content. |
 | `id` | `string` | No | Unique identifier for the broadcast. |
 | `name` | `string` | No | Name of the broadcast. |
+| `object` | `string` | No | The object type of the response. |
 | `preview_text` | `string` | No | The preview text of the email. |
 | `reply_to` | `any[]` | No | The email addresses to which replies should be sent. |
 | `scheduled_at` | `string` | No | Timestamp indicating when the broadcast is scheduled to be sent. |
 | `segment_id` | `string | null` | No | Unique identifier of the segment this broadcast will be sent to. |
+| `send` | `boolean` | No | Whether to send the broadcast immediately or keep it as a draft. |
 | `sent_at` | `string` | No | Timestamp indicating when the broadcast was sent. |
 | `status` | `string` | No | The status of the broadcast. |
 | `subject` | `string` | No | The subject line of the email. |
 | `text` | `string | null` | No | The plain text version of the broadcast content. |
 | `topic_id` | `string | null` | No | The topic ID that the broadcast is scoped to. |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `audience_id` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `from` | - | - | Yes | - | - |
+| `html` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | - | - | - |
+| `object` | - | - | - | - | - |
+| `preview_text` | - | - | - | - | - |
+| `reply_to` | - | - | - | - | - |
+| `scheduled_at` | - | - | - | - | - |
+| `segment_id` | - | - | Yes | - | - |
+| `send` | - | - | - | - | - |
+| `sent_at` | - | - | - | - | - |
+| `status` | - | - | - | - | - |
+| `subject` | - | - | Yes | - | - |
+| `text` | - | - | - | - | - |
+| `topic_id` | - | - | - | - | - |
 
 ### Actions
 
@@ -1785,6 +1121,14 @@ const result = await client.Broadcast().create({
 
 Create a new entity with the given data. Resolves to the created entity.
 
+```ts
+const result = await client.Broadcast().create({
+  from: 'example_from',
+  segment_id: 'example_segment_id',
+  subject: 'example_subject',
+})
+```
+
 #### `list(match: object, ctrl?: object)`
 
 List entities matching the given criteria. Resolves to an array of entities, one per record.
@@ -1799,6 +1143,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Broadcast().load({ id: 'broadcast_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Broadcast().remove({ id: 'broadcast_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Broadcast().update({
+  id: 'broadcast_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -1816,6 +1179,114 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `BroadcastEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## BroadcastClickedLinkEntity
+
+```ts
+const broadcast_clicked_link = client.BroadcastClickedLink()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `clicks` | `number` | No | Total number of clicks on this URL. |
+| `id` | `string` | No | An opaque cursor for this row, used only for pagination. |
+| `unique_clicks` | `number` | No | Number of unique clicks on this URL. |
+| `url` | `string` | No | The URL that was clicked. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.BroadcastClickedLink().list({ broadcast_id: "example" })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `BroadcastClickedLinkEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## BroadcastRecipientEntity
+
+```ts
+const broadcast_recipient = client.BroadcastRecipient()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `bounce_type` | `string` | No | The type of bounce. |
+| `clicked_links` | `any[]` | No | The links this recipient clicked. |
+| `contact_id` | `string | null` | No | The ID of the contact associated with this recipient, if one exists. |
+| `count` | `number` | No | The number of times this recipient triggered the event. |
+| `email` | `string` | No | The recipient's email address. |
+| `id` | `string` | No | Opaque cursor identifying this row, used for pagination. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.BroadcastRecipient().list({ broadcast_id: "example", type: "example" })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `BroadcastRecipientEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -1853,19 +1324,19 @@ const contact = client.Contact()
 
 ### Field Usage by Operation
 
-| Field | load | list | create |
-| --- | --- | --- | --- |
-| `audience_id` | - | - | - |
-| `created_at` | - | - | - |
-| `email` | - | - | Yes |
-| `first_name` | - | - | - |
-| `id` | - | - | - |
-| `last_name` | - | - | - |
-| `object` | - | - | - |
-| `properties` | - | - | - |
-| `segments` | - | - | - |
-| `topics` | - | - | - |
-| `unsubscribed` | - | - | - |
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `audience_id` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `email` | - | - | Yes | - | - |
+| `first_name` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `last_name` | - | - | - | - | - |
+| `object` | - | - | - | - | - |
+| `properties` | - | - | - | - | - |
+| `segments` | - | - | - | - | - |
+| `topics` | - | - | - | - | - |
+| `unsubscribed` | - | - | - | - | - |
 
 ### Operations
 
@@ -1893,6 +1364,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Contact().load({ id: 'contact_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Contact().remove({ id: 'contact_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Contact().update({
+  id: 'contact_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -1923,10 +1413,10 @@ Return a copy of the entity options.
 
 ---
 
-## ContactImportResponseSuccessEntity
+## ContactImportEntity
 
 ```ts
-const contact_import_response_success = client.ContactImportResponseSuccess()
+const contact_import = client.ContactImport()
 ```
 
 ### Fields
@@ -1952,7 +1442,7 @@ const contact_import_response_success = client.ContactImportResponseSuccess()
 Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
-const result = await client.ContactImportResponseSuccess().create({
+const result = await client.ContactImport().create({
   file: 'example_file',
 })
 ```
@@ -1964,7 +1454,7 @@ Declares a `multipart/form-data` body, which this SDK does not encode yet: it se
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.ContactImportResponseSuccess().list()
+const results = await client.ContactImport().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -1972,7 +1462,7 @@ const results = await client.ContactImportResponseSuccess().list()
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
-const result = await client.ContactImportResponseSuccess().load({ id: 'contact_import_response_success_id' })
+const result = await client.ContactImport().load({ id: 'contact_import_id' })
 ```
 
 ### Common Methods
@@ -1989,7 +1479,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `ContactImportResponseSuccessEntity` instance with the same client and
+Create a new `ContactImportEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -2022,14 +1512,14 @@ const contact_property = client.ContactProperty()
 
 ### Field Usage by Operation
 
-| Field | load | list | create |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `fallback_value` | - | - | - |
-| `id` | - | - | - |
-| `key` | - | - | Yes |
-| `object` | - | - | - |
-| `type` | - | - | Yes |
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `fallback_value` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `key` | - | - | Yes | - | - |
+| `object` | - | - | - | - | - |
+| `type` | - | - | Yes | - | - |
 
 ### Operations
 
@@ -2060,6 +1550,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 const result = await client.ContactProperty().load({ id: 'contact_property_id' })
 ```
 
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.ContactProperty().remove({ id: 'contact_property_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.ContactProperty().update({
+  id: 'contact_property_id',
+  // Fields to update
+})
+```
+
 ### Common Methods
 
 #### `data(data?: object)`
@@ -2088,37 +1597,109 @@ Return a copy of the entity options.
 
 ---
 
-## ContactTopicsResponseSuccessEntity
+## ContactSegmentEntity
 
 ```ts
-const contact_topics_response_success = client.ContactTopicsResponseSuccess()
+const contact_segment = client.ContactSegment()
 ```
 
 ### Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
+| `contact_id` | `string` | No | The ID of the contact. |
+| `created_at` | `string` | No | Timestamp indicating when the contact was added to the segment. |
+| `id` | `string` | No | Unique identifier for the segment. |
+| `name` | `string` | No | Name of the segment. |
+| `object` | `string` | No | The object type. |
+| `segment_id` | `string` | No | The ID of the segment. |
 
-### Actions
+### Operations
 
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
+#### `create(data: object, ctrl?: object)`
 
-| Action | Route | Call |
-| --- | --- | --- |
-| `topics` | `/contacts/{contact_id}/topics` | `client.ContactTopicsResponseSuccess().list({ $action: 'topics', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-ContactTopicsResponseSuccess record — check the API definition for its shape.
+Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
-const result = await client.ContactTopicsResponseSuccess().list({
-  $action: 'topics',
-  /* ...the action's own arguments */
+const result = await client.ContactSegment().create({
+  contact_id: 'example_contact_id',
+  id: 'example_id',
 })
 ```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.ContactSegment().list({ contact_id: "example" })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.ContactSegment().remove({ id: 'contact_segment_id', contact_id: 'contact_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `ContactSegmentEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## ContactTopicEntity
+
+```ts
+const contact_topic = client.ContactTopic()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `contact_id` | `string` | No | The ID of the contact. |
+| `description` | `string` | No | Description of the topic. |
+| `id` | `string` | No | Unique identifier for the topic. |
+| `name` | `string` | No | Name of the topic. |
+| `object` | `string` | No | The object type. |
+| `subscription` | `string` | No | The subscription status for this topic. |
+| `topics` | `any[]` | No | Array of updated topic subscriptions. |
+
+### Field Usage by Operation
+
+| Field | list | update |
+| --- | --- | --- |
+| `contact_id` | - | - |
+| `description` | - | - |
+| `id` | - | - |
+| `name` | - | - |
+| `object` | - | - |
+| `subscription` | - | - |
+| `topics` | - | Yes |
 
 ### Operations
 
@@ -2127,60 +1708,17 @@ const result = await client.ContactTopicsResponseSuccess().list({
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.ContactTopicsResponseSuccess().list({ id: "example" })
+const results = await client.ContactTopic().list({ contact_id: "example" })
 ```
 
-### Common Methods
+#### `update(data: object, ctrl?: object)`
 
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ContactTopicsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## CreateApiKeyEntity
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
 
 ```ts
-const create_api_key = client.CreateApiKey()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `domain_id` | `string` | No | Restrict an API key to send emails only from a specific domain. |
-| `name` | `string` | Yes | The API key name. |
-| `permission` | `string` | No | The API key can have full access to Resend’s API or be only restricted to send emails. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.CreateApiKey().create({
-  name: 'example_name',
+const result = await client.ContactTopic().update({
+  contact_id: 'contact_id',
+  // Fields to update
 })
 ```
 
@@ -2198,240 +1736,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `CreateApiKeyEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## CreateBatchEmailEntity
-
-```ts
-const create_batch_email = client.CreateBatchEmail()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `data` | `any[]` | No |  |
-| `send_emails` | `any[]` | No |  |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.CreateBatchEmail().create({
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `CreateBatchEmailEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## CreateBroadcastResponseSuccessEntity
-
-```ts
-const create_broadcast_response_success = client.CreateBroadcastResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `audience_id` | `string` | No | Use `segment_id` instead. |
-| `from` | `string` | Yes | The email address of the sender. |
-| `html` | `string` | No | The HTML version of the message. |
-| `name` | `string` | No | Name of the broadcast. |
-| `preview_text` | `string` | No | The preview text of the email. |
-| `reply_to` | `any[]` | No | The email addresses to which replies should be sent. |
-| `scheduled_at` | `string` | No | Schedule time to send the broadcast. |
-| `segment_id` | `string` | Yes | Unique identifier of the segment this broadcast will be sent to. |
-| `send` | `boolean` | No | Whether to send the broadcast immediately or keep it as a draft. |
-| `subject` | `string` | Yes | The subject line of the email. |
-| `text` | `string` | No | The plain text version of the message. |
-| `topic_id` | `string` | No | The topic ID that the broadcast will be scoped to. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.CreateBroadcastResponseSuccess().create({
-  from: 'example_from',
-  segment_id: 'example_segment_id',
-  subject: 'example_subject',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `CreateBroadcastResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## CreateInboxDraftResponseSuccessEntity
-
-```ts
-const create_inbox_draft_response_success = client.CreateInboxDraftResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `attachments` | `any[] | null` | No | Files to store on the draft. |
-| `bcc` | `any` | No | The BCC recipients. |
-| `cc` | `any` | No | The CC recipients. |
-| `html` | `string | null` | No | The HTML body. |
-| `id` | `string` | Yes | The ID of the draft. |
-| `object` | `string` | Yes | Type of the response object. |
-| `reply_to_email_id` | `string` | No | The Email ID to reply to, as returned in `data[].id` by the list thread emails endpoint. |
-| `subject` | `string | null` | No | The subject. |
-| `text` | `string | null` | No | The plain text body. |
-| `thread_id` | `string` | No | The Thread ID to reply in. |
-| `to` | `any` | No | The recipients. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.CreateInboxDraftResponseSuccess().create({
-  inbox_id: 'example_inbox_id',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `CreateInboxDraftResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## CreateInboxLabelResponseSuccessEntity
-
-```ts
-const create_inbox_label_response_success = client.CreateInboxLabelResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `color` | `string` | No | The color of the label, as a `#RRGGBB` hex color. |
-| `name` | `string` | Yes | The name of the label. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.CreateInboxLabelResponseSuccess().create({
-  inbox_id: 'example_inbox_id',
-  name: 'example_name',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `CreateInboxLabelResponseSuccessEntity` instance with the same client and
+Create a new `ContactTopicEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -2471,21 +1776,21 @@ const domain = client.Domain()
 
 ### Field Usage by Operation
 
-| Field | load | list | create | remove |
-| --- | --- | --- | --- | --- |
-| `capabilities` | - | - | - | - |
-| `click_tracking` | - | - | - | - |
-| `created_at` | - | - | - | - |
-| `custom_return_path` | - | - | - | - |
-| `id` | - | - | - | - |
-| `name` | - | - | Yes | - |
-| `object` | - | - | - | - |
-| `open_tracking` | - | - | - | - |
-| `records` | - | - | - | - |
-| `region` | - | - | - | - |
-| `status` | - | - | - | - |
-| `tls` | - | - | - | - |
-| `tracking_subdomain` | - | - | - | - |
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `capabilities` | - | - | - | - | - |
+| `click_tracking` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `custom_return_path` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | Yes | - | - |
+| `object` | - | - | - | - | - |
+| `open_tracking` | - | - | - | - | - |
+| `records` | - | - | - | - | - |
+| `region` | - | - | - | - | - |
+| `status` | - | - | - | - | - |
+| `tls` | - | - | - | - | - |
+| `tracking_subdomain` | - | - | - | - | - |
 
 ### Actions
 
@@ -2541,6 +1846,17 @@ Remove the entity matching the given criteria. Resolves to the entity, marked as
 
 ```ts
 const result = await client.Domain().remove({ id: 'domain_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Domain().update({
+  id: 'domain_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -2697,27 +2013,27 @@ const email = client.Email()
 
 ### Field Usage by Operation
 
-| Field | load | list | create |
-| --- | --- | --- | --- |
-| `attachments` | - | - | - |
-| `bcc` | - | - | - |
-| `cc` | - | - | - |
-| `created_at` | - | - | - |
-| `from` | - | - | Yes |
-| `headers` | - | - | - |
-| `html` | - | - | - |
-| `id` | - | - | - |
-| `last_event` | - | - | - |
-| `message_id` | - | - | - |
-| `object` | - | - | - |
-| `reply_to` | - | - | - |
-| `scheduled_at` | - | - | - |
-| `subject` | - | - | Yes |
-| `tags` | - | - | - |
-| `template` | - | - | - |
-| `text` | - | - | - |
-| `to` | - | - | Yes |
-| `topic_id` | - | - | - |
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `attachments` | - | - | - | - |
+| `bcc` | - | - | - | - |
+| `cc` | - | - | - | - |
+| `created_at` | - | - | - | - |
+| `from` | - | - | Yes | - |
+| `headers` | - | - | - | - |
+| `html` | - | - | - | - |
+| `id` | - | - | - | - |
+| `last_event` | - | - | - | - |
+| `message_id` | - | - | - | - |
+| `object` | - | - | - | - |
+| `reply_to` | - | - | - | - |
+| `scheduled_at` | - | - | - | - |
+| `subject` | - | - | Yes | - |
+| `tags` | - | - | - | - |
+| `template` | - | - | - | - |
+| `text` | - | - | - | - |
+| `to` | - | - | Yes | - |
+| `topic_id` | - | - | - | - |
 
 ### Actions
 
@@ -2770,6 +2086,17 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 const result = await client.Email().load({ id: 'email_id' })
 ```
 
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Email().update({
+  id: 'email_id',
+  // Fields to update
+})
+```
+
 ### Common Methods
 
 #### `data(data?: object)`
@@ -2785,6 +2112,58 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `EmailEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## EmailBatchEntity
+
+```ts
+const email_batch = client.EmailBatch()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `data` | `any[]` | No |  |
+| `send_emails` | `any[]` | No |  |
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.EmailBatch().create({
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `EmailBatchEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -2872,14 +2251,14 @@ const event = client.Event()
 
 ### Field Usage by Operation
 
-| Field | load | list | create |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `id` | - | - | - |
-| `name` | - | - | Yes |
-| `object` | - | - | - |
-| `schema` | - | - | - |
-| `updated_at` | - | - | - |
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | Yes | - | - |
+| `object` | - | - | - | - | - |
+| `schema` | - | - | - | Yes | - |
+| `updated_at` | - | - | - | - | - |
 
 ### Actions
 
@@ -2927,6 +2306,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Event().load({ id: 'event_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Event().remove({ id: 'event_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Event().update({
+  id: 'event_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -2983,41 +2381,21 @@ const inbox = client.Inbox()
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update |
-| --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - |
-| `domain_id` | - | - | - | - |
-| `drafts` | - | - | - | - |
-| `email_address` | - | - | - | - |
-| `forwarding` | - | - | - | - |
-| `from_name` | - | - | Yes | - |
-| `id` | - | - | - | - |
-| `last_received` | - | - | - | - |
-| `name` | - | - | Yes | - |
-| `object` | - | - | - | - |
-| `receiving_address` | - | - | - | - |
-| `unread` | - | - | - | - |
-| `updated_at` | - | - | - | - |
-
-### Actions
-
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
-
-| Action | Route | Call |
-| --- | --- | --- |
-| `agent` | `/inboxes/{inbox_id}/agent` | `client.Inbox().update({ $action: 'agent', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-Inbox record — check the API definition for its shape.
-
-```ts
-const result = await client.Inbox().update({
-  $action: 'agent',
-  /* ...the action's own arguments */
-})
-```
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `domain_id` | - | - | - | - | - |
+| `drafts` | - | - | - | - | - |
+| `email_address` | - | - | - | - | - |
+| `forwarding` | - | - | - | - | - |
+| `from_name` | - | - | Yes | Yes | - |
+| `id` | - | - | - | - | - |
+| `last_received` | - | - | - | - | - |
+| `name` | - | - | Yes | Yes | - |
+| `object` | - | - | - | - | - |
+| `receiving_address` | - | - | - | - | - |
+| `unread` | - | - | - | - | - |
+| `updated_at` | - | - | - | - | - |
 
 ### Operations
 
@@ -3045,6 +2423,14 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Inbox().load({ id: 'inbox_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Inbox().remove({ id: 'inbox_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -3086,46 +2472,51 @@ Return a copy of the entity options.
 
 ---
 
-## InboxAgentResponseSuccessEntity
+## InboxAgentEntity
 
 ```ts
-const inbox_agent_response_success = client.InboxAgentResponseSuccess()
+const inbox_agent = client.InboxAgent()
 ```
 
 ### Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
+| `actions` | `any[]` | Yes | The actions the agent can take, in the order of the enum. |
+| `id` | `string` | Yes | The ID of the inbox agent. |
+| `instructions` | `string | null` | Yes | Instructions the agent follows when it handles the threads of the inbox. |
+| `object` | `string` | Yes | The object type. |
+| `tone` | `string | null` | Yes | The tone the agent writes in. |
 
-### Actions
+### Field Usage by Operation
 
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
-
-| Action | Route | Call |
+| Field | load | update |
 | --- | --- | --- |
-| `agent` | `/inboxes/{inbox_id}/agent` | `client.InboxAgentResponseSuccess().list({ $action: 'agent', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-InboxAgentResponseSuccess record — check the API definition for its shape.
-
-```ts
-const result = await client.InboxAgentResponseSuccess().list({
-  $action: 'agent',
-  /* ...the action's own arguments */
-})
-```
+| `actions` | - | Yes |
+| `id` | - | - |
+| `instructions` | - | Yes |
+| `object` | - | - |
+| `tone` | - | Yes |
 
 ### Operations
 
-#### `list(match: object, ctrl?: object)`
+#### `load(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Resolves to an array of entities, one per record.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
-const results = await client.InboxAgentResponseSuccess().list({ id: "example" })
+const result = await client.InboxAgent().load({ inbox_id: 'inbox_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.InboxAgent().update({
+  inbox_id: 'inbox_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -3142,7 +2533,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `InboxAgentResponseSuccessEntity` instance with the same client and
+Create a new `InboxAgentEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -3156,90 +2547,10 @@ Return a copy of the entity options.
 
 ---
 
-## InboxDraftListItemEntity
+## InboxDraftEntity
 
 ```ts
-const inbox_draft_list_item = client.InboxDraftListItem()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `attachments` | `any[]` | Yes | The files stored on the draft. |
-| `bcc` | `any[]` | Yes | The BCC recipients. |
-| `cc` | `any[]` | Yes | The CC recipients. |
-| `id` | `string` | Yes | The ID of the draft. |
-| `reply_to_email_id` | `string | null` | Yes | The Email ID the draft replies to. |
-| `snippet` | `string | null` | Yes | A short preview of the body. |
-| `subject` | `string | null` | Yes | The subject. |
-| `thread_id` | `string | null` | Yes | The Thread ID when the draft is a reply. |
-| `to` | `any[] | null` | Yes | The recipients. |
-| `type` | `string` | Yes | `reply` when the draft replies to an email in an existing thread. |
-| `updated_at` | `string` | Yes | Timestamp when the draft was last saved. |
-
-### Actions
-
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
-
-| Action | Route | Call |
-| --- | --- | --- |
-| `drafts` | `/inboxes/{inbox_id}/drafts` | `client.InboxDraftListItem().list({ $action: 'drafts', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-InboxDraftListItem record — check the API definition for its shape.
-
-```ts
-const result = await client.InboxDraftListItem().list({
-  $action: 'drafts',
-  /* ...the action's own arguments */
-})
-```
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.InboxDraftListItem().list({ id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `InboxDraftListItemEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## InboxDraftResponseSuccessEntity
-
-```ts
-const inbox_draft_response_success = client.InboxDraftResponseSuccess()
+const inbox_draft = client.InboxDraft()
 ```
 
 ### Fields
@@ -3255,12 +2566,34 @@ const inbox_draft_response_success = client.InboxDraftResponseSuccess()
 | `id` | `string` | Yes | The ID of the draft. |
 | `object` | `string` | Yes | The object type. |
 | `reply_to_email_id` | `string | null` | Yes | The Email ID the draft replies to. |
+| `snippet` | `string | null` | Yes | A short preview of the body. |
 | `subject` | `string | null` | Yes | The subject. |
 | `text` | `string | null` | Yes | The plain text body. |
 | `thread_id` | `string | null` | Yes | The Thread ID when the draft is a reply. |
 | `to` | `any[] | null` | Yes | The recipients. |
 | `type` | `string` | Yes | `reply` when the draft replies to an email in an existing thread. |
 | `updated_at` | `string` | Yes | Timestamp when the draft was last saved. |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `attachments` | - | - | Yes | Yes | - |
+| `bcc` | - | - | Yes | Yes | - |
+| `cc` | - | - | Yes | Yes | - |
+| `created_at` | - | - | - | - | - |
+| `email_id` | - | - | - | - | - |
+| `html` | - | - | Yes | Yes | - |
+| `id` | - | - | - | - | - |
+| `object` | - | - | - | - | - |
+| `reply_to_email_id` | - | - | Yes | - | - |
+| `snippet` | - | - | - | - | - |
+| `subject` | - | - | Yes | Yes | - |
+| `text` | - | - | Yes | Yes | - |
+| `thread_id` | - | - | Yes | - | - |
+| `to` | - | - | Yes | Yes | - |
+| `type` | - | - | - | - | - |
+| `updated_at` | - | - | - | - | - |
 
 ### Actions
 
@@ -3270,13 +2603,13 @@ remaining keys are sent as that action's payload.
 
 | Action | Route | Call |
 | --- | --- | --- |
-| `send` | `/inboxes/{inbox_id}/drafts/{draft_id}/send` | `client.InboxDraftResponseSuccess().create({ $action: 'send', ... })` |
+| `send` | `/inboxes/{inbox_id}/drafts/{draft_id}/send` | `client.InboxDraft().create({ $action: 'send', ... })` |
 
 An action returns that action's OWN response, which is not necessarily a
-InboxDraftResponseSuccess record — check the API definition for its shape.
+InboxDraft record — check the API definition for its shape.
 
 ```ts
-const result = await client.InboxDraftResponseSuccess().create({
+const result = await client.InboxDraft().create({
   $action: 'send',
   /* ...the action's own arguments */
 })
@@ -3289,10 +2622,17 @@ const result = await client.InboxDraftResponseSuccess().create({
 Create a new entity with the given data. Resolves to the created entity.
 
 ```ts
-const result = await client.InboxDraftResponseSuccess().create({
-  draft_id: 'example_draft_id',
+const result = await client.InboxDraft().create({
   inbox_id: 'example_inbox_id',
 })
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.InboxDraft().list({ inbox_id: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -3300,7 +2640,27 @@ const result = await client.InboxDraftResponseSuccess().create({
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
-const result = await client.InboxDraftResponseSuccess().load({ draft_id: 'draft_id', inbox_id: 'inbox_id' })
+const result = await client.InboxDraft().load({ id: 'inbox_draft_id', inbox_id: 'inbox_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.InboxDraft().remove({ id: 'inbox_draft_id', inbox_id: 'inbox_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.InboxDraft().update({
+  id: 'inbox_draft_id',
+  inbox_id: 'inbox_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -3317,7 +2677,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `InboxDraftResponseSuccessEntity` instance with the same client and
+Create a new `InboxDraftEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -3341,19 +2701,61 @@ const inbox_label = client.InboxLabel()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `color` | `string` | Yes | The color of the label, as a `#RRGGBB` hex color in uppercase. |
+| `color` | `string` | No | The color of the label, as a `#RRGGBB` hex color. |
 | `created_at` | `string` | Yes | Timestamp when the label was created. |
-| `id` | `string` | Yes | The ID of the label. |
+| `id` | `string` | Yes | The ID of the updated label. |
 | `name` | `string` | Yes | The name of the label. |
+| `object` | `string` | Yes | Type of the response object. |
+
+### Field Usage by Operation
+
+| Field | list | create | update | remove |
+| --- | --- | --- | --- | --- |
+| `color` | Yes | - | - | - |
+| `created_at` | - | - | - | - |
+| `id` | - | - | - | - |
+| `name` | - | - | Yes | - |
+| `object` | - | - | - | - |
 
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.InboxLabel().create({
+  inbox_id: 'example_inbox_id',
+  name: 'example_name',
+})
+```
 
 #### `list(match: object, ctrl?: object)`
 
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.InboxLabel().list({ id: "example" })
+const results = await client.InboxLabel().list({ inbox_id: "example" })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.InboxLabel().remove({ id: 'inbox_label_id', inbox_id: 'inbox_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.InboxLabel().update({
+  id: 'inbox_label_id',
+  inbox_id: 'inbox_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -3403,11 +2805,50 @@ const inbox_thread = client.InboxThread()
 | `has_draft` | `boolean` | Yes | Whether the thread has an unsent draft. |
 | `id` | `string` | Yes | The ID of the thread. |
 | `labels` | `any[]` | Yes | The labels attached to the thread. |
-| `matched_email_id` | `string | null` | Yes | The ID of the email in the thread that matched the search. |
+| `object` | `string` | Yes | The object type. |
 | `read` | `boolean` | Yes | True only when every email in the thread is read. |
 | `received_at` | `string` | Yes | Timestamp when the thread was last active. |
 | `subject` | `string | null` | Yes | The subject of the thread. |
 | `to` | `any[]` | Yes | The recipients of the most recent email. |
+
+### Field Usage by Operation
+
+| Field | load | list | update | remove |
+| --- | --- | --- | --- | --- |
+| `bcc` | - | - | - | - |
+| `cc` | - | - | - | - |
+| `email_count` | - | - | - | - |
+| `folder` | - | - | Yes | - |
+| `from` | - | - | - | - |
+| `has_attachment` | - | - | - | - |
+| `has_draft` | - | - | - | - |
+| `id` | - | - | - | - |
+| `labels` | - | - | - | - |
+| `object` | - | - | - | - |
+| `read` | - | - | Yes | - |
+| `received_at` | - | - | - | - |
+| `subject` | - | - | - | - |
+| `to` | - | - | - | - |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `search` | `/inboxes/{inbox_id}/threads/search` | `client.InboxThread().list({ $action: 'search', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+InboxThread record — check the API definition for its shape.
+
+```ts
+const result = await client.InboxThread().list({
+  $action: 'search',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -3416,7 +2857,35 @@ const inbox_thread = client.InboxThread()
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.InboxThread().list({ id: "example" })
+const results = await client.InboxThread().list({ inbox_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+
+```ts
+const result = await client.InboxThread().load({ id: 'inbox_thread_id', inbox_id: 'inbox_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.InboxThread().remove({ id: 'inbox_thread_id', inbox_id: 'inbox_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.InboxThread().update({
+  id: 'inbox_thread_id',
+  inbox_id: 'inbox_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -3472,7 +2941,32 @@ const inbox_thread_email = client.InboxThreadEmail()
 | `text` | `string | null` | Yes | The plain-text body. |
 | `to` | `any[]` | Yes | The recipients of the message. |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `forward` | `/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward` | `client.InboxThreadEmail().create({ $action: 'forward', ... })` |
+| `reply` | `/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply` | `client.InboxThreadEmail().create({ $action: 'reply', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+InboxThreadEmail record — check the API definition for its shape.
+
+```ts
+const result = await client.InboxThreadEmail().create({
+  $action: 'forward',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
 
 #### `list(match: object, ctrl?: object)`
 
@@ -3480,6 +2974,14 @@ List entities matching the given criteria. Resolves to an array of entities, one
 
 ```ts
 const results = await client.InboxThreadEmail().list({ inbox_id: "example", thread_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+
+```ts
+const result = await client.InboxThreadEmail().load({ id: 'inbox_thread_email_id', inbox_id: 'inbox_id', thread_id: 'thread_id' })
 ```
 
 ### Common Methods
@@ -3510,51 +3012,20 @@ Return a copy of the entity options.
 
 ---
 
-## InboxThreadEmailResponseSuccessEntity
+## InboxThreadLabelEntity
 
 ```ts
-const inbox_thread_email_response_success = client.InboxThreadEmailResponseSuccess()
+const inbox_thread_label = client.InboxThreadLabel()
 ```
 
 ### Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `attachments` | `any[]` | Yes | The attachments of the message. |
-| `bcc` | `any[]` | Yes | The BCC recipients of the message. |
-| `cc` | `any[]` | Yes | The CC recipients of the message. |
-| `direction` | `string` | Yes | Whether the inbox received the message (`inbound`) or sent it (`outbound`). |
-| `from` | `string` | Yes | Sender email address. |
-| `html` | `string | null` | Yes | The HTML body. |
-| `id` | `string` | Yes | The ID of the message. |
-| `message_id` | `string | null` | Yes | The Message-ID header of the message. |
-| `read` | `boolean` | Yes | Whether the message has been read. |
-| `received_at` | `string` | Yes | Timestamp when the inbox received the message, or when the inbox sent it. |
-| `reply_to` | `any[]` | Yes | The Reply-To addresses of the message. |
-| `subject` | `string | null` | Yes | The subject of the message. |
-| `text` | `string | null` | Yes | The plain-text body. |
-| `to` | `any[]` | Yes | The recipients of the message. |
-
-### Actions
-
-This entity exposes custom API actions in addition to the standard
-operations. Select one with `$action` in the call's argument; the
-remaining keys are sent as that action's payload.
-
-| Action | Route | Call |
-| --- | --- | --- |
-| `forward` | `/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward` | `client.InboxThreadEmailResponseSuccess().create({ $action: 'forward', ... })` |
-| `reply` | `/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply` | `client.InboxThreadEmailResponseSuccess().create({ $action: 'reply', ... })` |
-
-An action returns that action's OWN response, which is not necessarily a
-InboxThreadEmailResponseSuccess record — check the API definition for its shape.
-
-```ts
-const result = await client.InboxThreadEmailResponseSuccess().create({
-  $action: 'forward',
-  /* ...the action's own arguments */
-})
-```
+| `data` | `any[]` | Yes | Every label on the thread after the change. |
+| `id` | `string` | No |  |
+| `labels` | `any[]` | Yes | The IDs of the labels to apply to the thread. |
+| `object` | `string` | Yes | Type of the response object. |
 
 ### Operations
 
@@ -3562,12 +3033,32 @@ const result = await client.InboxThreadEmailResponseSuccess().create({
 
 Create a new entity with the given data. Resolves to the created entity.
 
-#### `load(match: object, ctrl?: object)`
+```ts
+const result = await client.InboxThreadLabel().create({
+  inbox_id: 'example_inbox_id',
+  thread_id: 'example_thread_id',
+  labels: [],
+})
+```
 
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
-const result = await client.InboxThreadEmailResponseSuccess().load({ email_id: 'email_id', inbox_id: 'inbox_id', thread_id: 'thread_id' })
+const result = await client.InboxThreadLabel().remove({ id: 'inbox_thread_label_id', inbox_id: 'inbox_id', thread_id: 'thread_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.InboxThreadLabel().update({
+  inbox_id: 'inbox_id',
+  thread_id: 'thread_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -3584,440 +3075,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `InboxThreadEmailResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## InboxThreadResponseSuccessEntity
-
-```ts
-const inbox_thread_response_success = client.InboxThreadResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `folder` | `string` | Yes | The folder the thread is in. |
-| `id` | `string` | Yes | The ID of the thread. |
-| `labels` | `any[]` | Yes | The labels attached to the thread. |
-| `object` | `string` | Yes | The object type. |
-| `read` | `boolean` | Yes | True only when every email in the thread is read. |
-| `subject` | `string | null` | Yes | The subject of the thread. |
-
-### Operations
-
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
-
-```ts
-const result = await client.InboxThreadResponseSuccess().load({ inbox_id: 'inbox_id', thread_id: 'thread_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `InboxThreadResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListAttachmentEntity
-
-```ts
-const list_attachment = client.ListAttachment()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `content_disposition` | `string | null` | No | How the attachment should be displayed. |
-| `content_id` | `string` | No | The content ID for inline attachments. |
-| `content_type` | `string` | No | The MIME type of the attachment. |
-| `download_url` | `string` | No | Signed URL to download the attachment content. |
-| `expires_at` | `string` | No | Timestamp when the download URL expires. |
-| `filename` | `string | null` | No | The filename of the attachment. |
-| `id` | `string` | No | The ID of the attachment. |
-| `size` | `number` | No | Size of the attachment in bytes. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListAttachment().list({ email_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListAttachmentEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListBroadcastClickedLinksResponseSuccessEntity
-
-```ts
-const list_broadcast_clicked_links_response_success = client.ListBroadcastClickedLinksResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `clicks` | `number` | No | Total number of clicks on this URL. |
-| `id` | `string` | No | An opaque cursor for this row, used only for pagination. |
-| `unique_clicks` | `number` | No | Number of unique clicks on this URL. |
-| `url` | `string` | No | The URL that was clicked. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListBroadcastClickedLinksResponseSuccess().list({ broadcast_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListBroadcastClickedLinksResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListBroadcastRecipientsResponseSuccessEntity
-
-```ts
-const list_broadcast_recipients_response_success = client.ListBroadcastRecipientsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `bounce_type` | `string` | No | The type of bounce. |
-| `clicked_links` | `any[]` | No | The links this recipient clicked. |
-| `contact_id` | `string | null` | No | The ID of the contact associated with this recipient, if one exists. |
-| `count` | `number` | No | The number of times this recipient triggered the event. |
-| `email` | `string` | No | The recipient's email address. |
-| `id` | `string` | No | Opaque cursor identifying this row, used for pagination. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListBroadcastRecipientsResponseSuccess().list({ broadcast_id: "example", type: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListBroadcastRecipientsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListContactSegmentsResponseSuccessEntity
-
-```ts
-const list_contact_segments_response_success = client.ListContactSegmentsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the contact was added to the segment. |
-| `id` | `string` | No | Unique identifier for the segment. |
-| `name` | `string` | No | Name of the segment. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListContactSegmentsResponseSuccess().list({ contact_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListContactSegmentsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListContactsResponseSuccessEntity
-
-```ts
-const list_contacts_response_success = client.ListContactsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the contact was created. |
-| `email` | `string` | No | Email address of the contact. |
-| `first_name` | `string | null` | No | First name of the contact. |
-| `id` | `string` | No | Unique identifier for the contact. |
-| `last_name` | `string | null` | No | Last name of the contact. |
-| `unsubscribed` | `boolean` | No | Indicates if the contact is unsubscribed. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListContactsResponseSuccess().list({ segment_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListContactsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListWebhookEventEntity
-
-```ts
-const list_webhook_event = client.ListWebhookEvent()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the event was created. |
-| `id` | `string` | No | The ID of the webhook event. |
-| `status` | `string` | No | The delivery status of the event for this webhook. |
-| `type` | `string` | No | The type of the event. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListWebhookEvent().list({ webhook_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListWebhookEventEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## ListWebhookEventAttemptEntity
-
-```ts
-const list_webhook_event_attempt = client.ListWebhookEventAttempt()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `http_status_code` | `number` | No | The HTTP status code returned by the webhook endpoint. |
-| `id` | `string` | No | The ID of the webhook event attempt. |
-| `response` | `string` | No | The response body returned by the webhook endpoint. |
-| `sent_at` | `string` | No | Timestamp indicating when the attempt was sent. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.ListWebhookEventAttempt().list({ event_id: "example", webhook_id: "example" })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `ListWebhookEventAttemptEntity` instance with the same client and
+Create a new `InboxThreadLabelEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -4084,6 +3142,136 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `LogEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## OauthGrantEntity
+
+```ts
+const oauth_grant = client.OauthGrant()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `client` | `Record<string, any>` | No | The OAuth client the grant was issued to. |
+| `client_id` | `string` | No | The ID of the OAuth client the grant was issued to. |
+| `created_at` | `string` | No | The date and time the OAuth grant was created. |
+| `id` | `string` | No | The ID of the OAuth grant. |
+| `revoked_at` | `string | null` | No | The date and time the OAuth grant was revoked, or null if it is still active. |
+| `revoked_reason` | `string | null` | No | The reason the OAuth grant was revoked, or null if it is still active. |
+| `scopes` | `any[]` | No | The scopes granted to the OAuth client. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.OauthGrant().list()
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.OauthGrant().remove({ id: 'oauth_grant_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `OauthGrantEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## ReceivedAttachmentEntity
+
+```ts
+const received_attachment = client.ReceivedAttachment()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `content_disposition` | `string | null` | No | How the attachment should be displayed. |
+| `content_id` | `string` | No | The content ID for inline attachments. |
+| `content_type` | `string` | No | The MIME type of the attachment. |
+| `download_url` | `string` | No | Signed URL to download the attachment content. |
+| `expires_at` | `string` | No | Timestamp when the download URL expires. |
+| `filename` | `string | null` | No | The filename of the attachment. |
+| `id` | `string` | No | The ID of the attachment. |
+| `object` | `string` | No | The type of object. |
+| `size` | `number` | No | Size of the attachment in bytes. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.ReceivedAttachment().list({ email_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
+
+```ts
+const result = await client.ReceivedAttachment().load({ id: 'received_attachment_id', email_id: 'email_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `ReceivedAttachmentEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -4169,1044 +3357,6 @@ Return a copy of the entity options.
 
 ---
 
-## RemoveAudienceResponseSuccessEntity
-
-```ts
-const remove_audience_response_success = client.RemoveAudienceResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No |  |
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveAudienceResponseSuccess().remove({ id: 'remove_audience_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveAudienceResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveBroadcastResponseSuccessEntity
-
-```ts
-const remove_broadcast_response_success = client.RemoveBroadcastResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No |  |
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveBroadcastResponseSuccess().remove({ id: 'remove_broadcast_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveBroadcastResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveContactFromSegmentResponseSuccessEntity
-
-```ts
-const remove_contact_from_segment_response_success = client.RemoveContactFromSegmentResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveContactFromSegmentResponseSuccess().remove({ contact_id: 'contact_id', segment_id: 'segment_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveContactFromSegmentResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveContactPropertyResponseSuccessEntity
-
-```ts
-const remove_contact_property_response_success = client.RemoveContactPropertyResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No |  |
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveContactPropertyResponseSuccess().remove({ id: 'remove_contact_property_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveContactPropertyResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveContactResponseSuccessEntity
-
-```ts
-const remove_contact_response_success = client.RemoveContactResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No |  |
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveContactResponseSuccess().remove({ id: 'remove_contact_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveContactResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveEventEntity
-
-```ts
-const remove_event = client.RemoveEvent()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No |  |
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveEvent().remove({ id: 'remove_event_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveEventEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveInboxDraftResponseSuccessEntity
-
-```ts
-const remove_inbox_draft_response_success = client.RemoveInboxDraftResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveInboxDraftResponseSuccess().remove({ draft_id: 'draft_id', inbox_id: 'inbox_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveInboxDraftResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveInboxLabelResponseSuccessEntity
-
-```ts
-const remove_inbox_label_response_success = client.RemoveInboxLabelResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveInboxLabelResponseSuccess().remove({ inbox_id: 'inbox_id', label_id: 'label_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveInboxLabelResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveInboxResponseSuccessEntity
-
-```ts
-const remove_inbox_response_success = client.RemoveInboxResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveInboxResponseSuccess().remove({ inbox_id: 'inbox_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveInboxResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveInboxThreadLabelResponseSuccessEntity
-
-```ts
-const remove_inbox_thread_label_response_success = client.RemoveInboxThreadLabelResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveInboxThreadLabelResponseSuccess().remove({ inbox_id: 'inbox_id', label_id: 'label_id', thread_id: 'thread_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveInboxThreadLabelResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveInboxThreadResponseSuccessEntity
-
-```ts
-const remove_inbox_thread_response_success = client.RemoveInboxThreadResponseSuccess()
-```
-
-### Operations
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveInboxThreadResponseSuccess().remove({ inbox_id: 'inbox_id', thread_id: 'thread_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveInboxThreadResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveSegmentResponseSuccessEntity
-
-```ts
-const remove_segment_response_success = client.RemoveSegmentResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `audience_id` | `string` | No | The ID of the audience this segment belongs to. |
-| `created_at` | `string` | No | Timestamp indicating when the segment was created. |
-| `filter` | `Record<string, any>` | No | Filter conditions for the segment. |
-| `id` | `string` | No | Unique identifier for the segment. |
-| `name` | `string` | Yes | The name of the segment. |
-
-### Field Usage by Operation
-
-| Field | list | create | remove |
-| --- | --- | --- | --- |
-| `audience_id` | - | - | - |
-| `created_at` | - | - | - |
-| `filter` | - | - | - |
-| `id` | - | - | - |
-| `name` | Yes | - | - |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.RemoveSegmentResponseSuccess().create({
-  name: 'example_name',
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.RemoveSegmentResponseSuccess().list()
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveSegmentResponseSuccess().remove({ id: 'remove_segment_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveSegmentResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveSuppressionResponseSuccessEntity
-
-```ts
-const remove_suppression_response_success = client.RemoveSuppressionResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the suppression was created. |
-| `email` | `string` | Yes | Email address to suppress. |
-| `id` | `string` | No | Unique identifier for the suppression. |
-| `origin` | `string` | No | Origin of the suppression. |
-| `source_id` | `string | null` | No | Identifier of the event that caused the suppression, such as the email that bounced or complained. |
-
-### Field Usage by Operation
-
-| Field | list | create | remove |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `email` | Yes | - | - |
-| `id` | - | - | - |
-| `origin` | - | - | - |
-| `source_id` | - | - | - |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.RemoveSuppressionResponseSuccess().create({
-  email: 'example_email',
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.RemoveSuppressionResponseSuccess().list()
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveSuppressionResponseSuccess().remove({ suppression: 'suppression' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveSuppressionResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveTemplateResponseSuccessEntity
-
-```ts
-const remove_template_response_success = client.RemoveTemplateResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `alias` | `string` | No | The alias of the template. |
-| `created_at` | `string` | No | Timestamp indicating when the template was created. |
-| `from` | `string` | No | Sender email address. |
-| `html` | `string` | Yes | The HTML version of the template. |
-| `id` | `string` | No | The ID of the template. |
-| `name` | `string` | Yes | The name of the template. |
-| `published_at` | `string | null` | No | Timestamp indicating when the template was published. |
-| `reply_to` | `any[]` | No | Reply-to email addresses. |
-| `status` | `string` | No | The publication status of the template. |
-| `subject` | `string` | No | Email subject. |
-| `text` | `string` | No | The plain text version of the template. |
-| `updated_at` | `string` | No | Timestamp indicating when the template was last updated. |
-| `variables` | `any[]` | No |  |
-
-### Field Usage by Operation
-
-| Field | list | create | remove |
-| --- | --- | --- | --- |
-| `alias` | - | - | - |
-| `created_at` | - | - | - |
-| `from` | - | - | - |
-| `html` | - | - | - |
-| `id` | - | - | - |
-| `name` | Yes | - | - |
-| `published_at` | - | - | - |
-| `reply_to` | - | - | - |
-| `status` | - | - | - |
-| `subject` | - | - | - |
-| `text` | - | - | - |
-| `updated_at` | - | - | - |
-| `variables` | - | - | - |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.RemoveTemplateResponseSuccess().create({
-  html: 'example_html',
-  name: 'example_name',
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.RemoveTemplateResponseSuccess().list()
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveTemplateResponseSuccess().remove({ id: 'remove_template_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveTemplateResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RemoveTopicResponseSuccessEntity
-
-```ts
-const remove_topic_response_success = client.RemoveTopicResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the topic was created. |
-| `default_subscription` | `string` | Yes | The default subscription status for the topic. |
-| `description` | `string` | No | A description of the topic. |
-| `id` | `string` | No | Unique identifier for the topic. |
-| `name` | `string` | Yes | The name of the topic. |
-| `visibility` | `string` | No | The visibility of the topic. |
-
-### Field Usage by Operation
-
-| Field | list | create | remove |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `default_subscription` | Yes | - | - |
-| `description` | - | - | - |
-| `id` | - | - | - |
-| `name` | Yes | - | - |
-| `visibility` | - | - | - |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.RemoveTopicResponseSuccess().create({
-  default_subscription: 'example_default_subscription',
-  name: 'example_name',
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.RemoveTopicResponseSuccess().list()
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RemoveTopicResponseSuccess().remove({ id: 'remove_topic_response_success_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RemoveTopicResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RetrievedAttachmentEntity
-
-```ts
-const retrieved_attachment = client.RetrievedAttachment()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `content_disposition` | `string | null` | No | How the attachment should be displayed. |
-| `content_id` | `string` | No | The content ID for inline attachments. |
-| `content_type` | `string` | No | The MIME type of the attachment. |
-| `download_url` | `string` | No | Signed URL to download the attachment content. |
-| `expires_at` | `string` | No | Timestamp when the download URL expires. |
-| `filename` | `string | null` | No | The filename of the attachment. |
-| `id` | `string` | No | The ID of the attachment. |
-| `object` | `string` | No | The type of object. |
-| `size` | `number` | No | Size of the attachment in bytes. |
-
-### Operations
-
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
-
-```ts
-const result = await client.RetrievedAttachment().load({ id: 'retrieved_attachment_id', email_id: 'email_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RetrievedAttachmentEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RevokeOAuthGrantEntity
-
-```ts
-const revoke_o_auth_grant = client.RevokeOAuthGrant()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `client` | `Record<string, any>` | No | The OAuth client the grant was issued to. |
-| `client_id` | `string` | No | The ID of the OAuth client the grant was issued to. |
-| `created_at` | `string` | No | The date and time the OAuth grant was created. |
-| `id` | `string` | No | The ID of the OAuth grant. |
-| `revoked_at` | `string | null` | No | The date and time the OAuth grant was revoked, or null if it is still active. |
-| `revoked_reason` | `string | null` | No | The reason the OAuth grant was revoked, or null if it is still active. |
-| `scopes` | `any[]` | No | The scopes granted to the OAuth client. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.RevokeOAuthGrant().list()
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
-
-```ts
-const result = await client.RevokeOAuthGrant().remove({ id: 'revoke_o_auth_grant_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RevokeOAuthGrantEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## RotateEntity
-
-```ts
-const rotate = client.Rotate()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No | The ID of the webhook. |
-| `object` | `string` | No | The type of object. |
-| `signing_secret` | `string` | No | The new secret key used to verify webhook payloads. |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.Rotate().create({
-  webhook_id: 'example_webhook_id',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `RotateEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
 ## SegmentEntity
 
 ```ts
@@ -5224,7 +3374,36 @@ const segment = client.Segment()
 | `name` | `string` | No | The name of the segment. |
 | `object` | `string` | No | The object type. |
 
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `audience_id` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `filter` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | Yes | Yes | - |
+| `object` | - | - | - | - | - |
+
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.Segment().create({
+  name: 'example_name',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Segment().list()
+```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -5232,6 +3411,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Segment().load({ id: 'segment_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Segment().remove({ id: 'segment_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Segment().update({
+  id: 'segment_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -5262,32 +3460,31 @@ Return a copy of the entity options.
 
 ---
 
-## SetInboxThreadLabelsResponseSuccessEntity
+## SegmentContactEntity
 
 ```ts
-const set_inbox_thread_labels_response_success = client.SetInboxThreadLabelsResponseSuccess()
+const segment_contact = client.SegmentContact()
 ```
 
 ### Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `any[]` | Yes | Every label on the thread after the change. |
-| `labels` | `any[]` | Yes | The IDs of the labels the thread carries after the change. |
-| `object` | `string` | Yes | Type of the response object. |
+| `created_at` | `string` | No | Timestamp indicating when the contact was created. |
+| `email` | `string` | No | Email address of the contact. |
+| `first_name` | `string | null` | No | First name of the contact. |
+| `id` | `string` | No | Unique identifier for the contact. |
+| `last_name` | `string | null` | No | Last name of the contact. |
+| `unsubscribed` | `boolean` | No | Indicates if the contact is unsubscribed. |
 
 ### Operations
 
-#### `update(data: object, ctrl?: object)`
+#### `list(match: object, ctrl?: object)`
 
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const result = await client.SetInboxThreadLabelsResponseSuccess().update({
-  inbox_id: 'inbox_id',
-  thread_id: 'thread_id',
-  // Fields to update
-})
+const results = await client.SegmentContact().list({ segment_id: "example" })
 ```
 
 ### Common Methods
@@ -5304,7 +3501,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `SetInboxThreadLabelsResponseSuccessEntity` instance with the same client and
+Create a new `SegmentContactEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -5335,7 +3532,36 @@ const suppression = client.Suppression()
 | `origin` | `string` | No | Origin of the suppression. |
 | `source_id` | `string | null` | No | Identifier of the event that caused the suppression, such as the email that bounced or complained. |
 
+### Field Usage by Operation
+
+| Field | load | list | create | remove |
+| --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - |
+| `email` | - | - | Yes | - |
+| `id` | - | - | - | - |
+| `object` | - | - | - | - |
+| `origin` | - | - | - | - |
+| `source_id` | - | - | - | - |
+
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.Suppression().create({
+  email: 'example_email',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Suppression().list()
+```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -5343,6 +3569,14 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Suppression().load({ id: 'suppression_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Suppression().remove({ id: 'suppression_id' })
 ```
 
 ### Common Methods
@@ -5360,6 +3594,111 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `SuppressionEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## SuppressionBatchAddEntity
+
+```ts
+const suppression_batch_add = client.SuppressionBatchAdd()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `emails` | `any[]` | Yes | Email addresses to suppress. |
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.SuppressionBatchAdd().create({
+  emails: [],
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `SuppressionBatchAddEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## SuppressionBatchRemoveEntity
+
+```ts
+const suppression_batch_remove = client.SuppressionBatchRemove()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `data` | `any[]` | No | Array containing the removed suppressions. |
+| `emails` | `any[]` | No | Email addresses to remove from the suppression list. |
+| `ids` | `any[]` | No | Suppression IDs to remove from the suppression list. |
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.SuppressionBatchRemove().create({
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `SuppressionBatchRemoveEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -5400,6 +3739,27 @@ const template = client.Template()
 | `updated_at` | `string` | No | Timestamp indicating when the template was last updated. |
 | `variables` | `any[]` | No |  |
 
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `alias` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `current_version_id` | - | - | - | - | - |
+| `from` | - | - | - | - | - |
+| `has_unpublished_versions` | - | - | - | - | - |
+| `html` | - | - | Yes | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | Yes | - | - |
+| `object` | - | - | - | - | - |
+| `published_at` | - | - | - | - | - |
+| `reply_to` | - | - | - | - | - |
+| `status` | - | - | - | - | - |
+| `subject` | - | - | - | - | - |
+| `text` | - | - | - | - | - |
+| `updated_at` | - | - | - | - | - |
+| `variables` | - | - | - | - | - |
+
 ### Actions
 
 This entity exposes custom API actions in addition to the standard
@@ -5427,12 +3787,46 @@ const result = await client.Template().create({
 
 Create a new entity with the given data. Resolves to the created entity.
 
+```ts
+const result = await client.Template().create({
+  html: 'example_html',
+  name: 'example_name',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Template().list()
+```
+
 #### `load(match: object, ctrl?: object)`
 
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.Template().load({ id: 'template_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Template().remove({ id: 'template_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Template().update({
+  id: 'template_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -5481,7 +3875,38 @@ const topic = client.Topic()
 | `object` | `string` | No | The object type. |
 | `visibility` | `string` | No | The visibility of the topic. |
 
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `default_subscription` | - | - | Yes | - | - |
+| `description` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `name` | - | - | Yes | - | - |
+| `object` | - | - | - | - | - |
+| `visibility` | - | - | - | - | - |
+
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.Topic().create({
+  default_subscription: 'example_default_subscription',
+  name: 'example_name',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Topic().list()
+```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -5489,6 +3914,25 @@ Load a single entity matching the given criteria. Resolves to the entity, whose 
 
 ```ts
 const result = await client.Topic().load({ id: 'topic_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
+
+```ts
+const result = await client.Topic().remove({ id: 'topic_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Topic().update({
+  id: 'topic_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -5506,976 +3950,6 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `TopicEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateApiKeyEntity
-
-```ts
-const update_api_key = client.UpdateApiKey()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No | The ID of the API key. |
-| `name` | `string` | Yes | The API key name. |
-| `object` | `string` | No | The type of object. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateApiKey().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateApiKeyEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateBroadcastResponseSuccessEntity
-
-```ts
-const update_broadcast_response_success = client.UpdateBroadcastResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `audience_id` | `string` | No | Use `segment_id` instead. |
-| `from` | `string` | No | The email address of the sender. |
-| `html` | `string` | No | The HTML version of the message. |
-| `id` | `string` | No | The ID of the broadcast. |
-| `name` | `string` | No | Name of the broadcast. |
-| `object` | `string` | No | The object type of the response. |
-| `preview_text` | `string` | No | The preview text of the email. |
-| `reply_to` | `any[]` | No | The email addresses to which replies should be sent. |
-| `segment_id` | `string` | No | Unique identifier of the segment this broadcast will be sent to. |
-| `subject` | `string` | No | The subject line of the email. |
-| `text` | `string` | No | The plain text version of the message. |
-| `topic_id` | `string` | No | The topic ID that the broadcast will be scoped to. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateBroadcastResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateBroadcastResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateContactPropertyResponseSuccessEntity
-
-```ts
-const update_contact_property_response_success = client.UpdateContactPropertyResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `fallback_value` | `any` | No | The default value to use when the property is not set for a contact. |
-| `id` | `string` | No | The ID of the contact property. |
-| `object` | `string` | No | The object type. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateContactPropertyResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateContactPropertyResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateContactResponseSuccessEntity
-
-```ts
-const update_contact_response_success = client.UpdateContactResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `string` | No | Email address of the contact. |
-| `first_name` | `string` | No | First name of the contact. |
-| `id` | `string` | No | Unique identifier for the updated contact. |
-| `last_name` | `string` | No | Last name of the contact. |
-| `object` | `string` | No | Type of the response object. |
-| `properties` | `Record<string, any>` | No | A map of custom property keys and values to update. |
-| `unsubscribed` | `boolean` | No | The Contact's global subscription status. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateContactResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateContactResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateContactTopicsResponseSuccessEntity
-
-```ts
-const update_contact_topics_response_success = client.UpdateContactTopicsResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `contact_id` | `string` | No | The ID of the contact. |
-| `object` | `string` | No | The object type. |
-| `topics` | `any[]` | No | Array of updated topic subscriptions. |
-
-### Field Usage by Operation
-
-| Field | update |
-| --- | --- |
-| `contact_id` | - |
-| `object` | - |
-| `topics` | Yes |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateContactTopicsResponseSuccess().update({
-  contact_id: 'contact_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateContactTopicsResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateDomainResponseSuccessEntity
-
-```ts
-const update_domain_response_success = client.UpdateDomainResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `capabilities` | `Record<string, any>` | No | Configure the domain capabilities for sending and receiving emails. |
-| `click_tracking` | `boolean` | No | Track clicks within the body of each HTML email. |
-| `id` | `string` | No | The ID of the updated domain. |
-| `object` | `string` | No | The object type representing the updated domain. |
-| `open_tracking` | `boolean` | No | Track the open rate of each email. |
-| `tls` | `string` | No | enforced | opportunistic. |
-| `tracking_subdomain` | `string` | No | The subdomain to use for click and open tracking. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateDomainResponseSuccess().update({
-  domain_id: 'domain_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateDomainResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateEmailOptionEntity
-
-```ts
-const update_email_option = client.UpdateEmailOption()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `scheduled_at` | `string` | No | Schedule email to be sent later. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateEmailOption().update({
-  email_id: 'email_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateEmailOptionEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateEventEntity
-
-```ts
-const update_event = client.UpdateEvent()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No | The ID of the updated event. |
-| `object` | `string` | No | Type of the response object. |
-| `schema` | `Record<string, any> | null` | Yes | A flat key/type map defining the event payload schema. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateEvent().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateEventEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateInboxDraftResponseSuccessEntity
-
-```ts
-const update_inbox_draft_response_success = client.UpdateInboxDraftResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `attachments` | `any[] | null` | No | Files to store on the draft. |
-| `bcc` | `any` | No | The BCC recipients. |
-| `cc` | `any` | No | The CC recipients. |
-| `html` | `string | null` | No | The HTML body. |
-| `id` | `string` | Yes | The ID of the draft. |
-| `object` | `string` | Yes | The object type. |
-| `subject` | `string | null` | No | The subject. |
-| `text` | `string | null` | No | The plain text body. |
-| `to` | `any` | No | The recipients. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateInboxDraftResponseSuccess().update({
-  draft_id: 'draft_id',
-  inbox_id: 'inbox_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateInboxDraftResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateInboxLabelResponseSuccessEntity
-
-```ts
-const update_inbox_label_response_success = client.UpdateInboxLabelResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `color` | `string` | No | A new color for the label, as a `#RRGGBB` hex color. |
-| `id` | `string` | Yes | The ID of the updated label. |
-| `name` | `string` | No | A new name for the label. |
-| `object` | `string` | Yes | Type of the response object. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateInboxLabelResponseSuccess().update({
-  inbox_id: 'inbox_id',
-  label_id: 'label_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateInboxLabelResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateInboxResponseSuccessEntity
-
-```ts
-const update_inbox_response_success = client.UpdateInboxResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `from_name` | `string` | No | The name recipients see when mail is sent from this inbox. |
-| `id` | `string` | Yes | The ID of the inbox. |
-| `name` | `string` | No | New internal name for the inbox. |
-| `object` | `string` | Yes | The object type. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateInboxResponseSuccess().update({
-  inbox_id: 'inbox_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateInboxResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateInboxThreadResponseSuccessEntity
-
-```ts
-const update_inbox_thread_response_success = client.UpdateInboxThreadResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `folder` | `string` | Yes | The folder the thread is in. |
-| `id` | `string` | Yes | The ID of the thread. |
-| `labels` | `any[]` | Yes | The labels attached to the thread. |
-| `object` | `string` | Yes | The object type. |
-| `read` | `boolean` | Yes | True only when every email in the thread is read. |
-| `subject` | `string | null` | Yes | The subject of the thread. |
-
-### Field Usage by Operation
-
-| Field | update |
-| --- | --- |
-| `folder` | Yes |
-| `id` | - |
-| `labels` | - |
-| `object` | - |
-| `read` | Yes |
-| `subject` | - |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateInboxThreadResponseSuccess().update({
-  inbox_id: 'inbox_id',
-  thread_id: 'thread_id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateInboxThreadResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateSegmentResponseSuccessEntity
-
-```ts
-const update_segment_response_success = client.UpdateSegmentResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No | The ID of the segment. |
-| `name` | `string` | Yes | The name of the segment. |
-| `object` | `string` | No | The object type. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateSegmentResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateSegmentResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateTemplateResponseSuccessEntity
-
-```ts
-const update_template_response_success = client.UpdateTemplateResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `alias` | `string` | No | The alias of the template. |
-| `from` | `string` | No | Sender email address. |
-| `html` | `string` | No | The HTML version of the template. |
-| `id` | `string` | No | The ID of the template. |
-| `name` | `string` | No | The name of the template. |
-| `object` | `string` | No | The object type of the response. |
-| `reply_to` | `any[]` | No | Reply-to email addresses. |
-| `subject` | `string` | No | Email subject. |
-| `text` | `string` | No | The plain text version of the template. |
-| `variables` | `any[]` | No |  |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateTemplateResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateTemplateResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateTopicResponseSuccessEntity
-
-```ts
-const update_topic_response_success = client.UpdateTopicResponseSuccess()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `description` | `string` | No | A description of the topic. |
-| `id` | `string` | No | The ID of the topic. |
-| `name` | `string` | No | The name of the topic. |
-| `object` | `string` | No | The object type. |
-| `visibility` | `string` | No | The visibility of the topic. |
-
-### Operations
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateTopicResponseSuccess().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateTopicResponseSuccessEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `ResendSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## UpdateWebhookEntity
-
-```ts
-const update_webhook = client.UpdateWebhook()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `created_at` | `string` | No | Timestamp indicating when the webhook was created. |
-| `endpoint` | `string` | Yes | The URL where webhook events will be sent. |
-| `events` | `any[]` | Yes | Array of event types to subscribe to. |
-| `id` | `string` | No | The ID of the updated webhook. |
-| `object` | `string` | No | The type of object. |
-| `status` | `string` | No | The status of the webhook. |
-
-### Field Usage by Operation
-
-| Field | list | create | update |
-| --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `endpoint` | Yes | - | Yes |
-| `events` | Yes | - | Yes |
-| `id` | - | - | - |
-| `object` | - | - | - |
-| `status` | - | - | - |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data. Resolves to the created entity.
-
-```ts
-const result = await client.UpdateWebhook().create({
-  endpoint: 'example_endpoint',
-  events: [],
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Resolves to an array of entities, one per record.
-
-```ts
-const results = await client.UpdateWebhook().list()
-```
-
-#### `update(data: object, ctrl?: object)`
-
-Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
-
-```ts
-const result = await client.UpdateWebhook().update({
-  id: 'id',
-  // Fields to update
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `UpdateWebhookEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -6565,7 +4039,58 @@ const webhook = client.Webhook()
 | `signing_secret` | `string` | No | The secret key used to verify webhook payloads. |
 | `status` | `string` | No | The status of the webhook. |
 
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `endpoint` | - | - | Yes | - | - |
+| `events` | - | - | Yes | - | - |
+| `id` | - | - | - | - | - |
+| `object` | - | - | - | - | - |
+| `signing_secret` | - | - | - | - | - |
+| `status` | - | - | - | - | - |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `rotate` | `/webhooks/{webhook_id}/signing-secret/rotate` | `client.Webhook().create({ $action: 'rotate', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Webhook record — check the API definition for its shape.
+
+```ts
+const result = await client.Webhook().create({
+  $action: 'rotate',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data. Resolves to the created entity.
+
+```ts
+const result = await client.Webhook().create({
+  endpoint: 'example_endpoint',
+  events: [],
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.Webhook().list()
+```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -6581,6 +4106,17 @@ Remove the entity matching the given criteria. Resolves to the entity, marked as
 
 ```ts
 const result = await client.Webhook().remove({ id: 'webhook_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`. Resolves to the updated entity.
+
+```ts
+const result = await client.Webhook().update({
+  id: 'webhook_id',
+  // Fields to update
+})
 ```
 
 ### Common Methods
@@ -6662,6 +4198,14 @@ const result = await client.WebhookEvent().create({
 })
 ```
 
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.WebhookEvent().list({ webhook_id: "example" })
+```
+
 #### `load(match: object, ctrl?: object)`
 
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
@@ -6685,6 +4229,59 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `WebhookEventEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ResendSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## WebhookEventAttemptEntity
+
+```ts
+const webhook_event_attempt = client.WebhookEventAttempt()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `http_status_code` | `number` | No | The HTTP status code returned by the webhook endpoint. |
+| `id` | `string` | No | The ID of the webhook event attempt. |
+| `response` | `string` | No | The response body returned by the webhook endpoint. |
+| `sent_at` | `string` | No | Timestamp indicating when the attempt was sent. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Resolves to an array of entities, one per record.
+
+```ts
+const results = await client.WebhookEventAttempt().list({ event_id: "example", webhook_id: "example" })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `WebhookEventAttemptEntity` instance with the same client and
 options.
 
 #### `client()`

@@ -89,7 +89,27 @@
       "version": 2,
       "source": "openapi3"
     },
+    "POST /templates": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /templates": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /templates/{id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /templates/{id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /templates/{id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

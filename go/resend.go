@@ -1,10 +1,10 @@
 package voxgigresendsdk
 
 import (
-	"github.com/voxgig-sdk/resend-sdk/go/core"
-	"github.com/voxgig-sdk/resend-sdk/go/entity"
-	"github.com/voxgig-sdk/resend-sdk/go/feature"
-	_ "github.com/voxgig-sdk/resend-sdk/go/utility"
+	"github.com/shaheeramjad/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/entity"
+	"github.com/shaheeramjad/resend-sdk/go/feature"
+	_ "github.com/shaheeramjad/resend-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
@@ -54,14 +54,11 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewAddContactToSegmentResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewAddContactToSegmentResponseSuccessEntity(client, entopts)
-	}
-	core.NewAddInboxThreadLabelsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewAddInboxThreadLabelsResponseSuccessEntity(client, entopts)
-	}
 	core.NewApiKeyEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewApiKeyEntity(client, entopts)
+	}
+	core.NewAttachmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewAttachmentEntity(client, entopts)
 	}
 	core.NewAudienceEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewAudienceEntity(client, entopts)
@@ -72,44 +69,29 @@ func init() {
 	core.NewAutomationRunEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewAutomationRunEntity(client, entopts)
 	}
-	core.NewAutomationRunListItemEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewAutomationRunListItemEntity(client, entopts)
-	}
-	core.NewBatchAddSuppressionsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewBatchAddSuppressionsResponseSuccessEntity(client, entopts)
-	}
-	core.NewBatchRemoveSuppressionsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewBatchRemoveSuppressionsResponseSuccessEntity(client, entopts)
-	}
 	core.NewBroadcastEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewBroadcastEntity(client, entopts)
+	}
+	core.NewBroadcastClickedLinkEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewBroadcastClickedLinkEntity(client, entopts)
+	}
+	core.NewBroadcastRecipientEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewBroadcastRecipientEntity(client, entopts)
 	}
 	core.NewContactEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewContactEntity(client, entopts)
 	}
-	core.NewContactImportResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewContactImportResponseSuccessEntity(client, entopts)
+	core.NewContactImportEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewContactImportEntity(client, entopts)
 	}
 	core.NewContactPropertyEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewContactPropertyEntity(client, entopts)
 	}
-	core.NewContactTopicsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewContactTopicsResponseSuccessEntity(client, entopts)
+	core.NewContactSegmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewContactSegmentEntity(client, entopts)
 	}
-	core.NewCreateApiKeyEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewCreateApiKeyEntity(client, entopts)
-	}
-	core.NewCreateBatchEmailEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewCreateBatchEmailEntity(client, entopts)
-	}
-	core.NewCreateBroadcastResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewCreateBroadcastResponseSuccessEntity(client, entopts)
-	}
-	core.NewCreateInboxDraftResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewCreateInboxDraftResponseSuccessEntity(client, entopts)
-	}
-	core.NewCreateInboxLabelResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewCreateInboxLabelResponseSuccessEntity(client, entopts)
+	core.NewContactTopicEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewContactTopicEntity(client, entopts)
 	}
 	core.NewDomainEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewDomainEntity(client, entopts)
@@ -120,6 +102,9 @@ func init() {
 	core.NewEmailEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewEmailEntity(client, entopts)
 	}
+	core.NewEmailBatchEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewEmailBatchEntity(client, entopts)
+	}
 	core.NewEmailsMetricEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewEmailsMetricEntity(client, entopts)
 	}
@@ -129,14 +114,11 @@ func init() {
 	core.NewInboxEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewInboxEntity(client, entopts)
 	}
-	core.NewInboxAgentResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewInboxAgentResponseSuccessEntity(client, entopts)
+	core.NewInboxAgentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewInboxAgentEntity(client, entopts)
 	}
-	core.NewInboxDraftListItemEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewInboxDraftListItemEntity(client, entopts)
-	}
-	core.NewInboxDraftResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewInboxDraftResponseSuccessEntity(client, entopts)
+	core.NewInboxDraftEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewInboxDraftEntity(client, entopts)
 	}
 	core.NewInboxLabelEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewInboxLabelEntity(client, entopts)
@@ -147,155 +129,41 @@ func init() {
 	core.NewInboxThreadEmailEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewInboxThreadEmailEntity(client, entopts)
 	}
-	core.NewInboxThreadEmailResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewInboxThreadEmailResponseSuccessEntity(client, entopts)
-	}
-	core.NewInboxThreadResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewInboxThreadResponseSuccessEntity(client, entopts)
-	}
-	core.NewListAttachmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListAttachmentEntity(client, entopts)
-	}
-	core.NewListBroadcastClickedLinksResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListBroadcastClickedLinksResponseSuccessEntity(client, entopts)
-	}
-	core.NewListBroadcastRecipientsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListBroadcastRecipientsResponseSuccessEntity(client, entopts)
-	}
-	core.NewListContactSegmentsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListContactSegmentsResponseSuccessEntity(client, entopts)
-	}
-	core.NewListContactsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListContactsResponseSuccessEntity(client, entopts)
-	}
-	core.NewListWebhookEventEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListWebhookEventEntity(client, entopts)
-	}
-	core.NewListWebhookEventAttemptEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewListWebhookEventAttemptEntity(client, entopts)
+	core.NewInboxThreadLabelEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewInboxThreadLabelEntity(client, entopts)
 	}
 	core.NewLogEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewLogEntity(client, entopts)
 	}
+	core.NewOauthGrantEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewOauthGrantEntity(client, entopts)
+	}
+	core.NewReceivedAttachmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewReceivedAttachmentEntity(client, entopts)
+	}
 	core.NewReceivedEmailEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewReceivedEmailEntity(client, entopts)
-	}
-	core.NewRemoveAudienceResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveAudienceResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveBroadcastResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveBroadcastResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveContactFromSegmentResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveContactFromSegmentResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveContactPropertyResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveContactPropertyResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveContactResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveContactResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveEventEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveEventEntity(client, entopts)
-	}
-	core.NewRemoveInboxDraftResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveInboxDraftResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveInboxLabelResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveInboxLabelResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveInboxResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveInboxResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveInboxThreadLabelResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveInboxThreadLabelResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveInboxThreadResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveInboxThreadResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveSegmentResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveSegmentResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveSuppressionResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveSuppressionResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveTemplateResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveTemplateResponseSuccessEntity(client, entopts)
-	}
-	core.NewRemoveTopicResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRemoveTopicResponseSuccessEntity(client, entopts)
-	}
-	core.NewRetrievedAttachmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRetrievedAttachmentEntity(client, entopts)
-	}
-	core.NewRevokeOAuthGrantEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRevokeOAuthGrantEntity(client, entopts)
-	}
-	core.NewRotateEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewRotateEntity(client, entopts)
 	}
 	core.NewSegmentEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewSegmentEntity(client, entopts)
 	}
-	core.NewSetInboxThreadLabelsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewSetInboxThreadLabelsResponseSuccessEntity(client, entopts)
+	core.NewSegmentContactEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewSegmentContactEntity(client, entopts)
 	}
 	core.NewSuppressionEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewSuppressionEntity(client, entopts)
+	}
+	core.NewSuppressionBatchAddEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewSuppressionBatchAddEntity(client, entopts)
+	}
+	core.NewSuppressionBatchRemoveEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewSuppressionBatchRemoveEntity(client, entopts)
 	}
 	core.NewTemplateEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewTemplateEntity(client, entopts)
 	}
 	core.NewTopicEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewTopicEntity(client, entopts)
-	}
-	core.NewUpdateApiKeyEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateApiKeyEntity(client, entopts)
-	}
-	core.NewUpdateBroadcastResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateBroadcastResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateContactPropertyResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateContactPropertyResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateContactResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateContactResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateContactTopicsResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateContactTopicsResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateDomainResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateDomainResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateEmailOptionEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateEmailOptionEntity(client, entopts)
-	}
-	core.NewUpdateEventEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateEventEntity(client, entopts)
-	}
-	core.NewUpdateInboxDraftResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateInboxDraftResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateInboxLabelResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateInboxLabelResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateInboxResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateInboxResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateInboxThreadResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateInboxThreadResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateSegmentResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateSegmentResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateTemplateResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateTemplateResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateTopicResponseSuccessEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateTopicResponseSuccessEntity(client, entopts)
-	}
-	core.NewUpdateWebhookEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
-		return entity.NewUpdateWebhookEntity(client, entopts)
 	}
 	core.NewUsageEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewUsageEntity(client, entopts)
@@ -305,6 +173,9 @@ func init() {
 	}
 	core.NewWebhookEventEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
 		return entity.NewWebhookEventEntity(client, entopts)
+	}
+	core.NewWebhookEventAttemptEntityFunc = func(client *core.ResendSDK, entopts map[string]any) core.ResendEntity {
+		return entity.NewWebhookEventAttemptEntity(client, entopts)
 	}
 }
 

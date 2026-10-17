@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -38,7 +38,7 @@ func TestAutomationRunEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.AutomationRun(nil).Load(map[string]any{"automation_id": 1, "id": "x"}, nil)
+		_, err := client.AutomationRun(nil).List(map[string]any{"automation_id": 1}, nil)
 		if sdkerr, ok := err.(*core.ResendError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -53,7 +53,7 @@ func TestAutomationRunEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{"list", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "automation_run." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -63,10 +63,19 @@ func TestAutomationRunEntity(t *testing.T) {
 			}
 		}
 		if setup.live {
-			liveMiss(t, automation_runEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a automation_run record it has no list to find")
+			for _, _liveKey := range []string{"automation01"} {
+				if setup.syntheticOnly || setup.idmap[_liveKey] == nil {
+					liveMiss(t, automation_runEntityLiveStrict, "Live entity test blocked: needs %s via RESEND_TEST_AUTOMATION_RUN_ENTID", _liveKey)
+				}
+			}
 		}
 		client := setup.client
 		_ = client
+		if setup.live {
+			liveExisting(t, automation_runEntityLiveStrict, setup.data, "automation_run", func() (any, error) {
+				return client.AutomationRun(nil).List(map[string]any{"automation_id": setup.idmap["automation01"]}, nil)
+			})
+		}
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		automationRunRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.automation_run")))
@@ -78,8 +87,22 @@ func TestAutomationRunEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = automationRunRef01Data
 
-		// LOAD
+		// LIST
 		automationRunRef01Ent := client.AutomationRun(nil)
+		automationRunRef01Match := map[string]any{
+			"automation_id": setup.idmap["automation01"],
+		}
+
+		automationRunRef01ListResult, err := automationRunRef01Ent.List(automationRunRef01Match, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		_, automationRunRef01ListOk := automationRunRef01ListResult.([]any)
+		if !automationRunRef01ListOk {
+			t.Fatalf("expected list result to be an array, got %T", automationRunRef01ListResult)
+		}
+
+		// LOAD
 		automationRunRef01MatchDt0 := map[string]any{
 			"id": automationRunRef01Data["id"],
 		}

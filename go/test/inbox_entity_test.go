@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -191,7 +191,7 @@ func TestInboxEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "update", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "inbox." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -275,6 +275,32 @@ func TestInboxEntity(t *testing.T) {
 		}
 		if inboxRef01DataDt0LoadResult["id"] != inboxRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		inboxRef01MatchRm0 := map[string]any{
+			"id": inboxRef01Data["id"],
+		}
+		_, err = inboxRef01Ent.Remove(inboxRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		inboxRef01MatchRt0 := map[string]any{}
+
+		inboxRef01ListRt0Result, err := inboxRef01Ent.List(inboxRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		inboxRef01ListRt0, inboxRef01ListRt0Ok := inboxRef01ListRt0Result.([]any)
+		if !inboxRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", inboxRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(inboxRef01ListRt0), map[string]any{"id": inboxRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

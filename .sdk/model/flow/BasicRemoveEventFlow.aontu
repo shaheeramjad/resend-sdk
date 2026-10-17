@@ -1,9 +1,0 @@
-# BasicRemoveEventFlow
-
-main: kit: flow: BasicRemoveEventFlow:
-{
-  entity: "remove_event",
-  kind: "basic",
-  name: "BasicRemoveEventFlow",
-  "key$": "BasicRemoveEventFlow"
-}

@@ -8,7 +8,7 @@ it, and how this repo releases is none of their business.
 
 | target | package | workflow |
 |---|---|---|
-| `ts/` | @voxgig-sdk/resend-sdk | `.github/workflows/publish-ts.yml` |
+| `ts/` | @shaheeramjad/resend-sdk | `.github/workflows/publish-ts.yml` |
 
 ## How a release happens
 
@@ -66,8 +66,8 @@ required), run
 above and leaves a package that is already set up alone; for the
 `ts` target it runs:
 
-    npm trust github @voxgig-sdk/resend-sdk \
-      --repository voxgig-sdk/resend-sdk \
+    npm trust github @shaheeramjad/resend-sdk \
+      --repository shaheeramjad/resend-sdk \
       --file publish-ts.yml \
       --allow-publish
 
@@ -78,8 +78,8 @@ difference, including a trusted publisher this repository did not ask for.
 npm, and `--otp <code>` hands npm a one-time password when it asks for one.
 An npm with no `npm trust` command is bypassed for `npx npm@latest`.
 
-`npm trust list @voxgig-sdk/resend-sdk` shows the configuration, and
-`npm trust revoke @voxgig-sdk/resend-sdk --id=<id>` removes one.
+`npm trust list @shaheeramjad/resend-sdk` shows the configuration, and
+`npm trust revoke @shaheeramjad/resend-sdk --id=<id>` removes one.
 
 **The workflow filename is part of the configuration.** Renaming
 `publish-ts.yml` breaks publishing until the npm side is updated to match.

@@ -1,0 +1,59 @@
+# Entity: suppression_batch_add
+
+main: kit: entity: suppression_batch_add: {
+
+  alias: field: {}
+
+  fields: {
+    emails: {
+      h: "Emails"
+      n: "emails"
+      r: true
+      sh: "Email addresses to suppress."
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "suppression_batch_add"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          bf: [
+            "emails"
+          ]
+          co: {
+            id: "POST /suppressions/batch/add"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/suppressions/batch/add"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "suppressions"
+            }
+            {
+              lit: "batch"
+            }
+            {
+              lit: "add"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

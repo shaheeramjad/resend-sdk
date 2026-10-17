@@ -1,0 +1,26 @@
+# BasicBroadcastClickedLinkFlow
+
+main: kit: flow: BasicBroadcastClickedLinkFlow:
+{
+  entity: "broadcast_clicked_link",
+  kind: "basic",
+  name: "BasicBroadcastClickedLinkFlow",
+  step: [
+    {
+      m: {
+        broadcast_id: "broadcast01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "broadcast_clicked_link_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicBroadcastClickedLinkFlow"
+}

@@ -139,7 +139,7 @@ class TestAudienceEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["create", "list", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "audience." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -174,6 +174,23 @@ class TestAudienceEntity:
         audience_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(audience_ref01_data_dt0_loaded))
         assert audience_ref01_data_dt0_load_result is not None
         assert audience_ref01_data_dt0_load_result["id"] == audience_ref01_data["id"]
+
+        # REMOVE
+        audience_ref01_match_rm0 = {
+            "id": audience_ref01_data["id"],
+        }
+        audience_ref01_ent.remove(audience_ref01_match_rm0, None)
+
+        # LIST
+        audience_ref01_match_rt0 = {}
+
+        audience_ref01_list_rt0_result = audience_ref01_ent.list(audience_ref01_match_rt0, None)
+        assert isinstance(audience_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(audience_ref01_list_rt0_result),
+            {"id": audience_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

@@ -7,6 +7,18 @@ main: kit: flow: BasicInboxLabelFlow:
   name: "BasicInboxLabelFlow",
   step: [
     {
+      i: {
+        ref: "inbox_label_ref01"
+      }
+
+      m: {
+        inbox_id: "inbox01"
+      }
+
+      o: "create"
+    }
+
+    {
       m: {
         inbox_id: "inbox01"
       }
@@ -15,6 +27,63 @@ main: kit: flow: BasicInboxLabelFlow:
       v: [
         {
           apply: "ItemExists",
+          def: {
+            ref: "inbox_label_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      d: {
+        inbox_id: "inbox01"
+      }
+
+      i: {
+        ref: "inbox_label_ref01",
+        srcdatavar: "inbox_label_ref01_data",
+        suffix: "_up0",
+        textfield: "color"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-inbox_label_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "inbox_label_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "inbox_label01",
+        inbox_id: "inbox01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      m: {
+        inbox_id: "inbox01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
           def: {
             ref: "inbox_label_ref01"
           }

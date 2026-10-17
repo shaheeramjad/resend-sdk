@@ -15,6 +15,12 @@ main: kit: entity: suppression: {
     email: {
       h: "Email"
       n: "email"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "Email address that is suppressed."
       t: "`$STRING`"
@@ -62,6 +68,95 @@ main: kit: entity: suppression: {
 
   name: "suppression"
   op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          bf: [
+            "email"
+          ]
+          co: {
+            id: "POST /suppressions"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/suppressions"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "suppressions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /suppressions"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "origin"
+                or: "origin"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/suppressions"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "suppressions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [
@@ -83,6 +178,57 @@ main: kit: entity: suppression: {
             ]
           }
           m: "GET"
+          o: "/suppressions/{suppression}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              suppression: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "suppressions"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /suppressions/{suppression}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "suppression"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
           o: "/suppressions/{suppression}"
           q: {
             exist: [

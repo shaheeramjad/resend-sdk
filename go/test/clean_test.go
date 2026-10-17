@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 // Generated: the credential's wire placement is fixed when the SDK is built.

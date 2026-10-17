@@ -1,0 +1,52 @@
+# BasicContactImportFlow
+
+main: kit: flow: BasicContactImportFlow:
+{
+  entity: "contact_import",
+  kind: "basic",
+  name: "BasicContactImportFlow",
+  step: [
+    {
+      i: {
+        ref: "contact_import_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contact_import_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "contact_import_ref01",
+        srcdatavar: "contact_import_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "contact_import01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-contact_import_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContactImportFlow"
+}

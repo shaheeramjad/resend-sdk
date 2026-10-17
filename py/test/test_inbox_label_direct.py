@@ -33,7 +33,7 @@ class TestInboxLabelDirect:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            for _live_key in ["inbox_label01"]:
+            for _live_key in ["inbox01"]:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via RESEND_TEST_INBOX_LABEL_ENTID")
 
@@ -41,12 +41,12 @@ class TestInboxLabelDirect:
 
         params = {}
         if setup["live"]:
-            params["id"] = setup["idmap"].get("inbox_label01")
+            params["inbox_id"] = setup["idmap"].get("inbox01")
         else:
-            params["id"] = "direct01"
+            params["inbox_id"] = "direct01"
 
         result = client.direct({
-            "path": "inboxes/{id}/labels",
+            "path": "inboxes/{inbox_id}/labels",
             "method": "GET",
             "params": params,
         })

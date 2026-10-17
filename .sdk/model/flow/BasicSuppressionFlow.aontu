@@ -8,6 +8,26 @@ main: kit: flow: BasicSuppressionFlow:
   step: [
     {
       i: {
+        ref: "suppression_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "suppression_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
         ref: "suppression_ref01",
         srcdatavar: "suppression_ref01_data",
         suffix: "_dt0"
@@ -23,6 +43,35 @@ main: kit: flow: BasicSuppressionFlow:
           apply: "TextFieldMark",
           def: {
             mark: "Mark01-suppression_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "suppression_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "suppression01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "suppression_ref01"
           }
         }
       ]

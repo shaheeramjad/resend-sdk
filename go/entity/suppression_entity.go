@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type SuppressionEntity struct {
@@ -333,14 +333,73 @@ func (e *SuppressionEntity) LoadTyped(reqmatch SuppressionLoadMatch, ctrl map[st
 
 
 
-func (e *SuppressionEntity) List(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("list", e.name)
+
+func (e *SuppressionEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "list",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+		}
+	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// SuppressionListMatch and returns []Suppression. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *SuppressionEntity) ListTyped(reqmatch SuppressionListMatch, ctrl map[string]any) ([]Suppression, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Suppression](res), nil
 }
 
 
-func (e *SuppressionEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("create", e.name)
+
+
+func (e *SuppressionEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "create",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// SuppressionCreateData and returns an Suppression. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *SuppressionEntity) CreateTyped(reqdata SuppressionCreateData, ctrl map[string]any) (Suppression, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Suppression{}, err
+	}
+	return typedFrom[Suppression](res), nil
+}
+
 
 
 func (e *SuppressionEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
@@ -353,9 +412,43 @@ func (e *SuppressionEntity) Patch(_ map[string]any, _ map[string]any) (any, erro
 }
 
 
-func (e *SuppressionEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *SuppressionEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// SuppressionRemoveMatch and returns an Suppression. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *SuppressionEntity) RemoveTyped(reqmatch SuppressionRemoveMatch, ctrl map[string]any) (Suppression, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Suppression{}, err
+	}
+	return typedFrom[Suppression](res), nil
+}
+
 
 
 func (e *SuppressionEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

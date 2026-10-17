@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 // {name} placeholders in a templated server URL (OpenAPI server variables).

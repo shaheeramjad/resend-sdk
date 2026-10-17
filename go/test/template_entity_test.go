@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -21,6 +22,19 @@ import (
 // An account with no record for a test to read skips it either way.
 const templateEntityLiveStrict = true
 
+
+type templateFailHook struct {
+	sdk.BaseFeature
+	unexpected int
+}
+
+func (f *templateFailHook) PreSpec(ctx *sdk.Context) {
+	panic("template hook failed")
+}
+
+func (f *templateFailHook) PreUnexpected(ctx *sdk.Context) {
+	f.unexpected++
+}
 
 func TestTemplateEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
@@ -31,6 +45,130 @@ func TestTemplateEntity(t *testing.T) {
 		}
 	})
 
+	// Feature #4: the entity Stream(action, ...) method runs the op pipeline and
+	// returns a channel over result items. With the streaming feature active it
+	// yields the feature's incremental output; otherwise it falls back to the
+	// materialised list so Stream always yields.
+	t.Run("stream", func(t *testing.T) {
+		seed := map[string]any{
+			"entity": map[string]any{
+				"template": map[string]any{
+					"s1": map[string]any{"id": "s1"},
+					"s2": map[string]any{"id": "s2"},
+					"s3": map[string]any{"id": "s3"},
+				},
+			},
+		}
+
+		// Fallback: streaming inactive -> yields the materialised list items.
+		base := sdk.TestSDK(seed, nil)
+		var seen []any
+		for si := range base.Template(nil).Stream("list", nil, nil) {
+			if si.Err != nil {
+				t.Fatalf("stream failed: %v", si.Err)
+			}
+			seen = append(seen, si.Item)
+		}
+		if len(seen) != 3 {
+			t.Fatalf("expected 3 streamed items, got %d", len(seen))
+		}
+
+		// Inbound: streaming active -> yields each item from the feature iterator.
+		hasStreaming := false
+		if fm, ok := core.SharedConfig()["feature"].(map[string]any); ok {
+			_, hasStreaming = fm["streaming"]
+		}
+		if hasStreaming {
+			streamSdk := sdk.TestSDK(seed, map[string]any{
+				"feature": map[string]any{"streaming": map[string]any{"active": true}},
+			})
+			var got []any
+			for si := range streamSdk.Template(nil).Stream("list", nil, nil) {
+				if si.Err != nil {
+					t.Fatalf("stream failed: %v", si.Err)
+				}
+				if sub, ok := si.Item.([]any); ok {
+					got = append(got, sub...)
+				} else {
+					got = append(got, si.Item)
+				}
+			}
+			if len(got) != 3 {
+				t.Fatalf("expected 3 items via streaming feature, got %d", len(got))
+			}
+		}
+	})
+
+	t.Run("stream-error", func(t *testing.T) {
+		offline := map[string]any{"net": map[string]any{"offline": true}}
+		var streamerr error
+		for si := range sdk.TestSDK(offline, nil).Template(nil).Stream("list", nil, nil) {
+			if si.Err != nil {
+				streamerr = si.Err
+			}
+		}
+		if nil == streamerr || !strings.Contains(streamerr.Error(), "offline") {
+			t.Fatalf("expected the transport failure as a stream value, got %v", streamerr)
+		}
+
+		quiet := map[string]any{"ctrl": map[string]any{"throw": false}}
+		for si := range sdk.TestSDK(offline, nil).Template(nil).Stream("list", nil, quiet) {
+			if si.Err != nil {
+				t.Fatalf("throw false: expected no error value, got %v", si.Err)
+			}
+		}
+
+		if fhHasFeature("rbac") {
+			denied := sdk.TestSDK(nil, map[string]any{
+				"feature": map[string]any{"rbac": map[string]any{"active": true, "deny": true}},
+			})
+			var denyerr error
+			for si := range denied.Template(nil).Stream("list", nil, nil) {
+				if si.Err != nil {
+					denyerr = si.Err
+				}
+			}
+			if sdkerr, ok := denyerr.(*core.ResendError); !ok || "rbac_denied" != sdkerr.Code {
+				t.Fatalf("expected the rbac denial as a stream value, got %v", denyerr)
+			}
+		}
+	})
+
+	t.Run("stream-ctrl", func(t *testing.T) {
+		explain := map[string]any{}
+		ctrl := map[string]any{"explain": explain}
+		for range sdk.TestSDK(nil, nil).Template(nil).Stream("list", nil, map[string]any{"ctrl": ctrl}) {
+		}
+		if _, has := ctrl["stream"]; has || 1 != len(ctrl) {
+			t.Fatalf("the stream changed the caller's ctrl")
+		}
+		if 0 == len(explain) {
+			t.Fatalf("the caller's explain record was not filled")
+		}
+	})
+
+	t.Run("unexpected", func(t *testing.T) {
+		hook := &templateFailHook{
+			BaseFeature: sdk.BaseFeature{Version: "0.0.1", Name: "failhook", Active: true}}
+		client := sdk.TestSDK(nil, map[string]any{"extend": []any{hook}})
+
+		_, err := client.Template(nil).List(nil, nil)
+		if nil == err || !strings.Contains(err.Error(), "hook failed") {
+			t.Fatalf("expected the hook's failure, got %v", err)
+		}
+		if 0 == hook.unexpected {
+			t.Fatalf("PreUnexpected did not fire")
+		}
+
+		fired := hook.unexpected
+		if _, err := client.Template(nil).List(nil, map[string]any{"throw": false}); nil != err {
+			t.Fatalf("throw false: expected no error, got %v", err)
+		}
+		if fired == hook.unexpected {
+			t.Fatalf("throw false: PreUnexpected did not fire")
+		}
+	})
+
 	t.Run("validate", func(t *testing.T) {
 		if !fhHasFeature("validate") {
 			t.Skip("feature not present in this SDK: validate")
@@ -38,7 +176,7 @@ func TestTemplateEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.Template(nil).Load(map[string]any{"id": 1}, nil)
+		_, err := client.Template(nil).List(map[string]any{"after": 1}, nil)
 		if sdkerr, ok := err.(*core.ResendError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -53,7 +191,7 @@ func TestTemplateEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "template." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -62,24 +200,68 @@ func TestTemplateEntity(t *testing.T) {
 				return
 			}
 		}
-		if setup.live {
-			liveMiss(t, templateEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a template record it has no list to find")
-		}
 		client := setup.client
 		_ = client
 
-		// Bootstrap entity data from existing test data (no create step in flow).
-		templateRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.template")))
-		var templateRef01Data map[string]any
-		if len(templateRef01DataRaw) > 0 {
-			templateRef01Data = core.ToMapAny(templateRef01DataRaw[0][1])
+		// CREATE
+		templateRef01Ent := client.Template(nil)
+		templateRef01Data := core.ToMapAny(vs.GetProp(
+			vs.GetPath(setup.data, []any{"new", "template"}), "template_ref01"))
+
+		templateRef01DataResult, err := templateRef01Ent.Create(templateRef01Data, nil)
+		if err != nil {
+			t.Fatalf("create failed: %v", err)
 		}
-		// Discard guards against Go's unused-var check when the flow's steps
-		// happen not to consume the bootstrap data (e.g. list-only flows).
-		_ = templateRef01Data
+		templateRef01Data = core.ToMapAny(entityData(templateRef01DataResult))
+		if templateRef01Data == nil {
+			t.Fatal("expected create result to be a map")
+		}
+		if templateRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
+
+		// LIST
+		templateRef01Match := map[string]any{}
+
+		templateRef01ListResult, err := templateRef01Ent.List(templateRef01Match, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		templateRef01List, templateRef01ListOk := templateRef01ListResult.([]any)
+		if !templateRef01ListOk {
+			t.Fatalf("expected list result to be an array, got %T", templateRef01ListResult)
+		}
+
+		foundItem := vs.Select(entityListToData(templateRef01List), map[string]any{"id": templateRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
+		// UPDATE
+		templateRef01DataUp0Up := map[string]any{
+			"id": templateRef01Data["id"],
+		}
+
+		templateRef01MarkdefUp0Name := "alias"
+		templateRef01MarkdefUp0Value := fmt.Sprintf("Mark01-template_ref01_%d", setup.now)
+		templateRef01DataUp0Up[templateRef01MarkdefUp0Name] = templateRef01MarkdefUp0Value
+
+		templateRef01ResdataUp0Result, err := templateRef01Ent.Update(templateRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		templateRef01ResdataUp0 := core.ToMapAny(entityData(templateRef01ResdataUp0Result))
+		if templateRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if templateRef01ResdataUp0["id"] != templateRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if templateRef01ResdataUp0[templateRef01MarkdefUp0Name] != templateRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", templateRef01MarkdefUp0Name, templateRef01ResdataUp0[templateRef01MarkdefUp0Name])
+		}
 
 		// LOAD
-		templateRef01Ent := client.Template(nil)
 		templateRef01MatchDt0 := map[string]any{
 			"id": templateRef01Data["id"],
 		}
@@ -93,6 +275,32 @@ func TestTemplateEntity(t *testing.T) {
 		}
 		if templateRef01DataDt0LoadResult["id"] != templateRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		templateRef01MatchRm0 := map[string]any{
+			"id": templateRef01Data["id"],
+		}
+		_, err = templateRef01Ent.Remove(templateRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		templateRef01MatchRt0 := map[string]any{}
+
+		templateRef01ListRt0Result, err := templateRef01Ent.List(templateRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		templateRef01ListRt0, templateRef01ListRt0Ok := templateRef01ListRt0Result.([]any)
+		if !templateRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", templateRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(templateRef01ListRt0), map[string]any{"id": templateRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

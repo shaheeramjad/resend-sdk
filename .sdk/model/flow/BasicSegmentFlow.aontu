@@ -8,6 +8,45 @@ main: kit: flow: BasicSegmentFlow:
   step: [
     {
       i: {
+        ref: "segment_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "segment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "segment_ref01",
+        srcdatavar: "segment_ref01_data",
+        suffix: "_up0",
+        textfield: "audience_id"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-segment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
         ref: "segment_ref01",
         srcdatavar: "segment_ref01_data",
         suffix: "_dt0"
@@ -23,6 +62,35 @@ main: kit: flow: BasicSegmentFlow:
           apply: "TextFieldMark",
           def: {
             mark: "Mark01-segment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "segment_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "segment01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "segment_ref01"
           }
         }
       ]

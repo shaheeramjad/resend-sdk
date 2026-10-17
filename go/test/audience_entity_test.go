@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +190,7 @@ func TestAudienceEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "audience." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -250,6 +250,32 @@ func TestAudienceEntity(t *testing.T) {
 		}
 		if audienceRef01DataDt0LoadResult["id"] != audienceRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		audienceRef01MatchRm0 := map[string]any{
+			"id": audienceRef01Data["id"],
+		}
+		_, err = audienceRef01Ent.Remove(audienceRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		audienceRef01MatchRt0 := map[string]any{}
+
+		audienceRef01ListRt0Result, err := audienceRef01Ent.List(audienceRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		audienceRef01ListRt0, audienceRef01ListRt0Ok := audienceRef01ListRt0Result.([]any)
+		if !audienceRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", audienceRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(audienceRef01ListRt0), map[string]any{"id": audienceRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

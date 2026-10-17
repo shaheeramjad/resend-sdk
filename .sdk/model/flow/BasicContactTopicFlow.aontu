@@ -1,0 +1,45 @@
+# BasicContactTopicFlow
+
+main: kit: flow: BasicContactTopicFlow:
+{
+  entity: "contact_topic",
+  kind: "basic",
+  name: "BasicContactTopicFlow",
+  step: [
+    {
+      m: {
+        contact_id: "contact01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "contact_topic_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "contact_topic_ref01",
+        srcdatavar: "contact_topic_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-contact_topic_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContactTopicFlow"
+}

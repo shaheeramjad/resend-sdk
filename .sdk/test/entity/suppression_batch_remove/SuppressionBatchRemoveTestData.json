@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "suppression_batch_remove": {
+      "SUPPRESSION_BATCH_REMOVE00": {
+        "data": [],
+        "emails": [],
+        "ids": [],
+        "id": "SUPPRESSION_BATCH_REMOVE00"
+      },
+      "SUPPRESSION_BATCH_REMOVE01": {
+        "data": [],
+        "emails": [],
+        "ids": [],
+        "id": "SUPPRESSION_BATCH_REMOVE01"
+      },
+      "SUPPRESSION_BATCH_REMOVE02": {
+        "data": [],
+        "emails": [],
+        "ids": [],
+        "id": "SUPPRESSION_BATCH_REMOVE02"
+      }
+    }
+  },
+  "new": {
+    "suppression_batch_remove": {
+      "suppression_batch_remove_ref01": {
+        "data": [],
+        "emails": [],
+        "ids": []
+      }
+    }
+  },
+  "requests": {
+    "POST /suppressions/batch/remove": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

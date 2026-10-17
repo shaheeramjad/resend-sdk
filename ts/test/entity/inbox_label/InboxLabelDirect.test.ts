@@ -43,19 +43,19 @@ describe('InboxLabelDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-inbox_label', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["inbox_label01"], LIVE_STRICT)) return
+    if (skipIfMissingIds(t, setup, ["inbox01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.id = setup.idmap['inbox_label01']
+      params.inbox_id = setup.idmap['inbox01']
     } else {
-      params.id = 'direct01'
+      params.inbox_id = 'direct01'
     }
 
     const result: any = await client.direct({
-      path: 'inboxes/{id}/labels',
+      path: 'inboxes/{inbox_id}/labels',
       method: 'GET',
       params,
       query,

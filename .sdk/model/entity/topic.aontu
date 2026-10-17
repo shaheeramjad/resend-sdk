@@ -15,6 +15,12 @@ main: kit: entity: topic: {
     default_subscription: {
       h: "Default Subscription"
       n: "default_subscription"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The default subscription status for the topic."
       t: "`$STRING`"
@@ -36,6 +42,12 @@ main: kit: entity: topic: {
     name: {
       h: "Name"
       n: "name"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The name of the topic."
       t: "`$STRING`"
@@ -63,6 +75,91 @@ main: kit: entity: topic: {
 
   name: "topic"
   op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          bf: [
+            "default_subscription"
+            "description"
+            "name"
+            "visibility"
+          ]
+          co: {
+            id: "POST /topics"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/topics"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "topics"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /topics"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/topics"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "topics"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [
@@ -84,6 +181,103 @@ main: kit: entity: topic: {
             ]
           }
           m: "GET"
+          o: "/topics/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "topics"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /topics/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/topics/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "topics"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "description"
+            "name"
+            "visibility"
+          ]
+          co: {
+            id: "PATCH /topics/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/topics/{id}"
           q: {
             exist: [

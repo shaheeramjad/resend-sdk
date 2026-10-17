@@ -39,7 +39,22 @@
     }
   },
   "requests": {
+    "POST /suppressions": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /suppressions": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /suppressions/{suppression}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /suppressions/{suppression}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

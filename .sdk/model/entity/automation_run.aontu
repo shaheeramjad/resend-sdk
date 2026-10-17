@@ -75,6 +75,90 @@ main: kit: entity: automation_run: {
 
   name: "automation_run"
   op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /automations/{automation_id}/runs"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "automation_id"
+                or: "automation_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/automations/{automation_id}/runs"
+          q: {
+            exist: [
+              "automation_id"
+            ]
+          }
+          r: {
+            param: {
+              automation_id: "automation_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "automations"
+            }
+            {
+              var: "automation_id"
+            }
+            {
+              lit: "runs"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [

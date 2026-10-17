@@ -1,0 +1,22 @@
+# BasicOauthGrantFlow
+
+main: kit: flow: BasicOauthGrantFlow:
+{
+  entity: "oauth_grant",
+  kind: "basic",
+  name: "BasicOauthGrantFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "oauth_grant_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicOauthGrantFlow"
+}

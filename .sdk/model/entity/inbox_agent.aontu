@@ -1,0 +1,217 @@
+# Entity: inbox_agent
+
+main: kit: entity: inbox_agent: {
+
+  alias: field: {}
+
+  fields: {
+    actions: {
+      h: "Actions"
+      n: "actions"
+      op: {
+        update: {
+          req: false
+          type: "`$ARRAY`"
+        }
+      }
+      r: true
+      sh: "The actions the agent can take, in the order of the enum."
+      t: "`$ARRAY`"
+    }
+    id: {
+      fo: "uuid"
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "The ID of the inbox agent."
+      t: "`$STRING`"
+    }
+    instructions: {
+      h: "Instructions"
+      n: "instructions"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$STRING`"
+              "`$NULL`"
+            ]
+          ]
+        }
+      }
+      r: true
+      sh: "Instructions the agent follows when it handles the threads of the inbox."
+      t: [
+        "`$ONE`"
+        [
+          "`$STRING`"
+          "`$NULL`"
+        ]
+      ]
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: true
+      sh: "The object type."
+      t: "`$STRING`"
+    }
+    tone: {
+      h: "Tone"
+      n: "tone"
+      op: {
+        update: {
+          req: false
+          type: [
+            "`$ONE`"
+            [
+              "`$STRING`"
+              "`$NULL`"
+            ]
+          ]
+        }
+      }
+      r: true
+      sh: "The tone the agent writes in."
+      t: [
+        "`$ONE`"
+        [
+          "`$STRING`"
+          "`$NULL`"
+        ]
+      ]
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "inbox_agent"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /inboxes/{inbox_id}/agent"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "inbox_id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/inboxes/{inbox_id}/agent"
+          q: {
+            exist: [
+              "inbox_id"
+            ]
+          }
+          r: {
+            param: {
+              inbox_id: "inbox_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "inboxes"
+            }
+            {
+              var: "inbox_id"
+            }
+            {
+              lit: "agent"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "actions"
+            "instructions"
+            "tone"
+          ]
+          co: {
+            id: "PATCH /inboxes/{inbox_id}/agent"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "inbox_id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/inboxes/{inbox_id}/agent"
+          q: {
+            exist: [
+              "inbox_id"
+            ]
+          }
+          r: {
+            param: {
+              inbox_id: "inbox_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "inboxes"
+            }
+            {
+              var: "inbox_id"
+            }
+            {
+              lit: "agent"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.inbox")]
+  ]
+
+}

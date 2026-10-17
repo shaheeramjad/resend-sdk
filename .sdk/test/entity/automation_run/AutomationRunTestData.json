@@ -46,6 +46,11 @@
     }
   },
   "requests": {
+    "GET /automations/{automation_id}/runs": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /automations/{automation_id}/runs/{run_id}": {
       "provenance": "operation-contract",
       "version": 2,

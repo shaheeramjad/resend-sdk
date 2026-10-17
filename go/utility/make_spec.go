@@ -3,9 +3,9 @@ package utility
 import (
 	"reflect"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 func makeSpecUtil(ctx *core.Context) (*core.Spec, error) {

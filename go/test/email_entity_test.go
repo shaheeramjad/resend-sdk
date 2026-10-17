@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestEmailEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "email." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -234,6 +235,30 @@ func TestEmailEntity(t *testing.T) {
 		foundItem := vs.Select(entityListToData(emailRef01List), map[string]any{"id": emailRef01Data["id"]})
 		if vs.IsEmpty(foundItem) {
 			t.Fatal("expected to find created entity in list")
+		}
+
+		// UPDATE
+		emailRef01DataUp0Up := map[string]any{
+			"id": emailRef01Data["id"],
+		}
+
+		emailRef01MarkdefUp0Name := "created_at"
+		emailRef01MarkdefUp0Value := fmt.Sprintf("Mark01-email_ref01_%d", setup.now)
+		emailRef01DataUp0Up[emailRef01MarkdefUp0Name] = emailRef01MarkdefUp0Value
+
+		emailRef01ResdataUp0Result, err := emailRef01Ent.Update(emailRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		emailRef01ResdataUp0 := core.ToMapAny(entityData(emailRef01ResdataUp0Result))
+		if emailRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if emailRef01ResdataUp0["id"] != emailRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if emailRef01ResdataUp0[emailRef01MarkdefUp0Name] != emailRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", emailRef01MarkdefUp0Name, emailRef01ResdataUp0[emailRef01MarkdefUp0Name])
 		}
 
 		// LOAD

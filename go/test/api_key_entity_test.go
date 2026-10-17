@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestApiKeyEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{"create", "list", "update", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "api_key." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -202,27 +203,88 @@ func TestApiKeyEntity(t *testing.T) {
 		client := setup.client
 		_ = client
 
-		// Bootstrap entity data from existing test data (no create step in flow).
-		apiKeyRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.api_key")))
-		var apiKeyRef01Data map[string]any
-		if len(apiKeyRef01DataRaw) > 0 {
-			apiKeyRef01Data = core.ToMapAny(apiKeyRef01DataRaw[0][1])
+		// CREATE
+		apiKeyRef01Ent := client.ApiKey(nil)
+		apiKeyRef01Data := core.ToMapAny(vs.GetProp(
+			vs.GetPath(setup.data, []any{"new", "api_key"}), "api_key_ref01"))
+
+		apiKeyRef01DataResult, err := apiKeyRef01Ent.Create(apiKeyRef01Data, nil)
+		if err != nil {
+			t.Fatalf("create failed: %v", err)
 		}
-		// Discard guards against Go's unused-var check when the flow's steps
-		// happen not to consume the bootstrap data (e.g. list-only flows).
-		_ = apiKeyRef01Data
+		apiKeyRef01Data = core.ToMapAny(entityData(apiKeyRef01DataResult))
+		if apiKeyRef01Data == nil {
+			t.Fatal("expected create result to be a map")
+		}
+		if apiKeyRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
-		apiKeyRef01Ent := client.ApiKey(nil)
 		apiKeyRef01Match := map[string]any{}
 
 		apiKeyRef01ListResult, err := apiKeyRef01Ent.List(apiKeyRef01Match, nil)
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, apiKeyRef01ListOk := apiKeyRef01ListResult.([]any)
+		apiKeyRef01List, apiKeyRef01ListOk := apiKeyRef01ListResult.([]any)
 		if !apiKeyRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", apiKeyRef01ListResult)
+		}
+
+		foundItem := vs.Select(entityListToData(apiKeyRef01List), map[string]any{"id": apiKeyRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
+		// UPDATE
+		apiKeyRef01DataUp0Up := map[string]any{
+			"id": apiKeyRef01Data["id"],
+		}
+
+		apiKeyRef01MarkdefUp0Name := "created_at"
+		apiKeyRef01MarkdefUp0Value := fmt.Sprintf("Mark01-api_key_ref01_%d", setup.now)
+		apiKeyRef01DataUp0Up[apiKeyRef01MarkdefUp0Name] = apiKeyRef01MarkdefUp0Value
+
+		apiKeyRef01ResdataUp0Result, err := apiKeyRef01Ent.Update(apiKeyRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		apiKeyRef01ResdataUp0 := core.ToMapAny(entityData(apiKeyRef01ResdataUp0Result))
+		if apiKeyRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if apiKeyRef01ResdataUp0["id"] != apiKeyRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if apiKeyRef01ResdataUp0[apiKeyRef01MarkdefUp0Name] != apiKeyRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", apiKeyRef01MarkdefUp0Name, apiKeyRef01ResdataUp0[apiKeyRef01MarkdefUp0Name])
+		}
+
+		// REMOVE
+		apiKeyRef01MatchRm0 := map[string]any{
+			"id": apiKeyRef01Data["id"],
+		}
+		_, err = apiKeyRef01Ent.Remove(apiKeyRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		apiKeyRef01MatchRt0 := map[string]any{}
+
+		apiKeyRef01ListRt0Result, err := apiKeyRef01Ent.List(apiKeyRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		apiKeyRef01ListRt0, apiKeyRef01ListRt0Ok := apiKeyRef01ListRt0Result.([]any)
+		if !apiKeyRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", apiKeyRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(apiKeyRef01ListRt0), map[string]any{"id": apiKeyRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

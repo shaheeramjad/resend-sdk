@@ -30,6 +30,25 @@ main: kit: flow: BasicEmailFlow:
       i: {
         ref: "email_ref01",
         srcdatavar: "email_ref01_data",
+        suffix: "_up0",
+        textfield: "created_at"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-email_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "email_ref01",
+        srcdatavar: "email_ref01_data",
         suffix: "_dt0"
       }
 

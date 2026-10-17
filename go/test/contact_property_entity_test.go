@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestContactPropertyEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "contact_property." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -236,6 +237,30 @@ func TestContactPropertyEntity(t *testing.T) {
 			t.Fatal("expected to find created entity in list")
 		}
 
+		// UPDATE
+		contactPropertyRef01DataUp0Up := map[string]any{
+			"id": contactPropertyRef01Data["id"],
+		}
+
+		contactPropertyRef01MarkdefUp0Name := "created_at"
+		contactPropertyRef01MarkdefUp0Value := fmt.Sprintf("Mark01-contact_property_ref01_%d", setup.now)
+		contactPropertyRef01DataUp0Up[contactPropertyRef01MarkdefUp0Name] = contactPropertyRef01MarkdefUp0Value
+
+		contactPropertyRef01ResdataUp0Result, err := contactPropertyRef01Ent.Update(contactPropertyRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		contactPropertyRef01ResdataUp0 := core.ToMapAny(entityData(contactPropertyRef01ResdataUp0Result))
+		if contactPropertyRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if contactPropertyRef01ResdataUp0["id"] != contactPropertyRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if contactPropertyRef01ResdataUp0[contactPropertyRef01MarkdefUp0Name] != contactPropertyRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", contactPropertyRef01MarkdefUp0Name, contactPropertyRef01ResdataUp0[contactPropertyRef01MarkdefUp0Name])
+		}
+
 		// LOAD
 		contactPropertyRef01MatchDt0 := map[string]any{
 			"id": contactPropertyRef01Data["id"],
@@ -250,6 +275,32 @@ func TestContactPropertyEntity(t *testing.T) {
 		}
 		if contactPropertyRef01DataDt0LoadResult["id"] != contactPropertyRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		contactPropertyRef01MatchRm0 := map[string]any{
+			"id": contactPropertyRef01Data["id"],
+		}
+		_, err = contactPropertyRef01Ent.Remove(contactPropertyRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		contactPropertyRef01MatchRt0 := map[string]any{}
+
+		contactPropertyRef01ListRt0Result, err := contactPropertyRef01Ent.List(contactPropertyRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		contactPropertyRef01ListRt0, contactPropertyRef01ListRt0Ok := contactPropertyRef01ListRt0Result.([]any)
+		if !contactPropertyRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", contactPropertyRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(contactPropertyRef01ListRt0), map[string]any{"id": contactPropertyRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

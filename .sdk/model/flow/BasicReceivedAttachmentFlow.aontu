@@ -1,0 +1,49 @@
+# BasicReceivedAttachmentFlow
+
+main: kit: flow: BasicReceivedAttachmentFlow:
+{
+  entity: "received_attachment",
+  kind: "basic",
+  name: "BasicReceivedAttachmentFlow",
+  step: [
+    {
+      m: {
+        email_id: "email01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "received_attachment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "received_attachment_ref01",
+        srcdatavar: "received_attachment_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        email_id: "email01",
+        id: "received_attachment01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-received_attachment_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicReceivedAttachmentFlow"
+}

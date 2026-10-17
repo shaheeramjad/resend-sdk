@@ -5,35 +5,14 @@
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
-export interface AddContactToSegmentResponseSuccess {
-  contact_id?: string
-  object?: string
-  segment_id?: string
-}
-
-export interface AddContactToSegmentResponseSuccessCreateData {
-  contact_id: string
-  segment_id: string
-  object?: string
-}
-
-export interface AddInboxThreadLabelsResponseSuccess {
-  data: any[]
-  labels: any[]
-  object: string
-}
-
-export interface AddInboxThreadLabelsResponseSuccessCreateData {
-  inbox_id: string
-  thread_id: string
-  labels: any[]
-}
-
 export interface ApiKey {
   created_at?: string
+  domain_id?: string
   id?: string
   last_used_at?: string | null
-  name?: string
+  name: string
+  object?: string
+  permission?: string
 }
 
 export interface ApiKeyListMatch {
@@ -42,8 +21,43 @@ export interface ApiKeyListMatch {
   limit?: number
 }
 
+export interface ApiKeyCreateData {
+  domain_id?: string
+  name: string
+  permission?: string
+}
+
+export interface ApiKeyUpdateData {
+  id: string
+  name?: string
+}
+
 export interface ApiKeyRemoveMatch {
   id: string
+}
+
+export interface Attachment {
+  content_disposition?: string | null
+  content_id?: string
+  content_type?: string
+  download_url?: string
+  expires_at?: string
+  filename?: string | null
+  id?: string
+  object?: string
+  size?: number
+}
+
+export interface AttachmentLoadMatch {
+  email_id: string
+  id: string
+}
+
+export interface AttachmentListMatch {
+  email_id: string
+  after?: string
+  before?: string
+  limit?: number
 }
 
 export interface Audience {
@@ -66,6 +80,10 @@ export interface AudienceListMatch {
 
 export interface AudienceCreateData {
   name: string
+}
+
+export interface AudienceRemoveMatch {
+  id: string
 }
 
 export interface Automation {
@@ -130,45 +148,12 @@ export interface AutomationRunLoadMatch {
   id: string
 }
 
-export interface AutomationRunListItem {
-  completed_at?: string | null
-  created_at?: string
-  id?: string
-  started_at?: string | null
-  status?: string
-}
-
-export interface AutomationRunListItemListMatch {
-  id: string
+export interface AutomationRunListMatch {
+  automation_id: string
   after?: string
   before?: string
   limit?: number
   status?: string
-
-  // Selects a custom action instead of the plain list:
-  //   'runs'
-  // The remaining keys are that action's own payload.
-  $action?: string
-  [action: string]: any
-}
-
-export interface BatchAddSuppressionsResponseSuccess {
-  emails: any[]
-}
-
-export interface BatchAddSuppressionsResponseSuccessCreateData {
-  emails: any[]
-}
-
-export interface BatchRemoveSuppressionsResponseSuccess {
-  data?: any[]
-  emails?: any[]
-  ids?: any[]
-}
-
-export interface BatchRemoveSuppressionsResponseSuccessCreateData {
-  emails?: any[]
-  ids?: any[]
 }
 
 export interface Broadcast {
@@ -178,10 +163,12 @@ export interface Broadcast {
   html?: string | null
   id?: string
   name?: string
+  object?: string
   preview_text?: string
   reply_to?: any[]
   scheduled_at?: string
   segment_id?: string | null
+  send?: boolean
   sent_at?: string
   status?: string
   subject?: string
@@ -200,19 +187,16 @@ export interface BroadcastListMatch {
 }
 
 export interface BroadcastCreateData {
-  id: string
   audience_id?: string | null
-  created_at?: string
-  from?: string
+  from: string
   html?: string | null
   name?: string
   preview_text?: string
   reply_to?: any[]
   scheduled_at?: string
-  segment_id?: string | null
-  sent_at?: string
-  status?: string
-  subject?: string
+  segment_id: string | null
+  send?: boolean
+  subject: string
   text?: string | null
   topic_id?: string | null
 
@@ -221,6 +205,57 @@ export interface BroadcastCreateData {
   // The remaining keys are that action's own payload.
   $action?: string
   [action: string]: any
+}
+
+export interface BroadcastUpdateData {
+  id: string
+  audience_id?: string | null
+  from?: string
+  html?: string | null
+  name?: string
+  preview_text?: string
+  reply_to?: any[]
+  segment_id?: string | null
+  subject?: string
+  text?: string | null
+  topic_id?: string | null
+}
+
+export interface BroadcastRemoveMatch {
+  id: string
+}
+
+export interface BroadcastClickedLink {
+  clicks?: number
+  id?: string
+  unique_clicks?: number
+  url?: string
+}
+
+export interface BroadcastClickedLinkListMatch {
+  broadcast_id: string
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface BroadcastRecipient {
+  bounce_type?: string
+  clicked_links?: any[]
+  contact_id?: string | null
+  count?: number
+  email?: string
+  id?: string
+}
+
+export interface BroadcastRecipientListMatch {
+  broadcast_id: string
+  after?: string
+  before?: string
+  bounce_type?: string
+  email?: string
+  limit?: number
+  type: string
 }
 
 export interface Contact {
@@ -258,7 +293,20 @@ export interface ContactCreateData {
   unsubscribed?: boolean
 }
 
-export interface ContactImportResponseSuccess {
+export interface ContactUpdateData {
+  id: string
+  email?: string
+  first_name?: string | null
+  last_name?: string | null
+  properties?: Record<string, any>
+  unsubscribed?: boolean
+}
+
+export interface ContactRemoveMatch {
+  id: string
+}
+
+export interface ContactImport {
   column_map?: string
   completed_at?: string | null
   counts?: Record<string, any>
@@ -272,18 +320,18 @@ export interface ContactImportResponseSuccess {
   topics?: string
 }
 
-export interface ContactImportResponseSuccessLoadMatch {
+export interface ContactImportLoadMatch {
   id: string
 }
 
-export interface ContactImportResponseSuccessListMatch {
+export interface ContactImportListMatch {
   after?: string
   before?: string
   limit?: number
   status?: string
 }
 
-export interface ContactImportResponseSuccessCreateData {
+export interface ContactImportCreateData {
   column_map?: string
   completed_at?: string | null
   counts?: Record<string, any>
@@ -322,110 +370,65 @@ export interface ContactPropertyCreateData {
   type: string
 }
 
-export interface ContactTopicsResponseSuccess {
-  id?: string
+export interface ContactPropertyUpdateData {
+  id: string
+  fallback_value?: any
 }
 
-export interface ContactTopicsResponseSuccessListMatch {
+export interface ContactPropertyRemoveMatch {
   id: string
+}
+
+export interface ContactSegment {
+  contact_id?: string
+  created_at?: string
+  id?: string
+  name?: string
+  object?: string
+  segment_id?: string
+}
+
+export interface ContactSegmentListMatch {
+  contact_id: string
   after?: string
   before?: string
   limit?: number
-
-  // Selects a custom action instead of the plain list:
-  //   'topics'
-  // The remaining keys are that action's own payload.
-  $action?: string
-  [action: string]: any
 }
 
-export interface CreateApiKey {
-  domain_id?: string
-  name: string
-  permission?: string
-}
-
-export interface CreateApiKeyCreateData {
-  domain_id?: string
-  name: string
-  permission?: string
-}
-
-export interface CreateBatchEmail {
-  data?: any[]
-  send_emails?: any[]
-}
-
-export interface CreateBatchEmailCreateData {
-  send_emails?: any[]
-}
-
-export interface CreateBroadcastResponseSuccess {
-  audience_id?: string
-  from: string
-  html?: string
-  name?: string
-  preview_text?: string
-  reply_to?: any[]
-  scheduled_at?: string
-  segment_id: string
-  send?: boolean
-  subject: string
-  text?: string
-  topic_id?: string
-}
-
-export interface CreateBroadcastResponseSuccessCreateData {
-  audience_id?: string
-  from: string
-  html?: string
-  name?: string
-  preview_text?: string
-  reply_to?: any[]
-  scheduled_at?: string
-  segment_id: string
-  send?: boolean
-  subject: string
-  text?: string
-  topic_id?: string
-}
-
-export interface CreateInboxDraftResponseSuccess {
-  attachments?: any[] | null
-  bcc?: any
-  cc?: any
-  html?: string | null
+export interface ContactSegmentCreateData {
+  contact_id: string
   id: string
-  object: string
-  reply_to_email_id?: string
-  subject?: string | null
-  text?: string | null
-  thread_id?: string
-  to?: any
+  created_at?: string
+  name?: string
+  object?: string
+  segment_id?: string
 }
 
-export interface CreateInboxDraftResponseSuccessCreateData {
-  inbox_id: string
-  attachments?: any[] | null
-  bcc?: any
-  cc?: any
-  html?: string | null
-  reply_to_email_id?: string
-  subject?: string | null
-  text?: string | null
-  thread_id?: string
-  to?: any
+export interface ContactSegmentRemoveMatch {
+  contact_id: string
+  id: string
 }
 
-export interface CreateInboxLabelResponseSuccess {
-  color?: string
-  name: string
+export interface ContactTopic {
+  contact_id?: string
+  description?: string
+  id?: string
+  name?: string
+  object?: string
+  subscription?: string
+  topics?: any[]
 }
 
-export interface CreateInboxLabelResponseSuccessCreateData {
-  inbox_id: string
-  color?: string
-  name: string
+export interface ContactTopicListMatch {
+  contact_id: string
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface ContactTopicUpdateData {
+  contact_id: string
+  topics?: any[]
 }
 
 export interface Domain {
@@ -469,6 +472,15 @@ export interface DomainCreateData {
   // The remaining keys are that action's own payload.
   $action?: string
   [action: string]: any
+}
+
+export interface DomainUpdateData {
+  id: string
+  capabilities?: Record<string, any>
+  click_tracking?: boolean
+  open_tracking?: boolean
+  tls?: string
+  tracking_subdomain?: string
 }
 
 export interface DomainRemoveMatch {
@@ -570,6 +582,37 @@ export interface EmailCreateData {
   [action: string]: any
 }
 
+export interface EmailUpdateData {
+  id: string
+  attachments?: any[]
+  bcc?: any[]
+  cc?: any[]
+  created_at?: string
+  from?: string
+  headers?: Record<string, any>
+  html?: string
+  last_event?: string
+  message_id?: string
+  object?: string
+  reply_to?: any[]
+  scheduled_at?: string
+  subject?: string
+  tags?: any[]
+  template?: any
+  text?: string
+  to?: any[]
+  topic_id?: string
+}
+
+export interface EmailBatch {
+  data?: any[]
+  send_emails?: any[]
+}
+
+export interface EmailBatchCreateData {
+  send_emails?: any[]
+}
+
 export interface EmailsMetric {
   broadcast_id?: string
   broadcast_name?: string
@@ -621,6 +664,15 @@ export interface EventCreateData {
   [action: string]: any
 }
 
+export interface EventUpdateData {
+  id: string
+  schema?: Record<string, any> | null
+}
+
+export interface EventRemoveMatch {
+  id: string
+}
+
 export interface Inbox {
   created_at: string
   domain_id: string
@@ -656,59 +708,34 @@ export interface InboxCreateData {
 
 export interface InboxUpdateData {
   id: string
-  actions?: any
-  instructions?: any
-  tone?: any
-
-  // Selects a custom action instead of the plain update:
-  //   'agent'
-  // The remaining keys are that action's own payload.
-  $action?: string
-  [action: string]: any
+  from_name?: string | null
+  name?: string
 }
 
-export interface InboxAgentResponseSuccess {
-  id?: string
-}
-
-export interface InboxAgentResponseSuccessListMatch {
+export interface InboxRemoveMatch {
   id: string
-
-  // Selects a custom action instead of the plain list:
-  //   'agent'
-  // The remaining keys are that action's own payload.
-  $action?: string
-  [action: string]: any
 }
 
-export interface InboxDraftListItem {
-  attachments: any[]
-  bcc: any[]
-  cc: any[]
+export interface InboxAgent {
+  actions: any[]
   id: string
-  reply_to_email_id: string | null
-  snippet: string | null
-  subject: string | null
-  thread_id: string | null
-  to: any[] | null
-  type: string
-  updated_at: string
+  instructions: string | null
+  object: string
+  tone: string | null
 }
 
-export interface InboxDraftListItemListMatch {
-  id: string
-  after?: string
-  before?: string
-  limit?: number
-
-  // Selects a custom action instead of the plain list:
-  //   'drafts'
-  // The remaining keys are that action's own payload.
-  $action?: string
-  [action: string]: any
+export interface InboxAgentLoadMatch {
+  inbox_id: string
 }
 
-export interface InboxDraftResponseSuccess {
+export interface InboxAgentUpdateData {
+  inbox_id: string
+  actions?: any[]
+  instructions?: string | null
+  tone?: string | null
+}
+
+export interface InboxDraft {
   attachments: any[]
   bcc: any[]
   cc: any[]
@@ -718,6 +745,7 @@ export interface InboxDraftResponseSuccess {
   id: string
   object: string
   reply_to_email_id: string | null
+  snippet: string | null
   subject: string | null
   text: string | null
   thread_id: string | null
@@ -726,15 +754,29 @@ export interface InboxDraftResponseSuccess {
   updated_at: string
 }
 
-export interface InboxDraftResponseSuccessLoadMatch {
-  draft_id: string
+export interface InboxDraftLoadMatch {
+  id: string
   inbox_id: string
 }
 
-export interface InboxDraftResponseSuccessCreateData {
-  draft_id: string
+export interface InboxDraftListMatch {
   inbox_id: string
-  headers?: any
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface InboxDraftCreateData {
+  inbox_id: string
+  attachments?: any[]
+  bcc?: any[]
+  cc?: any[]
+  html?: string | null
+  reply_to_email_id?: string | null
+  subject?: string | null
+  text?: string | null
+  thread_id?: string | null
+  to?: any[] | null
 
   // Selects a custom action instead of the plain create:
   //   'send'
@@ -743,15 +785,51 @@ export interface InboxDraftResponseSuccessCreateData {
   [action: string]: any
 }
 
+export interface InboxDraftUpdateData {
+  id: string
+  inbox_id: string
+  attachments?: any[]
+  bcc?: any[]
+  cc?: any[]
+  html?: string | null
+  subject?: string | null
+  text?: string | null
+  to?: any[] | null
+}
+
+export interface InboxDraftRemoveMatch {
+  id: string
+  inbox_id: string
+}
+
 export interface InboxLabel {
-  color: string
+  color?: string
   created_at: string
   id: string
   name: string
+  object: string
 }
 
 export interface InboxLabelListMatch {
+  inbox_id: string
+}
+
+export interface InboxLabelCreateData {
+  inbox_id: string
+  color?: string
+  name: string
+}
+
+export interface InboxLabelUpdateData {
   id: string
+  inbox_id: string
+  color?: string
+  name?: string
+}
+
+export interface InboxLabelRemoveMatch {
+  id: string
+  inbox_id: string
 }
 
 export interface InboxThread {
@@ -764,21 +842,44 @@ export interface InboxThread {
   has_draft: boolean
   id: string
   labels: any[]
-  matched_email_id: string | null
+  object: string
   read: boolean
   received_at: string
   subject: string | null
   to: any[]
 }
 
-export interface InboxThreadListMatch {
+export interface InboxThreadLoadMatch {
   id: string
+  inbox_id: string
+}
+
+export interface InboxThreadListMatch {
+  inbox_id: string
   after?: string
   before?: string
   folder?: any[]
   label?: any[]
   limit?: number
   read?: boolean
+
+  // Selects a custom action instead of the plain list:
+  //   'search'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
+}
+
+export interface InboxThreadUpdateData {
+  id: string
+  inbox_id: string
+  folder?: string
+  read?: boolean
+}
+
+export interface InboxThreadRemoveMatch {
+  id: string
+  inbox_id: string
 }
 
 export interface InboxThreadEmail {
@@ -798,6 +899,12 @@ export interface InboxThreadEmail {
   to: any[]
 }
 
+export interface InboxThreadEmailLoadMatch {
+  id: string
+  inbox_id: string
+  thread_id: string
+}
+
 export interface InboxThreadEmailListMatch {
   inbox_id: string
   thread_id: string
@@ -806,31 +913,8 @@ export interface InboxThreadEmailListMatch {
   limit?: number
 }
 
-export interface InboxThreadEmailResponseSuccess {
-  attachments: any[]
-  bcc: any[]
-  cc: any[]
-  direction: string
-  from: string
-  html: string | null
+export interface InboxThreadEmailCreateData {
   id: string
-  message_id: string | null
-  read: boolean
-  received_at: string
-  reply_to: any[]
-  subject: string | null
-  text: string | null
-  to: any[]
-}
-
-export interface InboxThreadEmailResponseSuccessLoadMatch {
-  email_id: string
-  inbox_id: string
-  thread_id: string
-}
-
-export interface InboxThreadEmailResponseSuccessCreateData {
-  email_id: string
   inbox_id: string
   thread_id: string
   attachments: any[]
@@ -850,125 +934,29 @@ export interface InboxThreadEmailResponseSuccessCreateData {
   [action: string]: any
 }
 
-export interface InboxThreadResponseSuccess {
-  folder: string
-  id: string
+export interface InboxThreadLabel {
+  data: any[]
+  id?: string
   labels: any[]
   object: string
-  read: boolean
-  subject: string | null
 }
 
-export interface InboxThreadResponseSuccessLoadMatch {
+export interface InboxThreadLabelCreateData {
   inbox_id: string
   thread_id: string
+  labels: any[]
 }
 
-export interface ListAttachment {
-  content_disposition?: string | null
-  content_id?: string
-  content_type?: string
-  download_url?: string
-  expires_at?: string
-  filename?: string | null
-  id?: string
-  size?: number
+export interface InboxThreadLabelUpdateData {
+  inbox_id: string
+  thread_id: string
+  labels?: any[]
 }
 
-export interface ListAttachmentListMatch {
-  email_id: string
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface ListBroadcastClickedLinksResponseSuccess {
-  clicks?: number
-  id?: string
-  unique_clicks?: number
-  url?: string
-}
-
-export interface ListBroadcastClickedLinksResponseSuccessListMatch {
-  broadcast_id: string
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface ListBroadcastRecipientsResponseSuccess {
-  bounce_type?: string
-  clicked_links?: any[]
-  contact_id?: string | null
-  count?: number
-  email?: string
-  id?: string
-}
-
-export interface ListBroadcastRecipientsResponseSuccessListMatch {
-  broadcast_id: string
-  after?: string
-  before?: string
-  bounce_type?: string
-  email?: string
-  limit?: number
-  type: string
-}
-
-export interface ListContactSegmentsResponseSuccess {
-  created_at?: string
-  id?: string
-  name?: string
-}
-
-export interface ListContactSegmentsResponseSuccessListMatch {
-  contact_id: string
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface ListContactsResponseSuccess {
-  created_at?: string
-  email?: string
-  first_name?: string | null
-  id?: string
-  last_name?: string | null
-  unsubscribed?: boolean
-}
-
-export interface ListContactsResponseSuccessListMatch {
-  segment_id: string
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface ListWebhookEvent {
-  created_at?: string
-  id?: string
-  status?: string
-  type?: string
-}
-
-export interface ListWebhookEventListMatch {
-  webhook_id: string
-  after?: string
-  limit?: number
-}
-
-export interface ListWebhookEventAttempt {
-  http_status_code?: number
-  id?: string
-  response?: string
-  sent_at?: string
-}
-
-export interface ListWebhookEventAttemptListMatch {
-  event_id: string
-  webhook_id: string
-  after?: string
-  limit?: number
+export interface InboxThreadLabelRemoveMatch {
+  id: string
+  inbox_id: string
+  thread_id: string
 }
 
 export interface Log {
@@ -988,6 +976,50 @@ export interface LogLoadMatch {
 }
 
 export interface LogListMatch {
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface OauthGrant {
+  client?: Record<string, any>
+  client_id?: string
+  created_at?: string
+  id?: string
+  revoked_at?: string | null
+  revoked_reason?: string | null
+  scopes?: any[]
+}
+
+export interface OauthGrantListMatch {
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface OauthGrantRemoveMatch {
+  id: string
+}
+
+export interface ReceivedAttachment {
+  content_disposition?: string | null
+  content_id?: string
+  content_type?: string
+  download_url?: string
+  expires_at?: string
+  filename?: string | null
+  id?: string
+  object?: string
+  size?: number
+}
+
+export interface ReceivedAttachmentLoadMatch {
+  email_id: string
+  id: string
+}
+
+export interface ReceivedAttachmentListMatch {
+  email_id: string
   after?: string
   before?: string
   limit?: number
@@ -1021,255 +1053,6 @@ export interface ReceivedEmailListMatch {
   limit?: number
 }
 
-export interface RemoveAudienceResponseSuccess {
-  id?: string
-}
-
-export interface RemoveAudienceResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveBroadcastResponseSuccess {
-  id?: string
-}
-
-export interface RemoveBroadcastResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveContactFromSegmentResponseSuccess {
-}
-
-export interface RemoveContactFromSegmentResponseSuccessRemoveMatch {
-  contact_id: string
-  segment_id: string
-}
-
-export interface RemoveContactPropertyResponseSuccess {
-  id?: string
-}
-
-export interface RemoveContactPropertyResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveContactResponseSuccess {
-  id?: string
-}
-
-export interface RemoveContactResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveEvent {
-  id?: string
-}
-
-export interface RemoveEventRemoveMatch {
-  id: string
-}
-
-export interface RemoveInboxDraftResponseSuccess {
-}
-
-export interface RemoveInboxDraftResponseSuccessRemoveMatch {
-  draft_id: string
-  inbox_id: string
-}
-
-export interface RemoveInboxLabelResponseSuccess {
-}
-
-export interface RemoveInboxLabelResponseSuccessRemoveMatch {
-  inbox_id: string
-  label_id: string
-}
-
-export interface RemoveInboxResponseSuccess {
-}
-
-export interface RemoveInboxResponseSuccessRemoveMatch {
-  inbox_id: string
-}
-
-export interface RemoveInboxThreadLabelResponseSuccess {
-}
-
-export interface RemoveInboxThreadLabelResponseSuccessRemoveMatch {
-  inbox_id: string
-  label_id: string
-  thread_id: string
-}
-
-export interface RemoveInboxThreadResponseSuccess {
-}
-
-export interface RemoveInboxThreadResponseSuccessRemoveMatch {
-  inbox_id: string
-  thread_id: string
-}
-
-export interface RemoveSegmentResponseSuccess {
-  audience_id?: string
-  created_at?: string
-  filter?: Record<string, any>
-  id?: string
-  name: string
-}
-
-export interface RemoveSegmentResponseSuccessListMatch {
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface RemoveSegmentResponseSuccessCreateData {
-  audience_id?: string
-  filter?: Record<string, any>
-  name: string
-}
-
-export interface RemoveSegmentResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveSuppressionResponseSuccess {
-  created_at?: string
-  email: string
-  id?: string
-  origin?: string
-  source_id?: string | null
-}
-
-export interface RemoveSuppressionResponseSuccessListMatch {
-  after?: string
-  before?: string
-  limit?: number
-  origin?: string
-}
-
-export interface RemoveSuppressionResponseSuccessCreateData {
-  email: string
-}
-
-export interface RemoveSuppressionResponseSuccessRemoveMatch {
-  suppression: string
-}
-
-export interface RemoveTemplateResponseSuccess {
-  alias?: string
-  created_at?: string
-  from?: string
-  html: string
-  id?: string
-  name: string
-  published_at?: string | null
-  reply_to?: any[]
-  status?: string
-  subject?: string
-  text?: string
-  updated_at?: string
-  variables?: any[]
-}
-
-export interface RemoveTemplateResponseSuccessListMatch {
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface RemoveTemplateResponseSuccessCreateData {
-  alias?: string
-  from?: string
-  html: string
-  name: string
-  reply_to?: any[]
-  subject?: string
-  text?: string
-  variables?: any[]
-}
-
-export interface RemoveTemplateResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RemoveTopicResponseSuccess {
-  created_at?: string
-  default_subscription: string
-  description?: string
-  id?: string
-  name: string
-  visibility?: string
-}
-
-export interface RemoveTopicResponseSuccessListMatch {
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface RemoveTopicResponseSuccessCreateData {
-  default_subscription: string
-  description?: string
-  name: string
-  visibility?: string
-}
-
-export interface RemoveTopicResponseSuccessRemoveMatch {
-  id: string
-}
-
-export interface RetrievedAttachment {
-  content_disposition?: string | null
-  content_id?: string
-  content_type?: string
-  download_url?: string
-  expires_at?: string
-  filename?: string | null
-  id?: string
-  object?: string
-  size?: number
-}
-
-export interface RetrievedAttachmentLoadMatch {
-  email_id?: string
-  id: string
-  receiving_id?: string
-}
-
-export interface RevokeOAuthGrant {
-  client?: Record<string, any>
-  client_id?: string
-  created_at?: string
-  id?: string
-  revoked_at?: string | null
-  revoked_reason?: string | null
-  scopes?: any[]
-}
-
-export interface RevokeOAuthGrantListMatch {
-  after?: string
-  before?: string
-  limit?: number
-}
-
-export interface RevokeOAuthGrantRemoveMatch {
-  id: string
-}
-
-export interface Rotate {
-  id?: string
-  object?: string
-  signing_secret?: string
-}
-
-export interface RotateCreateData {
-  webhook_id: string
-  id?: string
-  object?: string
-  signing_secret?: string
-}
-
 export interface Segment {
   audience_id?: string
   created_at?: string
@@ -1283,16 +1066,41 @@ export interface SegmentLoadMatch {
   id: string
 }
 
-export interface SetInboxThreadLabelsResponseSuccess {
-  data: any[]
-  labels: any[]
-  object: string
+export interface SegmentListMatch {
+  after?: string
+  before?: string
+  limit?: number
 }
 
-export interface SetInboxThreadLabelsResponseSuccessUpdateData {
-  inbox_id: string
-  thread_id: string
-  labels?: any[]
+export interface SegmentCreateData {
+  audience_id?: string
+  filter?: Record<string, any>
+  name: string
+}
+
+export interface SegmentUpdateData {
+  id: string
+  name?: string
+}
+
+export interface SegmentRemoveMatch {
+  id: string
+}
+
+export interface SegmentContact {
+  created_at?: string
+  email?: string
+  first_name?: string | null
+  id?: string
+  last_name?: string | null
+  unsubscribed?: boolean
+}
+
+export interface SegmentContactListMatch {
+  segment_id: string
+  after?: string
+  before?: string
+  limit?: number
 }
 
 export interface Suppression {
@@ -1306,6 +1114,40 @@ export interface Suppression {
 
 export interface SuppressionLoadMatch {
   id: string
+}
+
+export interface SuppressionListMatch {
+  after?: string
+  before?: string
+  limit?: number
+  origin?: string
+}
+
+export interface SuppressionCreateData {
+  email: string
+}
+
+export interface SuppressionRemoveMatch {
+  id: string
+}
+
+export interface SuppressionBatchAdd {
+  emails: any[]
+}
+
+export interface SuppressionBatchAddCreateData {
+  emails: any[]
+}
+
+export interface SuppressionBatchRemove {
+  data?: any[]
+  emails?: any[]
+  ids?: any[]
+}
+
+export interface SuppressionBatchRemoveCreateData {
+  emails?: any[]
+  ids?: any[]
 }
 
 export interface Template {
@@ -1331,22 +1173,20 @@ export interface TemplateLoadMatch {
   id: string
 }
 
+export interface TemplateListMatch {
+  after?: string
+  before?: string
+  limit?: number
+}
+
 export interface TemplateCreateData {
-  id: string
   alias?: string
-  created_at?: string
-  current_version_id?: string
   from?: string
-  has_unpublished_versions?: boolean
-  html?: string
-  name?: string
-  object?: string
-  published_at?: string | null
+  html: string
+  name: string
   reply_to?: any[] | null
-  status?: string
   subject?: string
   text?: string
-  updated_at?: string
   variables?: any[]
 
   // Selects a custom action instead of the plain create:
@@ -1354,6 +1194,22 @@ export interface TemplateCreateData {
   // The remaining keys are that action's own payload.
   $action?: string
   [action: string]: any
+}
+
+export interface TemplateUpdateData {
+  id: string
+  alias?: string
+  from?: string
+  html?: string
+  name?: string
+  reply_to?: any[] | null
+  subject?: string
+  text?: string
+  variables?: any[]
+}
+
+export interface TemplateRemoveMatch {
+  id: string
 }
 
 export interface Topic {
@@ -1370,269 +1226,28 @@ export interface TopicLoadMatch {
   id: string
 }
 
-export interface UpdateApiKey {
-  id?: string
-  name: string
-  object?: string
-}
-
-export interface UpdateApiKeyUpdateData {
-  id: string
-  name?: string
-}
-
-export interface UpdateBroadcastResponseSuccess {
-  audience_id?: string
-  from?: string
-  html?: string
-  id?: string
-  name?: string
-  object?: string
-  preview_text?: string
-  reply_to?: any[]
-  segment_id?: string
-  subject?: string
-  text?: string
-  topic_id?: string
-}
-
-export interface UpdateBroadcastResponseSuccessUpdateData {
-  id: string
-  audience_id?: string
-  from?: string
-  html?: string
-  name?: string
-  preview_text?: string
-  reply_to?: any[]
-  segment_id?: string
-  subject?: string
-  text?: string
-  topic_id?: string
-}
-
-export interface UpdateContactPropertyResponseSuccess {
-  fallback_value?: any
-  id?: string
-  object?: string
-}
-
-export interface UpdateContactPropertyResponseSuccessUpdateData {
-  id: string
-  fallback_value?: any
-}
-
-export interface UpdateContactResponseSuccess {
-  email?: string
-  first_name?: string
-  id?: string
-  last_name?: string
-  object?: string
-  properties?: Record<string, any>
-  unsubscribed?: boolean
-}
-
-export interface UpdateContactResponseSuccessUpdateData {
-  id: string
-  email?: string
-  first_name?: string
-  last_name?: string
-  properties?: Record<string, any>
-  unsubscribed?: boolean
-}
-
-export interface UpdateContactTopicsResponseSuccess {
-  contact_id?: string
-  object?: string
-  topics?: any[]
-}
-
-export interface UpdateContactTopicsResponseSuccessUpdateData {
-  contact_id: string
-  topics?: any[]
-}
-
-export interface UpdateDomainResponseSuccess {
-  capabilities?: Record<string, any>
-  click_tracking?: boolean
-  id?: string
-  object?: string
-  open_tracking?: boolean
-  tls?: string
-  tracking_subdomain?: string
-}
-
-export interface UpdateDomainResponseSuccessUpdateData {
-  domain_id: string
-  capabilities?: Record<string, any>
-  click_tracking?: boolean
-  open_tracking?: boolean
-  tls?: string
-  tracking_subdomain?: string
-}
-
-export interface UpdateEmailOption {
-  scheduled_at?: string
-}
-
-export interface UpdateEmailOptionUpdateData {
-  email_id: string
-  scheduled_at?: string
-}
-
-export interface UpdateEvent {
-  id?: string
-  object?: string
-  schema: Record<string, any> | null
-}
-
-export interface UpdateEventUpdateData {
-  id: string
-  schema?: Record<string, any> | null
-}
-
-export interface UpdateInboxDraftResponseSuccess {
-  attachments?: any[] | null
-  bcc?: any
-  cc?: any
-  html?: string | null
-  id: string
-  object: string
-  subject?: string | null
-  text?: string | null
-  to?: any
-}
-
-export interface UpdateInboxDraftResponseSuccessUpdateData {
-  draft_id: string
-  inbox_id: string
-  attachments?: any[] | null
-  bcc?: any
-  cc?: any
-  html?: string | null
-  subject?: string | null
-  text?: string | null
-  to?: any
-}
-
-export interface UpdateInboxLabelResponseSuccess {
-  color?: string
-  id: string
-  name?: string
-  object: string
-}
-
-export interface UpdateInboxLabelResponseSuccessUpdateData {
-  inbox_id: string
-  label_id: string
-  color?: string
-  name?: string
-}
-
-export interface UpdateInboxResponseSuccess {
-  from_name?: string
-  id: string
-  name?: string
-  object: string
-}
-
-export interface UpdateInboxResponseSuccessUpdateData {
-  inbox_id: string
-  from_name?: string
-  name?: string
-}
-
-export interface UpdateInboxThreadResponseSuccess {
-  folder: string
-  id: string
-  labels: any[]
-  object: string
-  read: boolean
-  subject: string | null
-}
-
-export interface UpdateInboxThreadResponseSuccessUpdateData {
-  inbox_id: string
-  thread_id: string
-  folder?: string
-  read?: boolean
-}
-
-export interface UpdateSegmentResponseSuccess {
-  id?: string
-  name: string
-  object?: string
-}
-
-export interface UpdateSegmentResponseSuccessUpdateData {
-  id: string
-  name?: string
-}
-
-export interface UpdateTemplateResponseSuccess {
-  alias?: string
-  from?: string
-  html?: string
-  id?: string
-  name?: string
-  object?: string
-  reply_to?: any[]
-  subject?: string
-  text?: string
-  variables?: any[]
-}
-
-export interface UpdateTemplateResponseSuccessUpdateData {
-  id: string
-  alias?: string
-  from?: string
-  html?: string
-  name?: string
-  reply_to?: any[]
-  subject?: string
-  text?: string
-  variables?: any[]
-}
-
-export interface UpdateTopicResponseSuccess {
-  description?: string
-  id?: string
-  name?: string
-  object?: string
-  visibility?: string
-}
-
-export interface UpdateTopicResponseSuccessUpdateData {
-  id: string
-  description?: string
-  name?: string
-  visibility?: string
-}
-
-export interface UpdateWebhook {
-  created_at?: string
-  endpoint: string
-  events: any[]
-  id?: string
-  object?: string
-  status?: string
-}
-
-export interface UpdateWebhookListMatch {
+export interface TopicListMatch {
   after?: string
   before?: string
   limit?: number
 }
 
-export interface UpdateWebhookCreateData {
-  endpoint: string
-  events: any[]
+export interface TopicCreateData {
+  default_subscription: string
+  description?: string
+  name: string
+  visibility?: string
 }
 
-export interface UpdateWebhookUpdateData {
+export interface TopicUpdateData {
   id: string
-  endpoint?: string
-  events?: any[]
-  status?: string
+  description?: string
+  name?: string
+  visibility?: string
+}
+
+export interface TopicRemoveMatch {
+  id: string
 }
 
 export interface Usage {
@@ -1673,6 +1288,30 @@ export interface WebhookLoadMatch {
   id: string
 }
 
+export interface WebhookListMatch {
+  after?: string
+  before?: string
+  limit?: number
+}
+
+export interface WebhookCreateData {
+  endpoint: string
+  events: any[] | null
+
+  // Selects a custom action instead of the plain create:
+  //   'rotate'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
+}
+
+export interface WebhookUpdateData {
+  id: string
+  endpoint?: string
+  events?: any[] | null
+  status?: string
+}
+
 export interface WebhookRemoveMatch {
   id: string
 }
@@ -1692,6 +1331,12 @@ export interface WebhookEventLoadMatch {
   webhook_id: string
 }
 
+export interface WebhookEventListMatch {
+  webhook_id: string
+  after?: string
+  limit?: number
+}
+
 export interface WebhookEventCreateData {
   event_id: string
   webhook_id: string
@@ -1708,5 +1353,19 @@ export interface WebhookEventCreateData {
   // The remaining keys are that action's own payload.
   $action?: string
   [action: string]: any
+}
+
+export interface WebhookEventAttempt {
+  http_status_code?: number
+  id?: string
+  response?: string
+  sent_at?: string
+}
+
+export interface WebhookEventAttemptListMatch {
+  event_id: string
+  webhook_id: string
+  after?: string
+  limit?: number
 }
 

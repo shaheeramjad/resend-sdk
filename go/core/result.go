@@ -1,7 +1,7 @@
 package core
 
 import (
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type Result struct {

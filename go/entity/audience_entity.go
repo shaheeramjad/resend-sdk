@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type AudienceEntity struct {
@@ -412,9 +412,43 @@ func (e *AudienceEntity) Patch(_ map[string]any, _ map[string]any) (any, error) 
 }
 
 
-func (e *AudienceEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *AudienceEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// AudienceRemoveMatch and returns an Audience. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *AudienceEntity) RemoveTyped(reqmatch AudienceRemoveMatch, ctrl map[string]any) (Audience, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Audience{}, err
+	}
+	return typedFrom[Audience](res), nil
+}
+
 
 
 func (e *AudienceEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

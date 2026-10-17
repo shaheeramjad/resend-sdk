@@ -20,6 +20,22 @@ main: kit: flow: BasicWebhookEventFlow:
     }
 
     {
+      m: {
+        webhook_id: "webhook01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "webhook_event_ref01"
+          }
+        }
+      ]
+    }
+
+    {
       i: {
         ref: "webhook_event_ref01",
         srcdatavar: "webhook_event_ref01_data",

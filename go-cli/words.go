@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	eng "github.com/boru-lang/boru/eng/go"
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 )
 
 func registerSDKWords(r *eng.Registry, client *sdk.ResendSDK) {
@@ -77,174 +77,88 @@ func runOp(client *sdk.ResendSDK, op string, query *eng.Value, entityAtom eng.Va
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.ResendSDK, name string) (sdk.ResendEntity, error) {
 	switch strings.ToLower(name) {
-	case "add_contact_to_segment_response_success":
-		return client.AddContactToSegmentResponseSuccess(nil), nil
-	case "add_inbox_thread_labels_response_success":
-		return client.AddInboxThreadLabelsResponseSuccess(nil), nil
 	case "api_key":
 		return client.ApiKey(nil), nil
+	case "attachment":
+		return client.Attachment(nil), nil
 	case "audience":
 		return client.Audience(nil), nil
 	case "automation":
 		return client.Automation(nil), nil
 	case "automation_run":
 		return client.AutomationRun(nil), nil
-	case "automation_run_list_item":
-		return client.AutomationRunListItem(nil), nil
-	case "batch_add_suppressions_response_success":
-		return client.BatchAddSuppressionsResponseSuccess(nil), nil
-	case "batch_remove_suppressions_response_success":
-		return client.BatchRemoveSuppressionsResponseSuccess(nil), nil
 	case "broadcast":
 		return client.Broadcast(nil), nil
+	case "broadcast_clicked_link":
+		return client.BroadcastClickedLink(nil), nil
+	case "broadcast_recipient":
+		return client.BroadcastRecipient(nil), nil
 	case "contact":
 		return client.Contact(nil), nil
-	case "contact_import_response_success":
-		return client.ContactImportResponseSuccess(nil), nil
+	case "contact_import":
+		return client.ContactImport(nil), nil
 	case "contact_property":
 		return client.ContactProperty(nil), nil
-	case "contact_topics_response_success":
-		return client.ContactTopicsResponseSuccess(nil), nil
-	case "create_api_key":
-		return client.CreateApiKey(nil), nil
-	case "create_batch_email":
-		return client.CreateBatchEmail(nil), nil
-	case "create_broadcast_response_success":
-		return client.CreateBroadcastResponseSuccess(nil), nil
-	case "create_inbox_draft_response_success":
-		return client.CreateInboxDraftResponseSuccess(nil), nil
-	case "create_inbox_label_response_success":
-		return client.CreateInboxLabelResponseSuccess(nil), nil
+	case "contact_segment":
+		return client.ContactSegment(nil), nil
+	case "contact_topic":
+		return client.ContactTopic(nil), nil
 	case "domain":
 		return client.Domain(nil), nil
 	case "domain_claim":
 		return client.DomainClaim(nil), nil
 	case "email":
 		return client.Email(nil), nil
+	case "email_batch":
+		return client.EmailBatch(nil), nil
 	case "emails_metric":
 		return client.EmailsMetric(nil), nil
 	case "event":
 		return client.Event(nil), nil
 	case "inbox":
 		return client.Inbox(nil), nil
-	case "inbox_agent_response_success":
-		return client.InboxAgentResponseSuccess(nil), nil
-	case "inbox_draft_list_item":
-		return client.InboxDraftListItem(nil), nil
-	case "inbox_draft_response_success":
-		return client.InboxDraftResponseSuccess(nil), nil
+	case "inbox_agent":
+		return client.InboxAgent(nil), nil
+	case "inbox_draft":
+		return client.InboxDraft(nil), nil
 	case "inbox_label":
 		return client.InboxLabel(nil), nil
 	case "inbox_thread":
 		return client.InboxThread(nil), nil
 	case "inbox_thread_email":
 		return client.InboxThreadEmail(nil), nil
-	case "inbox_thread_email_response_success":
-		return client.InboxThreadEmailResponseSuccess(nil), nil
-	case "inbox_thread_response_success":
-		return client.InboxThreadResponseSuccess(nil), nil
-	case "list_attachment":
-		return client.ListAttachment(nil), nil
-	case "list_broadcast_clicked_links_response_success":
-		return client.ListBroadcastClickedLinksResponseSuccess(nil), nil
-	case "list_broadcast_recipients_response_success":
-		return client.ListBroadcastRecipientsResponseSuccess(nil), nil
-	case "list_contact_segments_response_success":
-		return client.ListContactSegmentsResponseSuccess(nil), nil
-	case "list_contacts_response_success":
-		return client.ListContactsResponseSuccess(nil), nil
-	case "list_webhook_event":
-		return client.ListWebhookEvent(nil), nil
-	case "list_webhook_event_attempt":
-		return client.ListWebhookEventAttempt(nil), nil
+	case "inbox_thread_label":
+		return client.InboxThreadLabel(nil), nil
 	case "log":
 		return client.Log(nil), nil
+	case "oauth_grant":
+		return client.OauthGrant(nil), nil
+	case "received_attachment":
+		return client.ReceivedAttachment(nil), nil
 	case "received_email":
 		return client.ReceivedEmail(nil), nil
-	case "remove_audience_response_success":
-		return client.RemoveAudienceResponseSuccess(nil), nil
-	case "remove_broadcast_response_success":
-		return client.RemoveBroadcastResponseSuccess(nil), nil
-	case "remove_contact_from_segment_response_success":
-		return client.RemoveContactFromSegmentResponseSuccess(nil), nil
-	case "remove_contact_property_response_success":
-		return client.RemoveContactPropertyResponseSuccess(nil), nil
-	case "remove_contact_response_success":
-		return client.RemoveContactResponseSuccess(nil), nil
-	case "remove_event":
-		return client.RemoveEvent(nil), nil
-	case "remove_inbox_draft_response_success":
-		return client.RemoveInboxDraftResponseSuccess(nil), nil
-	case "remove_inbox_label_response_success":
-		return client.RemoveInboxLabelResponseSuccess(nil), nil
-	case "remove_inbox_response_success":
-		return client.RemoveInboxResponseSuccess(nil), nil
-	case "remove_inbox_thread_label_response_success":
-		return client.RemoveInboxThreadLabelResponseSuccess(nil), nil
-	case "remove_inbox_thread_response_success":
-		return client.RemoveInboxThreadResponseSuccess(nil), nil
-	case "remove_segment_response_success":
-		return client.RemoveSegmentResponseSuccess(nil), nil
-	case "remove_suppression_response_success":
-		return client.RemoveSuppressionResponseSuccess(nil), nil
-	case "remove_template_response_success":
-		return client.RemoveTemplateResponseSuccess(nil), nil
-	case "remove_topic_response_success":
-		return client.RemoveTopicResponseSuccess(nil), nil
-	case "retrieved_attachment":
-		return client.RetrievedAttachment(nil), nil
-	case "revoke_o_auth_grant":
-		return client.RevokeOAuthGrant(nil), nil
-	case "rotate":
-		return client.Rotate(nil), nil
 	case "segment":
 		return client.Segment(nil), nil
-	case "set_inbox_thread_labels_response_success":
-		return client.SetInboxThreadLabelsResponseSuccess(nil), nil
+	case "segment_contact":
+		return client.SegmentContact(nil), nil
 	case "suppression":
 		return client.Suppression(nil), nil
+	case "suppression_batch_add":
+		return client.SuppressionBatchAdd(nil), nil
+	case "suppression_batch_remove":
+		return client.SuppressionBatchRemove(nil), nil
 	case "template":
 		return client.Template(nil), nil
 	case "topic":
 		return client.Topic(nil), nil
-	case "update_api_key":
-		return client.UpdateApiKey(nil), nil
-	case "update_broadcast_response_success":
-		return client.UpdateBroadcastResponseSuccess(nil), nil
-	case "update_contact_property_response_success":
-		return client.UpdateContactPropertyResponseSuccess(nil), nil
-	case "update_contact_response_success":
-		return client.UpdateContactResponseSuccess(nil), nil
-	case "update_contact_topics_response_success":
-		return client.UpdateContactTopicsResponseSuccess(nil), nil
-	case "update_domain_response_success":
-		return client.UpdateDomainResponseSuccess(nil), nil
-	case "update_email_option":
-		return client.UpdateEmailOption(nil), nil
-	case "update_event":
-		return client.UpdateEvent(nil), nil
-	case "update_inbox_draft_response_success":
-		return client.UpdateInboxDraftResponseSuccess(nil), nil
-	case "update_inbox_label_response_success":
-		return client.UpdateInboxLabelResponseSuccess(nil), nil
-	case "update_inbox_response_success":
-		return client.UpdateInboxResponseSuccess(nil), nil
-	case "update_inbox_thread_response_success":
-		return client.UpdateInboxThreadResponseSuccess(nil), nil
-	case "update_segment_response_success":
-		return client.UpdateSegmentResponseSuccess(nil), nil
-	case "update_template_response_success":
-		return client.UpdateTemplateResponseSuccess(nil), nil
-	case "update_topic_response_success":
-		return client.UpdateTopicResponseSuccess(nil), nil
-	case "update_webhook":
-		return client.UpdateWebhook(nil), nil
 	case "usage":
 		return client.Usage(nil), nil
 	case "webhook":
 		return client.Webhook(nil), nil
 	case "webhook_event":
 		return client.WebhookEvent(nil), nil
+	case "webhook_event_attempt":
+		return client.WebhookEventAttempt(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

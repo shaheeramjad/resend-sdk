@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestContactEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "contact." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -236,6 +237,30 @@ func TestContactEntity(t *testing.T) {
 			t.Fatal("expected to find created entity in list")
 		}
 
+		// UPDATE
+		contactRef01DataUp0Up := map[string]any{
+			"id": contactRef01Data["id"],
+		}
+
+		contactRef01MarkdefUp0Name := "audience_id"
+		contactRef01MarkdefUp0Value := fmt.Sprintf("Mark01-contact_ref01_%d", setup.now)
+		contactRef01DataUp0Up[contactRef01MarkdefUp0Name] = contactRef01MarkdefUp0Value
+
+		contactRef01ResdataUp0Result, err := contactRef01Ent.Update(contactRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		contactRef01ResdataUp0 := core.ToMapAny(entityData(contactRef01ResdataUp0Result))
+		if contactRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if contactRef01ResdataUp0["id"] != contactRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if contactRef01ResdataUp0[contactRef01MarkdefUp0Name] != contactRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", contactRef01MarkdefUp0Name, contactRef01ResdataUp0[contactRef01MarkdefUp0Name])
+		}
+
 		// LOAD
 		contactRef01MatchDt0 := map[string]any{
 			"id": contactRef01Data["id"],
@@ -250,6 +275,32 @@ func TestContactEntity(t *testing.T) {
 		}
 		if contactRef01DataDt0LoadResult["id"] != contactRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		contactRef01MatchRm0 := map[string]any{
+			"id": contactRef01Data["id"],
+		}
+		_, err = contactRef01Ent.Remove(contactRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		contactRef01MatchRt0 := map[string]any{}
+
+		contactRef01ListRt0Result, err := contactRef01Ent.List(contactRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		contactRef01ListRt0, contactRef01ListRt0Ok := contactRef01ListRt0Result.([]any)
+		if !contactRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", contactRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(contactRef01ListRt0), map[string]any{"id": contactRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

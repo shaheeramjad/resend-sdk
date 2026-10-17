@@ -139,7 +139,7 @@ class TestContactPropertyEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["create", "list", "update", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "contact_property." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -166,6 +166,20 @@ class TestContactPropertyEntity:
             {"id": contact_property_ref01_data["id"]})
         assert not vs.isempty(found_item)
 
+        # UPDATE
+        contact_property_ref01_data_up0_up = {
+            "id": contact_property_ref01_data["id"],
+        }
+
+        contact_property_ref01_markdef_up0_name = "created_at"
+        contact_property_ref01_markdef_up0_value = "Mark01-contact_property_ref01_" + str(setup["now"])
+        contact_property_ref01_data_up0_up[contact_property_ref01_markdef_up0_name] = contact_property_ref01_markdef_up0_value
+
+        contact_property_ref01_resdata_up0 = helpers.to_map(runner.entity_data(contact_property_ref01_ent.update(contact_property_ref01_data_up0_up, None)))
+        assert contact_property_ref01_resdata_up0 is not None
+        assert contact_property_ref01_resdata_up0["id"] == contact_property_ref01_data_up0_up["id"]
+        assert contact_property_ref01_resdata_up0[contact_property_ref01_markdef_up0_name] == contact_property_ref01_markdef_up0_value
+
         # LOAD
         contact_property_ref01_match_dt0 = {
             "id": contact_property_ref01_data["id"],
@@ -174,6 +188,23 @@ class TestContactPropertyEntity:
         contact_property_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(contact_property_ref01_data_dt0_loaded))
         assert contact_property_ref01_data_dt0_load_result is not None
         assert contact_property_ref01_data_dt0_load_result["id"] == contact_property_ref01_data["id"]
+
+        # REMOVE
+        contact_property_ref01_match_rm0 = {
+            "id": contact_property_ref01_data["id"],
+        }
+        contact_property_ref01_ent.remove(contact_property_ref01_match_rm0, None)
+
+        # LIST
+        contact_property_ref01_match_rt0 = {}
+
+        contact_property_ref01_list_rt0_result = contact_property_ref01_ent.list(contact_property_ref01_match_rt0, None)
+        assert isinstance(contact_property_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(contact_property_ref01_list_rt0_result),
+            {"id": contact_property_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

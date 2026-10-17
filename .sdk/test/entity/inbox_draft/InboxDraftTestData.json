@@ -1,0 +1,116 @@
+{
+  "existing": {
+    "inbox_draft": {
+      "INBOX_DRAFT00": {
+        "attachments": [],
+        "bcc": [],
+        "cc": [],
+        "created_at": "sa3",
+        "email_id": "EMAIL01",
+        "html": "sa5",
+        "id": "INBOX_DRAFT00",
+        "object": "sa7",
+        "reply_to_email_id": "REPLY_TO_EMAIL01",
+        "snippet": "sa9",
+        "subject": "saa",
+        "text": "sab",
+        "thread_id": "THREAD01",
+        "to": "sad",
+        "type": "sae",
+        "updated_at": "saf",
+        "inbox_id": "INBOX01"
+      },
+      "INBOX_DRAFT01": {
+        "attachments": [],
+        "bcc": [],
+        "cc": [],
+        "created_at": "s143",
+        "email_id": "EMAIL01",
+        "html": "s145",
+        "id": "INBOX_DRAFT01",
+        "object": "s147",
+        "reply_to_email_id": "REPLY_TO_EMAIL01",
+        "snippet": "s149",
+        "subject": "s14a",
+        "text": "s14b",
+        "thread_id": "THREAD01",
+        "to": "s14d",
+        "type": "s14e",
+        "updated_at": "s14f",
+        "inbox_id": "INBOX01"
+      },
+      "INBOX_DRAFT02": {
+        "attachments": [],
+        "bcc": [],
+        "cc": [],
+        "created_at": "s1e3",
+        "email_id": "EMAIL01",
+        "html": "s1e5",
+        "id": "INBOX_DRAFT02",
+        "object": "s1e7",
+        "reply_to_email_id": "REPLY_TO_EMAIL01",
+        "snippet": "s1e9",
+        "subject": "s1ea",
+        "text": "s1eb",
+        "thread_id": "THREAD01",
+        "to": "s1ed",
+        "type": "s1ee",
+        "updated_at": "s1ef",
+        "inbox_id": "INBOX01"
+      }
+    }
+  },
+  "new": {
+    "inbox_draft": {
+      "inbox_draft_ref01": {
+        "attachments": [],
+        "bcc": [],
+        "cc": [],
+        "created_at": "s283",
+        "email_id": "EMAIL01",
+        "html": "s285",
+        "object": "s287",
+        "reply_to_email_id": "REPLY_TO_EMAIL01",
+        "snippet": "s289",
+        "subject": "s28a",
+        "text": "s28b",
+        "thread_id": "THREAD01",
+        "to": "s28d",
+        "type": "s28e",
+        "updated_at": "s28f"
+      }
+    }
+  },
+  "requests": {
+    "POST /inboxes/{inbox_id}/drafts/{draft_id}/send": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /inboxes/{inbox_id}/drafts": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /inboxes/{inbox_id}/drafts": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /inboxes/{inbox_id}/drafts/{draft_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /inboxes/{inbox_id}/drafts/{draft_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /inboxes/{inbox_id}/drafts/{draft_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

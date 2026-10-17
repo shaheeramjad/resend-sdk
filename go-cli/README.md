@@ -20,13 +20,15 @@ export RESEND_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./resend-cli list api_key
+./resend-cli update '{name:"x"}' api_key
+./resend-cli list attachment
 
 # 5. Override the API base URL for a single call
-RESEND_BASE=https://api.example.com ./resend-cli --help
+RESEND_BASE=https://api.example.com ./resend-cli list api_key
 
 # 6. No arguments -> interactive REPL
 ./resend-cli
-resend> /help
+resend> list api_key
 resend> /quit
 ```
 
@@ -52,7 +54,7 @@ resend> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/resend-cli --help
+   ./dist/*/resend-cli list api_key
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -62,6 +64,24 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 
 ## How-to guides
 
+### List the records of an entity
+
+```sh
+./resend-cli list api_key
+```
+
+`list <entity>` returns the first page of records. `<entity>` is a bareword —
+it is auto-quoted as an boru atom, so no quotes are needed.
+
+### Update a record
+
+```sh
+./resend-cli update '{id:1,name:"new"}' api_key
+```
+
+The match map carries both the selector and the new field values; the updated
+record is printed back.
+
 ### Authenticate and choose an environment
 
 Configuration is read from the environment — nothing is written to disk:
@@ -69,7 +89,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export RESEND_APIKEY=sk_live_xxx            # API key
 export RESEND_BASE=https://api.example.com  # optional: override the API base URL
-./resend-cli --help
+./resend-cli list api_key
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -81,6 +101,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./resend-cli
+resend> list api_key
 resend> /help
 resend> /quit
 ```
@@ -95,7 +116,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 84 entities.
+below — this SDK exposes 41 entities.
 
 ## Reference
 
@@ -109,7 +130,7 @@ The CLI registers these boru words, each bound to the SDK:
 | `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 | `update` | `update <query> <entity>`                     | Update a record, return it     |
 
-- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `add_contact_to_segment_response_success`).
+- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `api_key`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
   `{id:1}`). A scalar is always wrapped as `{id:<value>}`.
 
@@ -150,9 +171,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 84 entities this SDK exposes (any is valid as `<entity>`):
+The 41 entities this SDK exposes (any is valid as `<entity>`):
 
-add_contact_to_segment_response_success add_inbox_thread_labels_response_success api_key audience automation automation_run automation_run_list_item batch_add_suppressions_response_success batch_remove_suppressions_response_success broadcast contact contact_import_response_success contact_property contact_topics_response_success create_api_key create_batch_email create_broadcast_response_success create_inbox_draft_response_success create_inbox_label_response_success domain domain_claim email emails_metric event inbox inbox_agent_response_success inbox_draft_list_item inbox_draft_response_success inbox_label inbox_thread inbox_thread_email inbox_thread_email_response_success inbox_thread_response_success list_attachment list_broadcast_clicked_links_response_success list_broadcast_recipients_response_success list_contact_segments_response_success list_contacts_response_success list_webhook_event list_webhook_event_attempt log received_email remove_audience_response_success remove_broadcast_response_success remove_contact_from_segment_response_success remove_contact_property_response_success remove_contact_response_success remove_event remove_inbox_draft_response_success remove_inbox_label_response_success remove_inbox_response_success remove_inbox_thread_label_response_success remove_inbox_thread_response_success remove_segment_response_success remove_suppression_response_success remove_template_response_success remove_topic_response_success retrieved_attachment revoke_o_auth_grant rotate segment set_inbox_thread_labels_response_success suppression template topic update_api_key update_broadcast_response_success update_contact_property_response_success update_contact_response_success update_contact_topics_response_success update_domain_response_success update_email_option update_event update_inbox_draft_response_success update_inbox_label_response_success update_inbox_response_success update_inbox_thread_response_success update_segment_response_success update_template_response_success update_topic_response_success update_webhook usage webhook webhook_event
+api_key attachment audience automation automation_run broadcast broadcast_clicked_link broadcast_recipient contact contact_import contact_property contact_segment contact_topic domain domain_claim email email_batch emails_metric event inbox inbox_agent inbox_draft inbox_label inbox_thread inbox_thread_email inbox_thread_label log oauth_grant received_attachment received_email segment segment_contact suppression suppression_batch_add suppression_batch_remove template topic usage webhook webhook_event webhook_event_attempt
 
 ## Explanation
 

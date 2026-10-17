@@ -15,6 +15,37 @@ main: kit: flow: BasicTemplateFlow:
     }
 
     {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "template_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "template_ref01",
+        srcdatavar: "template_ref01_data",
+        suffix: "_up0",
+        textfield: "alias"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-template_ref01"
+          }
+        }
+      ]
+    }
+
+    {
       i: {
         ref: "template_ref01",
         srcdatavar: "template_ref01_data",
@@ -31,6 +62,35 @@ main: kit: flow: BasicTemplateFlow:
           apply: "TextFieldMark",
           def: {
             mark: "Mark01-template_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "template_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "template01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "template_ref01"
           }
         }
       ]

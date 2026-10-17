@@ -37,7 +37,7 @@ class TestInboxThreadEntity:
         client = ResendSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.InboxThread(None).list({"id": 1}, None)
+            client.InboxThread(None).list({"inbox_id": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -46,7 +46,7 @@ class TestInboxThreadEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list"]:
+        for _op in ["list", "update", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "inbox_thread." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -55,6 +55,8 @@ class TestInboxThreadEntity:
             for _live_key in ["inbox01"]:
                 if setup.get("synthetic_only") or setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live entity test blocked: needs {_live_key} via RESEND_TEST_INBOX_THREAD_ENTID")
+        if setup["live"]:
+            runner.live_miss(LIVE_STRICT, "Live entity test blocked: " + "the flow updates a inbox_thread record it did not create")
         client = setup["client"]
 
         # Bootstrap entity data from existing test data.
@@ -72,6 +74,31 @@ class TestInboxThreadEntity:
 
         inbox_thread_ref01_list_result = inbox_thread_ref01_ent.list(inbox_thread_ref01_match, None)
         assert isinstance(inbox_thread_ref01_list_result, list)
+
+        # UPDATE
+        inbox_thread_ref01_data_up0_up = {
+            "id": inbox_thread_ref01_data["id"],
+            "inbox_id": setup["idmap"]["inbox_id"],
+        }
+
+        inbox_thread_ref01_markdef_up0_name = "folder"
+        inbox_thread_ref01_markdef_up0_value = "Mark01-inbox_thread_ref01_" + str(setup["now"])
+        inbox_thread_ref01_data_up0_up[inbox_thread_ref01_markdef_up0_name] = inbox_thread_ref01_markdef_up0_value
+
+        inbox_thread_ref01_resdata_up0 = helpers.to_map(runner.entity_data(inbox_thread_ref01_ent.update(inbox_thread_ref01_data_up0_up, None)))
+        assert inbox_thread_ref01_resdata_up0 is not None
+        assert inbox_thread_ref01_resdata_up0["id"] == inbox_thread_ref01_data_up0_up["id"]
+        assert inbox_thread_ref01_resdata_up0[inbox_thread_ref01_markdef_up0_name] == inbox_thread_ref01_markdef_up0_value
+
+        # LOAD
+        inbox_thread_ref01_match_dt0 = {
+            "id": inbox_thread_ref01_data["id"],
+        }
+        inbox_thread_ref01_match_dt0["inbox_id"] = setup["idmap"].get("inbox_id") or setup["idmap"].get("inbox01")
+        inbox_thread_ref01_data_dt0_loaded = inbox_thread_ref01_ent.load(inbox_thread_ref01_match_dt0, None)
+        inbox_thread_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(inbox_thread_ref01_data_dt0_loaded))
+        assert inbox_thread_ref01_data_dt0_load_result is not None
+        assert inbox_thread_ref01_data_dt0_load_result["id"] == inbox_thread_ref01_data["id"]
 
 
 
@@ -117,6 +144,8 @@ def _inbox_thread_basic_setup(extra):
         env.get("RESEND_TEST_INBOX_THREAD_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
+    if idmap_resolved.get("inbox_id") is None:
+        idmap_resolved["inbox_id"] = idmap_resolved.get("inbox01")
 
     if env.get("RESEND_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([

@@ -139,7 +139,7 @@ class TestEmailEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["create", "list", "update", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "email." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -165,6 +165,20 @@ class TestEmailEntity:
             runner.entity_list_to_data(email_ref01_list_result),
             {"id": email_ref01_data["id"]})
         assert not vs.isempty(found_item)
+
+        # UPDATE
+        email_ref01_data_up0_up = {
+            "id": email_ref01_data["id"],
+        }
+
+        email_ref01_markdef_up0_name = "created_at"
+        email_ref01_markdef_up0_value = "Mark01-email_ref01_" + str(setup["now"])
+        email_ref01_data_up0_up[email_ref01_markdef_up0_name] = email_ref01_markdef_up0_value
+
+        email_ref01_resdata_up0 = helpers.to_map(runner.entity_data(email_ref01_ent.update(email_ref01_data_up0_up, None)))
+        assert email_ref01_resdata_up0 is not None
+        assert email_ref01_resdata_up0["id"] == email_ref01_data_up0_up["id"]
+        assert email_ref01_resdata_up0[email_ref01_markdef_up0_name] == email_ref01_markdef_up0_value
 
         # LOAD
         email_ref01_match_dt0 = {

@@ -341,22 +341,16 @@ class ResendSDK:
         return res
 
 
-    def AddContactToSegmentResponseSuccess(self, data=None) -> "AddContactToSegmentResponseSuccessEntity":
-        """Entity factory: client.AddContactToSegmentResponseSuccess().list() / client.AddContactToSegmentResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.add_contact_to_segment_response_success_entity import AddContactToSegmentResponseSuccessEntity
-        return AddContactToSegmentResponseSuccessEntity(self, data)
-
-
-    def AddInboxThreadLabelsResponseSuccess(self, data=None) -> "AddInboxThreadLabelsResponseSuccessEntity":
-        """Entity factory: client.AddInboxThreadLabelsResponseSuccess().list() / client.AddInboxThreadLabelsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.add_inbox_thread_labels_response_success_entity import AddInboxThreadLabelsResponseSuccessEntity
-        return AddInboxThreadLabelsResponseSuccessEntity(self, data)
-
-
     def ApiKey(self, data=None) -> "ApiKeyEntity":
         """Entity factory: client.ApiKey().list() / client.ApiKey().load({"id": ...})."""
         from resend_sdk.entity.api_key_entity import ApiKeyEntity
         return ApiKeyEntity(self, data)
+
+
+    def Attachment(self, data=None) -> "AttachmentEntity":
+        """Entity factory: client.Attachment().list() / client.Attachment().load({"id": ...})."""
+        from resend_sdk.entity.attachment_entity import AttachmentEntity
+        return AttachmentEntity(self, data)
 
 
     def Audience(self, data=None) -> "AudienceEntity":
@@ -377,28 +371,22 @@ class ResendSDK:
         return AutomationRunEntity(self, data)
 
 
-    def AutomationRunListItem(self, data=None) -> "AutomationRunListItemEntity":
-        """Entity factory: client.AutomationRunListItem().list() / client.AutomationRunListItem().load({"id": ...})."""
-        from resend_sdk.entity.automation_run_list_item_entity import AutomationRunListItemEntity
-        return AutomationRunListItemEntity(self, data)
-
-
-    def BatchAddSuppressionsResponseSuccess(self, data=None) -> "BatchAddSuppressionsResponseSuccessEntity":
-        """Entity factory: client.BatchAddSuppressionsResponseSuccess().list() / client.BatchAddSuppressionsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.batch_add_suppressions_response_success_entity import BatchAddSuppressionsResponseSuccessEntity
-        return BatchAddSuppressionsResponseSuccessEntity(self, data)
-
-
-    def BatchRemoveSuppressionsResponseSuccess(self, data=None) -> "BatchRemoveSuppressionsResponseSuccessEntity":
-        """Entity factory: client.BatchRemoveSuppressionsResponseSuccess().list() / client.BatchRemoveSuppressionsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.batch_remove_suppressions_response_success_entity import BatchRemoveSuppressionsResponseSuccessEntity
-        return BatchRemoveSuppressionsResponseSuccessEntity(self, data)
-
-
     def Broadcast(self, data=None) -> "BroadcastEntity":
         """Entity factory: client.Broadcast().list() / client.Broadcast().load({"id": ...})."""
         from resend_sdk.entity.broadcast_entity import BroadcastEntity
         return BroadcastEntity(self, data)
+
+
+    def BroadcastClickedLink(self, data=None) -> "BroadcastClickedLinkEntity":
+        """Entity factory: client.BroadcastClickedLink().list() / client.BroadcastClickedLink().load({"id": ...})."""
+        from resend_sdk.entity.broadcast_clicked_link_entity import BroadcastClickedLinkEntity
+        return BroadcastClickedLinkEntity(self, data)
+
+
+    def BroadcastRecipient(self, data=None) -> "BroadcastRecipientEntity":
+        """Entity factory: client.BroadcastRecipient().list() / client.BroadcastRecipient().load({"id": ...})."""
+        from resend_sdk.entity.broadcast_recipient_entity import BroadcastRecipientEntity
+        return BroadcastRecipientEntity(self, data)
 
 
     def Contact(self, data=None) -> "ContactEntity":
@@ -407,10 +395,10 @@ class ResendSDK:
         return ContactEntity(self, data)
 
 
-    def ContactImportResponseSuccess(self, data=None) -> "ContactImportResponseSuccessEntity":
-        """Entity factory: client.ContactImportResponseSuccess().list() / client.ContactImportResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.contact_import_response_success_entity import ContactImportResponseSuccessEntity
-        return ContactImportResponseSuccessEntity(self, data)
+    def ContactImport(self, data=None) -> "ContactImportEntity":
+        """Entity factory: client.ContactImport().list() / client.ContactImport().load({"id": ...})."""
+        from resend_sdk.entity.contact_import_entity import ContactImportEntity
+        return ContactImportEntity(self, data)
 
 
     def ContactProperty(self, data=None) -> "ContactPropertyEntity":
@@ -419,40 +407,16 @@ class ResendSDK:
         return ContactPropertyEntity(self, data)
 
 
-    def ContactTopicsResponseSuccess(self, data=None) -> "ContactTopicsResponseSuccessEntity":
-        """Entity factory: client.ContactTopicsResponseSuccess().list() / client.ContactTopicsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.contact_topics_response_success_entity import ContactTopicsResponseSuccessEntity
-        return ContactTopicsResponseSuccessEntity(self, data)
+    def ContactSegment(self, data=None) -> "ContactSegmentEntity":
+        """Entity factory: client.ContactSegment().list() / client.ContactSegment().load({"id": ...})."""
+        from resend_sdk.entity.contact_segment_entity import ContactSegmentEntity
+        return ContactSegmentEntity(self, data)
 
 
-    def CreateApiKey(self, data=None) -> "CreateApiKeyEntity":
-        """Entity factory: client.CreateApiKey().list() / client.CreateApiKey().load({"id": ...})."""
-        from resend_sdk.entity.create_api_key_entity import CreateApiKeyEntity
-        return CreateApiKeyEntity(self, data)
-
-
-    def CreateBatchEmail(self, data=None) -> "CreateBatchEmailEntity":
-        """Entity factory: client.CreateBatchEmail().list() / client.CreateBatchEmail().load({"id": ...})."""
-        from resend_sdk.entity.create_batch_email_entity import CreateBatchEmailEntity
-        return CreateBatchEmailEntity(self, data)
-
-
-    def CreateBroadcastResponseSuccess(self, data=None) -> "CreateBroadcastResponseSuccessEntity":
-        """Entity factory: client.CreateBroadcastResponseSuccess().list() / client.CreateBroadcastResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.create_broadcast_response_success_entity import CreateBroadcastResponseSuccessEntity
-        return CreateBroadcastResponseSuccessEntity(self, data)
-
-
-    def CreateInboxDraftResponseSuccess(self, data=None) -> "CreateInboxDraftResponseSuccessEntity":
-        """Entity factory: client.CreateInboxDraftResponseSuccess().list() / client.CreateInboxDraftResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.create_inbox_draft_response_success_entity import CreateInboxDraftResponseSuccessEntity
-        return CreateInboxDraftResponseSuccessEntity(self, data)
-
-
-    def CreateInboxLabelResponseSuccess(self, data=None) -> "CreateInboxLabelResponseSuccessEntity":
-        """Entity factory: client.CreateInboxLabelResponseSuccess().list() / client.CreateInboxLabelResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.create_inbox_label_response_success_entity import CreateInboxLabelResponseSuccessEntity
-        return CreateInboxLabelResponseSuccessEntity(self, data)
+    def ContactTopic(self, data=None) -> "ContactTopicEntity":
+        """Entity factory: client.ContactTopic().list() / client.ContactTopic().load({"id": ...})."""
+        from resend_sdk.entity.contact_topic_entity import ContactTopicEntity
+        return ContactTopicEntity(self, data)
 
 
     def Domain(self, data=None) -> "DomainEntity":
@@ -473,6 +437,12 @@ class ResendSDK:
         return EmailEntity(self, data)
 
 
+    def EmailBatch(self, data=None) -> "EmailBatchEntity":
+        """Entity factory: client.EmailBatch().list() / client.EmailBatch().load({"id": ...})."""
+        from resend_sdk.entity.email_batch_entity import EmailBatchEntity
+        return EmailBatchEntity(self, data)
+
+
     def EmailsMetric(self, data=None) -> "EmailsMetricEntity":
         """Entity factory: client.EmailsMetric().list() / client.EmailsMetric().load({"id": ...})."""
         from resend_sdk.entity.emails_metric_entity import EmailsMetricEntity
@@ -491,22 +461,16 @@ class ResendSDK:
         return InboxEntity(self, data)
 
 
-    def InboxAgentResponseSuccess(self, data=None) -> "InboxAgentResponseSuccessEntity":
-        """Entity factory: client.InboxAgentResponseSuccess().list() / client.InboxAgentResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.inbox_agent_response_success_entity import InboxAgentResponseSuccessEntity
-        return InboxAgentResponseSuccessEntity(self, data)
+    def InboxAgent(self, data=None) -> "InboxAgentEntity":
+        """Entity factory: client.InboxAgent().list() / client.InboxAgent().load({"id": ...})."""
+        from resend_sdk.entity.inbox_agent_entity import InboxAgentEntity
+        return InboxAgentEntity(self, data)
 
 
-    def InboxDraftListItem(self, data=None) -> "InboxDraftListItemEntity":
-        """Entity factory: client.InboxDraftListItem().list() / client.InboxDraftListItem().load({"id": ...})."""
-        from resend_sdk.entity.inbox_draft_list_item_entity import InboxDraftListItemEntity
-        return InboxDraftListItemEntity(self, data)
-
-
-    def InboxDraftResponseSuccess(self, data=None) -> "InboxDraftResponseSuccessEntity":
-        """Entity factory: client.InboxDraftResponseSuccess().list() / client.InboxDraftResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.inbox_draft_response_success_entity import InboxDraftResponseSuccessEntity
-        return InboxDraftResponseSuccessEntity(self, data)
+    def InboxDraft(self, data=None) -> "InboxDraftEntity":
+        """Entity factory: client.InboxDraft().list() / client.InboxDraft().load({"id": ...})."""
+        from resend_sdk.entity.inbox_draft_entity import InboxDraftEntity
+        return InboxDraftEntity(self, data)
 
 
     def InboxLabel(self, data=None) -> "InboxLabelEntity":
@@ -527,58 +491,10 @@ class ResendSDK:
         return InboxThreadEmailEntity(self, data)
 
 
-    def InboxThreadEmailResponseSuccess(self, data=None) -> "InboxThreadEmailResponseSuccessEntity":
-        """Entity factory: client.InboxThreadEmailResponseSuccess().list() / client.InboxThreadEmailResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.inbox_thread_email_response_success_entity import InboxThreadEmailResponseSuccessEntity
-        return InboxThreadEmailResponseSuccessEntity(self, data)
-
-
-    def InboxThreadResponseSuccess(self, data=None) -> "InboxThreadResponseSuccessEntity":
-        """Entity factory: client.InboxThreadResponseSuccess().list() / client.InboxThreadResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.inbox_thread_response_success_entity import InboxThreadResponseSuccessEntity
-        return InboxThreadResponseSuccessEntity(self, data)
-
-
-    def ListAttachment(self, data=None) -> "ListAttachmentEntity":
-        """Entity factory: client.ListAttachment().list() / client.ListAttachment().load({"id": ...})."""
-        from resend_sdk.entity.list_attachment_entity import ListAttachmentEntity
-        return ListAttachmentEntity(self, data)
-
-
-    def ListBroadcastClickedLinksResponseSuccess(self, data=None) -> "ListBroadcastClickedLinksResponseSuccessEntity":
-        """Entity factory: client.ListBroadcastClickedLinksResponseSuccess().list() / client.ListBroadcastClickedLinksResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.list_broadcast_clicked_links_response_success_entity import ListBroadcastClickedLinksResponseSuccessEntity
-        return ListBroadcastClickedLinksResponseSuccessEntity(self, data)
-
-
-    def ListBroadcastRecipientsResponseSuccess(self, data=None) -> "ListBroadcastRecipientsResponseSuccessEntity":
-        """Entity factory: client.ListBroadcastRecipientsResponseSuccess().list() / client.ListBroadcastRecipientsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.list_broadcast_recipients_response_success_entity import ListBroadcastRecipientsResponseSuccessEntity
-        return ListBroadcastRecipientsResponseSuccessEntity(self, data)
-
-
-    def ListContactSegmentsResponseSuccess(self, data=None) -> "ListContactSegmentsResponseSuccessEntity":
-        """Entity factory: client.ListContactSegmentsResponseSuccess().list() / client.ListContactSegmentsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.list_contact_segments_response_success_entity import ListContactSegmentsResponseSuccessEntity
-        return ListContactSegmentsResponseSuccessEntity(self, data)
-
-
-    def ListContactsResponseSuccess(self, data=None) -> "ListContactsResponseSuccessEntity":
-        """Entity factory: client.ListContactsResponseSuccess().list() / client.ListContactsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.list_contacts_response_success_entity import ListContactsResponseSuccessEntity
-        return ListContactsResponseSuccessEntity(self, data)
-
-
-    def ListWebhookEvent(self, data=None) -> "ListWebhookEventEntity":
-        """Entity factory: client.ListWebhookEvent().list() / client.ListWebhookEvent().load({"id": ...})."""
-        from resend_sdk.entity.list_webhook_event_entity import ListWebhookEventEntity
-        return ListWebhookEventEntity(self, data)
-
-
-    def ListWebhookEventAttempt(self, data=None) -> "ListWebhookEventAttemptEntity":
-        """Entity factory: client.ListWebhookEventAttempt().list() / client.ListWebhookEventAttempt().load({"id": ...})."""
-        from resend_sdk.entity.list_webhook_event_attempt_entity import ListWebhookEventAttemptEntity
-        return ListWebhookEventAttemptEntity(self, data)
+    def InboxThreadLabel(self, data=None) -> "InboxThreadLabelEntity":
+        """Entity factory: client.InboxThreadLabel().list() / client.InboxThreadLabel().load({"id": ...})."""
+        from resend_sdk.entity.inbox_thread_label_entity import InboxThreadLabelEntity
+        return InboxThreadLabelEntity(self, data)
 
 
     def Log(self, data=None) -> "LogEntity":
@@ -587,118 +503,22 @@ class ResendSDK:
         return LogEntity(self, data)
 
 
+    def OauthGrant(self, data=None) -> "OauthGrantEntity":
+        """Entity factory: client.OauthGrant().list() / client.OauthGrant().load({"id": ...})."""
+        from resend_sdk.entity.oauth_grant_entity import OauthGrantEntity
+        return OauthGrantEntity(self, data)
+
+
+    def ReceivedAttachment(self, data=None) -> "ReceivedAttachmentEntity":
+        """Entity factory: client.ReceivedAttachment().list() / client.ReceivedAttachment().load({"id": ...})."""
+        from resend_sdk.entity.received_attachment_entity import ReceivedAttachmentEntity
+        return ReceivedAttachmentEntity(self, data)
+
+
     def ReceivedEmail(self, data=None) -> "ReceivedEmailEntity":
         """Entity factory: client.ReceivedEmail().list() / client.ReceivedEmail().load({"id": ...})."""
         from resend_sdk.entity.received_email_entity import ReceivedEmailEntity
         return ReceivedEmailEntity(self, data)
-
-
-    def RemoveAudienceResponseSuccess(self, data=None) -> "RemoveAudienceResponseSuccessEntity":
-        """Entity factory: client.RemoveAudienceResponseSuccess().list() / client.RemoveAudienceResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_audience_response_success_entity import RemoveAudienceResponseSuccessEntity
-        return RemoveAudienceResponseSuccessEntity(self, data)
-
-
-    def RemoveBroadcastResponseSuccess(self, data=None) -> "RemoveBroadcastResponseSuccessEntity":
-        """Entity factory: client.RemoveBroadcastResponseSuccess().list() / client.RemoveBroadcastResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_broadcast_response_success_entity import RemoveBroadcastResponseSuccessEntity
-        return RemoveBroadcastResponseSuccessEntity(self, data)
-
-
-    def RemoveContactFromSegmentResponseSuccess(self, data=None) -> "RemoveContactFromSegmentResponseSuccessEntity":
-        """Entity factory: client.RemoveContactFromSegmentResponseSuccess().list() / client.RemoveContactFromSegmentResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_contact_from_segment_response_success_entity import RemoveContactFromSegmentResponseSuccessEntity
-        return RemoveContactFromSegmentResponseSuccessEntity(self, data)
-
-
-    def RemoveContactPropertyResponseSuccess(self, data=None) -> "RemoveContactPropertyResponseSuccessEntity":
-        """Entity factory: client.RemoveContactPropertyResponseSuccess().list() / client.RemoveContactPropertyResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_contact_property_response_success_entity import RemoveContactPropertyResponseSuccessEntity
-        return RemoveContactPropertyResponseSuccessEntity(self, data)
-
-
-    def RemoveContactResponseSuccess(self, data=None) -> "RemoveContactResponseSuccessEntity":
-        """Entity factory: client.RemoveContactResponseSuccess().list() / client.RemoveContactResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_contact_response_success_entity import RemoveContactResponseSuccessEntity
-        return RemoveContactResponseSuccessEntity(self, data)
-
-
-    def RemoveEvent(self, data=None) -> "RemoveEventEntity":
-        """Entity factory: client.RemoveEvent().list() / client.RemoveEvent().load({"id": ...})."""
-        from resend_sdk.entity.remove_event_entity import RemoveEventEntity
-        return RemoveEventEntity(self, data)
-
-
-    def RemoveInboxDraftResponseSuccess(self, data=None) -> "RemoveInboxDraftResponseSuccessEntity":
-        """Entity factory: client.RemoveInboxDraftResponseSuccess().list() / client.RemoveInboxDraftResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_inbox_draft_response_success_entity import RemoveInboxDraftResponseSuccessEntity
-        return RemoveInboxDraftResponseSuccessEntity(self, data)
-
-
-    def RemoveInboxLabelResponseSuccess(self, data=None) -> "RemoveInboxLabelResponseSuccessEntity":
-        """Entity factory: client.RemoveInboxLabelResponseSuccess().list() / client.RemoveInboxLabelResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_inbox_label_response_success_entity import RemoveInboxLabelResponseSuccessEntity
-        return RemoveInboxLabelResponseSuccessEntity(self, data)
-
-
-    def RemoveInboxResponseSuccess(self, data=None) -> "RemoveInboxResponseSuccessEntity":
-        """Entity factory: client.RemoveInboxResponseSuccess().list() / client.RemoveInboxResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_inbox_response_success_entity import RemoveInboxResponseSuccessEntity
-        return RemoveInboxResponseSuccessEntity(self, data)
-
-
-    def RemoveInboxThreadLabelResponseSuccess(self, data=None) -> "RemoveInboxThreadLabelResponseSuccessEntity":
-        """Entity factory: client.RemoveInboxThreadLabelResponseSuccess().list() / client.RemoveInboxThreadLabelResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_inbox_thread_label_response_success_entity import RemoveInboxThreadLabelResponseSuccessEntity
-        return RemoveInboxThreadLabelResponseSuccessEntity(self, data)
-
-
-    def RemoveInboxThreadResponseSuccess(self, data=None) -> "RemoveInboxThreadResponseSuccessEntity":
-        """Entity factory: client.RemoveInboxThreadResponseSuccess().list() / client.RemoveInboxThreadResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_inbox_thread_response_success_entity import RemoveInboxThreadResponseSuccessEntity
-        return RemoveInboxThreadResponseSuccessEntity(self, data)
-
-
-    def RemoveSegmentResponseSuccess(self, data=None) -> "RemoveSegmentResponseSuccessEntity":
-        """Entity factory: client.RemoveSegmentResponseSuccess().list() / client.RemoveSegmentResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_segment_response_success_entity import RemoveSegmentResponseSuccessEntity
-        return RemoveSegmentResponseSuccessEntity(self, data)
-
-
-    def RemoveSuppressionResponseSuccess(self, data=None) -> "RemoveSuppressionResponseSuccessEntity":
-        """Entity factory: client.RemoveSuppressionResponseSuccess().list() / client.RemoveSuppressionResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_suppression_response_success_entity import RemoveSuppressionResponseSuccessEntity
-        return RemoveSuppressionResponseSuccessEntity(self, data)
-
-
-    def RemoveTemplateResponseSuccess(self, data=None) -> "RemoveTemplateResponseSuccessEntity":
-        """Entity factory: client.RemoveTemplateResponseSuccess().list() / client.RemoveTemplateResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_template_response_success_entity import RemoveTemplateResponseSuccessEntity
-        return RemoveTemplateResponseSuccessEntity(self, data)
-
-
-    def RemoveTopicResponseSuccess(self, data=None) -> "RemoveTopicResponseSuccessEntity":
-        """Entity factory: client.RemoveTopicResponseSuccess().list() / client.RemoveTopicResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.remove_topic_response_success_entity import RemoveTopicResponseSuccessEntity
-        return RemoveTopicResponseSuccessEntity(self, data)
-
-
-    def RetrievedAttachment(self, data=None) -> "RetrievedAttachmentEntity":
-        """Entity factory: client.RetrievedAttachment().list() / client.RetrievedAttachment().load({"id": ...})."""
-        from resend_sdk.entity.retrieved_attachment_entity import RetrievedAttachmentEntity
-        return RetrievedAttachmentEntity(self, data)
-
-
-    def RevokeOAuthGrant(self, data=None) -> "RevokeOAuthGrantEntity":
-        """Entity factory: client.RevokeOAuthGrant().list() / client.RevokeOAuthGrant().load({"id": ...})."""
-        from resend_sdk.entity.revoke_o_auth_grant_entity import RevokeOAuthGrantEntity
-        return RevokeOAuthGrantEntity(self, data)
-
-
-    def Rotate(self, data=None) -> "RotateEntity":
-        """Entity factory: client.Rotate().list() / client.Rotate().load({"id": ...})."""
-        from resend_sdk.entity.rotate_entity import RotateEntity
-        return RotateEntity(self, data)
 
 
     def Segment(self, data=None) -> "SegmentEntity":
@@ -707,16 +527,28 @@ class ResendSDK:
         return SegmentEntity(self, data)
 
 
-    def SetInboxThreadLabelsResponseSuccess(self, data=None) -> "SetInboxThreadLabelsResponseSuccessEntity":
-        """Entity factory: client.SetInboxThreadLabelsResponseSuccess().list() / client.SetInboxThreadLabelsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.set_inbox_thread_labels_response_success_entity import SetInboxThreadLabelsResponseSuccessEntity
-        return SetInboxThreadLabelsResponseSuccessEntity(self, data)
+    def SegmentContact(self, data=None) -> "SegmentContactEntity":
+        """Entity factory: client.SegmentContact().list() / client.SegmentContact().load({"id": ...})."""
+        from resend_sdk.entity.segment_contact_entity import SegmentContactEntity
+        return SegmentContactEntity(self, data)
 
 
     def Suppression(self, data=None) -> "SuppressionEntity":
         """Entity factory: client.Suppression().list() / client.Suppression().load({"id": ...})."""
         from resend_sdk.entity.suppression_entity import SuppressionEntity
         return SuppressionEntity(self, data)
+
+
+    def SuppressionBatchAdd(self, data=None) -> "SuppressionBatchAddEntity":
+        """Entity factory: client.SuppressionBatchAdd().list() / client.SuppressionBatchAdd().load({"id": ...})."""
+        from resend_sdk.entity.suppression_batch_add_entity import SuppressionBatchAddEntity
+        return SuppressionBatchAddEntity(self, data)
+
+
+    def SuppressionBatchRemove(self, data=None) -> "SuppressionBatchRemoveEntity":
+        """Entity factory: client.SuppressionBatchRemove().list() / client.SuppressionBatchRemove().load({"id": ...})."""
+        from resend_sdk.entity.suppression_batch_remove_entity import SuppressionBatchRemoveEntity
+        return SuppressionBatchRemoveEntity(self, data)
 
 
     def Template(self, data=None) -> "TemplateEntity":
@@ -729,102 +561,6 @@ class ResendSDK:
         """Entity factory: client.Topic().list() / client.Topic().load({"id": ...})."""
         from resend_sdk.entity.topic_entity import TopicEntity
         return TopicEntity(self, data)
-
-
-    def UpdateApiKey(self, data=None) -> "UpdateApiKeyEntity":
-        """Entity factory: client.UpdateApiKey().list() / client.UpdateApiKey().load({"id": ...})."""
-        from resend_sdk.entity.update_api_key_entity import UpdateApiKeyEntity
-        return UpdateApiKeyEntity(self, data)
-
-
-    def UpdateBroadcastResponseSuccess(self, data=None) -> "UpdateBroadcastResponseSuccessEntity":
-        """Entity factory: client.UpdateBroadcastResponseSuccess().list() / client.UpdateBroadcastResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_broadcast_response_success_entity import UpdateBroadcastResponseSuccessEntity
-        return UpdateBroadcastResponseSuccessEntity(self, data)
-
-
-    def UpdateContactPropertyResponseSuccess(self, data=None) -> "UpdateContactPropertyResponseSuccessEntity":
-        """Entity factory: client.UpdateContactPropertyResponseSuccess().list() / client.UpdateContactPropertyResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_contact_property_response_success_entity import UpdateContactPropertyResponseSuccessEntity
-        return UpdateContactPropertyResponseSuccessEntity(self, data)
-
-
-    def UpdateContactResponseSuccess(self, data=None) -> "UpdateContactResponseSuccessEntity":
-        """Entity factory: client.UpdateContactResponseSuccess().list() / client.UpdateContactResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_contact_response_success_entity import UpdateContactResponseSuccessEntity
-        return UpdateContactResponseSuccessEntity(self, data)
-
-
-    def UpdateContactTopicsResponseSuccess(self, data=None) -> "UpdateContactTopicsResponseSuccessEntity":
-        """Entity factory: client.UpdateContactTopicsResponseSuccess().list() / client.UpdateContactTopicsResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_contact_topics_response_success_entity import UpdateContactTopicsResponseSuccessEntity
-        return UpdateContactTopicsResponseSuccessEntity(self, data)
-
-
-    def UpdateDomainResponseSuccess(self, data=None) -> "UpdateDomainResponseSuccessEntity":
-        """Entity factory: client.UpdateDomainResponseSuccess().list() / client.UpdateDomainResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_domain_response_success_entity import UpdateDomainResponseSuccessEntity
-        return UpdateDomainResponseSuccessEntity(self, data)
-
-
-    def UpdateEmailOption(self, data=None) -> "UpdateEmailOptionEntity":
-        """Entity factory: client.UpdateEmailOption().list() / client.UpdateEmailOption().load({"id": ...})."""
-        from resend_sdk.entity.update_email_option_entity import UpdateEmailOptionEntity
-        return UpdateEmailOptionEntity(self, data)
-
-
-    def UpdateEvent(self, data=None) -> "UpdateEventEntity":
-        """Entity factory: client.UpdateEvent().list() / client.UpdateEvent().load({"id": ...})."""
-        from resend_sdk.entity.update_event_entity import UpdateEventEntity
-        return UpdateEventEntity(self, data)
-
-
-    def UpdateInboxDraftResponseSuccess(self, data=None) -> "UpdateInboxDraftResponseSuccessEntity":
-        """Entity factory: client.UpdateInboxDraftResponseSuccess().list() / client.UpdateInboxDraftResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_inbox_draft_response_success_entity import UpdateInboxDraftResponseSuccessEntity
-        return UpdateInboxDraftResponseSuccessEntity(self, data)
-
-
-    def UpdateInboxLabelResponseSuccess(self, data=None) -> "UpdateInboxLabelResponseSuccessEntity":
-        """Entity factory: client.UpdateInboxLabelResponseSuccess().list() / client.UpdateInboxLabelResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_inbox_label_response_success_entity import UpdateInboxLabelResponseSuccessEntity
-        return UpdateInboxLabelResponseSuccessEntity(self, data)
-
-
-    def UpdateInboxResponseSuccess(self, data=None) -> "UpdateInboxResponseSuccessEntity":
-        """Entity factory: client.UpdateInboxResponseSuccess().list() / client.UpdateInboxResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_inbox_response_success_entity import UpdateInboxResponseSuccessEntity
-        return UpdateInboxResponseSuccessEntity(self, data)
-
-
-    def UpdateInboxThreadResponseSuccess(self, data=None) -> "UpdateInboxThreadResponseSuccessEntity":
-        """Entity factory: client.UpdateInboxThreadResponseSuccess().list() / client.UpdateInboxThreadResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_inbox_thread_response_success_entity import UpdateInboxThreadResponseSuccessEntity
-        return UpdateInboxThreadResponseSuccessEntity(self, data)
-
-
-    def UpdateSegmentResponseSuccess(self, data=None) -> "UpdateSegmentResponseSuccessEntity":
-        """Entity factory: client.UpdateSegmentResponseSuccess().list() / client.UpdateSegmentResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_segment_response_success_entity import UpdateSegmentResponseSuccessEntity
-        return UpdateSegmentResponseSuccessEntity(self, data)
-
-
-    def UpdateTemplateResponseSuccess(self, data=None) -> "UpdateTemplateResponseSuccessEntity":
-        """Entity factory: client.UpdateTemplateResponseSuccess().list() / client.UpdateTemplateResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_template_response_success_entity import UpdateTemplateResponseSuccessEntity
-        return UpdateTemplateResponseSuccessEntity(self, data)
-
-
-    def UpdateTopicResponseSuccess(self, data=None) -> "UpdateTopicResponseSuccessEntity":
-        """Entity factory: client.UpdateTopicResponseSuccess().list() / client.UpdateTopicResponseSuccess().load({"id": ...})."""
-        from resend_sdk.entity.update_topic_response_success_entity import UpdateTopicResponseSuccessEntity
-        return UpdateTopicResponseSuccessEntity(self, data)
-
-
-    def UpdateWebhook(self, data=None) -> "UpdateWebhookEntity":
-        """Entity factory: client.UpdateWebhook().list() / client.UpdateWebhook().load({"id": ...})."""
-        from resend_sdk.entity.update_webhook_entity import UpdateWebhookEntity
-        return UpdateWebhookEntity(self, data)
 
 
     def Usage(self, data=None) -> "UsageEntity":
@@ -843,6 +579,12 @@ class ResendSDK:
         """Entity factory: client.WebhookEvent().list() / client.WebhookEvent().load({"id": ...})."""
         from resend_sdk.entity.webhook_event_entity import WebhookEventEntity
         return WebhookEventEntity(self, data)
+
+
+    def WebhookEventAttempt(self, data=None) -> "WebhookEventAttemptEntity":
+        """Entity factory: client.WebhookEventAttempt().list() / client.WebhookEventAttempt().load({"id": ...})."""
+        from resend_sdk.entity.webhook_event_attempt_entity import WebhookEventAttemptEntity
+        return WebhookEventAttemptEntity(self, data)
 
 
 
@@ -872,87 +614,44 @@ class ResendSDK:
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from resend_sdk.entity.add_contact_to_segment_response_success_entity import AddContactToSegmentResponseSuccessEntity
-    from resend_sdk.entity.add_inbox_thread_labels_response_success_entity import AddInboxThreadLabelsResponseSuccessEntity
     from resend_sdk.entity.api_key_entity import ApiKeyEntity
+    from resend_sdk.entity.attachment_entity import AttachmentEntity
     from resend_sdk.entity.audience_entity import AudienceEntity
     from resend_sdk.entity.automation_entity import AutomationEntity
     from resend_sdk.entity.automation_run_entity import AutomationRunEntity
-    from resend_sdk.entity.automation_run_list_item_entity import AutomationRunListItemEntity
-    from resend_sdk.entity.batch_add_suppressions_response_success_entity import BatchAddSuppressionsResponseSuccessEntity
-    from resend_sdk.entity.batch_remove_suppressions_response_success_entity import BatchRemoveSuppressionsResponseSuccessEntity
     from resend_sdk.entity.broadcast_entity import BroadcastEntity
+    from resend_sdk.entity.broadcast_clicked_link_entity import BroadcastClickedLinkEntity
+    from resend_sdk.entity.broadcast_recipient_entity import BroadcastRecipientEntity
     from resend_sdk.entity.contact_entity import ContactEntity
-    from resend_sdk.entity.contact_import_response_success_entity import ContactImportResponseSuccessEntity
+    from resend_sdk.entity.contact_import_entity import ContactImportEntity
     from resend_sdk.entity.contact_property_entity import ContactPropertyEntity
-    from resend_sdk.entity.contact_topics_response_success_entity import ContactTopicsResponseSuccessEntity
-    from resend_sdk.entity.create_api_key_entity import CreateApiKeyEntity
-    from resend_sdk.entity.create_batch_email_entity import CreateBatchEmailEntity
-    from resend_sdk.entity.create_broadcast_response_success_entity import CreateBroadcastResponseSuccessEntity
-    from resend_sdk.entity.create_inbox_draft_response_success_entity import CreateInboxDraftResponseSuccessEntity
-    from resend_sdk.entity.create_inbox_label_response_success_entity import CreateInboxLabelResponseSuccessEntity
+    from resend_sdk.entity.contact_segment_entity import ContactSegmentEntity
+    from resend_sdk.entity.contact_topic_entity import ContactTopicEntity
     from resend_sdk.entity.domain_entity import DomainEntity
     from resend_sdk.entity.domain_claim_entity import DomainClaimEntity
     from resend_sdk.entity.email_entity import EmailEntity
+    from resend_sdk.entity.email_batch_entity import EmailBatchEntity
     from resend_sdk.entity.emails_metric_entity import EmailsMetricEntity
     from resend_sdk.entity.event_entity import EventEntity
     from resend_sdk.entity.inbox_entity import InboxEntity
-    from resend_sdk.entity.inbox_agent_response_success_entity import InboxAgentResponseSuccessEntity
-    from resend_sdk.entity.inbox_draft_list_item_entity import InboxDraftListItemEntity
-    from resend_sdk.entity.inbox_draft_response_success_entity import InboxDraftResponseSuccessEntity
+    from resend_sdk.entity.inbox_agent_entity import InboxAgentEntity
+    from resend_sdk.entity.inbox_draft_entity import InboxDraftEntity
     from resend_sdk.entity.inbox_label_entity import InboxLabelEntity
     from resend_sdk.entity.inbox_thread_entity import InboxThreadEntity
     from resend_sdk.entity.inbox_thread_email_entity import InboxThreadEmailEntity
-    from resend_sdk.entity.inbox_thread_email_response_success_entity import InboxThreadEmailResponseSuccessEntity
-    from resend_sdk.entity.inbox_thread_response_success_entity import InboxThreadResponseSuccessEntity
-    from resend_sdk.entity.list_attachment_entity import ListAttachmentEntity
-    from resend_sdk.entity.list_broadcast_clicked_links_response_success_entity import ListBroadcastClickedLinksResponseSuccessEntity
-    from resend_sdk.entity.list_broadcast_recipients_response_success_entity import ListBroadcastRecipientsResponseSuccessEntity
-    from resend_sdk.entity.list_contact_segments_response_success_entity import ListContactSegmentsResponseSuccessEntity
-    from resend_sdk.entity.list_contacts_response_success_entity import ListContactsResponseSuccessEntity
-    from resend_sdk.entity.list_webhook_event_entity import ListWebhookEventEntity
-    from resend_sdk.entity.list_webhook_event_attempt_entity import ListWebhookEventAttemptEntity
+    from resend_sdk.entity.inbox_thread_label_entity import InboxThreadLabelEntity
     from resend_sdk.entity.log_entity import LogEntity
+    from resend_sdk.entity.oauth_grant_entity import OauthGrantEntity
+    from resend_sdk.entity.received_attachment_entity import ReceivedAttachmentEntity
     from resend_sdk.entity.received_email_entity import ReceivedEmailEntity
-    from resend_sdk.entity.remove_audience_response_success_entity import RemoveAudienceResponseSuccessEntity
-    from resend_sdk.entity.remove_broadcast_response_success_entity import RemoveBroadcastResponseSuccessEntity
-    from resend_sdk.entity.remove_contact_from_segment_response_success_entity import RemoveContactFromSegmentResponseSuccessEntity
-    from resend_sdk.entity.remove_contact_property_response_success_entity import RemoveContactPropertyResponseSuccessEntity
-    from resend_sdk.entity.remove_contact_response_success_entity import RemoveContactResponseSuccessEntity
-    from resend_sdk.entity.remove_event_entity import RemoveEventEntity
-    from resend_sdk.entity.remove_inbox_draft_response_success_entity import RemoveInboxDraftResponseSuccessEntity
-    from resend_sdk.entity.remove_inbox_label_response_success_entity import RemoveInboxLabelResponseSuccessEntity
-    from resend_sdk.entity.remove_inbox_response_success_entity import RemoveInboxResponseSuccessEntity
-    from resend_sdk.entity.remove_inbox_thread_label_response_success_entity import RemoveInboxThreadLabelResponseSuccessEntity
-    from resend_sdk.entity.remove_inbox_thread_response_success_entity import RemoveInboxThreadResponseSuccessEntity
-    from resend_sdk.entity.remove_segment_response_success_entity import RemoveSegmentResponseSuccessEntity
-    from resend_sdk.entity.remove_suppression_response_success_entity import RemoveSuppressionResponseSuccessEntity
-    from resend_sdk.entity.remove_template_response_success_entity import RemoveTemplateResponseSuccessEntity
-    from resend_sdk.entity.remove_topic_response_success_entity import RemoveTopicResponseSuccessEntity
-    from resend_sdk.entity.retrieved_attachment_entity import RetrievedAttachmentEntity
-    from resend_sdk.entity.revoke_o_auth_grant_entity import RevokeOAuthGrantEntity
-    from resend_sdk.entity.rotate_entity import RotateEntity
     from resend_sdk.entity.segment_entity import SegmentEntity
-    from resend_sdk.entity.set_inbox_thread_labels_response_success_entity import SetInboxThreadLabelsResponseSuccessEntity
+    from resend_sdk.entity.segment_contact_entity import SegmentContactEntity
     from resend_sdk.entity.suppression_entity import SuppressionEntity
+    from resend_sdk.entity.suppression_batch_add_entity import SuppressionBatchAddEntity
+    from resend_sdk.entity.suppression_batch_remove_entity import SuppressionBatchRemoveEntity
     from resend_sdk.entity.template_entity import TemplateEntity
     from resend_sdk.entity.topic_entity import TopicEntity
-    from resend_sdk.entity.update_api_key_entity import UpdateApiKeyEntity
-    from resend_sdk.entity.update_broadcast_response_success_entity import UpdateBroadcastResponseSuccessEntity
-    from resend_sdk.entity.update_contact_property_response_success_entity import UpdateContactPropertyResponseSuccessEntity
-    from resend_sdk.entity.update_contact_response_success_entity import UpdateContactResponseSuccessEntity
-    from resend_sdk.entity.update_contact_topics_response_success_entity import UpdateContactTopicsResponseSuccessEntity
-    from resend_sdk.entity.update_domain_response_success_entity import UpdateDomainResponseSuccessEntity
-    from resend_sdk.entity.update_email_option_entity import UpdateEmailOptionEntity
-    from resend_sdk.entity.update_event_entity import UpdateEventEntity
-    from resend_sdk.entity.update_inbox_draft_response_success_entity import UpdateInboxDraftResponseSuccessEntity
-    from resend_sdk.entity.update_inbox_label_response_success_entity import UpdateInboxLabelResponseSuccessEntity
-    from resend_sdk.entity.update_inbox_response_success_entity import UpdateInboxResponseSuccessEntity
-    from resend_sdk.entity.update_inbox_thread_response_success_entity import UpdateInboxThreadResponseSuccessEntity
-    from resend_sdk.entity.update_segment_response_success_entity import UpdateSegmentResponseSuccessEntity
-    from resend_sdk.entity.update_template_response_success_entity import UpdateTemplateResponseSuccessEntity
-    from resend_sdk.entity.update_topic_response_success_entity import UpdateTopicResponseSuccessEntity
-    from resend_sdk.entity.update_webhook_entity import UpdateWebhookEntity
     from resend_sdk.entity.usage_entity import UsageEntity
     from resend_sdk.entity.webhook_entity import WebhookEntity
     from resend_sdk.entity.webhook_event_entity import WebhookEventEntity
+    from resend_sdk.entity.webhook_event_attempt_entity import WebhookEventAttemptEntity

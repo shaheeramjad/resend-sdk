@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type EmailEntity struct {
@@ -402,9 +402,43 @@ func (e *EmailEntity) CreateTyped(reqdata EmailCreateData, ctrl map[string]any) 
 
 
 
-func (e *EmailEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+func (e *EmailEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// EmailUpdateData and returns an Email. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *EmailEntity) UpdateTyped(reqdata EmailUpdateData, ctrl map[string]any) (Email, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Email{}, err
+	}
+	return typedFrom[Email](res), nil
+}
+
 
 
 func (e *EmailEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {

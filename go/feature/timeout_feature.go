@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 // Per-request timeout. Wraps the active transport and races each attempt

@@ -139,7 +139,7 @@ class TestInboxEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "update", "load"]:
+        for _op in ["create", "list", "update", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "inbox." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -188,6 +188,23 @@ class TestInboxEntity:
         inbox_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(inbox_ref01_data_dt0_loaded))
         assert inbox_ref01_data_dt0_load_result is not None
         assert inbox_ref01_data_dt0_load_result["id"] == inbox_ref01_data["id"]
+
+        # REMOVE
+        inbox_ref01_match_rm0 = {
+            "id": inbox_ref01_data["id"],
+        }
+        inbox_ref01_ent.remove(inbox_ref01_match_rm0, None)
+
+        # LIST
+        inbox_ref01_match_rt0 = {}
+
+        inbox_ref01_list_rt0_result = inbox_ref01_ent.list(inbox_ref01_match_rt0, None)
+        assert isinstance(inbox_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(inbox_ref01_list_rt0_result),
+            {"id": inbox_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

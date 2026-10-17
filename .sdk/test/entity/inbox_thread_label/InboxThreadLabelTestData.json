@@ -1,0 +1,56 @@
+{
+  "existing": {
+    "inbox_thread_label": {
+      "INBOX_THREAD_LABEL00": {
+        "data": [],
+        "id": "INBOX_THREAD_LABEL00",
+        "labels": [],
+        "object": "s2b",
+        "inbox_id": "INBOX01",
+        "thread_id": "THREAD01"
+      },
+      "INBOX_THREAD_LABEL01": {
+        "data": [],
+        "id": "INBOX_THREAD_LABEL01",
+        "labels": [],
+        "object": "s53",
+        "inbox_id": "INBOX01",
+        "thread_id": "THREAD01"
+      },
+      "INBOX_THREAD_LABEL02": {
+        "data": [],
+        "id": "INBOX_THREAD_LABEL02",
+        "labels": [],
+        "object": "s7b",
+        "inbox_id": "INBOX01",
+        "thread_id": "THREAD01"
+      }
+    }
+  },
+  "new": {
+    "inbox_thread_label": {
+      "inbox_thread_label_ref01": {
+        "data": [],
+        "labels": [],
+        "object": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "POST /inboxes/{inbox_id}/threads/{thread_id}/labels": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PUT /inboxes/{inbox_id}/threads/{thread_id}/labels": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

@@ -1,0 +1,219 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const node_path_1 = __importDefault(require("node:path"));
+const Fs = __importStar(require("node:fs"));
+const node_test_1 = require("node:test");
+const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
+const __1 = require("../../..");
+const utility_1 = require("../../utility");
+(0, utility_1.loadEnvLocal)(__dirname + '/../../../.env.local');
+(0, node_test_1.describe)('InboxEntity', async () => {
+    // Per-test live pacing. Delay is read from sdk-test-control.json's
+    // `test.live.delayMs`; only sleeps when RESEND_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('RESEND_TEST_LIVE'));
+    (0, node_test_1.test)('instance', async () => {
+        const testsdk = __1.ResendSDK.test();
+        const ent = testsdk.Inbox();
+        (0, node_assert_1.default)(null != ent);
+    });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('inbox hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.ResendSDK.test(offline).Inbox().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.ResendSDK.test(offline).Inbox()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.ResendSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Inbox().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.ResendSDK.test().Inbox().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.ResendSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Inbox().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Inbox().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.ResendSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Inbox().list({ "after": 1 }), (err) => 'validate_failed' === err.code);
+    });
+    (0, node_test_1.test)('basic', async (t) => {
+        const live = 'TRUE' === process.env.RESEND_TEST_LIVE;
+        for (const op of ['create', 'list', 'update', 'load', 'remove']) {
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'inbox.' + op, live))
+                return;
+        }
+        const setup = basicSetup();
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "created_at": { "a": true, "fo": "date-time", "h": "Created At", "n": "created_at", "r": true, "sh": "ISO 8601 timestamp when the inbox was created.", "t": "`$STRING`", "key$": "created_at", "index$": 0 }, "domain_id": { "a": true, "fo": "uuid", "h": "Domain Id", "n": "domain_id", "r": true, "sh": "The ID of the domain that owns the address.", "t": "`$STRING`", "key$": "domain_id", "index$": 1 }, "drafts": { "a": true, "h": "Drafts", "n": "drafts", "r": true, "sh": "The number of unsent drafts.", "t": "`$INTEGER`", "key$": "drafts", "index$": 2 }, "email_address": { "a": true, "h": "Email Address", "n": "email_address", "r": true, "sh": "The address of the inbox.", "t": "`$STRING`", "key$": "email_address", "index$": 3 }, "forwarding": { "a": true, "h": "Forwarding", "n": "forwarding", "r": false, "sh": "When `true`, Resend provisions a receiving address so you can receive mail without adding an MX record.", "t": "`$BOOLEAN`", "key$": "forwarding", "index$": 4 }, "from_name": { "a": true, "h": "From Name", "n": "from_name", "op": { "create": { "req": false, "type": "`$STRING`" }, "update": { "req": false, "type": "`$STRING`" } }, "r": true, "sh": "The name recipients see when mail is sent from this inbox.", "t": ["`$ONE`", ["`$STRING`", "`$NULL`"]], "key$": "from_name", "index$": 5 }, "id": { "a": true, "fo": "uuid", "h": "Id", "n": "id", "r": true, "sh": "The ID of the inbox.", "t": "`$STRING`", "key$": "id", "index$": 6 }, "last_received": { "a": true, "fo": "date-time", "h": "Last Received", "n": "last_received", "r": true, "sh": "ISO 8601 timestamp of the newest received email in the Inbox folder.", "t": ["`$ONE`", ["`$STRING`", "`$NULL`"]], "key$": "last_received", "index$": 7 }, "name": { "a": true, "h": "Name", "n": "name", "op": { "create": { "req": false, "type": "`$STRING`" }, "update": { "req": false, "type": "`$STRING`" } }, "r": true, "sh": "Internal name for the inbox.", "t": "`$STRING`", "key$": "name", "index$": 8 }, "object": { "a": true, "h": "Object", "n": "object", "r": true, "sh": "The object type.", "t": "`$STRING`", "key$": "object", "index$": 9 }, "receiving_address": { "a": true, "h": "Receiving Address", "n": "receiving_address", "r": true, "sh": "The address to forward mail to when forwarding is enabled.", "t": ["`$ONE`", ["`$STRING`", "`$NULL`"]], "key$": "receiving_address", "index$": 10 }, "unread": { "a": true, "h": "Unread", "n": "unread", "r": true, "sh": "The number of unread threads in the Inbox folder.", "t": "`$INTEGER`", "key$": "unread", "index$": 11 }, "updated_at": { "a": true, "fo": "date-time", "h": "Updated At", "n": "updated_at", "r": true, "sh": "ISO 8601 timestamp when the inbox was last updated.", "t": "`$STRING`", "key$": "updated_at", "index$": 12 } }, "id": { "field": "id", "name": "id" }, "name": "inbox", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "bf": ["email_address", "forwarding", "from_name", "name"], "co": { "id": "POST /inboxes", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/inboxes", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "inboxes" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" }, "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /inboxes", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "k": "query", "n": "after", "or": "after", "r": false, "t": "`$STRING`", "index$": 0 }, { "a": true, "k": "query", "n": "before", "or": "before", "r": false, "t": "`$STRING`", "index$": 1 }, { "a": true, "k": "query", "n": "limit", "or": "limit", "r": false, "t": "`$INTEGER`", "index$": 2 }] }, "k": "http", "m": "GET", "o": "/inboxes", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "inboxes" }], "t": { "req": "`reqdata`", "res": "`body.data`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /inboxes/{inbox_id}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "k": "param", "n": "id", "or": "inbox_id", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/inboxes/{inbox_id}", "q": { "exist": ["id"] }, "r": { "param": { "inbox_id": "id" } }, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "inboxes" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" }, "remove": { "input": "data", "name": "remove", "points": [{ "a": true, "co": { "id": "DELETE /inboxes/{inbox_id}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "k": "param", "n": "id", "or": "inbox_id", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "DELETE", "o": "/inboxes/{inbox_id}", "q": { "exist": ["id"] }, "r": { "param": { "inbox_id": "id" } }, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "inboxes" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "remove" }, "update": { "input": "data", "name": "update", "points": [{ "a": true, "bf": ["from_name", "name"], "co": { "id": "PATCH /inboxes/{inbox_id}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "k": "param", "n": "id", "or": "inbox_id", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "PATCH", "o": "/inboxes/{inbox_id}", "q": { "exist": ["id"] }, "r": { "param": { "inbox_id": "id" } }, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "inboxes" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "update" } }, "relations": { "ancestors": [] }, "key$": "inbox", "name__orig": "inbox", "Name": "Inbox", "name_": "inbox", "name-": "inbox", "NAME": "INBOX", "index$": 19 }, { "active": true, "entity": "inbox", "key$": "BasicInboxFlow", "kind": "basic", "name": "BasicInboxFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "inbox_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }, { "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "inbox_ref01" } }], "index$": 1 }, { "a": true, "d": {}, "i": { "ref": "inbox_ref01", "srcdatavar": "inbox_ref01_data", "suffix": "_up0", "textfield": "created_at" }, "m": {}, "o": "update", "s": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-inbox_ref01" } }], "v": [], "index$": 2 }, { "a": true, "d": {}, "i": { "ref": "inbox_ref01", "srcdatavar": "inbox_ref01_data", "suffix": "_dt0" }, "m": { "id": "inbox01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-inbox_ref01" } }], "index$": 3 }, { "a": true, "d": {}, "i": { "ref": "inbox_ref01", "suffix": "_rm0" }, "m": { "id": "inbox01" }, "o": "remove", "s": [], "v": [], "index$": 4 }, { "a": true, "d": {}, "i": { "suffix": "_rt0" }, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemNotExists", "def": { "ref": "inbox_ref01" } }], "index$": 5 }] }, 'Inbox', { "POST /inboxes": { "protocol": "http", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["email_address"], "properties": { "email_address": { "type": "string", "description": "The inbox email address on one of your domains. The API trims and lowercases it. The part before the `@` is at most 64 characters and contains only letters, numbers, and `. _ % -`. A `+` returns a 422. It cannot start or end with a dot or contain two dots in a row.", "example": "support@acme.com", "key$": "email_address" }, "name": { "type": "string", "maxLength": 64, "description": "Internal name for the inbox. Recipients do not see it. Max 64 characters. Defaults to `email_address`.", "example": "Customer Support", "key$": "name" }, "from_name": { "type": "string", "maxLength": 78, "description": "The name recipients see when mail is sent from this inbox. A plain name, not a `Name <email>` address. Max 78 characters. It cannot contain a colon, `<`, `>`, line breaks, or other control characters. An email address inside the name must be on a domain the team has verified for sending. An empty string leaves it unset.", "example": "Ada from Support", "key$": "from_name" }, "forwarding": { "type": "boolean", "default": false, "description": "When `true`, Resend provisions a receiving address so you can receive mail without adding an MX record. The address is returned in `receiving_address`.", "key$": "forwarding" } }, "x-ref": "#/components/schemas/CreateInboxOptions", "index$": 1 } } } }, "parameters": [] }, "GET /inboxes": { "protocol": "http", "parameters": [{ "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "minimum": 1, "maximum": 100 }, "description": "Number of items to return.", "x-ref": "#/components/parameters/PaginationLimit", "index$": 0 }, { "in": "query", "name": "after", "required": false, "schema": { "type": "string" }, "description": "Return items after this cursor.", "x-ref": "#/components/parameters/PaginationAfter", "index$": 1 }, { "in": "query", "name": "before", "required": false, "schema": { "type": "string" }, "description": "Return items before this cursor.", "x-ref": "#/components/parameters/PaginationBefore", "index$": 2 }] }, "GET /inboxes/{inbox_id}": { "protocol": "http", "parameters": [{ "in": "path", "name": "inbox_id", "required": true, "schema": { "type": "string" }, "description": "The Inbox ID or the inbox email address, such as `support@acme.com`. A value that contains `@` must be a valid email address, and any other value must be a UUID, or the request returns a 422. The address match is case-insensitive and never falls back to the inbox `name`. An address that matches no inbox returns a 404.", "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "x-ref": "#/components/parameters/InboxIdOrEmailAddress", "index$": 0 }] }, "DELETE /inboxes/{inbox_id}": { "protocol": "http", "parameters": [{ "in": "path", "name": "inbox_id", "required": true, "schema": { "type": "string" }, "description": "The Inbox ID or the inbox email address, such as `support@acme.com`. A value that contains `@` must be a valid email address, and any other value must be a UUID, or the request returns a 422. The address match is case-insensitive and never falls back to the inbox `name`. An address that matches no inbox returns a 404.", "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "x-ref": "#/components/parameters/InboxIdOrEmailAddress", "index$": 0 }] }, "PATCH /inboxes/{inbox_id}": { "protocol": "http", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "description": "Provide at least one of `name` or `from_name`.", "anyOf": [{ "required": ["name"] }, { "required": ["from_name"] }], "properties": { "name": { "type": "string", "minLength": 1, "maxLength": 64, "description": "New internal name for the inbox. Recipients do not see it. Between 1 and 64 characters after trimming.", "example": "Customer Support", "key$": "name" }, "from_name": { "type": "string", "maxLength": 78, "description": "The name recipients see when mail is sent from this inbox. A plain name, not a `Name <email>` address. Max 78 characters. It cannot contain a colon, `<`, `>`, line breaks, or other control characters. An email address inside the name must be on a domain the team has verified for sending. An empty string removes it.", "example": "Ada from Support", "key$": "from_name" } }, "x-ref": "#/components/schemas/UpdateInboxOptions", "index$": 1 } } } }, "parameters": [{ "in": "path", "name": "inbox_id", "required": true, "schema": { "type": "string" }, "description": "The Inbox ID or the inbox email address, such as `support@acme.com`. A value that contains `@` must be a valid email address, and any other value must be a UUID, or the request returns a 422. The address match is case-insensitive and never falls back to the inbox `name`. An address that matches no inbox returns a 404.", "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1", "x-ref": "#/components/parameters/InboxIdOrEmailAddress", "index$": 0 }] } }, { strict: LIVE_STRICT, t });
+        }
+        const client = setup.client;
+        const struct = setup.struct;
+        const isempty = struct.isempty;
+        const select = struct.select;
+        // CREATE
+        const inbox_ref01_ent = client.Inbox();
+        let inbox_ref01_data = setup.data.new.inbox['inbox_ref01'];
+        inbox_ref01_data = (await inbox_ref01_ent.create(inbox_ref01_data)).data();
+        (0, node_assert_1.default)(null != inbox_ref01_data.id);
+        // LIST
+        const inbox_ref01_match = {};
+        const inbox_ref01_list = (await inbox_ref01_ent.list(inbox_ref01_match)).map((e) => e.data());
+        (0, node_assert_1.default)(!isempty(select(inbox_ref01_list, { id: inbox_ref01_data.id })));
+        // UPDATE
+        const inbox_ref01_data_up0 = {};
+        inbox_ref01_data_up0.id = inbox_ref01_data.id;
+        const inbox_ref01_markdef_up0 = { name: 'created_at', value: 'Mark01-inbox_ref01_' + setup.now };
+        inbox_ref01_data_up0[inbox_ref01_markdef_up0.name] = inbox_ref01_markdef_up0.value;
+        const inbox_ref01_resdata_up0 = (await inbox_ref01_ent.update(inbox_ref01_data_up0)).data();
+        (0, node_assert_1.default)(inbox_ref01_resdata_up0.id === inbox_ref01_data_up0.id);
+        (0, node_assert_1.default)(inbox_ref01_resdata_up0[inbox_ref01_markdef_up0.name] === inbox_ref01_markdef_up0.value);
+        // LOAD
+        const inbox_ref01_match_dt0 = {};
+        inbox_ref01_match_dt0.id = inbox_ref01_data.id;
+        const inbox_ref01_data_dt0 = (await inbox_ref01_ent.load(inbox_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(inbox_ref01_data_dt0.id === inbox_ref01_data.id);
+        // REMOVE
+        const inbox_ref01_match_rm0 = { id: inbox_ref01_data.id };
+        await inbox_ref01_ent.remove(inbox_ref01_match_rm0);
+        // LIST
+        const inbox_ref01_match_rt0 = {};
+        const inbox_ref01_list_rt0 = (await inbox_ref01_ent.list(inbox_ref01_match_rt0)).map((e) => e.data());
+        (0, node_assert_1.default)(isempty(select(inbox_ref01_list_rt0, { id: inbox_ref01_data.id })));
+    });
+});
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
+function basicSetup(extra) {
+    // TODO: fix test def options
+    const options = {}; // null
+    // TODO: needs test utility to resolve path
+    const entityDataFile = node_path_1.default.resolve(__dirname, '../../../../.sdk/test/entity/inbox/InboxTestData.json');
+    // TODO: file ready util needed?
+    const entityDataSource = Fs.readFileSync(entityDataFile).toString('utf8');
+    // TODO: need a xlang JSON parse utility in voxgig/struct with better error msgs
+    const entityData = JSON.parse(entityDataSource);
+    options.entity = entityData.existing;
+    let client = __1.ResendSDK.test(options, extra);
+    const struct = client.utility().struct;
+    const merge = struct.merge;
+    const transform = struct.transform;
+    let idmap = transform(['inbox01', 'inbox02', 'inbox03'], {
+        '`$PACK`': ['', {
+                '`$KEY`': '`$COPY`',
+                '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
+            }]
+    });
+    const env = (0, utility_1.envOverride)({
+        'RESEND_TEST_INBOX_ENTID': idmap,
+        'RESEND_TEST_LIVE': 'FALSE',
+        'RESEND_TEST_EXPLAIN': 'FALSE',
+        'RESEND_APIKEY': '',
+    });
+    idmap = env['RESEND_TEST_INBOX_ENTID'];
+    const live = 'TRUE' === env.RESEND_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
+    if (live) {
+        const rawIds = process.env['RESEND_TEST_INBOX_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
+        client = new __1.ResendSDK(merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            (0, utility_1.liveClientOptions)(),
+            {
+                apikey: env.RESEND_APIKEY,
+            },
+            // 'extra || {}', not a bare 'extra': struct.merge returns UNDEFINED when the
+            // last entry is undefined, and basicSetup is normally called with no
+            // argument at all - so a bare 'extra' silently discarded the apikey
+            // and server values above and handed the SDK undefined. Harmless
+            // while there was nothing in that object; not harmless now.
+            extra || {},
+            { system: { fetch: transport.fetch } }
+        ]));
+    }
+    const setup = {
+        idmap,
+        env,
+        options,
+        client,
+        struct,
+        data: entityData,
+        explain: 'TRUE' === env.RESEND_TEST_EXPLAIN,
+        live,
+        transport,
+        now: Date.now(),
+    };
+    return setup;
+}
+//# sourceMappingURL=InboxEntity.test.js.map

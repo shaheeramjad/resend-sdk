@@ -29,6 +29,12 @@ main: kit: entity: broadcast: {
     from: {
       h: "From"
       n: "from"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The email address of the sender."
       t: "`$STRING`"
@@ -60,6 +66,13 @@ main: kit: entity: broadcast: {
       sh: "Name of the broadcast."
       t: "`$STRING`"
     }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      sh: "The object type of the response."
+      t: "`$STRING`"
+    }
     preview_text: {
       h: "Preview Text"
       n: "preview_text"
@@ -84,6 +97,12 @@ main: kit: entity: broadcast: {
     segment_id: {
       h: "Segment Id"
       n: "segment_id"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "Unique identifier of the segment this broadcast will be sent to."
       t: [
@@ -93,6 +112,13 @@ main: kit: entity: broadcast: {
           "`$NULL`"
         ]
       ]
+    }
+    send: {
+      h: "Send"
+      n: "send"
+      r: false
+      sh: "Whether to send the broadcast immediately or keep it as a draft."
+      t: "`$BOOLEAN`"
     }
     sent_at: {
       h: "Sent At"
@@ -111,6 +137,12 @@ main: kit: entity: broadcast: {
     subject: {
       h: "Subject"
       n: "subject"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The subject line of the email."
       t: "`$STRING`"
@@ -291,6 +323,42 @@ main: kit: entity: broadcast: {
             res: "`body`"
           }
         }
+        {
+          bf: [
+            "audience_id"
+            "from"
+            "html"
+            "name"
+            "preview_text"
+            "reply_to"
+            "scheduled_at"
+            "segment_id"
+            "send"
+            "subject"
+            "text"
+            "topic_id"
+          ]
+          co: {
+            id: "POST /broadcasts"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/broadcasts"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "broadcasts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
       ]
     }
     list: {
@@ -366,6 +434,110 @@ main: kit: entity: broadcast: {
             ]
           }
           m: "GET"
+          o: "/broadcasts/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "broadcasts"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /broadcasts/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/broadcasts/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "broadcasts"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "audience_id"
+            "from"
+            "html"
+            "name"
+            "preview_text"
+            "reply_to"
+            "segment_id"
+            "subject"
+            "text"
+            "topic_id"
+          ]
+          co: {
+            id: "PATCH /broadcasts/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/broadcasts/{id}"
           q: {
             exist: [

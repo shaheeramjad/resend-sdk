@@ -1,0 +1,26 @@
+# BasicSegmentContactFlow
+
+main: kit: flow: BasicSegmentContactFlow:
+{
+  entity: "segment_contact",
+  kind: "basic",
+  name: "BasicSegmentContactFlow",
+  step: [
+    {
+      m: {
+        segment_id: "segment01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "segment_contact_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicSegmentContactFlow"
+}

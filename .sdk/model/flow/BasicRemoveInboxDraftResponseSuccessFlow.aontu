@@ -1,9 +1,0 @@
-# BasicRemoveInboxDraftResponseSuccessFlow
-
-main: kit: flow: BasicRemoveInboxDraftResponseSuccessFlow:
-{
-  entity: "remove_inbox_draft_response_success",
-  kind: "basic",
-  name: "BasicRemoveInboxDraftResponseSuccessFlow",
-  "key$": "BasicRemoveInboxDraftResponseSuccessFlow"
-}

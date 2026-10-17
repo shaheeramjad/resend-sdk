@@ -2,41 +2,63 @@
   "existing": {
     "api_key": {
       "API_KEY00": {
-        "created_at": "s28",
+        "created_at": "s46",
+        "domain_id": "DOMAIN01",
         "id": "API_KEY00",
-        "last_used_at": "s2a",
-        "name": "s2b"
+        "last_used_at": "s49",
+        "name": "s4a",
+        "object": "s4b",
+        "permission": "s4c"
       },
       "API_KEY01": {
-        "created_at": "s50",
+        "created_at": "s8c",
+        "domain_id": "DOMAIN01",
         "id": "API_KEY01",
-        "last_used_at": "s52",
-        "name": "s53"
+        "last_used_at": "s8f",
+        "name": "s90",
+        "object": "s91",
+        "permission": "s92"
       },
       "API_KEY02": {
-        "created_at": "s78",
+        "created_at": "sd2",
+        "domain_id": "DOMAIN01",
         "id": "API_KEY02",
-        "last_used_at": "s7a",
-        "name": "s7b"
+        "last_used_at": "sd5",
+        "name": "sd6",
+        "object": "sd7",
+        "permission": "sd8"
       }
     }
   },
   "new": {
     "api_key": {
       "api_key_ref01": {
-        "created_at": "sa0",
-        "last_used_at": "sa2",
-        "name": "sa3"
+        "created_at": "s118",
+        "domain_id": "DOMAIN01",
+        "last_used_at": "s11b",
+        "name": "s11c",
+        "object": "s11d",
+        "permission": "s11e"
       }
     }
   },
   "requests": {
+    "POST /api-keys": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /api-keys": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
     },
     "DELETE /api-keys/{api_key_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /api-keys/{api_key_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

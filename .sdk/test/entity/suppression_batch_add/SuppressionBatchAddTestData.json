@@ -1,0 +1,32 @@
+{
+  "existing": {
+    "suppression_batch_add": {
+      "SUPPRESSION_BATCH_ADD00": {
+        "emails": [],
+        "id": "SUPPRESSION_BATCH_ADD00"
+      },
+      "SUPPRESSION_BATCH_ADD01": {
+        "emails": [],
+        "id": "SUPPRESSION_BATCH_ADD01"
+      },
+      "SUPPRESSION_BATCH_ADD02": {
+        "emails": [],
+        "id": "SUPPRESSION_BATCH_ADD02"
+      }
+    }
+  },
+  "new": {
+    "suppression_batch_add": {
+      "suppression_batch_add_ref01": {
+        "emails": []
+      }
+    }
+  },
+  "requests": {
+    "POST /suppressions/batch/add": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

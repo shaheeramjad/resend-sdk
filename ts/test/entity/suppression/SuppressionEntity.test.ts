@@ -41,13 +41,59 @@ describe('SuppressionEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('suppression hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of ResendSDK.test(offline).Suppression().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of ResendSDK.test(offline).Suppression()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = ResendSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Suppression().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of ResendSDK.test().Suppression().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new ResendSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Suppression().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Suppression().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
   test('validate', async (t) => {
     if (null == (config as any).feature?.validate) {
       t.skip('feature not present in this SDK: validate')
       return
     }
     const client = ResendSDK.test(undefined, { feature: { validate: { active: true } } })
-    await assert.rejects(client.Suppression().load({"id":1} as any),
+    await assert.rejects(client.Suppression().list({"after":1} as any),
       (err: any) => 'validate_failed' === err.code)
   })
 
@@ -56,14 +102,14 @@ describe('SuppressionEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.RESEND_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of ['create', 'list', 'load', 'remove']) {
       if (!live && maybeSkipControl(t, 'entityOp', 'suppression.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"created_at":{"a":true,"h":"Created At","n":"created_at","r":false,"sh":"Timestamp indicating when the suppression was created.","t":"`$STRING`","key$":"created_at","index$":0},"email":{"a":true,"h":"Email","n":"email","r":false,"sh":"Email address that is suppressed.","t":"`$STRING`","key$":"email","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the suppression.","t":"`$STRING`","key$":"id","index$":2},"object":{"a":true,"h":"Object","n":"object","r":false,"sh":"Type of the response object.","t":"`$STRING`","key$":"object","index$":3},"origin":{"a":true,"h":"Origin","n":"origin","r":false,"sh":"Origin of the suppression.","t":"`$STRING`","key$":"origin","index$":4},"source_id":{"a":true,"h":"Source Id","n":"source_id","r":false,"sh":"Identifier of the event that caused the suppression, such as the email that bounced or complained.","t":["`$ONE`",["`$STRING`","`$NULL`"]],"key$":"source_id","index$":5}},"id":{"field":"id","name":"id"},"name":"suppression","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /suppressions/{suppression}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"suppression","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/suppressions/{suppression}","q":{"exist":["id"]},"r":{"param":{"suppression":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"suppressions"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"suppression","name__orig":"suppression","Name":"Suppression","name_":"suppression","name-":"suppression","NAME":"SUPPRESSION","index$":62}, {"active":true,"entity":"suppression","key$":"BasicSuppressionFlow","kind":"basic","name":"BasicSuppressionFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"suppression_ref01","srcdatavar":"suppression_ref01_data","suffix":"_dt0"},"m":{"id":"suppression01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-suppression_ref01"}}],"index$":0}]}, 'Suppression', {"GET /suppressions/{suppression}":{"protocol":"http","parameters":[{"name":"suppression","in":"path","required":true,"schema":{"type":"string"},"description":"The Suppression ID or email address.","index$":0}]}}, { strict: LIVE_STRICT, t })
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"created_at":{"a":true,"h":"Created At","n":"created_at","r":false,"sh":"Timestamp indicating when the suppression was created.","t":"`$STRING`","key$":"created_at","index$":0},"email":{"a":true,"h":"Email","n":"email","op":{"create":{"req":true,"type":"`$STRING`"}},"r":false,"sh":"Email address that is suppressed.","t":"`$STRING`","key$":"email","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the suppression.","t":"`$STRING`","key$":"id","index$":2},"object":{"a":true,"h":"Object","n":"object","r":false,"sh":"Type of the response object.","t":"`$STRING`","key$":"object","index$":3},"origin":{"a":true,"h":"Origin","n":"origin","r":false,"sh":"Origin of the suppression.","t":"`$STRING`","key$":"origin","index$":4},"source_id":{"a":true,"h":"Source Id","n":"source_id","r":false,"sh":"Identifier of the event that caused the suppression, such as the email that bounced or complained.","t":["`$ONE`",["`$STRING`","`$NULL`"]],"key$":"source_id","index$":5}},"id":{"field":"id","name":"id"},"name":"suppression","op":{"create":{"input":"data","name":"create","points":[{"a":true,"bf":["email"],"co":{"id":"POST /suppressions","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/suppressions","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"suppressions"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /suppressions","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"after","or":"after","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"before","or":"before","r":false,"t":"`$STRING`","index$":1},{"a":true,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"origin","or":"origin","r":false,"t":"`$STRING`","index$":3}]},"k":"http","m":"GET","o":"/suppressions","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"suppressions"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /suppressions/{suppression}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"suppression","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/suppressions/{suppression}","q":{"exist":["id"]},"r":{"param":{"suppression":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"suppressions"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"},"remove":{"input":"data","name":"remove","points":[{"a":true,"co":{"id":"DELETE /suppressions/{suppression}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"suppression","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"DELETE","o":"/suppressions/{suppression}","q":{"exist":["id"]},"r":{"param":{"suppression":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"suppressions"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"}},"relations":{"ancestors":[]},"key$":"suppression","name__orig":"suppression","Name":"Suppression","name_":"suppression","name-":"suppression","NAME":"SUPPRESSION","index$":32}, {"active":true,"entity":"suppression","key$":"BasicSuppressionFlow","kind":"basic","name":"BasicSuppressionFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"suppression_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"suppression_ref01"}}],"index$":1},{"a":true,"d":{},"i":{"ref":"suppression_ref01","srcdatavar":"suppression_ref01_data","suffix":"_dt0"},"m":{"id":"suppression01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-suppression_ref01"}}],"index$":2},{"a":true,"d":{},"i":{"ref":"suppression_ref01","suffix":"_rm0"},"m":{"id":"suppression01"},"o":"remove","s":[],"v":[],"index$":3},{"a":true,"d":{},"i":{"suffix":"_rt0"},"m":{},"o":"list","s":[],"v":[{"apply":"ItemNotExists","def":{"ref":"suppression_ref01"}}],"index$":4}]}, 'Suppression', {"POST /suppressions":{"protocol":"http","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["email"],"properties":{"email":{"type":"string","description":"Email address to suppress.","example":"steve.wozniak@gmail.com","key$":"email"}},"x-ref":"#/components/schemas/CreateSuppressionOptions","index$":1}}}},"parameters":[]},"GET /suppressions":{"protocol":"http","parameters":[{"name":"origin","in":"query","required":false,"schema":{"type":"string","enum":["bounce","complaint","manual"]},"description":"Filter suppressions by origin.","index$":0},{"in":"query","name":"limit","required":false,"schema":{"type":"integer","minimum":1,"maximum":100},"description":"Number of items to return.","x-ref":"#/components/parameters/PaginationLimit","index$":1},{"in":"query","name":"after","required":false,"schema":{"type":"string"},"description":"Return items after this cursor.","x-ref":"#/components/parameters/PaginationAfter","index$":2},{"in":"query","name":"before","required":false,"schema":{"type":"string"},"description":"Return items before this cursor.","x-ref":"#/components/parameters/PaginationBefore","index$":3}]},"GET /suppressions/{suppression}":{"protocol":"http","parameters":[{"name":"suppression","in":"path","required":true,"schema":{"type":"string"},"description":"The Suppression ID or email address.","index$":0}]},"DELETE /suppressions/{suppression}":{"protocol":"http","parameters":[{"name":"suppression","in":"path","required":true,"schema":{"type":"string"},"description":"The Suppression ID or email address.","index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -71,14 +117,41 @@ describe('SuppressionEntity', async () => {
     const isempty = struct.isempty
     const select = struct.select
 
-    let suppression_ref01_data = Object.values(setup.data.existing.suppression)[0] as any
+
+    // CREATE
+    const suppression_ref01_ent = client.Suppression()
+    let suppression_ref01_data = setup.data.new.suppression['suppression_ref01']
+
+    suppression_ref01_data = (await suppression_ref01_ent.create(suppression_ref01_data)).data()
+    assert(null != suppression_ref01_data.id)
+
+
+    // LIST
+    const suppression_ref01_match: any = {}
+
+    const suppression_ref01_list = (await suppression_ref01_ent.list(suppression_ref01_match)).map((e: any) => e.data())
+
+    assert(!isempty(select(suppression_ref01_list, { id: suppression_ref01_data.id })))
+
 
     // LOAD
-    const suppression_ref01_ent = client.Suppression()
     const suppression_ref01_match_dt0: any = {}
     suppression_ref01_match_dt0.id = suppression_ref01_data.id
     const suppression_ref01_data_dt0 = (await suppression_ref01_ent.load(suppression_ref01_match_dt0)).data()
     assert(suppression_ref01_data_dt0.id === suppression_ref01_data.id)
+
+
+    // REMOVE
+    const suppression_ref01_match_rm0: any = { id: suppression_ref01_data.id }
+    await suppression_ref01_ent.remove(suppression_ref01_match_rm0)
+  
+
+    // LIST
+    const suppression_ref01_match_rt0: any = {}
+
+    const suppression_ref01_list_rt0 = (await suppression_ref01_ent.list(suppression_ref01_match_rt0)).map((e: any) => e.data())
+
+    assert(isempty(select(suppression_ref01_list_rt0, { id: suppression_ref01_data.id })))
 
 
   })

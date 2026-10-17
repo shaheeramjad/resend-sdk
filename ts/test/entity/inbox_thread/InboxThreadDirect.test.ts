@@ -39,23 +39,87 @@ describe('InboxThreadDirect', async () => {
   })
 
 
-  test('direct-list-inbox_thread', async (t: any) => {
+  test('direct-load-inbox_thread', async (t: any) => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
-    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
-    if (maybeSkipControl(t, 'direct', 'direct-list-inbox_thread', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["inbox_thread01"], LIVE_STRICT)) return
+    const setup = directSetup({ id: 'direct01' })
+    if (maybeSkipControl(t, 'direct', 'direct-load-inbox_thread', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["inbox01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.id = setup.idmap['inbox_thread01']
+      const listResult: any = await client.direct({
+        path: 'inboxes/{inbox_id}/threads',
+        method: 'GET',
+        params: {
+        inbox_id: setup.idmap['inbox01'],
+        },
+      })
+      if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list discovery failed: ' + describeLive(listResult))
+      }
+      const listArr = unwrapListData(listResult.data)
+      if (null == listArr) {
+        return void liveMiss(t, LIVE_STRICT, 'Live list discovery returned no list: ' + describeLive(listResult))
+      }
+      if (0 === listArr.length) {
+        return void liveEmpty(t, 'The account has no inbox_thread record to load')
+      }
+      const candidateId = listArr[0]?.id ?? listArr[0]?.id
+      if (null == candidateId) {
+        return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
+      }
+      params.id = candidateId
+      params.inbox_id = setup.idmap['inbox01']
     } else {
       params.id = 'direct01'
+      params.inbox_id = 'direct02'
     }
 
     const result: any = await client.direct({
-      path: 'inboxes/{id}/threads',
+      path: 'inboxes/{inbox_id}/threads/{id}',
+      method: 'GET',
+      params,
+      query,
+    })
+
+    if (setup.live) {
+      if (!result.ok || result.status < 200 || result.status >= 300) {
+        return void liveMiss(t, LIVE_STRICT, 'Live load failed: ' + describeLive(result))
+      }
+      if (!(null != result.data)) {
+        return void liveMiss(t, LIVE_STRICT, 'Live load returned no data: ' + describeLive(result))
+      }
+    } else {
+      assert(result.ok === true)
+      assert(result.status === 200)
+      assert(null != result.data)
+      assert(result.data.id === 'direct01')
+      assert(calls.length === 1)
+      assert(calls[0].init.method === 'GET')
+      assert(calls[0].url.includes('direct01'))
+      assert(calls[0].url.includes('direct02'))
+    }
+  })
+
+  test('direct-list-inbox_thread', async (t: any) => {
+    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
+    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
+    if (maybeSkipControl(t, 'direct', 'direct-list-inbox_thread', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["inbox01"], LIVE_STRICT)) return
+    const { client, calls } = setup
+
+    const params: any = {}
+    const query: any = {}
+    if (setup.live) {
+      params.inbox_id = setup.idmap['inbox01']
+    } else {
+      params.inbox_id = 'direct01'
+    }
+
+    const result: any = await client.direct({
+      path: 'inboxes/{inbox_id}/threads',
       method: 'GET',
       params,
       query,

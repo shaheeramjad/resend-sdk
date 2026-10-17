@@ -3,7 +3,7 @@ package feature
 import (
 	"strings"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 type DebugFeature struct {

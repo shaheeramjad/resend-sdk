@@ -7,10 +7,66 @@ main: kit: flow: BasicApiKeyFlow:
   name: "BasicApiKeyFlow",
   step: [
     {
+      i: {
+        ref: "api_key_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
       o: "list",
       v: [
         {
           apply: "ItemExists",
+          def: {
+            ref: "api_key_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "api_key_ref01",
+        srcdatavar: "api_key_ref01_data",
+        suffix: "_up0",
+        textfield: "created_at"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-api_key_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "api_key_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "api_key01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
           def: {
             ref: "api_key_ref01"
           }

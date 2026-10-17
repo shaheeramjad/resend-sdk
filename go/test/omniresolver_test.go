@@ -7,10 +7,10 @@ import (
 	"strings"
 	"sync"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	omni "github.com/voxgig-sdk/resend-sdk/go/test/omni"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	omni "github.com/shaheeramjad/resend-sdk/go/test/omni"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // The shared corpus, compiled by the project build. Relative to this

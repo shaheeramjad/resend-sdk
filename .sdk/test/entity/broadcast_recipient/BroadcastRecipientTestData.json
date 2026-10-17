@@ -1,0 +1,51 @@
+{
+  "existing": {
+    "broadcast_recipient": {
+      "BROADCAST_RECIPIENT00": {
+        "bounce_type": "s3c",
+        "clicked_links": [],
+        "contact_id": "CONTACT01",
+        "count": 63,
+        "email": "s40",
+        "id": "BROADCAST_RECIPIENT00",
+        "broadcast_id": "BROADCAST01"
+      },
+      "BROADCAST_RECIPIENT01": {
+        "bounce_type": "s78",
+        "clicked_links": [],
+        "contact_id": "CONTACT01",
+        "count": 123,
+        "email": "s7c",
+        "id": "BROADCAST_RECIPIENT01",
+        "broadcast_id": "BROADCAST01"
+      },
+      "BROADCAST_RECIPIENT02": {
+        "bounce_type": "sb4",
+        "clicked_links": [],
+        "contact_id": "CONTACT01",
+        "count": 183,
+        "email": "sb8",
+        "id": "BROADCAST_RECIPIENT02",
+        "broadcast_id": "BROADCAST01"
+      }
+    }
+  },
+  "new": {
+    "broadcast_recipient": {
+      "broadcast_recipient_ref01": {
+        "bounce_type": "sf0",
+        "clicked_links": [],
+        "contact_id": "CONTACT01",
+        "count": 243,
+        "email": "sf4"
+      }
+    }
+  },
+  "requests": {
+    "GET /broadcasts/{id}/recipients": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

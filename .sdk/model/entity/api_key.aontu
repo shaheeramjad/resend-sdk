@@ -12,6 +12,13 @@ main: kit: entity: api_key: {
       sh: "The date and time the API key was created."
       t: "`$STRING`"
     }
+    domain_id: {
+      h: "Domain Id"
+      n: "domain_id"
+      r: false
+      sh: "Restrict an API key to send emails only from a specific domain."
+      t: "`$STRING`"
+    }
     id: {
       h: "Id"
       n: "id"
@@ -35,8 +42,28 @@ main: kit: entity: api_key: {
     name: {
       h: "Name"
       n: "name"
+      op: {
+        list: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      r: true
+      sh: "The API key name."
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
       r: false
-      sh: "The name of the API key."
+      sh: "The type of object."
+      t: "`$STRING`"
+    }
+    permission: {
+      h: "Permission"
+      n: "permission"
+      r: false
+      sh: "The API key can have full access to Resend’s API or be only restricted to send emails."
       t: "`$STRING`"
     }
   }
@@ -48,6 +75,38 @@ main: kit: entity: api_key: {
 
   name: "api_key"
   op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          bf: [
+            "domain_id"
+            "name"
+            "permission"
+          ]
+          co: {
+            id: "POST /api-keys"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/api-keys"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api-keys"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
     list: {
       name: "list"
       points: [
@@ -121,6 +180,60 @@ main: kit: entity: api_key: {
             ]
           }
           m: "DELETE"
+          o: "/api-keys/{api_key_id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              api_key_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api-keys"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "name"
+          ]
+          co: {
+            id: "PATCH /api-keys/{api_key_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "api_key_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/api-keys/{api_key_id}"
           q: {
             exist: [

@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -38,7 +38,7 @@ func TestWebhookEventEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.WebhookEvent(nil).Load(map[string]any{"id": 1, "webhook_id": "x"}, nil)
+		_, err := client.WebhookEvent(nil).List(map[string]any{"webhook_id": 1}, nil)
 		if sdkerr, ok := err.(*core.ResendError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -53,7 +53,7 @@ func TestWebhookEventEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "load"} {
+		for _, _op := range []string{"create", "list", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "webhook_event." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -89,6 +89,25 @@ func TestWebhookEventEntity(t *testing.T) {
 		}
 		if webhookEventRef01Data["id"] == nil {
 			t.Fatal("expected created entity to have an id")
+		}
+
+		// LIST
+		webhookEventRef01Match := map[string]any{
+			"webhook_id": setup.idmap["webhook01"],
+		}
+
+		webhookEventRef01ListResult, err := webhookEventRef01Ent.List(webhookEventRef01Match, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		webhookEventRef01List, webhookEventRef01ListOk := webhookEventRef01ListResult.([]any)
+		if !webhookEventRef01ListOk {
+			t.Fatalf("expected list result to be an array, got %T", webhookEventRef01ListResult)
+		}
+
+		foundItem := vs.Select(entityListToData(webhookEventRef01List), map[string]any{"id": webhookEventRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
 		}
 
 		// LOAD

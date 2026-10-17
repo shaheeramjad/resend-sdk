@@ -1,8 +1,8 @@
-module github.com/voxgig-sdk/resend-sdk/go-mcp
+module github.com/shaheeramjad/resend-sdk/go-mcp
 
 go 1.25.0
 
-require github.com/voxgig-sdk/resend-sdk/go v0.0.0
+require github.com/shaheeramjad/resend-sdk/go v0.0.0
 require github.com/modelcontextprotocol/go-sdk v1.6.0
 
 require github.com/google/jsonschema-go v0.4.3
@@ -15,4 +15,4 @@ require (
 	golang.org/x/sys v0.41.0 // indirect
 )
 
-replace github.com/voxgig-sdk/resend-sdk/go => ../go
+replace github.com/shaheeramjad/resend-sdk/go => ../go

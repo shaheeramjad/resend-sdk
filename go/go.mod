@@ -1,4 +1,4 @@
-module github.com/voxgig-sdk/resend-sdk/go
+module github.com/shaheeramjad/resend-sdk/go
 
 go 1.21
 

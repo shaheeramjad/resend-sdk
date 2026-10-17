@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -53,7 +53,7 @@ func TestInboxThreadEmailEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{"list", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "inbox_thread_email." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -71,6 +71,11 @@ func TestInboxThreadEmailEntity(t *testing.T) {
 		}
 		client := setup.client
 		_ = client
+		if setup.live {
+			liveExisting(t, inbox_thread_emailEntityLiveStrict, setup.data, "inbox_thread_email", func() (any, error) {
+				return client.InboxThreadEmail(nil).List(map[string]any{"inbox_id": setup.idmap["inbox01"], "thread_id": setup.idmap["thread01"]}, nil)
+			})
+		}
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		inboxThreadEmailRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.inbox_thread_email")))
@@ -96,6 +101,32 @@ func TestInboxThreadEmailEntity(t *testing.T) {
 		_, inboxThreadEmailRef01ListOk := inboxThreadEmailRef01ListResult.([]any)
 		if !inboxThreadEmailRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", inboxThreadEmailRef01ListResult)
+		}
+
+		// LOAD
+		inboxThreadEmailRef01MatchDt0 := map[string]any{
+			"id": inboxThreadEmailRef01Data["id"],
+		}
+		if v := setup.idmap["inbox_id"]; v != nil {
+			inboxThreadEmailRef01MatchDt0["inbox_id"] = v
+		} else {
+			inboxThreadEmailRef01MatchDt0["inbox_id"] = setup.idmap["inbox01"]
+		}
+		if v := setup.idmap["thread_id"]; v != nil {
+			inboxThreadEmailRef01MatchDt0["thread_id"] = v
+		} else {
+			inboxThreadEmailRef01MatchDt0["thread_id"] = setup.idmap["thread01"]
+		}
+		inboxThreadEmailRef01DataDt0Loaded, err := inboxThreadEmailRef01Ent.Load(inboxThreadEmailRef01MatchDt0, nil)
+		if err != nil {
+			t.Fatalf("load failed: %v", err)
+		}
+		inboxThreadEmailRef01DataDt0LoadResult := core.ToMapAny(entityData(inboxThreadEmailRef01DataDt0Loaded))
+		if inboxThreadEmailRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if inboxThreadEmailRef01DataDt0LoadResult["id"] != inboxThreadEmailRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

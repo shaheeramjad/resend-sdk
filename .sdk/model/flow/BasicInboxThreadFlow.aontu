@@ -21,6 +21,52 @@ main: kit: flow: BasicInboxThreadFlow:
         }
       ]
     }
+
+    {
+      d: {
+        inbox_id: "inbox01"
+      }
+
+      i: {
+        ref: "inbox_thread_ref01",
+        srcdatavar: "inbox_thread_ref01_data",
+        suffix: "_up0",
+        textfield: "folder"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-inbox_thread_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "inbox_thread_ref01",
+        srcdatavar: "inbox_thread_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "inbox_thread01",
+        inbox_id: "inbox01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-inbox_thread_ref01"
+          }
+        }
+      ]
+    }
   ],
   "key$": "BasicInboxThreadFlow"
 }

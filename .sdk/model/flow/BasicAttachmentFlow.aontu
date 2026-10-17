@@ -1,0 +1,49 @@
+# BasicAttachmentFlow
+
+main: kit: flow: BasicAttachmentFlow:
+{
+  entity: "attachment",
+  kind: "basic",
+  name: "BasicAttachmentFlow",
+  step: [
+    {
+      m: {
+        email_id: "email01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "attachment_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "attachment_ref01",
+        srcdatavar: "attachment_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        email_id: "email01",
+        id: "attachment01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-attachment_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAttachmentFlow"
+}

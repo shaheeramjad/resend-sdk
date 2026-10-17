@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -38,7 +39,7 @@ func TestInboxThreadEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.InboxThread(nil).List(map[string]any{"id": 1}, nil)
+		_, err := client.InboxThread(nil).List(map[string]any{"inbox_id": 1}, nil)
 		if sdkerr, ok := err.(*core.ResendError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -53,7 +54,7 @@ func TestInboxThreadEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{"list", "update", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "inbox_thread." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -68,6 +69,9 @@ func TestInboxThreadEntity(t *testing.T) {
 					liveMiss(t, inbox_threadEntityLiveStrict, "Live entity test blocked: needs %s via RESEND_TEST_INBOX_THREAD_ENTID", _liveKey)
 				}
 			}
+		}
+		if setup.live {
+			liveMiss(t, inbox_threadEntityLiveStrict, "Live entity test blocked: %s", "the flow updates a inbox_thread record it did not create")
 		}
 		client := setup.client
 		_ = client
@@ -95,6 +99,52 @@ func TestInboxThreadEntity(t *testing.T) {
 		_, inboxThreadRef01ListOk := inboxThreadRef01ListResult.([]any)
 		if !inboxThreadRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", inboxThreadRef01ListResult)
+		}
+
+		// UPDATE
+		inboxThreadRef01DataUp0Up := map[string]any{
+			"id": inboxThreadRef01Data["id"],
+			"inbox_id": setup.idmap["inbox_id"],
+		}
+
+		inboxThreadRef01MarkdefUp0Name := "folder"
+		inboxThreadRef01MarkdefUp0Value := fmt.Sprintf("Mark01-inbox_thread_ref01_%d", setup.now)
+		inboxThreadRef01DataUp0Up[inboxThreadRef01MarkdefUp0Name] = inboxThreadRef01MarkdefUp0Value
+
+		inboxThreadRef01ResdataUp0Result, err := inboxThreadRef01Ent.Update(inboxThreadRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		inboxThreadRef01ResdataUp0 := core.ToMapAny(entityData(inboxThreadRef01ResdataUp0Result))
+		if inboxThreadRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if inboxThreadRef01ResdataUp0["id"] != inboxThreadRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if inboxThreadRef01ResdataUp0[inboxThreadRef01MarkdefUp0Name] != inboxThreadRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", inboxThreadRef01MarkdefUp0Name, inboxThreadRef01ResdataUp0[inboxThreadRef01MarkdefUp0Name])
+		}
+
+		// LOAD
+		inboxThreadRef01MatchDt0 := map[string]any{
+			"id": inboxThreadRef01Data["id"],
+		}
+		if v := setup.idmap["inbox_id"]; v != nil {
+			inboxThreadRef01MatchDt0["inbox_id"] = v
+		} else {
+			inboxThreadRef01MatchDt0["inbox_id"] = setup.idmap["inbox01"]
+		}
+		inboxThreadRef01DataDt0Loaded, err := inboxThreadRef01Ent.Load(inboxThreadRef01MatchDt0, nil)
+		if err != nil {
+			t.Fatalf("load failed: %v", err)
+		}
+		inboxThreadRef01DataDt0LoadResult := core.ToMapAny(entityData(inboxThreadRef01DataDt0Loaded))
+		if inboxThreadRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if inboxThreadRef01DataDt0LoadResult["id"] != inboxThreadRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})
@@ -149,6 +199,10 @@ func inbox_threadBasicSetup(extra map[string]any) *entityTestSetup {
 	idmapResolved := core.ToMapAny(env["RESEND_TEST_INBOX_THREAD_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
+	}
+	// Add inbox_id alias for update test.
+	if idmapResolved["inbox_id"] == nil {
+		idmapResolved["inbox_id"] = idmapResolved["inbox01"]
 	}
 
 	if env["RESEND_TEST_LIVE"] == "TRUE" {

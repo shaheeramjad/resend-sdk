@@ -54,6 +54,11 @@
       "version": 2,
       "source": "openapi3"
     },
+    "GET /webhooks/{webhook_id}/events": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /webhooks/{webhook_id}/events/{event_id}": {
       "provenance": "operation-contract",
       "version": 2,

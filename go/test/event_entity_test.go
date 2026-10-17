@@ -2,6 +2,7 @@ package sdktest
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -9,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 // main.kit.test.live.strict is true (the default is true): a live
@@ -190,7 +191,7 @@ func TestEventEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "event." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -236,6 +237,30 @@ func TestEventEntity(t *testing.T) {
 			t.Fatal("expected to find created entity in list")
 		}
 
+		// UPDATE
+		eventRef01DataUp0Up := map[string]any{
+			"id": eventRef01Data["id"],
+		}
+
+		eventRef01MarkdefUp0Name := "created_at"
+		eventRef01MarkdefUp0Value := fmt.Sprintf("Mark01-event_ref01_%d", setup.now)
+		eventRef01DataUp0Up[eventRef01MarkdefUp0Name] = eventRef01MarkdefUp0Value
+
+		eventRef01ResdataUp0Result, err := eventRef01Ent.Update(eventRef01DataUp0Up, nil)
+		if err != nil {
+			t.Fatalf("update failed: %v", err)
+		}
+		eventRef01ResdataUp0 := core.ToMapAny(entityData(eventRef01ResdataUp0Result))
+		if eventRef01ResdataUp0 == nil {
+			t.Fatal("expected update result to be a map")
+		}
+		if eventRef01ResdataUp0["id"] != eventRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
+		if eventRef01ResdataUp0[eventRef01MarkdefUp0Name] != eventRef01MarkdefUp0Value {
+			t.Fatalf("expected %s to be updated, got %v", eventRef01MarkdefUp0Name, eventRef01ResdataUp0[eventRef01MarkdefUp0Name])
+		}
+
 		// LOAD
 		eventRef01MatchDt0 := map[string]any{
 			"id": eventRef01Data["id"],
@@ -250,6 +275,32 @@ func TestEventEntity(t *testing.T) {
 		}
 		if eventRef01DataDt0LoadResult["id"] != eventRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		eventRef01MatchRm0 := map[string]any{
+			"id": eventRef01Data["id"],
+		}
+		_, err = eventRef01Ent.Remove(eventRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		eventRef01MatchRt0 := map[string]any{}
+
+		eventRef01ListRt0Result, err := eventRef01Ent.List(eventRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		eventRef01ListRt0, eventRef01ListRt0Ok := eventRef01ListRt0Result.([]any)
+		if !eventRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", eventRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(eventRef01ListRt0), map[string]any{"id": eventRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

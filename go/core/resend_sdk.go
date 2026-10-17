@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type ResendSDK struct {
@@ -372,27 +372,19 @@ func (sdk *ResendSDK) Graphql(
 }
 
 
-// AddContactToSegmentResponseSuccess returns a AddContactToSegmentResponseSuccess entity bound to this client.
-// Idiomatic usage: client.AddContactToSegmentResponseSuccess(nil).List(nil, nil) or
-// client.AddContactToSegmentResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) AddContactToSegmentResponseSuccess(data map[string]any) ResendEntity {
-	return NewAddContactToSegmentResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// AddInboxThreadLabelsResponseSuccess returns a AddInboxThreadLabelsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.AddInboxThreadLabelsResponseSuccess(nil).List(nil, nil) or
-// client.AddInboxThreadLabelsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) AddInboxThreadLabelsResponseSuccess(data map[string]any) ResendEntity {
-	return NewAddInboxThreadLabelsResponseSuccessEntityFunc(sdk, data)
-}
-
-
 // ApiKey returns a ApiKey entity bound to this client.
 // Idiomatic usage: client.ApiKey(nil).List(nil, nil) or
 // client.ApiKey(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) ApiKey(data map[string]any) ResendEntity {
 	return NewApiKeyEntityFunc(sdk, data)
+}
+
+
+// Attachment returns a Attachment entity bound to this client.
+// Idiomatic usage: client.Attachment(nil).List(nil, nil) or
+// client.Attachment(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) Attachment(data map[string]any) ResendEntity {
+	return NewAttachmentEntityFunc(sdk, data)
 }
 
 
@@ -420,35 +412,27 @@ func (sdk *ResendSDK) AutomationRun(data map[string]any) ResendEntity {
 }
 
 
-// AutomationRunListItem returns a AutomationRunListItem entity bound to this client.
-// Idiomatic usage: client.AutomationRunListItem(nil).List(nil, nil) or
-// client.AutomationRunListItem(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) AutomationRunListItem(data map[string]any) ResendEntity {
-	return NewAutomationRunListItemEntityFunc(sdk, data)
-}
-
-
-// BatchAddSuppressionsResponseSuccess returns a BatchAddSuppressionsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.BatchAddSuppressionsResponseSuccess(nil).List(nil, nil) or
-// client.BatchAddSuppressionsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) BatchAddSuppressionsResponseSuccess(data map[string]any) ResendEntity {
-	return NewBatchAddSuppressionsResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// BatchRemoveSuppressionsResponseSuccess returns a BatchRemoveSuppressionsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.BatchRemoveSuppressionsResponseSuccess(nil).List(nil, nil) or
-// client.BatchRemoveSuppressionsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) BatchRemoveSuppressionsResponseSuccess(data map[string]any) ResendEntity {
-	return NewBatchRemoveSuppressionsResponseSuccessEntityFunc(sdk, data)
-}
-
-
 // Broadcast returns a Broadcast entity bound to this client.
 // Idiomatic usage: client.Broadcast(nil).List(nil, nil) or
 // client.Broadcast(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) Broadcast(data map[string]any) ResendEntity {
 	return NewBroadcastEntityFunc(sdk, data)
+}
+
+
+// BroadcastClickedLink returns a BroadcastClickedLink entity bound to this client.
+// Idiomatic usage: client.BroadcastClickedLink(nil).List(nil, nil) or
+// client.BroadcastClickedLink(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) BroadcastClickedLink(data map[string]any) ResendEntity {
+	return NewBroadcastClickedLinkEntityFunc(sdk, data)
+}
+
+
+// BroadcastRecipient returns a BroadcastRecipient entity bound to this client.
+// Idiomatic usage: client.BroadcastRecipient(nil).List(nil, nil) or
+// client.BroadcastRecipient(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) BroadcastRecipient(data map[string]any) ResendEntity {
+	return NewBroadcastRecipientEntityFunc(sdk, data)
 }
 
 
@@ -460,11 +444,11 @@ func (sdk *ResendSDK) Contact(data map[string]any) ResendEntity {
 }
 
 
-// ContactImportResponseSuccess returns a ContactImportResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ContactImportResponseSuccess(nil).List(nil, nil) or
-// client.ContactImportResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ContactImportResponseSuccess(data map[string]any) ResendEntity {
-	return NewContactImportResponseSuccessEntityFunc(sdk, data)
+// ContactImport returns a ContactImport entity bound to this client.
+// Idiomatic usage: client.ContactImport(nil).List(nil, nil) or
+// client.ContactImport(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) ContactImport(data map[string]any) ResendEntity {
+	return NewContactImportEntityFunc(sdk, data)
 }
 
 
@@ -476,51 +460,19 @@ func (sdk *ResendSDK) ContactProperty(data map[string]any) ResendEntity {
 }
 
 
-// ContactTopicsResponseSuccess returns a ContactTopicsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ContactTopicsResponseSuccess(nil).List(nil, nil) or
-// client.ContactTopicsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ContactTopicsResponseSuccess(data map[string]any) ResendEntity {
-	return NewContactTopicsResponseSuccessEntityFunc(sdk, data)
+// ContactSegment returns a ContactSegment entity bound to this client.
+// Idiomatic usage: client.ContactSegment(nil).List(nil, nil) or
+// client.ContactSegment(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) ContactSegment(data map[string]any) ResendEntity {
+	return NewContactSegmentEntityFunc(sdk, data)
 }
 
 
-// CreateApiKey returns a CreateApiKey entity bound to this client.
-// Idiomatic usage: client.CreateApiKey(nil).List(nil, nil) or
-// client.CreateApiKey(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) CreateApiKey(data map[string]any) ResendEntity {
-	return NewCreateApiKeyEntityFunc(sdk, data)
-}
-
-
-// CreateBatchEmail returns a CreateBatchEmail entity bound to this client.
-// Idiomatic usage: client.CreateBatchEmail(nil).List(nil, nil) or
-// client.CreateBatchEmail(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) CreateBatchEmail(data map[string]any) ResendEntity {
-	return NewCreateBatchEmailEntityFunc(sdk, data)
-}
-
-
-// CreateBroadcastResponseSuccess returns a CreateBroadcastResponseSuccess entity bound to this client.
-// Idiomatic usage: client.CreateBroadcastResponseSuccess(nil).List(nil, nil) or
-// client.CreateBroadcastResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) CreateBroadcastResponseSuccess(data map[string]any) ResendEntity {
-	return NewCreateBroadcastResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// CreateInboxDraftResponseSuccess returns a CreateInboxDraftResponseSuccess entity bound to this client.
-// Idiomatic usage: client.CreateInboxDraftResponseSuccess(nil).List(nil, nil) or
-// client.CreateInboxDraftResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) CreateInboxDraftResponseSuccess(data map[string]any) ResendEntity {
-	return NewCreateInboxDraftResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// CreateInboxLabelResponseSuccess returns a CreateInboxLabelResponseSuccess entity bound to this client.
-// Idiomatic usage: client.CreateInboxLabelResponseSuccess(nil).List(nil, nil) or
-// client.CreateInboxLabelResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) CreateInboxLabelResponseSuccess(data map[string]any) ResendEntity {
-	return NewCreateInboxLabelResponseSuccessEntityFunc(sdk, data)
+// ContactTopic returns a ContactTopic entity bound to this client.
+// Idiomatic usage: client.ContactTopic(nil).List(nil, nil) or
+// client.ContactTopic(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) ContactTopic(data map[string]any) ResendEntity {
+	return NewContactTopicEntityFunc(sdk, data)
 }
 
 
@@ -548,6 +500,14 @@ func (sdk *ResendSDK) Email(data map[string]any) ResendEntity {
 }
 
 
+// EmailBatch returns a EmailBatch entity bound to this client.
+// Idiomatic usage: client.EmailBatch(nil).List(nil, nil) or
+// client.EmailBatch(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) EmailBatch(data map[string]any) ResendEntity {
+	return NewEmailBatchEntityFunc(sdk, data)
+}
+
+
 // EmailsMetric returns a EmailsMetric entity bound to this client.
 // Idiomatic usage: client.EmailsMetric(nil).List(nil, nil) or
 // client.EmailsMetric(nil).Load(map[string]any{"id": ...}, nil).
@@ -572,27 +532,19 @@ func (sdk *ResendSDK) Inbox(data map[string]any) ResendEntity {
 }
 
 
-// InboxAgentResponseSuccess returns a InboxAgentResponseSuccess entity bound to this client.
-// Idiomatic usage: client.InboxAgentResponseSuccess(nil).List(nil, nil) or
-// client.InboxAgentResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) InboxAgentResponseSuccess(data map[string]any) ResendEntity {
-	return NewInboxAgentResponseSuccessEntityFunc(sdk, data)
+// InboxAgent returns a InboxAgent entity bound to this client.
+// Idiomatic usage: client.InboxAgent(nil).List(nil, nil) or
+// client.InboxAgent(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) InboxAgent(data map[string]any) ResendEntity {
+	return NewInboxAgentEntityFunc(sdk, data)
 }
 
 
-// InboxDraftListItem returns a InboxDraftListItem entity bound to this client.
-// Idiomatic usage: client.InboxDraftListItem(nil).List(nil, nil) or
-// client.InboxDraftListItem(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) InboxDraftListItem(data map[string]any) ResendEntity {
-	return NewInboxDraftListItemEntityFunc(sdk, data)
-}
-
-
-// InboxDraftResponseSuccess returns a InboxDraftResponseSuccess entity bound to this client.
-// Idiomatic usage: client.InboxDraftResponseSuccess(nil).List(nil, nil) or
-// client.InboxDraftResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) InboxDraftResponseSuccess(data map[string]any) ResendEntity {
-	return NewInboxDraftResponseSuccessEntityFunc(sdk, data)
+// InboxDraft returns a InboxDraft entity bound to this client.
+// Idiomatic usage: client.InboxDraft(nil).List(nil, nil) or
+// client.InboxDraft(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) InboxDraft(data map[string]any) ResendEntity {
+	return NewInboxDraftEntityFunc(sdk, data)
 }
 
 
@@ -620,75 +572,11 @@ func (sdk *ResendSDK) InboxThreadEmail(data map[string]any) ResendEntity {
 }
 
 
-// InboxThreadEmailResponseSuccess returns a InboxThreadEmailResponseSuccess entity bound to this client.
-// Idiomatic usage: client.InboxThreadEmailResponseSuccess(nil).List(nil, nil) or
-// client.InboxThreadEmailResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) InboxThreadEmailResponseSuccess(data map[string]any) ResendEntity {
-	return NewInboxThreadEmailResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// InboxThreadResponseSuccess returns a InboxThreadResponseSuccess entity bound to this client.
-// Idiomatic usage: client.InboxThreadResponseSuccess(nil).List(nil, nil) or
-// client.InboxThreadResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) InboxThreadResponseSuccess(data map[string]any) ResendEntity {
-	return NewInboxThreadResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// ListAttachment returns a ListAttachment entity bound to this client.
-// Idiomatic usage: client.ListAttachment(nil).List(nil, nil) or
-// client.ListAttachment(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListAttachment(data map[string]any) ResendEntity {
-	return NewListAttachmentEntityFunc(sdk, data)
-}
-
-
-// ListBroadcastClickedLinksResponseSuccess returns a ListBroadcastClickedLinksResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ListBroadcastClickedLinksResponseSuccess(nil).List(nil, nil) or
-// client.ListBroadcastClickedLinksResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListBroadcastClickedLinksResponseSuccess(data map[string]any) ResendEntity {
-	return NewListBroadcastClickedLinksResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// ListBroadcastRecipientsResponseSuccess returns a ListBroadcastRecipientsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ListBroadcastRecipientsResponseSuccess(nil).List(nil, nil) or
-// client.ListBroadcastRecipientsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListBroadcastRecipientsResponseSuccess(data map[string]any) ResendEntity {
-	return NewListBroadcastRecipientsResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// ListContactSegmentsResponseSuccess returns a ListContactSegmentsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ListContactSegmentsResponseSuccess(nil).List(nil, nil) or
-// client.ListContactSegmentsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListContactSegmentsResponseSuccess(data map[string]any) ResendEntity {
-	return NewListContactSegmentsResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// ListContactsResponseSuccess returns a ListContactsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.ListContactsResponseSuccess(nil).List(nil, nil) or
-// client.ListContactsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListContactsResponseSuccess(data map[string]any) ResendEntity {
-	return NewListContactsResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// ListWebhookEvent returns a ListWebhookEvent entity bound to this client.
-// Idiomatic usage: client.ListWebhookEvent(nil).List(nil, nil) or
-// client.ListWebhookEvent(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListWebhookEvent(data map[string]any) ResendEntity {
-	return NewListWebhookEventEntityFunc(sdk, data)
-}
-
-
-// ListWebhookEventAttempt returns a ListWebhookEventAttempt entity bound to this client.
-// Idiomatic usage: client.ListWebhookEventAttempt(nil).List(nil, nil) or
-// client.ListWebhookEventAttempt(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) ListWebhookEventAttempt(data map[string]any) ResendEntity {
-	return NewListWebhookEventAttemptEntityFunc(sdk, data)
+// InboxThreadLabel returns a InboxThreadLabel entity bound to this client.
+// Idiomatic usage: client.InboxThreadLabel(nil).List(nil, nil) or
+// client.InboxThreadLabel(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) InboxThreadLabel(data map[string]any) ResendEntity {
+	return NewInboxThreadLabelEntityFunc(sdk, data)
 }
 
 
@@ -700,155 +588,27 @@ func (sdk *ResendSDK) Log(data map[string]any) ResendEntity {
 }
 
 
+// OauthGrant returns a OauthGrant entity bound to this client.
+// Idiomatic usage: client.OauthGrant(nil).List(nil, nil) or
+// client.OauthGrant(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) OauthGrant(data map[string]any) ResendEntity {
+	return NewOauthGrantEntityFunc(sdk, data)
+}
+
+
+// ReceivedAttachment returns a ReceivedAttachment entity bound to this client.
+// Idiomatic usage: client.ReceivedAttachment(nil).List(nil, nil) or
+// client.ReceivedAttachment(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) ReceivedAttachment(data map[string]any) ResendEntity {
+	return NewReceivedAttachmentEntityFunc(sdk, data)
+}
+
+
 // ReceivedEmail returns a ReceivedEmail entity bound to this client.
 // Idiomatic usage: client.ReceivedEmail(nil).List(nil, nil) or
 // client.ReceivedEmail(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) ReceivedEmail(data map[string]any) ResendEntity {
 	return NewReceivedEmailEntityFunc(sdk, data)
-}
-
-
-// RemoveAudienceResponseSuccess returns a RemoveAudienceResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveAudienceResponseSuccess(nil).List(nil, nil) or
-// client.RemoveAudienceResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveAudienceResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveAudienceResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveBroadcastResponseSuccess returns a RemoveBroadcastResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveBroadcastResponseSuccess(nil).List(nil, nil) or
-// client.RemoveBroadcastResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveBroadcastResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveBroadcastResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveContactFromSegmentResponseSuccess returns a RemoveContactFromSegmentResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveContactFromSegmentResponseSuccess(nil).List(nil, nil) or
-// client.RemoveContactFromSegmentResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveContactFromSegmentResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveContactFromSegmentResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveContactPropertyResponseSuccess returns a RemoveContactPropertyResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveContactPropertyResponseSuccess(nil).List(nil, nil) or
-// client.RemoveContactPropertyResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveContactPropertyResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveContactPropertyResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveContactResponseSuccess returns a RemoveContactResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveContactResponseSuccess(nil).List(nil, nil) or
-// client.RemoveContactResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveContactResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveContactResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveEvent returns a RemoveEvent entity bound to this client.
-// Idiomatic usage: client.RemoveEvent(nil).List(nil, nil) or
-// client.RemoveEvent(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveEvent(data map[string]any) ResendEntity {
-	return NewRemoveEventEntityFunc(sdk, data)
-}
-
-
-// RemoveInboxDraftResponseSuccess returns a RemoveInboxDraftResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveInboxDraftResponseSuccess(nil).List(nil, nil) or
-// client.RemoveInboxDraftResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveInboxDraftResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveInboxDraftResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveInboxLabelResponseSuccess returns a RemoveInboxLabelResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveInboxLabelResponseSuccess(nil).List(nil, nil) or
-// client.RemoveInboxLabelResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveInboxLabelResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveInboxLabelResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveInboxResponseSuccess returns a RemoveInboxResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveInboxResponseSuccess(nil).List(nil, nil) or
-// client.RemoveInboxResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveInboxResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveInboxResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveInboxThreadLabelResponseSuccess returns a RemoveInboxThreadLabelResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveInboxThreadLabelResponseSuccess(nil).List(nil, nil) or
-// client.RemoveInboxThreadLabelResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveInboxThreadLabelResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveInboxThreadLabelResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveInboxThreadResponseSuccess returns a RemoveInboxThreadResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveInboxThreadResponseSuccess(nil).List(nil, nil) or
-// client.RemoveInboxThreadResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveInboxThreadResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveInboxThreadResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveSegmentResponseSuccess returns a RemoveSegmentResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveSegmentResponseSuccess(nil).List(nil, nil) or
-// client.RemoveSegmentResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveSegmentResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveSegmentResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveSuppressionResponseSuccess returns a RemoveSuppressionResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveSuppressionResponseSuccess(nil).List(nil, nil) or
-// client.RemoveSuppressionResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveSuppressionResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveSuppressionResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveTemplateResponseSuccess returns a RemoveTemplateResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveTemplateResponseSuccess(nil).List(nil, nil) or
-// client.RemoveTemplateResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveTemplateResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveTemplateResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RemoveTopicResponseSuccess returns a RemoveTopicResponseSuccess entity bound to this client.
-// Idiomatic usage: client.RemoveTopicResponseSuccess(nil).List(nil, nil) or
-// client.RemoveTopicResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RemoveTopicResponseSuccess(data map[string]any) ResendEntity {
-	return NewRemoveTopicResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// RetrievedAttachment returns a RetrievedAttachment entity bound to this client.
-// Idiomatic usage: client.RetrievedAttachment(nil).List(nil, nil) or
-// client.RetrievedAttachment(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RetrievedAttachment(data map[string]any) ResendEntity {
-	return NewRetrievedAttachmentEntityFunc(sdk, data)
-}
-
-
-// RevokeOAuthGrant returns a RevokeOAuthGrant entity bound to this client.
-// Idiomatic usage: client.RevokeOAuthGrant(nil).List(nil, nil) or
-// client.RevokeOAuthGrant(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) RevokeOAuthGrant(data map[string]any) ResendEntity {
-	return NewRevokeOAuthGrantEntityFunc(sdk, data)
-}
-
-
-// Rotate returns a Rotate entity bound to this client.
-// Idiomatic usage: client.Rotate(nil).List(nil, nil) or
-// client.Rotate(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) Rotate(data map[string]any) ResendEntity {
-	return NewRotateEntityFunc(sdk, data)
 }
 
 
@@ -860,11 +620,11 @@ func (sdk *ResendSDK) Segment(data map[string]any) ResendEntity {
 }
 
 
-// SetInboxThreadLabelsResponseSuccess returns a SetInboxThreadLabelsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.SetInboxThreadLabelsResponseSuccess(nil).List(nil, nil) or
-// client.SetInboxThreadLabelsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) SetInboxThreadLabelsResponseSuccess(data map[string]any) ResendEntity {
-	return NewSetInboxThreadLabelsResponseSuccessEntityFunc(sdk, data)
+// SegmentContact returns a SegmentContact entity bound to this client.
+// Idiomatic usage: client.SegmentContact(nil).List(nil, nil) or
+// client.SegmentContact(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) SegmentContact(data map[string]any) ResendEntity {
+	return NewSegmentContactEntityFunc(sdk, data)
 }
 
 
@@ -873,6 +633,22 @@ func (sdk *ResendSDK) SetInboxThreadLabelsResponseSuccess(data map[string]any) R
 // client.Suppression(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) Suppression(data map[string]any) ResendEntity {
 	return NewSuppressionEntityFunc(sdk, data)
+}
+
+
+// SuppressionBatchAdd returns a SuppressionBatchAdd entity bound to this client.
+// Idiomatic usage: client.SuppressionBatchAdd(nil).List(nil, nil) or
+// client.SuppressionBatchAdd(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) SuppressionBatchAdd(data map[string]any) ResendEntity {
+	return NewSuppressionBatchAddEntityFunc(sdk, data)
+}
+
+
+// SuppressionBatchRemove returns a SuppressionBatchRemove entity bound to this client.
+// Idiomatic usage: client.SuppressionBatchRemove(nil).List(nil, nil) or
+// client.SuppressionBatchRemove(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) SuppressionBatchRemove(data map[string]any) ResendEntity {
+	return NewSuppressionBatchRemoveEntityFunc(sdk, data)
 }
 
 
@@ -889,134 +665,6 @@ func (sdk *ResendSDK) Template(data map[string]any) ResendEntity {
 // client.Topic(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) Topic(data map[string]any) ResendEntity {
 	return NewTopicEntityFunc(sdk, data)
-}
-
-
-// UpdateApiKey returns a UpdateApiKey entity bound to this client.
-// Idiomatic usage: client.UpdateApiKey(nil).List(nil, nil) or
-// client.UpdateApiKey(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateApiKey(data map[string]any) ResendEntity {
-	return NewUpdateApiKeyEntityFunc(sdk, data)
-}
-
-
-// UpdateBroadcastResponseSuccess returns a UpdateBroadcastResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateBroadcastResponseSuccess(nil).List(nil, nil) or
-// client.UpdateBroadcastResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateBroadcastResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateBroadcastResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateContactPropertyResponseSuccess returns a UpdateContactPropertyResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateContactPropertyResponseSuccess(nil).List(nil, nil) or
-// client.UpdateContactPropertyResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateContactPropertyResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateContactPropertyResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateContactResponseSuccess returns a UpdateContactResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateContactResponseSuccess(nil).List(nil, nil) or
-// client.UpdateContactResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateContactResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateContactResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateContactTopicsResponseSuccess returns a UpdateContactTopicsResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateContactTopicsResponseSuccess(nil).List(nil, nil) or
-// client.UpdateContactTopicsResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateContactTopicsResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateContactTopicsResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateDomainResponseSuccess returns a UpdateDomainResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateDomainResponseSuccess(nil).List(nil, nil) or
-// client.UpdateDomainResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateDomainResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateDomainResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateEmailOption returns a UpdateEmailOption entity bound to this client.
-// Idiomatic usage: client.UpdateEmailOption(nil).List(nil, nil) or
-// client.UpdateEmailOption(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateEmailOption(data map[string]any) ResendEntity {
-	return NewUpdateEmailOptionEntityFunc(sdk, data)
-}
-
-
-// UpdateEvent returns a UpdateEvent entity bound to this client.
-// Idiomatic usage: client.UpdateEvent(nil).List(nil, nil) or
-// client.UpdateEvent(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateEvent(data map[string]any) ResendEntity {
-	return NewUpdateEventEntityFunc(sdk, data)
-}
-
-
-// UpdateInboxDraftResponseSuccess returns a UpdateInboxDraftResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateInboxDraftResponseSuccess(nil).List(nil, nil) or
-// client.UpdateInboxDraftResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateInboxDraftResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateInboxDraftResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateInboxLabelResponseSuccess returns a UpdateInboxLabelResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateInboxLabelResponseSuccess(nil).List(nil, nil) or
-// client.UpdateInboxLabelResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateInboxLabelResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateInboxLabelResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateInboxResponseSuccess returns a UpdateInboxResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateInboxResponseSuccess(nil).List(nil, nil) or
-// client.UpdateInboxResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateInboxResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateInboxResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateInboxThreadResponseSuccess returns a UpdateInboxThreadResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateInboxThreadResponseSuccess(nil).List(nil, nil) or
-// client.UpdateInboxThreadResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateInboxThreadResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateInboxThreadResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateSegmentResponseSuccess returns a UpdateSegmentResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateSegmentResponseSuccess(nil).List(nil, nil) or
-// client.UpdateSegmentResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateSegmentResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateSegmentResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateTemplateResponseSuccess returns a UpdateTemplateResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateTemplateResponseSuccess(nil).List(nil, nil) or
-// client.UpdateTemplateResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateTemplateResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateTemplateResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateTopicResponseSuccess returns a UpdateTopicResponseSuccess entity bound to this client.
-// Idiomatic usage: client.UpdateTopicResponseSuccess(nil).List(nil, nil) or
-// client.UpdateTopicResponseSuccess(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateTopicResponseSuccess(data map[string]any) ResendEntity {
-	return NewUpdateTopicResponseSuccessEntityFunc(sdk, data)
-}
-
-
-// UpdateWebhook returns a UpdateWebhook entity bound to this client.
-// Idiomatic usage: client.UpdateWebhook(nil).List(nil, nil) or
-// client.UpdateWebhook(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *ResendSDK) UpdateWebhook(data map[string]any) ResendEntity {
-	return NewUpdateWebhookEntityFunc(sdk, data)
 }
 
 
@@ -1041,6 +689,14 @@ func (sdk *ResendSDK) Webhook(data map[string]any) ResendEntity {
 // client.WebhookEvent(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ResendSDK) WebhookEvent(data map[string]any) ResendEntity {
 	return NewWebhookEventEntityFunc(sdk, data)
+}
+
+
+// WebhookEventAttempt returns a WebhookEventAttempt entity bound to this client.
+// Idiomatic usage: client.WebhookEventAttempt(nil).List(nil, nil) or
+// client.WebhookEventAttempt(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *ResendSDK) WebhookEventAttempt(data map[string]any) ResendEntity {
+	return NewWebhookEventAttemptEntityFunc(sdk, data)
 }
 
 

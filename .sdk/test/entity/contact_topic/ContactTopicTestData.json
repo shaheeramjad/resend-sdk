@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "contact_topic": {
+      "CONTACT_TOPIC00": {
+        "contact_id": "CONTACT01",
+        "description": "s47",
+        "id": "CONTACT_TOPIC00",
+        "name": "s49",
+        "object": "s4a",
+        "subscription": "s4b",
+        "topics": []
+      },
+      "CONTACT_TOPIC01": {
+        "contact_id": "CONTACT01",
+        "description": "s8d",
+        "id": "CONTACT_TOPIC01",
+        "name": "s8f",
+        "object": "s90",
+        "subscription": "s91",
+        "topics": []
+      },
+      "CONTACT_TOPIC02": {
+        "contact_id": "CONTACT01",
+        "description": "sd3",
+        "id": "CONTACT_TOPIC02",
+        "name": "sd5",
+        "object": "sd6",
+        "subscription": "sd7",
+        "topics": []
+      }
+    }
+  },
+  "new": {
+    "contact_topic": {
+      "contact_topic_ref01": {
+        "contact_id": "CONTACT01",
+        "description": "s119",
+        "name": "s11b",
+        "object": "s11c",
+        "subscription": "s11d",
+        "topics": []
+      }
+    }
+  },
+  "requests": {
+    "GET /contacts/{contact_id}/topics": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /contacts/{contact_id}/topics": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

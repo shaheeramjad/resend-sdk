@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type Response struct {

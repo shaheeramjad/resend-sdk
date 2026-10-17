@@ -15,6 +15,12 @@ main: kit: entity: webhook: {
     endpoint: {
       h: "Endpoint"
       n: "endpoint"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
       r: false
       sh: "The URL where webhook events are sent."
       t: "`$STRING`"
@@ -22,6 +28,12 @@ main: kit: entity: webhook: {
     events: {
       h: "Events"
       n: "events"
+      op: {
+        create: {
+          req: true
+          type: "`$ARRAY`"
+        }
+      }
       r: false
       sh: "Array of event types subscribed to."
       t: [
@@ -70,6 +82,142 @@ main: kit: entity: webhook: {
 
   name: "webhook"
   op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /webhooks/{webhook_id}/signing-secret/rotate"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "webhook_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/webhooks/{webhook_id}/signing-secret/rotate"
+          q: {
+            "$action": "rotate"
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              webhook_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "signing-secret"
+            }
+            {
+              lit: "rotate"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          bf: [
+            "endpoint"
+            "events"
+          ]
+          co: {
+            id: "POST /webhooks"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/webhooks"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /webhooks"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/webhooks"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [
@@ -142,6 +290,62 @@ main: kit: entity: webhook: {
             ]
           }
           m: "DELETE"
+          o: "/webhooks/{webhook_id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              webhook_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "webhooks"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "endpoint"
+            "events"
+            "status"
+          ]
+          co: {
+            id: "PATCH /webhooks/{webhook_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "webhook_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/webhooks/{webhook_id}"
           q: {
             exist: [

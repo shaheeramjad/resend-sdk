@@ -1,9 +1,0 @@
-# BasicRemoveContactPropertyResponseSuccessFlow
-
-main: kit: flow: BasicRemoveContactPropertyResponseSuccessFlow:
-{
-  entity: "remove_contact_property_response_success",
-  kind: "basic",
-  name: "BasicRemoveContactPropertyResponseSuccessFlow",
-  "key$": "BasicRemoveContactPropertyResponseSuccessFlow"
-}

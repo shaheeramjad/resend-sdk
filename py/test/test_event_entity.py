@@ -139,7 +139,7 @@ class TestEventEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["create", "list", "update", "load", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "event." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -166,6 +166,20 @@ class TestEventEntity:
             {"id": event_ref01_data["id"]})
         assert not vs.isempty(found_item)
 
+        # UPDATE
+        event_ref01_data_up0_up = {
+            "id": event_ref01_data["id"],
+        }
+
+        event_ref01_markdef_up0_name = "created_at"
+        event_ref01_markdef_up0_value = "Mark01-event_ref01_" + str(setup["now"])
+        event_ref01_data_up0_up[event_ref01_markdef_up0_name] = event_ref01_markdef_up0_value
+
+        event_ref01_resdata_up0 = helpers.to_map(runner.entity_data(event_ref01_ent.update(event_ref01_data_up0_up, None)))
+        assert event_ref01_resdata_up0 is not None
+        assert event_ref01_resdata_up0["id"] == event_ref01_data_up0_up["id"]
+        assert event_ref01_resdata_up0[event_ref01_markdef_up0_name] == event_ref01_markdef_up0_value
+
         # LOAD
         event_ref01_match_dt0 = {
             "id": event_ref01_data["id"],
@@ -174,6 +188,23 @@ class TestEventEntity:
         event_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(event_ref01_data_dt0_loaded))
         assert event_ref01_data_dt0_load_result is not None
         assert event_ref01_data_dt0_load_result["id"] == event_ref01_data["id"]
+
+        # REMOVE
+        event_ref01_match_rm0 = {
+            "id": event_ref01_data["id"],
+        }
+        event_ref01_ent.remove(event_ref01_match_rm0, None)
+
+        # LIST
+        event_ref01_match_rt0 = {}
+
+        event_ref01_list_rt0_result = event_ref01_ent.list(event_ref01_match_rt0, None)
+        assert isinstance(event_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(event_ref01_list_rt0_result),
+            {"id": event_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

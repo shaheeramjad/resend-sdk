@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 )
 
 // Features with a corpus section are read from the corpus itself (see

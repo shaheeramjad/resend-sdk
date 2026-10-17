@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type TopicEntity struct {
@@ -333,19 +333,112 @@ func (e *TopicEntity) LoadTyped(reqmatch TopicLoadMatch, ctrl map[string]any) (T
 
 
 
-func (e *TopicEntity) List(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("list", e.name)
+
+func (e *TopicEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "list",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+		}
+	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// TopicListMatch and returns []Topic. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *TopicEntity) ListTyped(reqmatch TopicListMatch, ctrl map[string]any) ([]Topic, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Topic](res), nil
 }
 
 
-func (e *TopicEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("create", e.name)
+
+
+func (e *TopicEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "create",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// TopicCreateData and returns an Topic. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *TopicEntity) CreateTyped(reqdata TopicCreateData, ctrl map[string]any) (Topic, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Topic{}, err
+	}
+	return typedFrom[Topic](res), nil
 }
 
 
-func (e *TopicEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+
+func (e *TopicEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// TopicUpdateData and returns an Topic. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *TopicEntity) UpdateTyped(reqdata TopicUpdateData, ctrl map[string]any) (Topic, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Topic{}, err
+	}
+	return typedFrom[Topic](res), nil
+}
+
 
 
 func (e *TopicEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
@@ -353,9 +446,43 @@ func (e *TopicEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
 }
 
 
-func (e *TopicEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *TopicEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// TopicRemoveMatch and returns an Topic. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *TopicEntity) RemoveTyped(reqmatch TopicRemoveMatch, ctrl map[string]any) (Topic, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Topic{}, err
+	}
+	return typedFrom[Topic](res), nil
+}
+
 
 
 func (e *TopicEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

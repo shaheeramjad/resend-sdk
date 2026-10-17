@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type BroadcastEntity struct {
@@ -402,9 +402,43 @@ func (e *BroadcastEntity) CreateTyped(reqdata BroadcastCreateData, ctrl map[stri
 
 
 
-func (e *BroadcastEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("update", e.name)
+
+func (e *BroadcastEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":  "update",
+		"ctrl":    ctrl,
+		"match":   e.match,
+		"data":    e.data,
+		"reqdata": reqdata,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// BroadcastUpdateData and returns an Broadcast. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *BroadcastEntity) UpdateTyped(reqdata BroadcastUpdateData, ctrl map[string]any) (Broadcast, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Broadcast{}, err
+	}
+	return typedFrom[Broadcast](res), nil
+}
+
 
 
 func (e *BroadcastEntity) Patch(_ map[string]any, _ map[string]any) (any, error) {
@@ -412,9 +446,43 @@ func (e *BroadcastEntity) Patch(_ map[string]any, _ map[string]any) (any, error)
 }
 
 
-func (e *BroadcastEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("remove", e.name)
+
+func (e *BroadcastEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "remove",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = map[string]any{}
+				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
+					e.data = data
+				}
+			}
+		}
+	})
 }
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// BroadcastRemoveMatch and returns an Broadcast. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *BroadcastEntity) RemoveTyped(reqmatch BroadcastRemoveMatch, ctrl map[string]any) (Broadcast, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Broadcast{}, err
+	}
+	return typedFrom[Broadcast](res), nil
+}
+
 
 
 func (e *BroadcastEntity) runOp(ctx *core.Context, postDone func()) (out any, err error) {

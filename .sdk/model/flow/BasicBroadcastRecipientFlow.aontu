@@ -1,0 +1,26 @@
+# BasicBroadcastRecipientFlow
+
+main: kit: flow: BasicBroadcastRecipientFlow:
+{
+  entity: "broadcast_recipient",
+  kind: "basic",
+  name: "BasicBroadcastRecipientFlow",
+  step: [
+    {
+      m: {
+        broadcast_id: "broadcast01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "broadcast_recipient_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicBroadcastRecipientFlow"
+}

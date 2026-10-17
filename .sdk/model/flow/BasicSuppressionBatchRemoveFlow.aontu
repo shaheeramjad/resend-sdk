@@ -1,0 +1,18 @@
+# BasicSuppressionBatchRemoveFlow
+
+main: kit: flow: BasicSuppressionBatchRemoveFlow:
+{
+  entity: "suppression_batch_remove",
+  kind: "basic",
+  name: "BasicSuppressionBatchRemoveFlow",
+  step: [
+    {
+      i: {
+        ref: "suppression_batch_remove_ref01"
+      }
+
+      o: "create"
+    }
+  ],
+  "key$": "BasicSuppressionBatchRemoveFlow"
+}

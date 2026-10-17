@@ -1,0 +1,74 @@
+# Entity: suppression_batch_remove
+
+main: kit: entity: suppression_batch_remove: {
+
+  alias: field: {}
+
+  fields: {
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      sh: "Array containing the removed suppressions."
+      t: "`$ARRAY`"
+    }
+    emails: {
+      h: "Emails"
+      n: "emails"
+      r: false
+      sh: "Email addresses to remove from the suppression list."
+      t: "`$ARRAY`"
+    }
+    ids: {
+      h: "Ids"
+      n: "ids"
+      r: false
+      sh: "Suppression IDs to remove from the suppression list."
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "suppression_batch_remove"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          bf: [
+            "emails"
+            "ids"
+          ]
+          co: {
+            id: "POST /suppressions/batch/remove"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/suppressions/batch/remove"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "suppressions"
+            }
+            {
+              lit: "batch"
+            }
+            {
+              lit: "remove"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

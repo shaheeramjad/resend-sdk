@@ -91,6 +91,11 @@
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
+    },
+    "PATCH /domains/{domain_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
     }
   }
 }

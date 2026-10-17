@@ -41,13 +41,59 @@ describe('TemplateEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('template hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of ResendSDK.test(offline).Template().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of ResendSDK.test(offline).Template()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = ResendSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Template().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of ResendSDK.test().Template().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new ResendSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Template().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Template().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
   test('validate', async (t) => {
     if (null == (config as any).feature?.validate) {
       t.skip('feature not present in this SDK: validate')
       return
     }
     const client = ResendSDK.test(undefined, { feature: { validate: { active: true } } })
-    await assert.rejects(client.Template().load({"id":1} as any),
+    await assert.rejects(client.Template().list({"after":1} as any),
       (err: any) => 'validate_failed' === err.code)
   })
 
@@ -56,14 +102,14 @@ describe('TemplateEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.RESEND_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of ['create', 'list', 'update', 'load', 'remove']) {
       if (!live && maybeSkipControl(t, 'entityOp', 'template.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"alias":{"a":true,"h":"Alias","n":"alias","r":false,"sh":"The alias of the template.","t":"`$STRING`","key$":"alias","index$":0},"created_at":{"a":true,"h":"Created At","n":"created_at","r":false,"sh":"Timestamp indicating when the template was created.","t":"`$STRING`","key$":"created_at","index$":1},"current_version_id":{"a":true,"h":"Current Version Id","n":"current_version_id","r":false,"sh":"The ID of the current version of the template.","t":"`$STRING`","key$":"current_version_id","index$":2},"from":{"a":true,"h":"From","n":"from","r":false,"sh":"Sender email address.","t":"`$STRING`","key$":"from","index$":3},"has_unpublished_versions":{"a":true,"h":"Has Unpublished Versions","n":"has_unpublished_versions","r":false,"sh":"Indicates whether the template has unpublished versions.","t":"`$BOOLEAN`","key$":"has_unpublished_versions","index$":4},"html":{"a":true,"h":"Html","n":"html","r":false,"sh":"The HTML version of the template.","t":"`$STRING`","key$":"html","index$":5},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"The ID of the template.","t":"`$STRING`","key$":"id","index$":6},"name":{"a":true,"h":"Name","n":"name","r":false,"sh":"The name of the template.","t":"`$STRING`","key$":"name","index$":7},"object":{"a":true,"h":"Object","n":"object","r":false,"sh":"The type of object.","t":"`$STRING`","key$":"object","index$":8},"published_at":{"a":true,"h":"Published At","n":"published_at","r":false,"sh":"Timestamp indicating when the template was published.","t":["`$ONE`",["`$STRING`","`$NULL`"]],"key$":"published_at","index$":9},"reply_to":{"a":true,"h":"Reply To","n":"reply_to","r":false,"sh":"Reply-to email addresses.","t":["`$ONE`",["`$ARRAY`","`$NULL`"]],"key$":"reply_to","index$":10},"status":{"a":true,"h":"Status","n":"status","r":false,"sh":"The publication status of the template.","t":"`$STRING`","key$":"status","index$":11},"subject":{"a":true,"h":"Subject","n":"subject","r":false,"sh":"Email subject.","t":"`$STRING`","key$":"subject","index$":12},"text":{"a":true,"h":"Text","n":"text","r":false,"sh":"The plain text version of the template.","t":"`$STRING`","key$":"text","index$":13},"updated_at":{"a":true,"h":"Updated At","n":"updated_at","r":false,"sh":"Timestamp indicating when the template was last updated.","t":"`$STRING`","key$":"updated_at","index$":14},"variables":{"a":true,"h":"Variables","n":"variables","r":false,"t":"`$ARRAY`","union":{"branches":5,"count":1,"depth":3},"key$":"variables","index$":15}},"id":{"field":"id","name":"id"},"name":"template","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /templates/{id}/duplicate","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/templates/{id}/duplicate","q":{"$action":"duplicate","exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"},{"lit":"duplicate"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"POST /templates/{id}/publish","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/templates/{id}/publish","q":{"$action":"publish","exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"},{"lit":"publish"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"create"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /templates/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/templates/{id}","q":{"exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"template","name__orig":"template","Name":"Template","name_":"template","name-":"template","NAME":"TEMPLATE","index$":63}, {"active":true,"entity":"template","key$":"BasicTemplateFlow","kind":"basic","name":"BasicTemplateFlow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"template_ref01"},"m":{},"o":"create","s":[],"v":[],"unreachable":true},{"a":true,"d":{},"i":{"ref":"template_ref01","srcdatavar":"template_ref01_data","suffix":"_dt0"},"m":{"id":"template01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-template_ref01"}}],"index$":0}]}, 'Template', {"POST /templates/{id}/duplicate":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"POST /templates/{id}/publish":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"GET /templates/{id}":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]}}, { strict: LIVE_STRICT, t })
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"alias":{"a":true,"h":"Alias","n":"alias","r":false,"sh":"The alias of the template.","t":"`$STRING`","key$":"alias","index$":0},"created_at":{"a":true,"h":"Created At","n":"created_at","r":false,"sh":"Timestamp indicating when the template was created.","t":"`$STRING`","key$":"created_at","index$":1},"current_version_id":{"a":true,"h":"Current Version Id","n":"current_version_id","r":false,"sh":"The ID of the current version of the template.","t":"`$STRING`","key$":"current_version_id","index$":2},"from":{"a":true,"h":"From","n":"from","r":false,"sh":"Sender email address.","t":"`$STRING`","key$":"from","index$":3},"has_unpublished_versions":{"a":true,"h":"Has Unpublished Versions","n":"has_unpublished_versions","r":false,"sh":"Indicates whether the template has unpublished versions.","t":"`$BOOLEAN`","key$":"has_unpublished_versions","index$":4},"html":{"a":true,"h":"Html","n":"html","op":{"create":{"req":true,"type":"`$STRING`"}},"r":false,"sh":"The HTML version of the template.","t":"`$STRING`","key$":"html","index$":5},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"The ID of the template.","t":"`$STRING`","key$":"id","index$":6},"name":{"a":true,"h":"Name","n":"name","op":{"create":{"req":true,"type":"`$STRING`"}},"r":false,"sh":"The name of the template.","t":"`$STRING`","key$":"name","index$":7},"object":{"a":true,"h":"Object","n":"object","r":false,"sh":"The type of object.","t":"`$STRING`","key$":"object","index$":8},"published_at":{"a":true,"h":"Published At","n":"published_at","r":false,"sh":"Timestamp indicating when the template was published.","t":["`$ONE`",["`$STRING`","`$NULL`"]],"key$":"published_at","index$":9},"reply_to":{"a":true,"h":"Reply To","n":"reply_to","r":false,"sh":"Reply-to email addresses.","t":["`$ONE`",["`$ARRAY`","`$NULL`"]],"key$":"reply_to","index$":10},"status":{"a":true,"h":"Status","n":"status","r":false,"sh":"The publication status of the template.","t":"`$STRING`","key$":"status","index$":11},"subject":{"a":true,"h":"Subject","n":"subject","r":false,"sh":"Email subject.","t":"`$STRING`","key$":"subject","index$":12},"text":{"a":true,"h":"Text","n":"text","r":false,"sh":"The plain text version of the template.","t":"`$STRING`","key$":"text","index$":13},"updated_at":{"a":true,"h":"Updated At","n":"updated_at","r":false,"sh":"Timestamp indicating when the template was last updated.","t":"`$STRING`","key$":"updated_at","index$":14},"variables":{"a":true,"h":"Variables","n":"variables","r":false,"t":"`$ARRAY`","union":{"branches":5,"count":1,"depth":3},"key$":"variables","index$":15}},"id":{"field":"id","name":"id"},"name":"template","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /templates/{id}/duplicate","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/templates/{id}/duplicate","q":{"$action":"duplicate","exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"},{"lit":"duplicate"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"POST /templates/{id}/publish","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/templates/{id}/publish","q":{"$action":"publish","exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"},{"lit":"publish"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1},{"a":true,"bf":["alias","from","html","name","reply_to","subject","text","variables"],"co":{"id":"POST /templates","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/templates","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":2}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /templates","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"after","or":"after","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"before","or":"before","r":false,"t":"`$STRING`","index$":1},{"a":true,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/templates","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /templates/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/templates/{id}","q":{"exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"},"remove":{"input":"data","name":"remove","points":[{"a":true,"co":{"id":"DELETE /templates/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"DELETE","o":"/templates/{id}","q":{"exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"},"update":{"input":"data","name":"update","points":[{"a":true,"bf":["alias","from","html","name","reply_to","subject","text","variables"],"co":{"id":"PATCH /templates/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"PATCH","o":"/templates/{id}","q":{"exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"templates"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"update"}},"relations":{"ancestors":[]},"key$":"template","name__orig":"template","Name":"Template","name_":"template","name-":"template","NAME":"TEMPLATE","index$":35}, {"active":true,"entity":"template","key$":"BasicTemplateFlow","kind":"basic","name":"BasicTemplateFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"template_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"template_ref01"}}],"index$":1},{"a":true,"d":{},"i":{"ref":"template_ref01","srcdatavar":"template_ref01_data","suffix":"_up0","textfield":"alias"},"m":{},"o":"update","s":[{"apply":"TextFieldMark","def":{"mark":"Mark01-template_ref01"}}],"v":[],"index$":2},{"a":true,"d":{},"i":{"ref":"template_ref01","srcdatavar":"template_ref01_data","suffix":"_dt0"},"m":{"id":"template01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-template_ref01"}}],"index$":3},{"a":true,"d":{},"i":{"ref":"template_ref01","suffix":"_rm0"},"m":{"id":"template01"},"o":"remove","s":[],"v":[],"index$":4},{"a":true,"d":{},"i":{"suffix":"_rt0"},"m":{},"o":"list","s":[],"v":[{"apply":"ItemNotExists","def":{"ref":"template_ref01"}}],"index$":5}]}, 'Template', {"POST /templates/{id}/duplicate":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"POST /templates/{id}/publish":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"POST /templates":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","required":["name","html"],"properties":{"name":{"type":"string","description":"The name of the template.","key$":"name"},"alias":{"type":"string","description":"The alias of the template.","key$":"alias"},"from":{"type":"string","description":"Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\".","key$":"from"},"subject":{"type":"string","description":"Email subject.","key$":"subject"},"reply_to":{"type":"array","items":{"type":"string"},"description":"Reply-to email addresses.","key$":"reply_to"},"html":{"type":"string","description":"The HTML version of the template.","key$":"html"},"text":{"type":"string","description":"The plain text version of the template.","key$":"text"},"variables":{"type":"array","items":{"type":"object","properties":{"key":{"type":"string","description":"The key of the variable."},"type":{"type":"string","description":"The type of the variable.","enum":[]},"fallback_value":{"description":"The fallback value of the variable.","oneOf":[]}},"required":["key","type"],"x-ref":"#/components/schemas/TemplateVariableInput"},"key$":"variables"}},"x-ref":"#/components/schemas/CreateTemplateRequest","index$":1}}}},"parameters":[]},"GET /templates":{"protocol":"http","parameters":[{"in":"query","name":"limit","required":false,"schema":{"type":"integer","minimum":1,"maximum":100},"description":"Number of items to return.","x-ref":"#/components/parameters/PaginationLimit","index$":0},{"in":"query","name":"after","required":false,"schema":{"type":"string"},"description":"Return items after this cursor.","x-ref":"#/components/parameters/PaginationAfter","index$":1},{"in":"query","name":"before","required":false,"schema":{"type":"string"},"description":"Return items before this cursor.","x-ref":"#/components/parameters/PaginationBefore","index$":2}]},"GET /templates/{id}":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"DELETE /templates/{id}":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]},"PATCH /templates/{id}":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string","description":"The name of the template.","key$":"name"},"alias":{"type":"string","description":"The alias of the template.","key$":"alias"},"from":{"type":"string","description":"Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\".","key$":"from"},"subject":{"type":"string","description":"Email subject.","key$":"subject"},"reply_to":{"type":"array","items":{"type":"string"},"description":"Reply-to email addresses.","key$":"reply_to"},"html":{"type":"string","description":"The HTML version of the template.","key$":"html"},"text":{"type":"string","description":"The plain text version of the template.","key$":"text"},"variables":{"type":"array","items":{"type":"object","properties":{"key":{"type":"string","description":"The key of the variable."},"type":{"type":"string","description":"The type of the variable.","enum":[]},"fallback_value":{"description":"The fallback value of the variable.","oneOf":[]}},"required":["key","type"],"x-ref":"#/components/schemas/TemplateVariableInput"},"key$":"variables"}},"x-ref":"#/components/schemas/UpdateTemplateOptions","index$":1}}}},"parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"},"description":"The Template ID or alias.","index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -71,14 +117,54 @@ describe('TemplateEntity', async () => {
     const isempty = struct.isempty
     const select = struct.select
 
-    let template_ref01_data = Object.values(setup.data.existing.template)[0] as any
+
+    // CREATE
+    const template_ref01_ent = client.Template()
+    let template_ref01_data = setup.data.new.template['template_ref01']
+
+    template_ref01_data = (await template_ref01_ent.create(template_ref01_data)).data()
+    assert(null != template_ref01_data.id)
+
+
+    // LIST
+    const template_ref01_match: any = {}
+
+    const template_ref01_list = (await template_ref01_ent.list(template_ref01_match)).map((e: any) => e.data())
+
+    assert(!isempty(select(template_ref01_list, { id: template_ref01_data.id })))
+
+
+    // UPDATE
+    const template_ref01_data_up0: any = {}
+    template_ref01_data_up0.id = template_ref01_data.id
+
+    const template_ref01_markdef_up0 = { name: 'alias', value: 'Mark01-template_ref01_' + setup.now }
+    ;(template_ref01_data_up0 as any)[template_ref01_markdef_up0.name] = template_ref01_markdef_up0.value
+
+    const template_ref01_resdata_up0 = (await template_ref01_ent.update(template_ref01_data_up0)).data()
+    assert(template_ref01_resdata_up0.id === template_ref01_data_up0.id)
+
+    assert((template_ref01_resdata_up0 as any)[template_ref01_markdef_up0.name] === template_ref01_markdef_up0.value)
+
 
     // LOAD
-    const template_ref01_ent = client.Template()
     const template_ref01_match_dt0: any = {}
     template_ref01_match_dt0.id = template_ref01_data.id
     const template_ref01_data_dt0 = (await template_ref01_ent.load(template_ref01_match_dt0)).data()
     assert(template_ref01_data_dt0.id === template_ref01_data.id)
+
+
+    // REMOVE
+    const template_ref01_match_rm0: any = { id: template_ref01_data.id }
+    await template_ref01_ent.remove(template_ref01_match_rm0)
+  
+
+    // LIST
+    const template_ref01_match_rt0: any = {}
+
+    const template_ref01_list_rt0 = (await template_ref01_ent.list(template_ref01_match_rt0)).map((e: any) => e.data())
+
+    assert(isempty(select(template_ref01_list_rt0, { id: template_ref01_data.id })))
 
 
   })

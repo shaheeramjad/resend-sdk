@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"sync"
 
-	vs "github.com/voxgig-sdk/resend-sdk/go/utility/struct"
+	vs "github.com/shaheeramjad/resend-sdk/go/utility/struct"
 )
 
 type Context struct {

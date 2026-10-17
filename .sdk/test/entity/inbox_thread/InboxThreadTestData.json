@@ -11,7 +11,7 @@
         "has_draft": true,
         "id": "INBOX_THREAD00",
         "labels": [],
-        "matched_email_id": "MATCHED_EMAIL01",
+        "object": "s95",
         "read": true,
         "received_at": "s97",
         "subject": "s98",
@@ -28,7 +28,7 @@
         "has_draft": true,
         "id": "INBOX_THREAD01",
         "labels": [],
-        "matched_email_id": "MATCHED_EMAIL01",
+        "object": "s121",
         "read": true,
         "received_at": "s123",
         "subject": "s124",
@@ -45,7 +45,7 @@
         "has_draft": true,
         "id": "INBOX_THREAD02",
         "labels": [],
-        "matched_email_id": "MATCHED_EMAIL01",
+        "object": "s1ad",
         "read": true,
         "received_at": "s1af",
         "subject": "s1b0",
@@ -65,7 +65,7 @@
         "has_attachment": false,
         "has_draft": true,
         "labels": [],
-        "matched_email_id": "MATCHED_EMAIL01",
+        "object": "s239",
         "read": true,
         "received_at": "s23b",
         "subject": "s23c",
@@ -80,6 +80,21 @@
       "source": "openapi3"
     },
     "GET /inboxes/{inbox_id}/threads/search": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /inboxes/{inbox_id}/threads/{thread_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /inboxes/{inbox_id}/threads/{thread_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /inboxes/{inbox_id}/threads/{thread_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

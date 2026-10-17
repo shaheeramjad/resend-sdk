@@ -34,7 +34,7 @@ Tool-call arguments (what an agent sends):
 { "entity": "api_key" }
 
 // resend_load: one record
-{ "entity": "audience", "query": { "id": "example_id" } }
+{ "entity": "attachment", "query": { "email_id": "example", "id": "example_id" } }
 ```
 
 > The rest of this guide follows the [Diátaxis](https://diataxis.fr) framework:
@@ -104,7 +104,7 @@ Args: `entity` (required), `query` (required: match map naming the record, such 
 Returns the record as JSON:
 
 ```jsonc
-{ "entity": "audience", "query": { "id": "example_id" } }
+{ "entity": "attachment", "query": { "email_id": "example", "id": "example_id" } }
 ```
 
 ### Turn on the write tools
@@ -137,12 +137,12 @@ failure message (e.g. unknown entity, or an API error).
 ### Entities
 
 Each tool takes as its `entity` argument one of the entities that has its
-operation, of the 84 the SDK has:
+operation, of the 41 the SDK has:
 
 | Tool | Entities |
 |------|----------|
-| `resend_list` | api_key, audience, automation, automation_run_list_item, broadcast, contact, contact_import_response_success, contact_property, contact_topics_response_success, domain, email, emails_metric, event, inbox, inbox_agent_response_success, inbox_draft_list_item, inbox_label, inbox_thread, inbox_thread_email, list_attachment, list_broadcast_clicked_links_response_success, list_broadcast_recipients_response_success, list_contact_segments_response_success, list_contacts_response_success, list_webhook_event, list_webhook_event_attempt, log, received_email, remove_segment_response_success, remove_suppression_response_success, remove_template_response_success, remove_topic_response_success, revoke_o_auth_grant, update_webhook |
-| `resend_load` | audience, automation, automation_run, broadcast, contact, contact_import_response_success, contact_property, domain, domain_claim, email, event, inbox, inbox_draft_response_success, inbox_thread_email_response_success, inbox_thread_response_success, log, received_email, retrieved_attachment, segment, suppression, template, topic, usage, webhook, webhook_event |
+| `resend_list` | api_key, attachment, audience, automation, automation_run, broadcast, broadcast_clicked_link, broadcast_recipient, contact, contact_import, contact_property, contact_segment, contact_topic, domain, email, emails_metric, event, inbox, inbox_draft, inbox_label, inbox_thread, inbox_thread_email, log, oauth_grant, received_attachment, received_email, segment, segment_contact, suppression, template, topic, webhook, webhook_event, webhook_event_attempt |
+| `resend_load` | attachment, audience, automation, automation_run, broadcast, contact, contact_import, contact_property, domain, domain_claim, email, event, inbox, inbox_agent, inbox_draft, inbox_thread, inbox_thread_email, log, received_attachment, received_email, segment, suppression, template, topic, usage, webhook, webhook_event |
 
 JSON schemas are emitted by the SDK from each tool's argument struct's
 `json` / `jsonschema` tags — no schema is hand-written. Each tool's

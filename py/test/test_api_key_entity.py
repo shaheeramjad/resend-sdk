@@ -118,10 +118,10 @@ class TestApiKeyEntity:
         if "validate" not in (shared_config().get("feature") or {}):
             pytest.skip("feature not present in this SDK: validate")
         opts = {"feature": {"validate": {"active": True, "request": False, "response": True}}}
-        listed = ResendSDK.test({"entity": {"api_key": {"v1": {}}}}, opts).ApiKey(None).list(None, None)
+        listed = ResendSDK.test({"entity": {"api_key": {"v1": {"name": "x"}}}}, opts).ApiKey(None).list(None, None)
         assert ["v1"] == [ent.data_get().get("id") for ent in listed]
         with pytest.raises(Exception) as err:
-            ResendSDK.test({"entity": {"api_key": {"v1": {"created_at": 1}}}}, opts).ApiKey(None).list(None, None)
+            ResendSDK.test({"entity": {"api_key": {"v1": {"name": "x", "created_at": 1}}}}, opts).ApiKey(None).list(None, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_refuse_an_invalid_request(self):
@@ -139,26 +139,63 @@ class TestApiKeyEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list"]:
+        for _op in ["create", "list", "update", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "api_key." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
         client = setup["client"]
 
-        # Bootstrap entity data from existing test data.
-        api_key_ref01_data_raw = vs.items(helpers.to_map(
-            vs.getpath(setup["data"], "existing.api_key")))
-        api_key_ref01_data = None
-        if len(api_key_ref01_data_raw) > 0:
-            api_key_ref01_data = helpers.to_map(api_key_ref01_data_raw[0][1])
+        # CREATE
+        api_key_ref01_ent = client.ApiKey(None)
+        api_key_ref01_data = helpers.to_map(vs.getprop(
+            vs.getpath(setup["data"], "new.api_key"), "api_key_ref01"))
+
+        api_key_ref01_data = helpers.to_map(runner.entity_data(api_key_ref01_ent.create(api_key_ref01_data, None)))
+        assert api_key_ref01_data is not None
+        assert api_key_ref01_data["id"] is not None
 
         # LIST
-        api_key_ref01_ent = client.ApiKey(None)
         api_key_ref01_match = {}
 
         api_key_ref01_list_result = api_key_ref01_ent.list(api_key_ref01_match, None)
         assert isinstance(api_key_ref01_list_result, list)
+
+        found_item = vs.select(
+            runner.entity_list_to_data(api_key_ref01_list_result),
+            {"id": api_key_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
+        # UPDATE
+        api_key_ref01_data_up0_up = {
+            "id": api_key_ref01_data["id"],
+        }
+
+        api_key_ref01_markdef_up0_name = "created_at"
+        api_key_ref01_markdef_up0_value = "Mark01-api_key_ref01_" + str(setup["now"])
+        api_key_ref01_data_up0_up[api_key_ref01_markdef_up0_name] = api_key_ref01_markdef_up0_value
+
+        api_key_ref01_resdata_up0 = helpers.to_map(runner.entity_data(api_key_ref01_ent.update(api_key_ref01_data_up0_up, None)))
+        assert api_key_ref01_resdata_up0 is not None
+        assert api_key_ref01_resdata_up0["id"] == api_key_ref01_data_up0_up["id"]
+        assert api_key_ref01_resdata_up0[api_key_ref01_markdef_up0_name] == api_key_ref01_markdef_up0_value
+
+        # REMOVE
+        api_key_ref01_match_rm0 = {
+            "id": api_key_ref01_data["id"],
+        }
+        api_key_ref01_ent.remove(api_key_ref01_match_rm0, None)
+
+        # LIST
+        api_key_ref01_match_rt0 = {}
+
+        api_key_ref01_list_rt0_result = api_key_ref01_ent.list(api_key_ref01_match_rt0, None)
+        assert isinstance(api_key_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(api_key_ref01_list_rt0_result),
+            {"id": api_key_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 

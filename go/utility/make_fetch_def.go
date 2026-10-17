@@ -1,7 +1,7 @@
 package utility
 
 import (
-	"github.com/voxgig-sdk/resend-sdk/go/core"
+	"github.com/shaheeramjad/resend-sdk/go/core"
 )
 
 func makeFetchDefUtil(ctx *core.Context) (map[string]any, error) {

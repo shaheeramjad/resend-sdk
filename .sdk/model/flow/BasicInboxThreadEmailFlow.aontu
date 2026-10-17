@@ -7,6 +7,20 @@ main: kit: flow: BasicInboxThreadEmailFlow:
   name: "BasicInboxThreadEmailFlow",
   step: [
     {
+      i: {
+        ref: "inbox_thread_email_ref01"
+      }
+
+      m: {
+        email_id: "email01",
+        inbox_id: "inbox01",
+        thread_id: "thread01"
+      }
+
+      o: "create"
+    }
+
+    {
       m: {
         inbox_id: "inbox01",
         thread_id: "thread01"
@@ -18,6 +32,30 @@ main: kit: flow: BasicInboxThreadEmailFlow:
           apply: "ItemExists",
           def: {
             ref: "inbox_thread_email_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "inbox_thread_email_ref01",
+        srcdatavar: "inbox_thread_email_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "inbox_thread_email01",
+        inbox_id: "inbox01",
+        thread_id: "thread01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-inbox_thread_email_ref01"
           }
         }
       ]

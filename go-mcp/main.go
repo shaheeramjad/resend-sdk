@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	sdk "github.com/voxgig-sdk/resend-sdk/go"
+	sdk "github.com/shaheeramjad/resend-sdk/go"
 )
 
 func main() {

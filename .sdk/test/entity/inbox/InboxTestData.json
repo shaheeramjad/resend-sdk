@@ -82,7 +82,12 @@
       "version": 2,
       "source": "openapi3"
     },
-    "PATCH /inboxes/{inbox_id}/agent": {
+    "DELETE /inboxes/{inbox_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /inboxes/{inbox_id}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

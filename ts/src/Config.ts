@@ -203,13 +203,10 @@ class Config {
 
     entity: {
       
-        add_contact_to_segment_response_success: {
-        },
-  
-        add_inbox_thread_labels_response_success: {
-        },
-  
         api_key: {
+        },
+  
+        attachment: {
         },
   
         audience: {
@@ -221,43 +218,28 @@ class Config {
         automation_run: {
         },
   
-        automation_run_list_item: {
-        },
-  
-        batch_add_suppressions_response_success: {
-        },
-  
-        batch_remove_suppressions_response_success: {
-        },
-  
         broadcast: {
+        },
+  
+        broadcast_clicked_link: {
+        },
+  
+        broadcast_recipient: {
         },
   
         contact: {
         },
   
-        contact_import_response_success: {
+        contact_import: {
         },
   
         contact_property: {
         },
   
-        contact_topics_response_success: {
+        contact_segment: {
         },
   
-        create_api_key: {
-        },
-  
-        create_batch_email: {
-        },
-  
-        create_broadcast_response_success: {
-        },
-  
-        create_inbox_draft_response_success: {
-        },
-  
-        create_inbox_label_response_success: {
+        contact_topic: {
         },
   
         domain: {
@@ -269,6 +251,9 @@ class Config {
         email: {
         },
   
+        email_batch: {
+        },
+  
         emails_metric: {
         },
   
@@ -278,13 +263,10 @@ class Config {
         inbox: {
         },
   
-        inbox_agent_response_success: {
+        inbox_agent: {
         },
   
-        inbox_draft_list_item: {
-        },
-  
-        inbox_draft_response_success: {
+        inbox_draft: {
         },
   
         inbox_label: {
@@ -296,154 +278,40 @@ class Config {
         inbox_thread_email: {
         },
   
-        inbox_thread_email_response_success: {
-        },
-  
-        inbox_thread_response_success: {
-        },
-  
-        list_attachment: {
-        },
-  
-        list_broadcast_clicked_links_response_success: {
-        },
-  
-        list_broadcast_recipients_response_success: {
-        },
-  
-        list_contact_segments_response_success: {
-        },
-  
-        list_contacts_response_success: {
-        },
-  
-        list_webhook_event: {
-        },
-  
-        list_webhook_event_attempt: {
+        inbox_thread_label: {
         },
   
         log: {
         },
   
+        oauth_grant: {
+        },
+  
+        received_attachment: {
+        },
+  
         received_email: {
-        },
-  
-        remove_audience_response_success: {
-        },
-  
-        remove_broadcast_response_success: {
-        },
-  
-        remove_contact_from_segment_response_success: {
-        },
-  
-        remove_contact_property_response_success: {
-        },
-  
-        remove_contact_response_success: {
-        },
-  
-        remove_event: {
-        },
-  
-        remove_inbox_draft_response_success: {
-        },
-  
-        remove_inbox_label_response_success: {
-        },
-  
-        remove_inbox_response_success: {
-        },
-  
-        remove_inbox_thread_label_response_success: {
-        },
-  
-        remove_inbox_thread_response_success: {
-        },
-  
-        remove_segment_response_success: {
-        },
-  
-        remove_suppression_response_success: {
-        },
-  
-        remove_template_response_success: {
-        },
-  
-        remove_topic_response_success: {
-        },
-  
-        retrieved_attachment: {
-        },
-  
-        revoke_o_auth_grant: {
-        },
-  
-        rotate: {
         },
   
         segment: {
         },
   
-        set_inbox_thread_labels_response_success: {
+        segment_contact: {
         },
   
         suppression: {
+        },
+  
+        suppression_batch_add: {
+        },
+  
+        suppression_batch_remove: {
         },
   
         template: {
         },
   
         topic: {
-        },
-  
-        update_api_key: {
-        },
-  
-        update_broadcast_response_success: {
-        },
-  
-        update_contact_property_response_success: {
-        },
-  
-        update_contact_response_success: {
-        },
-  
-        update_contact_topics_response_success: {
-        },
-  
-        update_domain_response_success: {
-        },
-  
-        update_email_option: {
-        },
-  
-        update_event: {
-        },
-  
-        update_inbox_draft_response_success: {
-        },
-  
-        update_inbox_label_response_success: {
-        },
-  
-        update_inbox_response_success: {
-        },
-  
-        update_inbox_thread_response_success: {
-        },
-  
-        update_segment_response_success: {
-        },
-  
-        update_template_response_success: {
-        },
-  
-        update_topic_response_success: {
-        },
-  
-        update_webhook: {
         },
   
         usage: {
@@ -455,212 +323,14 @@ class Config {
         webhook_event: {
         },
   
+        webhook_event_attempt: {
+        },
+  
     }
   }
 
 
   entity = {
-    "add_contact_to_segment_response_success": {
-      "fields": [
-        {
-          "name": "contact_id",
-          "title": "Contact Id",
-          "type": "`$STRING`",
-          "short": "The ID of the contact."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        },
-        {
-          "name": "segment_id",
-          "title": "Segment Id",
-          "type": "`$STRING`",
-          "short": "The ID of the segment."
-        }
-      ],
-      "name": "add_contact_to_segment_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/contacts/{contact_id}/segments/{segment_id}",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "contact_id"
-                },
-                {
-                  "lit": "segments"
-                },
-                {
-                  "var": "segment_id"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{contact_id}",
-                "segments",
-                "{segment_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "contact_id",
-                    "orig": "contact_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "segment_id",
-                    "orig": "segment_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "contact_id",
-                  "segment_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.contact",
-            "$.main.kit.entity.segment"
-          ]
-        ]
-      }
-    },
-    "add_inbox_thread_labels_response_success": {
-      "fields": [
-        {
-          "name": "data",
-          "title": "Data",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "Every label on the thread after the change."
-        },
-        {
-          "name": "labels",
-          "title": "Labels",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The IDs of the labels to apply to the thread."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Type of the response object."
-        }
-      ],
-      "name": "add_inbox_thread_labels_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                },
-                {
-                  "lit": "labels"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}",
-                "labels"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
     "api_key": {
       "fields": [
         {
@@ -668,6 +338,12 @@ class Config {
           "title": "Created At",
           "type": "`$STRING`",
           "short": "The date and time the API key was created."
+        },
+        {
+          "name": "domain_id",
+          "title": "Domain Id",
+          "type": "`$STRING`",
+          "short": "Restrict an API key to send emails only from a specific domain."
         },
         {
           "name": "id",
@@ -691,7 +367,25 @@ class Config {
           "name": "name",
           "title": "Name",
           "type": "`$STRING`",
-          "short": "The name of the API key."
+          "req": true,
+          "op": {
+            "list": {
+              "type": "`$STRING`"
+            }
+          },
+          "short": "The API key name."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The type of object."
+        },
+        {
+          "name": "permission",
+          "title": "Permission",
+          "type": "`$STRING`",
+          "short": "The API key can have full access to Resend’s API or be only restricted to send emails."
         }
       ],
       "id": {
@@ -700,6 +394,36 @@ class Config {
       },
       "name": "api_key",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/api-keys",
+              "segments": [
+                {
+                  "lit": "api-keys"
+                }
+              ],
+              "parts": [
+                "api-keys"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "list": {
           "input": "data",
           "name": "list",
@@ -802,10 +526,288 @@ class Config {
               }
             }
           ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/api-keys/{api_key_id}",
+              "segments": [
+                {
+                  "lit": "api-keys"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "api-keys",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "api_key_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "api_key_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
         "ancestors": []
+      }
+    },
+    "attachment": {
+      "fields": [
+        {
+          "name": "content_disposition",
+          "title": "Content Disposition",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "How the attachment should be displayed."
+        },
+        {
+          "name": "content_id",
+          "title": "Content Id",
+          "type": "`$STRING`",
+          "short": "The content ID for inline attachments."
+        },
+        {
+          "name": "content_type",
+          "title": "Content Type",
+          "type": "`$STRING`",
+          "short": "The MIME type of the attachment."
+        },
+        {
+          "name": "download_url",
+          "title": "Download Url",
+          "type": "`$STRING`",
+          "short": "Signed URL to download the attachment content."
+        },
+        {
+          "name": "expires_at",
+          "title": "Expires At",
+          "type": "`$STRING`",
+          "short": "Timestamp when the download URL expires.",
+          "format": "date-time"
+        },
+        {
+          "name": "filename",
+          "title": "Filename",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "The filename of the attachment."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "The ID of the attachment.",
+          "format": "uuid"
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The type of object."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "`$INTEGER`",
+          "short": "Size of the attachment in bytes."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "attachment",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/emails/{email_id}/attachments",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "var": "email_id"
+                },
+                {
+                  "lit": "attachments"
+                }
+              ],
+              "parts": [
+                "emails",
+                "{email_id}",
+                "attachments"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email_id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/emails/{email_id}/attachments/{attachment_id}",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "var": "email_id"
+                },
+                {
+                  "lit": "attachments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "emails",
+                "{email_id}",
+                "attachments",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "attachment_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email_id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "attachment_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email_id",
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": [
+          [
+            "$.main.kit.entity.email"
+          ]
+        ]
       }
     },
     "audience": {
@@ -914,6 +916,54 @@ class Config {
             {
               "kind": "http",
               "method": "GET",
+              "orig": "/audiences/{id}",
+              "segments": [
+                {
+                  "lit": "audiences"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "audiences",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
               "orig": "/audiences/{id}",
               "segments": [
                 {
@@ -1449,6 +1499,89 @@ class Config {
       },
       "name": "automation_run",
       "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/automations/{automation_id}/runs",
+              "segments": [
+                {
+                  "lit": "automations"
+                },
+                {
+                  "var": "automation_id"
+                },
+                {
+                  "lit": "runs"
+                }
+              ],
+              "parts": [
+                "automations",
+                "{automation_id}",
+                "runs"
+              ],
+              "rename": {
+                "param": {
+                  "automation_id": "automation_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "automation_id",
+                    "orig": "automation_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "status",
+                    "orig": "status",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "field": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "automation_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "load": {
           "input": "data",
           "name": "load",
@@ -1526,267 +1659,6 @@ class Config {
         ]
       }
     },
-    "automation_run_list_item": {
-      "fields": [
-        {
-          "name": "completed_at",
-          "title": "Completed At",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The date and time the run completed."
-        },
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "The date and time the run was created."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the automation run."
-        },
-        {
-          "name": "started_at",
-          "title": "Started At",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The date and time the run started."
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "`$STRING`",
-          "short": "The current status of the automation run."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "automation_run_list_item",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/automations/{automation_id}/runs",
-              "segments": [
-                {
-                  "lit": "automations"
-                },
-                {
-                  "var": "id"
-                },
-                {
-                  "lit": "runs"
-                }
-              ],
-              "parts": [
-                "automations",
-                "{id}",
-                "runs"
-              ],
-              "rename": {
-                "param": {
-                  "automation_id": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "automation_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "status",
-                    "orig": "status",
-                    "type": "`$STRING`",
-                    "kind": "query",
-                    "field": true
-                  }
-                ]
-              },
-              "select": {
-                "$action": "runs",
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "batch_add_suppressions_response_success": {
-      "fields": [
-        {
-          "name": "emails",
-          "title": "Emails",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "Email addresses to suppress."
-        }
-      ],
-      "name": "batch_add_suppressions_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/suppressions/batch/add",
-              "segments": [
-                {
-                  "lit": "suppressions"
-                },
-                {
-                  "lit": "batch"
-                },
-                {
-                  "lit": "add"
-                }
-              ],
-              "parts": [
-                "suppressions",
-                "batch",
-                "add"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "batch_remove_suppressions_response_success": {
-      "fields": [
-        {
-          "name": "data",
-          "title": "Data",
-          "type": "`$ARRAY`",
-          "short": "Array containing the removed suppressions."
-        },
-        {
-          "name": "emails",
-          "title": "Emails",
-          "type": "`$ARRAY`",
-          "short": "Email addresses to remove from the suppression list."
-        },
-        {
-          "name": "ids",
-          "title": "Ids",
-          "type": "`$ARRAY`",
-          "short": "Suppression IDs to remove from the suppression list."
-        }
-      ],
-      "name": "batch_remove_suppressions_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/suppressions/batch/remove",
-              "segments": [
-                {
-                  "lit": "suppressions"
-                },
-                {
-                  "lit": "batch"
-                },
-                {
-                  "lit": "remove"
-                }
-              ],
-              "parts": [
-                "suppressions",
-                "batch",
-                "remove"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
     "broadcast": {
       "fields": [
         {
@@ -1812,6 +1684,12 @@ class Config {
           "name": "from",
           "title": "From",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The email address of the sender."
         },
         {
@@ -1837,6 +1715,12 @@ class Config {
           "title": "Name",
           "type": "`$STRING`",
           "short": "Name of the broadcast."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The object type of the response."
         },
         {
           "name": "preview_text",
@@ -1866,7 +1750,19 @@ class Config {
               "`$NULL`"
             ]
           ],
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "Unique identifier of the segment this broadcast will be sent to."
+        },
+        {
+          "name": "send",
+          "title": "Send",
+          "type": "`$BOOLEAN`",
+          "short": "Whether to send the broadcast immediately or keep it as a draft."
         },
         {
           "name": "sent_at",
@@ -1884,6 +1780,12 @@ class Config {
           "name": "subject",
           "title": "Subject",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The subject line of the email."
         },
         {
@@ -2061,6 +1963,30 @@ class Config {
                 "kind": "json",
                 "media": "application/json"
               }
+            },
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/broadcasts",
+              "segments": [
+                {
+                  "lit": "broadcasts"
+                }
+              ],
+              "parts": [
+                "broadcasts"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -2162,10 +2088,382 @@ class Config {
               }
             }
           ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/broadcasts/{id}",
+              "segments": [
+                {
+                  "lit": "broadcasts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "broadcasts",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/broadcasts/{id}",
+              "segments": [
+                {
+                  "lit": "broadcasts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "broadcasts",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
         "ancestors": []
+      }
+    },
+    "broadcast_clicked_link": {
+      "fields": [
+        {
+          "name": "clicks",
+          "title": "Clicks",
+          "type": "`$INTEGER`",
+          "short": "Total number of clicks on this URL."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "An opaque cursor for this row, used only for pagination."
+        },
+        {
+          "name": "unique_clicks",
+          "title": "Unique Clicks",
+          "type": "`$INTEGER`",
+          "short": "Number of unique clicks on this URL."
+        },
+        {
+          "name": "url",
+          "title": "Url",
+          "type": "`$STRING`",
+          "short": "The URL that was clicked."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "broadcast_clicked_link",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/broadcasts/{id}/clicked-links",
+              "segments": [
+                {
+                  "lit": "broadcasts"
+                },
+                {
+                  "var": "broadcast_id"
+                },
+                {
+                  "lit": "clicked-links"
+                }
+              ],
+              "parts": [
+                "broadcasts",
+                "{broadcast_id}",
+                "clicked-links"
+              ],
+              "rename": {
+                "param": {
+                  "id": "broadcast_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "broadcast_id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "broadcast_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": [
+          [
+            "$.main.kit.entity.broadcast"
+          ]
+        ]
+      }
+    },
+    "broadcast_recipient": {
+      "fields": [
+        {
+          "name": "bounce_type",
+          "title": "Bounce Type",
+          "type": "`$STRING`",
+          "short": "The type of bounce."
+        },
+        {
+          "name": "clicked_links",
+          "title": "Clicked Links",
+          "type": "`$ARRAY`",
+          "short": "The links this recipient clicked."
+        },
+        {
+          "name": "contact_id",
+          "title": "Contact Id",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "The ID of the contact associated with this recipient, if one exists."
+        },
+        {
+          "name": "count",
+          "title": "Count",
+          "type": "`$INTEGER`",
+          "short": "The number of times this recipient triggered the event."
+        },
+        {
+          "name": "email",
+          "title": "Email",
+          "type": "`$STRING`",
+          "short": "The recipient's email address."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "Opaque cursor identifying this row, used for pagination."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "broadcast_recipient",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/broadcasts/{id}/recipients",
+              "segments": [
+                {
+                  "lit": "broadcasts"
+                },
+                {
+                  "var": "broadcast_id"
+                },
+                {
+                  "lit": "recipients"
+                }
+              ],
+              "parts": [
+                "broadcasts",
+                "{broadcast_id}",
+                "recipients"
+              ],
+              "rename": {
+                "param": {
+                  "id": "broadcast_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "broadcast_id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "bounce_type",
+                    "orig": "bounce_type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "field": true
+                  },
+                  {
+                    "name": "email",
+                    "orig": "email",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "field": true
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "type",
+                    "orig": "type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "broadcast_id",
+                  "type"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": [
+          [
+            "$.main.kit.entity.broadcast"
+          ]
+        ]
       }
     },
     "contact": {
@@ -2390,13 +2688,109 @@ class Config {
               }
             }
           ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/contacts/{id}",
+              "segments": [
+                {
+                  "lit": "contacts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contacts",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/contacts/{id}",
+              "segments": [
+                {
+                  "lit": "contacts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contacts",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
         "ancestors": []
       }
     },
-    "contact_import_response_success": {
+    "contact_import": {
       "fields": [
         {
           "name": "column_map",
@@ -2477,7 +2871,7 @@ class Config {
         "field": "id",
         "name": "id"
       },
-      "name": "contact_import_response_success",
+      "name": "contact_import",
       "op": {
         "create": {
           "input": "data",
@@ -2839,26 +3233,221 @@ class Config {
               }
             }
           ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/contact-properties/{id}",
+              "segments": [
+                {
+                  "lit": "contact-properties"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contact-properties",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/contact-properties/{id}",
+              "segments": [
+                {
+                  "lit": "contact-properties"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contact-properties",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
         "ancestors": []
       }
     },
-    "contact_topics_response_success": {
+    "contact_segment": {
       "fields": [
+        {
+          "name": "contact_id",
+          "title": "Contact Id",
+          "type": "`$STRING`",
+          "short": "The ID of the contact."
+        },
+        {
+          "name": "created_at",
+          "title": "Created At",
+          "type": "`$STRING`",
+          "short": "Timestamp indicating when the contact was added to the segment."
+        },
         {
           "name": "id",
           "title": "Id",
-          "type": "`$STRING`"
+          "type": "`$STRING`",
+          "short": "Unique identifier for the segment."
+        },
+        {
+          "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
+          "short": "Name of the segment."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The object type."
+        },
+        {
+          "name": "segment_id",
+          "title": "Segment Id",
+          "type": "`$STRING`",
+          "short": "The ID of the segment."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "contact_topics_response_success",
+      "name": "contact_segment",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/contacts/{contact_id}/segments/{segment_id}",
+              "segments": [
+                {
+                  "lit": "contacts"
+                },
+                {
+                  "var": "contact_id"
+                },
+                {
+                  "lit": "segments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contacts",
+                "{contact_id}",
+                "segments",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "segment_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "contact_id",
+                    "orig": "contact_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "segment_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "contact_id",
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "list": {
           "input": "data",
           "name": "list",
@@ -2866,28 +3455,24 @@ class Config {
             {
               "kind": "http",
               "method": "GET",
-              "orig": "/contacts/{contact_id}/topics",
+              "orig": "/contacts/{contact_id}/segments",
               "segments": [
                 {
                   "lit": "contacts"
                 },
                 {
-                  "var": "id"
+                  "var": "contact_id"
                 },
                 {
-                  "lit": "topics"
+                  "lit": "segments"
                 }
               ],
               "parts": [
                 "contacts",
-                "{id}",
-                "topics"
+                "{contact_id}",
+                "segments"
               ],
-              "rename": {
-                "param": {
-                  "contact_id": "id"
-                }
-              },
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
@@ -2895,7 +3480,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "id",
+                    "name": "contact_id",
                     "orig": "contact_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -2924,8 +3509,75 @@ class Config {
                 ]
               },
               "select": {
-                "$action": "topics",
                 "exist": [
+                  "contact_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/contacts/{contact_id}/segments/{segment_id}",
+              "segments": [
+                {
+                  "lit": "contacts"
+                },
+                {
+                  "var": "contact_id"
+                },
+                {
+                  "lit": "segments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "contacts",
+                "{contact_id}",
+                "segments",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "segment_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "contact_id",
+                    "orig": "contact_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "segment_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "contact_id",
                   "id"
                 ]
               },
@@ -2938,403 +3590,137 @@ class Config {
         }
       },
       "relations": {
-        "ancestors": []
-      }
-    },
-    "create_api_key": {
-      "fields": [
-        {
-          "name": "domain_id",
-          "title": "Domain Id",
-          "type": "`$STRING`",
-          "short": "Restrict an API key to send emails only from a specific domain."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The API key name."
-        },
-        {
-          "name": "permission",
-          "title": "Permission",
-          "type": "`$STRING`",
-          "short": "The API key can have full access to Resend’s API or be only restricted to send emails."
-        }
-      ],
-      "name": "create_api_key",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/api-keys",
-              "segments": [
-                {
-                  "lit": "api-keys"
-                }
-              ],
-              "parts": [
-                "api-keys"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
+        "ancestors": [
+          [
+            "$.main.kit.entity.contact"
           ]
-        }
-      },
-      "relations": {
-        "ancestors": []
+        ]
       }
     },
-    "create_batch_email": {
+    "contact_topic": {
       "fields": [
         {
-          "name": "data",
-          "title": "Data",
-          "type": "`$ARRAY`"
-        },
-        {
-          "name": "send_emails",
-          "title": "Send Emails",
-          "type": "`$ARRAY`"
-        }
-      ],
-      "name": "create_batch_email",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/emails/batch",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "lit": "batch"
-                }
-              ],
-              "parts": [
-                "emails",
-                "batch"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata.send_emails`",
-                "res": "`body`"
-              },
-              "args": {
-                "header": [
-                  {
-                    "name": "idempotency_key",
-                    "orig": "Idempotency-Key",
-                    "type": "`$STRING`",
-                    "kind": "header"
-                  }
-                ]
-              },
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "create_broadcast_response_success": {
-      "fields": [
-        {
-          "name": "audience_id",
-          "title": "Audience Id",
+          "name": "contact_id",
+          "title": "Contact Id",
           "type": "`$STRING`",
-          "short": "Use `segment_id` instead.",
-          "deprecated": true
+          "short": "The ID of the contact."
         },
         {
-          "name": "from",
-          "title": "From",
+          "name": "description",
+          "title": "Description",
           "type": "`$STRING`",
-          "req": true,
-          "short": "The email address of the sender."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": "`$STRING`",
-          "short": "The HTML version of the message."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "Name of the broadcast."
-        },
-        {
-          "name": "preview_text",
-          "title": "Preview Text",
-          "type": "`$STRING`",
-          "short": "The preview text of the email."
-        },
-        {
-          "name": "reply_to",
-          "title": "Reply To",
-          "type": "`$ARRAY`",
-          "short": "The email addresses to which replies should be sent."
-        },
-        {
-          "name": "scheduled_at",
-          "title": "Scheduled At",
-          "type": "`$STRING`",
-          "short": "Schedule time to send the broadcast."
-        },
-        {
-          "name": "segment_id",
-          "title": "Segment Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Unique identifier of the segment this broadcast will be sent to."
-        },
-        {
-          "name": "send",
-          "title": "Send",
-          "type": "`$BOOLEAN`",
-          "short": "Whether to send the broadcast immediately or keep it as a draft."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The subject line of the email."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": "`$STRING`",
-          "short": "The plain text version of the message."
-        },
-        {
-          "name": "topic_id",
-          "title": "Topic Id",
-          "type": "`$STRING`",
-          "short": "The topic ID that the broadcast will be scoped to."
-        }
-      ],
-      "name": "create_broadcast_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/broadcasts",
-              "segments": [
-                {
-                  "lit": "broadcasts"
-                }
-              ],
-              "parts": [
-                "broadcasts"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "create_inbox_draft_response_success": {
-      "fields": [
-        {
-          "name": "attachments",
-          "title": "Attachments",
-          "type": [
-            "`$ONE`",
-            [
-              "`$ARRAY`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "Files to store on the draft."
-        },
-        {
-          "name": "bcc",
-          "title": "Bcc",
-          "type": "`$ANY`",
-          "short": "The BCC recipients."
-        },
-        {
-          "name": "cc",
-          "title": "Cc",
-          "type": "`$ANY`",
-          "short": "The CC recipients."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The HTML body."
+          "short": "Description of the topic."
         },
         {
           "name": "id",
           "title": "Id",
           "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the draft.",
-          "format": "uuid"
+          "short": "Unique identifier for the topic."
+        },
+        {
+          "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
+          "short": "Name of the topic."
         },
         {
           "name": "object",
           "title": "Object",
           "type": "`$STRING`",
-          "req": true,
-          "short": "Type of the response object."
+          "short": "The object type."
         },
         {
-          "name": "reply_to_email_id",
-          "title": "Reply To Email Id",
+          "name": "subscription",
+          "title": "Subscription",
           "type": "`$STRING`",
-          "short": "The Email ID to reply to, as returned in `data[].id` by the list thread emails endpoint.",
-          "format": "uuid"
+          "short": "The subscription status for this topic."
         },
         {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The subject."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The plain text body."
-        },
-        {
-          "name": "thread_id",
-          "title": "Thread Id",
-          "type": "`$STRING`",
-          "short": "The Thread ID to reply in.",
-          "format": "uuid"
-        },
-        {
-          "name": "to",
-          "title": "To",
-          "type": "`$ANY`",
-          "short": "The recipients."
+          "name": "topics",
+          "title": "Topics",
+          "type": "`$ARRAY`",
+          "op": {
+            "update": {
+              "req": true,
+              "type": "`$ARRAY`"
+            }
+          },
+          "short": "Array of updated topic subscriptions."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "create_inbox_draft_response_success",
+      "name": "contact_topic",
       "op": {
-        "create": {
+        "list": {
           "input": "data",
-          "name": "create",
+          "name": "list",
           "points": [
             {
               "kind": "http",
-              "method": "POST",
-              "orig": "/inboxes/{inbox_id}/drafts",
+              "method": "GET",
+              "orig": "/contacts/{contact_id}/topics",
               "segments": [
                 {
-                  "lit": "inboxes"
+                  "lit": "contacts"
                 },
                 {
-                  "var": "inbox_id"
+                  "var": "contact_id"
                 },
                 {
-                  "lit": "drafts"
+                  "lit": "topics"
                 }
               ],
               "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "drafts"
+                "contacts",
+                "{contact_id}",
+                "topics"
               ],
-              "rename": {},
+              "rename": {
+                "param": {
+                  "contact_id": "contact_id"
+                }
+              },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "args": {
-                "header": [
+                "params": [
                   {
-                    "name": "idempotency_key",
-                    "orig": "Idempotency-Key",
+                    "name": "contact_id",
+                    "orig": "contact_id",
                     "type": "`$STRING`",
-                    "kind": "header"
+                    "kind": "param",
+                    "reqd": true
                   }
                 ],
-                "params": [
+                "query": [
                   {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
+                    "name": "after",
+                    "orig": "after",
                     "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
                   }
                 ]
               },
               "select": {
                 "exist": [
-                  "inbox_id"
+                  "contact_id"
                 ]
               },
               "response": {
@@ -3343,59 +3729,36 @@ class Config {
               }
             }
           ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "create_inbox_label_response_success": {
-      "fields": [
-        {
-          "name": "color",
-          "title": "Color",
-          "type": "`$STRING`",
-          "short": "The color of the label, as a `#RRGGBB` hex color."
         },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The name of the label."
-        }
-      ],
-      "name": "create_inbox_label_response_success",
-      "op": {
-        "create": {
+        "update": {
           "input": "data",
-          "name": "create",
+          "name": "update",
           "points": [
             {
               "kind": "http",
-              "method": "POST",
-              "orig": "/inboxes/{inbox_id}/labels",
+              "method": "PATCH",
+              "orig": "/contacts/{contact_id}/topics",
               "segments": [
                 {
-                  "lit": "inboxes"
+                  "lit": "contacts"
                 },
                 {
-                  "var": "inbox_id"
+                  "var": "contact_id"
                 },
                 {
-                  "lit": "labels"
+                  "lit": "topics"
                 }
               ],
               "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "labels"
+                "contacts",
+                "{contact_id}",
+                "topics"
               ],
-              "rename": {},
+              "rename": {
+                "param": {
+                  "contact_id": "contact_id"
+                }
+              },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -3403,18 +3766,17 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
+                    "name": "contact_id",
+                    "orig": "contact_id",
                     "type": "`$STRING`",
                     "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                    "reqd": true
                   }
                 ]
               },
               "select": {
                 "exist": [
-                  "inbox_id"
+                  "contact_id"
                 ]
               },
               "response": {
@@ -3428,7 +3790,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "$.main.kit.entity.inbox"
+            "$.main.kit.entity.contact"
           ]
         ]
       }
@@ -3716,6 +4078,58 @@ class Config {
             {
               "kind": "http",
               "method": "DELETE",
+              "orig": "/domains/{domain_id}",
+              "segments": [
+                {
+                  "lit": "domains"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "domains",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "domain_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "domain_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
               "orig": "/domains/{domain_id}",
               "segments": [
                 {
@@ -4425,6 +4839,121 @@ class Config {
               }
             }
           ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/emails/{email_id}",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "emails",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "email_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "email_batch": {
+      "fields": [
+        {
+          "name": "data",
+          "title": "Data",
+          "type": "`$ARRAY`"
+        },
+        {
+          "name": "send_emails",
+          "title": "Send Emails",
+          "type": "`$ARRAY`"
+        }
+      ],
+      "name": "email_batch",
+      "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/emails/batch",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "lit": "batch"
+                }
+              ],
+              "parts": [
+                "emails",
+                "batch"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata.send_emails`",
+                "res": "`body`"
+              },
+              "args": {
+                "header": [
+                  {
+                    "name": "idempotency_key",
+                    "orig": "Idempotency-Key",
+                    "type": "`$STRING`",
+                    "kind": "header"
+                  }
+                ]
+              },
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
@@ -4619,6 +5148,18 @@ class Config {
               "`$NULL`"
             ]
           ],
+          "op": {
+            "update": {
+              "req": true,
+              "type": [
+                "`$ONE`",
+                [
+                  "`$OBJECT`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
           "short": "A flat key/type map defining the event payload schema."
         },
         {
@@ -4802,6 +5343,110 @@ class Config {
               }
             }
           ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/events/{identifier}",
+              "segments": [
+                {
+                  "lit": "events"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "events",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "identifier": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "identifier",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/events/{identifier}",
+              "segments": [
+                {
+                  "lit": "events"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "events",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "identifier": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "identifier",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
@@ -4860,6 +5505,9 @@ class Config {
           "op": {
             "create": {
               "type": "`$STRING`"
+            },
+            "update": {
+              "type": "`$STRING`"
             }
           },
           "short": "The name recipients see when mail is sent from this inbox."
@@ -4893,6 +5541,9 @@ class Config {
           "req": true,
           "op": {
             "create": {
+              "type": "`$STRING`"
+            },
+            "update": {
               "type": "`$STRING`"
             }
           },
@@ -5074,29 +5725,25 @@ class Config {
             }
           ]
         },
-        "update": {
+        "remove": {
           "input": "data",
-          "name": "update",
+          "name": "remove",
           "points": [
             {
               "kind": "http",
-              "method": "PATCH",
-              "orig": "/inboxes/{inbox_id}/agent",
+              "method": "DELETE",
+              "orig": "/inboxes/{inbox_id}",
               "segments": [
                 {
                   "lit": "inboxes"
                 },
                 {
                   "var": "id"
-                },
-                {
-                  "lit": "agent"
                 }
               ],
               "parts": [
                 "inboxes",
-                "{id}",
-                "agent"
+                "{id}"
               ],
               "rename": {
                 "param": {
@@ -5120,7 +5767,59 @@ class Config {
                 ]
               },
               "select": {
-                "$action": "agent",
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/inboxes/{inbox_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "inbox_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
                 "exist": [
                   "id"
                 ]
@@ -5137,23 +5836,93 @@ class Config {
         "ancestors": []
       }
     },
-    "inbox_agent_response_success": {
+    "inbox_agent": {
       "fields": [
+        {
+          "name": "actions",
+          "title": "Actions",
+          "type": "`$ARRAY`",
+          "req": true,
+          "op": {
+            "update": {
+              "type": "`$ARRAY`"
+            }
+          },
+          "short": "The actions the agent can take, in the order of the enum."
+        },
         {
           "name": "id",
           "title": "Id",
-          "type": "`$STRING`"
+          "type": "`$STRING`",
+          "req": true,
+          "short": "The ID of the inbox agent.",
+          "format": "uuid"
+        },
+        {
+          "name": "instructions",
+          "title": "Instructions",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "req": true,
+          "op": {
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
+          "short": "Instructions the agent follows when it handles the threads of the inbox."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "req": true,
+          "short": "The object type."
+        },
+        {
+          "name": "tone",
+          "title": "Tone",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "req": true,
+          "op": {
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
+          "short": "The tone the agent writes in."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "inbox_agent_response_success",
+      "name": "inbox_agent",
       "op": {
-        "list": {
+        "load": {
           "input": "data",
-          "name": "list",
+          "name": "load",
           "points": [
             {
               "kind": "http",
@@ -5164,7 +5933,7 @@ class Config {
                   "lit": "inboxes"
                 },
                 {
-                  "var": "id"
+                  "var": "inbox_id"
                 },
                 {
                   "lit": "agent"
@@ -5172,22 +5941,22 @@ class Config {
               ],
               "parts": [
                 "inboxes",
-                "{id}",
+                "{inbox_id}",
                 "agent"
               ],
               "rename": {
                 "param": {
-                  "inbox_id": "id"
+                  "inbox_id": "inbox_id"
                 }
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body.actions`"
+                "res": "`body`"
               },
               "args": {
                 "params": [
                   {
-                    "name": "id",
+                    "name": "inbox_id",
                     "orig": "inbox_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -5197,9 +5966,8 @@ class Config {
                 ]
               },
               "select": {
-                "$action": "agent",
                 "exist": [
-                  "id"
+                  "inbox_id"
                 ]
               },
               "response": {
@@ -5208,201 +5976,55 @@ class Config {
               }
             }
           ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "inbox_draft_list_item": {
-      "fields": [
-        {
-          "name": "attachments",
-          "title": "Attachments",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The files stored on the draft."
         },
-        {
-          "name": "bcc",
-          "title": "Bcc",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The BCC recipients."
-        },
-        {
-          "name": "cc",
-          "title": "Cc",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The CC recipients."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the draft.",
-          "format": "uuid"
-        },
-        {
-          "name": "reply_to_email_id",
-          "title": "Reply To Email Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The Email ID the draft replies to.",
-          "format": "uuid"
-        },
-        {
-          "name": "snippet",
-          "title": "Snippet",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "A short preview of the body."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The subject."
-        },
-        {
-          "name": "thread_id",
-          "title": "Thread Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The Thread ID when the draft is a reply.",
-          "format": "uuid"
-        },
-        {
-          "name": "to",
-          "title": "To",
-          "type": [
-            "`$ONE`",
-            [
-              "`$ARRAY`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The recipients."
-        },
-        {
-          "name": "type",
-          "title": "Type",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "`reply` when the draft replies to an email in an existing thread."
-        },
-        {
-          "name": "updated_at",
-          "title": "Updated At",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Timestamp when the draft was last saved.",
-          "format": "date-time"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "inbox_draft_list_item",
-      "op": {
-        "list": {
+        "update": {
           "input": "data",
-          "name": "list",
+          "name": "update",
           "points": [
             {
               "kind": "http",
-              "method": "GET",
-              "orig": "/inboxes/{inbox_id}/drafts",
+              "method": "PATCH",
+              "orig": "/inboxes/{inbox_id}/agent",
               "segments": [
                 {
                   "lit": "inboxes"
                 },
                 {
-                  "var": "id"
+                  "var": "inbox_id"
                 },
                 {
-                  "lit": "drafts"
+                  "lit": "agent"
                 }
               ],
               "parts": [
                 "inboxes",
-                "{id}",
-                "drafts"
+                "{inbox_id}",
+                "agent"
               ],
               "rename": {
                 "param": {
-                  "inbox_id": "id"
+                  "inbox_id": "inbox_id"
                 }
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body.data`"
+                "res": "`body`"
               },
               "args": {
                 "params": [
                   {
-                    "name": "id",
+                    "name": "inbox_id",
                     "orig": "inbox_id",
                     "type": "`$STRING`",
                     "kind": "param",
                     "reqd": true,
                     "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
                   }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
                 ]
               },
               "select": {
-                "$action": "drafts",
                 "exist": [
-                  "id"
+                  "inbox_id"
                 ]
               },
               "response": {
@@ -5414,16 +6036,40 @@ class Config {
         }
       },
       "relations": {
-        "ancestors": []
+        "ancestors": [
+          [
+            "$.main.kit.entity.inbox"
+          ]
+        ]
       }
     },
-    "inbox_draft_response_success": {
+    "inbox_draft": {
       "fields": [
         {
           "name": "attachments",
           "title": "Attachments",
           "type": "`$ARRAY`",
           "req": true,
+          "op": {
+            "create": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$ARRAY`",
+                  "`$NULL`"
+                ]
+              ]
+            },
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$ARRAY`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
           "short": "The files stored on the draft."
         },
         {
@@ -5431,6 +6077,14 @@ class Config {
           "title": "Bcc",
           "type": "`$ARRAY`",
           "req": true,
+          "op": {
+            "create": {
+              "type": "`$ANY`"
+            },
+            "update": {
+              "type": "`$ANY`"
+            }
+          },
           "short": "The BCC recipients."
         },
         {
@@ -5438,6 +6092,14 @@ class Config {
           "title": "Cc",
           "type": "`$ARRAY`",
           "req": true,
+          "op": {
+            "create": {
+              "type": "`$ANY`"
+            },
+            "update": {
+              "type": "`$ANY`"
+            }
+          },
           "short": "The CC recipients."
         },
         {
@@ -5473,6 +6135,26 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            },
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
           "short": "The HTML body."
         },
         {
@@ -5501,8 +6183,26 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": "`$STRING`"
+            }
+          },
           "short": "The Email ID the draft replies to.",
           "format": "uuid"
+        },
+        {
+          "name": "snippet",
+          "title": "Snippet",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "req": true,
+          "short": "A short preview of the body."
         },
         {
           "name": "subject",
@@ -5515,6 +6215,26 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            },
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
           "short": "The subject."
         },
         {
@@ -5528,6 +6248,26 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            },
+            "update": {
+              "type": [
+                "`$ONE`",
+                [
+                  "`$STRING`",
+                  "`$NULL`"
+                ]
+              ]
+            }
+          },
           "short": "The plain text body."
         },
         {
@@ -5541,6 +6281,11 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": "`$STRING`"
+            }
+          },
           "short": "The Thread ID when the draft is a reply.",
           "format": "uuid"
         },
@@ -5555,6 +6300,14 @@ class Config {
             ]
           ],
           "req": true,
+          "op": {
+            "create": {
+              "type": "`$ANY`"
+            },
+            "update": {
+              "type": "`$ANY`"
+            }
+          },
           "short": "The recipients."
         },
         {
@@ -5577,7 +6330,7 @@ class Config {
         "field": "id",
         "name": "id"
       },
-      "name": "inbox_draft_response_success",
+      "name": "inbox_draft",
       "op": {
         "create": {
           "input": "data",
@@ -5598,7 +6351,7 @@ class Config {
                   "lit": "drafts"
                 },
                 {
-                  "var": "draft_id"
+                  "var": "id"
                 },
                 {
                   "lit": "send"
@@ -5608,10 +6361,14 @@ class Config {
                 "inboxes",
                 "{inbox_id}",
                 "drafts",
-                "{draft_id}",
+                "{id}",
                 "send"
               ],
-              "rename": {},
+              "rename": {
+                "param": {
+                  "draft_id": "id"
+                }
+              },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -5627,7 +6384,7 @@ class Config {
                 ],
                 "params": [
                   {
-                    "name": "draft_id",
+                    "name": "id",
                     "orig": "draft_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -5646,7 +6403,135 @@ class Config {
               "select": {
                 "$action": "send",
                 "exist": [
-                  "draft_id",
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/inboxes/{inbox_id}/drafts",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "drafts"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "drafts"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "header": [
+                  {
+                    "name": "idempotency_key",
+                    "orig": "Idempotency-Key",
+                    "type": "`$STRING`",
+                    "kind": "header"
+                  }
+                ],
+                "params": [
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/inboxes/{inbox_id}/drafts",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "drafts"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "drafts"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
                   "inbox_id"
                 ]
               },
@@ -5676,16 +6561,20 @@ class Config {
                   "lit": "drafts"
                 },
                 {
-                  "var": "draft_id"
+                  "var": "id"
                 }
               ],
               "parts": [
                 "inboxes",
                 "{inbox_id}",
                 "drafts",
-                "{draft_id}"
+                "{id}"
               ],
-              "rename": {},
+              "rename": {
+                "param": {
+                  "draft_id": "id"
+                }
+              },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -5693,7 +6582,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "draft_id",
+                    "name": "id",
                     "orig": "draft_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -5711,7 +6600,145 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "draft_id",
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/inboxes/{inbox_id}/drafts/{draft_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "drafts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "drafts",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "draft_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "draft_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/inboxes/{inbox_id}/drafts/{draft_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "drafts"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "drafts",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "draft_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "draft_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
                   "inbox_id"
                 ]
               },
@@ -5737,8 +6764,13 @@ class Config {
           "name": "color",
           "title": "Color",
           "type": "`$STRING`",
-          "req": true,
-          "short": "The color of the label, as a `#RRGGBB` hex color in uppercase."
+          "op": {
+            "list": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
+          "short": "The color of the label, as a `#RRGGBB` hex color."
         },
         {
           "name": "created_at",
@@ -5753,7 +6785,7 @@ class Config {
           "title": "Id",
           "type": "`$STRING`",
           "req": true,
-          "short": "The ID of the label.",
+          "short": "The ID of the updated label.",
           "format": "uuid"
         },
         {
@@ -5761,7 +6793,19 @@ class Config {
           "title": "Name",
           "type": "`$STRING`",
           "req": true,
+          "op": {
+            "update": {
+              "type": "`$STRING`"
+            }
+          },
           "short": "The name of the label."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "req": true,
+          "short": "Type of the response object."
         }
       ],
       "id": {
@@ -5770,6 +6814,63 @@ class Config {
       },
       "name": "inbox_label",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/inboxes/{inbox_id}/labels",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "labels"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "labels"
+              ],
+              "rename": {
+                "param": {
+                  "inbox_id": "inbox_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "list": {
           "input": "data",
           "name": "list",
@@ -5783,7 +6884,7 @@ class Config {
                   "lit": "inboxes"
                 },
                 {
-                  "var": "id"
+                  "var": "inbox_id"
                 },
                 {
                   "lit": "labels"
@@ -5791,12 +6892,12 @@ class Config {
               ],
               "parts": [
                 "inboxes",
-                "{id}",
+                "{inbox_id}",
                 "labels"
               ],
               "rename": {
                 "param": {
-                  "inbox_id": "id"
+                  "inbox_id": "inbox_id"
                 }
               },
               "transform": {
@@ -5806,7 +6907,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "id",
+                    "name": "inbox_id",
                     "orig": "inbox_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -5817,7 +6918,145 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "id"
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/inboxes/{inbox_id}/labels/{label_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "labels"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "labels",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "label_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "label_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/inboxes/{inbox_id}/labels/{label_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "labels"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "labels",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "label_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "label_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id"
                 ]
               },
               "response": {
@@ -5829,7 +7068,11 @@ class Config {
         }
       },
       "relations": {
-        "ancestors": []
+        "ancestors": [
+          [
+            "$.main.kit.entity.inbox"
+          ]
+        ]
       }
     },
     "inbox_thread": {
@@ -5860,6 +7103,11 @@ class Config {
           "title": "Folder",
           "type": "`$STRING`",
           "req": true,
+          "op": {
+            "update": {
+              "type": "`$STRING`"
+            }
+          },
           "short": "The folder the thread is in."
         },
         {
@@ -5905,24 +7153,22 @@ class Config {
           "short": "The labels attached to the thread."
         },
         {
-          "name": "matched_email_id",
-          "title": "Matched Email Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The ID of the email in the thread that matched the search.",
-          "format": "uuid"
+          "short": "The object type."
         },
         {
           "name": "read",
           "title": "Read",
           "type": "`$BOOLEAN`",
           "req": true,
+          "op": {
+            "update": {
+              "type": "`$BOOLEAN`"
+            }
+          },
           "short": "True only when every email in the thread is read."
         },
         {
@@ -5973,7 +7219,7 @@ class Config {
                   "lit": "inboxes"
                 },
                 {
-                  "var": "id"
+                  "var": "inbox_id"
                 },
                 {
                   "lit": "threads"
@@ -5981,12 +7227,12 @@ class Config {
               ],
               "parts": [
                 "inboxes",
-                "{id}",
+                "{inbox_id}",
                 "threads"
               ],
               "rename": {
                 "param": {
-                  "inbox_id": "id"
+                  "inbox_id": "inbox_id"
                 }
               },
               "transform": {
@@ -5996,7 +7242,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "id",
+                    "name": "inbox_id",
                     "orig": "inbox_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -6054,7 +7300,7 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "id"
+                  "inbox_id"
                 ]
               },
               "response": {
@@ -6211,7 +7457,215 @@ class Config {
                 ]
               },
               "select": {
+                "$action": "search",
                 "exist": [
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "thread_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "thread_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "thread_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
                   "inbox_id"
                 ]
               },
@@ -6364,6 +7818,196 @@ class Config {
       },
       "name": "inbox_thread_email",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "thread_id"
+                },
+                {
+                  "lit": "emails"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "forward"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{thread_id}",
+                "emails",
+                "{id}",
+                "forward"
+              ],
+              "rename": {
+                "param": {
+                  "email_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "header": [
+                  {
+                    "name": "idempotency_key",
+                    "orig": "Idempotency-Key",
+                    "type": "`$STRING`",
+                    "kind": "header"
+                  }
+                ],
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  },
+                  {
+                    "name": "thread_id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "$action": "forward",
+                "exist": [
+                  "id",
+                  "inbox_id",
+                  "thread_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "thread_id"
+                },
+                {
+                  "lit": "emails"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "reply"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{thread_id}",
+                "emails",
+                "{id}",
+                "reply"
+              ],
+              "rename": {
+                "param": {
+                  "email_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "header": [
+                  {
+                    "name": "idempotency_key",
+                    "orig": "Idempotency-Key",
+                    "type": "`$STRING`",
+                    "kind": "header"
+                  }
+                ],
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  },
+                  {
+                    "name": "thread_id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "$action": "reply",
+                "exist": [
+                  "id",
+                  "inbox_id",
+                  "thread_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "list": {
           "input": "data",
           "name": "list",
@@ -6452,330 +8096,6 @@ class Config {
               }
             }
           ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "inbox_thread_email_response_success": {
-      "fields": [
-        {
-          "name": "attachments",
-          "title": "Attachments",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The attachments of the message."
-        },
-        {
-          "name": "bcc",
-          "title": "Bcc",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The BCC recipients of the message."
-        },
-        {
-          "name": "cc",
-          "title": "Cc",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The CC recipients of the message."
-        },
-        {
-          "name": "direction",
-          "title": "Direction",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Whether the inbox received the message (`inbound`) or sent it (`outbound`)."
-        },
-        {
-          "name": "from",
-          "title": "From",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Sender email address."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The HTML body."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the message.",
-          "format": "uuid"
-        },
-        {
-          "name": "message_id",
-          "title": "Message Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The Message-ID header of the message."
-        },
-        {
-          "name": "read",
-          "title": "Read",
-          "type": "`$BOOLEAN`",
-          "req": true,
-          "short": "Whether the message has been read."
-        },
-        {
-          "name": "received_at",
-          "title": "Received At",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Timestamp when the inbox received the message, or when the inbox sent it.",
-          "format": "date-time"
-        },
-        {
-          "name": "reply_to",
-          "title": "Reply To",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The Reply-To addresses of the message."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The subject of the message."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The plain-text body."
-        },
-        {
-          "name": "to",
-          "title": "To",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The recipients of the message."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "inbox_thread_email_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                },
-                {
-                  "lit": "emails"
-                },
-                {
-                  "var": "email_id"
-                },
-                {
-                  "lit": "forward"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}",
-                "emails",
-                "{email_id}",
-                "forward"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "header": [
-                  {
-                    "name": "idempotency_key",
-                    "orig": "Idempotency-Key",
-                    "type": "`$STRING`",
-                    "kind": "header"
-                  }
-                ],
-                "params": [
-                  {
-                    "name": "email_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "$action": "forward",
-                "exist": [
-                  "email_id",
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            },
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                },
-                {
-                  "lit": "emails"
-                },
-                {
-                  "var": "email_id"
-                },
-                {
-                  "lit": "reply"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}",
-                "emails",
-                "{email_id}",
-                "reply"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "header": [
-                  {
-                    "name": "idempotency_key",
-                    "orig": "Idempotency-Key",
-                    "type": "`$STRING`",
-                    "kind": "header"
-                  }
-                ],
-                "params": [
-                  {
-                    "name": "email_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "$action": "reply",
-                "exist": [
-                  "email_id",
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
         },
         "load": {
           "input": "data",
@@ -6802,7 +8122,7 @@ class Config {
                   "lit": "emails"
                 },
                 {
-                  "var": "email_id"
+                  "var": "id"
                 }
               ],
               "parts": [
@@ -6811,9 +8131,13 @@ class Config {
                 "threads",
                 "{thread_id}",
                 "emails",
-                "{email_id}"
+                "{id}"
               ],
-              "rename": {},
+              "rename": {
+                "param": {
+                  "email_id": "id"
+                }
+              },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -6821,7 +8145,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "email_id",
+                    "name": "id",
                     "orig": "email_id",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -6846,7 +8170,7 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "email_id",
+                  "id",
                   "inbox_id",
                   "thread_id"
                 ]
@@ -6862,78 +8186,54 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "$.main.kit.entity.inbox",
-            "$.main.kit.entity.email"
+            "$.main.kit.entity.inbox"
           ]
         ]
       }
     },
-    "inbox_thread_response_success": {
+    "inbox_thread_label": {
       "fields": [
         {
-          "name": "folder",
-          "title": "Folder",
-          "type": "`$STRING`",
+          "name": "data",
+          "title": "Data",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "The folder the thread is in."
+          "short": "Every label on the thread after the change."
         },
         {
           "name": "id",
           "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the thread.",
-          "format": "uuid"
+          "type": "`$STRING`"
         },
         {
           "name": "labels",
           "title": "Labels",
           "type": "`$ARRAY`",
           "req": true,
-          "short": "The labels attached to the thread."
+          "short": "The IDs of the labels to apply to the thread."
         },
         {
           "name": "object",
           "title": "Object",
           "type": "`$STRING`",
           "req": true,
-          "short": "The object type."
-        },
-        {
-          "name": "read",
-          "title": "Read",
-          "type": "`$BOOLEAN`",
-          "req": true,
-          "short": "True only when every email in the thread is read."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The subject of the thread."
+          "short": "Type of the response object."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "inbox_thread_response_success",
+      "name": "inbox_thread_label",
       "op": {
-        "load": {
+        "create": {
           "input": "data",
-          "name": "load",
+          "name": "create",
           "points": [
             {
               "kind": "http",
-              "method": "GET",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
+              "method": "POST",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
               "segments": [
                 {
                   "lit": "inboxes"
@@ -6946,13 +8246,171 @@ class Config {
                 },
                 {
                   "var": "thread_id"
+                },
+                {
+                  "lit": "labels"
                 }
               ],
               "parts": [
                 "inboxes",
                 "{inbox_id}",
                 "threads",
-                "{thread_id}"
+                "{thread_id}",
+                "labels"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  },
+                  {
+                    "name": "thread_id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "inbox_id",
+                  "thread_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "thread_id"
+                },
+                {
+                  "lit": "labels"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{thread_id}",
+                "labels",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "label_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "label_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "inbox_id",
+                    "orig": "inbox_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                  },
+                  {
+                    "name": "thread_id",
+                    "orig": "thread_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id",
+                  "inbox_id",
+                  "thread_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PUT",
+              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
+              "segments": [
+                {
+                  "lit": "inboxes"
+                },
+                {
+                  "var": "inbox_id"
+                },
+                {
+                  "lit": "threads"
+                },
+                {
+                  "var": "thread_id"
+                },
+                {
+                  "lit": "labels"
+                }
+              ],
+              "parts": [
+                "inboxes",
+                "{inbox_id}",
+                "threads",
+                "{thread_id}",
+                "labels"
               ],
               "rename": {},
               "transform": {
@@ -6996,993 +8454,6 @@ class Config {
         "ancestors": [
           [
             "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "list_attachment": {
-      "fields": [
-        {
-          "name": "content_disposition",
-          "title": "Content Disposition",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "How the attachment should be displayed."
-        },
-        {
-          "name": "content_id",
-          "title": "Content Id",
-          "type": "`$STRING`",
-          "short": "The content ID for inline attachments."
-        },
-        {
-          "name": "content_type",
-          "title": "Content Type",
-          "type": "`$STRING`",
-          "short": "The MIME type of the attachment."
-        },
-        {
-          "name": "download_url",
-          "title": "Download Url",
-          "type": "`$STRING`",
-          "short": "Signed URL to download the attachment content."
-        },
-        {
-          "name": "expires_at",
-          "title": "Expires At",
-          "type": "`$STRING`",
-          "short": "Timestamp when the download URL expires.",
-          "format": "date-time"
-        },
-        {
-          "name": "filename",
-          "title": "Filename",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The filename of the attachment."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the attachment.",
-          "format": "uuid"
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "`$INTEGER`",
-          "short": "Size of the attachment in bytes."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_attachment",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/emails/{email_id}/attachments",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "var": "email_id"
-                },
-                {
-                  "lit": "attachments"
-                }
-              ],
-              "parts": [
-                "emails",
-                "{email_id}",
-                "attachments"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "email_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "email_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/emails/receiving/{email_id}/attachments",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "lit": "receiving"
-                },
-                {
-                  "var": "receiving_id"
-                },
-                {
-                  "lit": "attachments"
-                }
-              ],
-              "parts": [
-                "emails",
-                "receiving",
-                "{receiving_id}",
-                "attachments"
-              ],
-              "rename": {
-                "param": {
-                  "email_id": "receiving_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "receiving_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "receiving_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.email"
-          ]
-        ]
-      }
-    },
-    "list_broadcast_clicked_links_response_success": {
-      "fields": [
-        {
-          "name": "clicks",
-          "title": "Clicks",
-          "type": "`$INTEGER`",
-          "short": "Total number of clicks on this URL."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "An opaque cursor for this row, used only for pagination."
-        },
-        {
-          "name": "unique_clicks",
-          "title": "Unique Clicks",
-          "type": "`$INTEGER`",
-          "short": "Number of unique clicks on this URL."
-        },
-        {
-          "name": "url",
-          "title": "Url",
-          "type": "`$STRING`",
-          "short": "The URL that was clicked."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_broadcast_clicked_links_response_success",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/broadcasts/{id}/clicked-links",
-              "segments": [
-                {
-                  "lit": "broadcasts"
-                },
-                {
-                  "var": "broadcast_id"
-                },
-                {
-                  "lit": "clicked-links"
-                }
-              ],
-              "parts": [
-                "broadcasts",
-                "{broadcast_id}",
-                "clicked-links"
-              ],
-              "rename": {
-                "param": {
-                  "id": "broadcast_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "broadcast_id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "broadcast_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.broadcast"
-          ]
-        ]
-      }
-    },
-    "list_broadcast_recipients_response_success": {
-      "fields": [
-        {
-          "name": "bounce_type",
-          "title": "Bounce Type",
-          "type": "`$STRING`",
-          "short": "The type of bounce."
-        },
-        {
-          "name": "clicked_links",
-          "title": "Clicked Links",
-          "type": "`$ARRAY`",
-          "short": "The links this recipient clicked."
-        },
-        {
-          "name": "contact_id",
-          "title": "Contact Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The ID of the contact associated with this recipient, if one exists."
-        },
-        {
-          "name": "count",
-          "title": "Count",
-          "type": "`$INTEGER`",
-          "short": "The number of times this recipient triggered the event."
-        },
-        {
-          "name": "email",
-          "title": "Email",
-          "type": "`$STRING`",
-          "short": "The recipient's email address."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Opaque cursor identifying this row, used for pagination."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_broadcast_recipients_response_success",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/broadcasts/{id}/recipients",
-              "segments": [
-                {
-                  "lit": "broadcasts"
-                },
-                {
-                  "var": "broadcast_id"
-                },
-                {
-                  "lit": "recipients"
-                }
-              ],
-              "parts": [
-                "broadcasts",
-                "{broadcast_id}",
-                "recipients"
-              ],
-              "rename": {
-                "param": {
-                  "id": "broadcast_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "broadcast_id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "bounce_type",
-                    "orig": "bounce_type",
-                    "type": "`$STRING`",
-                    "kind": "query",
-                    "field": true
-                  },
-                  {
-                    "name": "email",
-                    "orig": "email",
-                    "type": "`$STRING`",
-                    "kind": "query",
-                    "field": true
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "type",
-                    "orig": "type",
-                    "type": "`$STRING`",
-                    "kind": "query",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "broadcast_id",
-                  "type"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.broadcast"
-          ]
-        ]
-      }
-    },
-    "list_contact_segments_response_success": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the contact was added to the segment."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier for the segment."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "Name of the segment."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_contact_segments_response_success",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/contacts/{contact_id}/segments",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "contact_id"
-                },
-                {
-                  "lit": "segments"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{contact_id}",
-                "segments"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "contact_id",
-                    "orig": "contact_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "contact_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.contact"
-          ]
-        ]
-      }
-    },
-    "list_contacts_response_success": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the contact was created."
-        },
-        {
-          "name": "email",
-          "title": "Email",
-          "type": "`$STRING`",
-          "short": "Email address of the contact."
-        },
-        {
-          "name": "first_name",
-          "title": "First Name",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "First name of the contact."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier for the contact."
-        },
-        {
-          "name": "last_name",
-          "title": "Last Name",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "Last name of the contact."
-        },
-        {
-          "name": "unsubscribed",
-          "title": "Unsubscribed",
-          "type": "`$BOOLEAN`",
-          "short": "Indicates if the contact is unsubscribed."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_contacts_response_success",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/segments/{id}/contacts",
-              "segments": [
-                {
-                  "lit": "segments"
-                },
-                {
-                  "var": "segment_id"
-                },
-                {
-                  "lit": "contacts"
-                }
-              ],
-              "parts": [
-                "segments",
-                "{segment_id}",
-                "contacts"
-              ],
-              "rename": {
-                "param": {
-                  "id": "segment_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "segment_id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "segment_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.segment"
-          ]
-        ]
-      }
-    },
-    "list_webhook_event": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the event was created.",
-          "format": "date-time"
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the webhook event."
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "`$STRING`",
-          "short": "The delivery status of the event for this webhook."
-        },
-        {
-          "name": "type",
-          "title": "Type",
-          "type": "`$STRING`",
-          "short": "The type of the event."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_webhook_event",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/webhooks/{webhook_id}/events",
-              "segments": [
-                {
-                  "lit": "webhooks"
-                },
-                {
-                  "var": "webhook_id"
-                },
-                {
-                  "lit": "events"
-                }
-              ],
-              "parts": [
-                "webhooks",
-                "{webhook_id}",
-                "events"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "webhook_id",
-                    "orig": "webhook_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "webhook_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.webhook"
-          ]
-        ]
-      }
-    },
-    "list_webhook_event_attempt": {
-      "fields": [
-        {
-          "name": "http_status_code",
-          "title": "Http Status Code",
-          "type": "`$INTEGER`",
-          "short": "The HTTP status code returned by the webhook endpoint."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the webhook event attempt."
-        },
-        {
-          "name": "response",
-          "title": "Response",
-          "type": "`$STRING`",
-          "short": "The response body returned by the webhook endpoint."
-        },
-        {
-          "name": "sent_at",
-          "title": "Sent At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the attempt was sent.",
-          "format": "date-time"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "list_webhook_event_attempt",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/webhooks/{webhook_id}/events/{event_id}/attempts",
-              "segments": [
-                {
-                  "lit": "webhooks"
-                },
-                {
-                  "var": "webhook_id"
-                },
-                {
-                  "lit": "events"
-                },
-                {
-                  "var": "event_id"
-                },
-                {
-                  "lit": "attempts"
-                }
-              ],
-              "parts": [
-                "webhooks",
-                "{webhook_id}",
-                "events",
-                "{event_id}",
-                "attempts"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "event_id",
-                    "orig": "event_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "webhook_id",
-                    "orig": "webhook_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "event_id",
-                  "webhook_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.webhook",
-            "$.main.kit.entity.event"
           ]
         ]
       }
@@ -8162,6 +8633,415 @@ class Config {
               },
               "select": {
                 "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "oauth_grant": {
+      "fields": [
+        {
+          "name": "client",
+          "title": "Client",
+          "type": "`$OBJECT`",
+          "short": "The OAuth client the grant was issued to."
+        },
+        {
+          "name": "client_id",
+          "title": "Client Id",
+          "type": "`$STRING`",
+          "short": "The ID of the OAuth client the grant was issued to."
+        },
+        {
+          "name": "created_at",
+          "title": "Created At",
+          "type": "`$STRING`",
+          "short": "The date and time the OAuth grant was created."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "The ID of the OAuth grant."
+        },
+        {
+          "name": "revoked_at",
+          "title": "Revoked At",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "The date and time the OAuth grant was revoked, or null if it is still active."
+        },
+        {
+          "name": "revoked_reason",
+          "title": "Revoked Reason",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "The reason the OAuth grant was revoked, or null if it is still active."
+        },
+        {
+          "name": "scopes",
+          "title": "Scopes",
+          "type": "`$ARRAY`",
+          "short": "The scopes granted to the OAuth client."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "oauth_grant",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/oauth/grants",
+              "segments": [
+                {
+                  "lit": "oauth"
+                },
+                {
+                  "lit": "grants"
+                }
+              ],
+              "parts": [
+                "oauth",
+                "grants"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/oauth/grants/{oauth_grant_id}",
+              "segments": [
+                {
+                  "lit": "oauth"
+                },
+                {
+                  "lit": "grants"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "oauth",
+                "grants",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "oauth_grant_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "oauth_grant_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "received_attachment": {
+      "fields": [
+        {
+          "name": "content_disposition",
+          "title": "Content Disposition",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "How the attachment should be displayed."
+        },
+        {
+          "name": "content_id",
+          "title": "Content Id",
+          "type": "`$STRING`",
+          "short": "The content ID for inline attachments."
+        },
+        {
+          "name": "content_type",
+          "title": "Content Type",
+          "type": "`$STRING`",
+          "short": "The MIME type of the attachment."
+        },
+        {
+          "name": "download_url",
+          "title": "Download Url",
+          "type": "`$STRING`",
+          "short": "Signed URL to download the attachment content."
+        },
+        {
+          "name": "expires_at",
+          "title": "Expires At",
+          "type": "`$STRING`",
+          "short": "Timestamp when the download URL expires.",
+          "format": "date-time"
+        },
+        {
+          "name": "filename",
+          "title": "Filename",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "The filename of the attachment."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "The ID of the attachment.",
+          "format": "uuid"
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The type of object."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "`$INTEGER`",
+          "short": "Size of the attachment in bytes."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "received_attachment",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/emails/receiving/{email_id}/attachments",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "lit": "receiving"
+                },
+                {
+                  "var": "email_id"
+                },
+                {
+                  "lit": "attachments"
+                }
+              ],
+              "parts": [
+                "emails",
+                "receiving",
+                "{email_id}",
+                "attachments"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email_id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/emails/receiving/{email_id}/attachments/{attachment_id}",
+              "segments": [
+                {
+                  "lit": "emails"
+                },
+                {
+                  "lit": "receiving"
+                },
+                {
+                  "var": "email_id"
+                },
+                {
+                  "lit": "attachments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "emails",
+                "receiving",
+                "{email_id}",
+                "attachments",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "attachment_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email_id",
+                    "orig": "email_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "attachment_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email_id",
                   "id"
                 ]
               },
@@ -8426,814 +9306,7 @@ class Config {
         "ancestors": []
       }
     },
-    "remove_audience_response_success": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_audience_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/audiences/{id}",
-              "segments": [
-                {
-                  "lit": "audiences"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "audiences",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_broadcast_response_success": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_broadcast_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/broadcasts/{id}",
-              "segments": [
-                {
-                  "lit": "broadcasts"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "broadcasts",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_contact_from_segment_response_success": {
-      "fields": [],
-      "name": "remove_contact_from_segment_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/contacts/{contact_id}/segments/{segment_id}",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "contact_id"
-                },
-                {
-                  "lit": "segments"
-                },
-                {
-                  "var": "segment_id"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{contact_id}",
-                "segments",
-                "{segment_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "contact_id",
-                    "orig": "contact_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "segment_id",
-                    "orig": "segment_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "contact_id",
-                  "segment_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.contact",
-            "$.main.kit.entity.segment"
-          ]
-        ]
-      }
-    },
-    "remove_contact_property_response_success": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_contact_property_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/contact-properties/{id}",
-              "segments": [
-                {
-                  "lit": "contact-properties"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "contact-properties",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_contact_response_success": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_contact_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/contacts/{id}",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_event": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_event",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/events/{identifier}",
-              "segments": [
-                {
-                  "lit": "events"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "events",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "identifier": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "identifier",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_inbox_draft_response_success": {
-      "fields": [],
-      "name": "remove_inbox_draft_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/inboxes/{inbox_id}/drafts/{draft_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "drafts"
-                },
-                {
-                  "var": "draft_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "drafts",
-                "{draft_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "draft_id",
-                    "orig": "draft_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "draft_id",
-                  "inbox_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "remove_inbox_label_response_success": {
-      "fields": [],
-      "name": "remove_inbox_label_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/inboxes/{inbox_id}/labels/{label_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "labels"
-                },
-                {
-                  "var": "label_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "labels",
-                "{label_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "label_id",
-                    "orig": "label_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "label_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "remove_inbox_response_success": {
-      "fields": [],
-      "name": "remove_inbox_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/inboxes/{inbox_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "remove_inbox_thread_label_response_success": {
-      "fields": [],
-      "name": "remove_inbox_thread_label_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                },
-                {
-                  "lit": "labels"
-                },
-                {
-                  "var": "label_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}",
-                "labels",
-                "{label_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "label_id",
-                    "orig": "label_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "label_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "remove_inbox_thread_response_success": {
-      "fields": [],
-      "name": "remove_inbox_thread_response_success",
-      "op": {
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "remove_segment_response_success": {
+    "segment": {
       "fields": [
         {
           "name": "audience_id",
@@ -9258,26 +9331,36 @@ class Config {
           "name": "id",
           "title": "Id",
           "type": "`$STRING`",
-          "short": "Unique identifier for the segment."
+          "short": "The ID of the segment."
         },
         {
           "name": "name",
           "title": "Name",
           "type": "`$STRING`",
-          "req": true,
           "op": {
-            "list": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            },
+            "update": {
+              "req": true,
               "type": "`$STRING`"
             }
           },
           "short": "The name of the segment."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "The object type."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "remove_segment_response_success",
+      "name": "segment",
       "op": {
         "create": {
           "input": "data",
@@ -9360,6 +9443,54 @@ class Config {
             }
           ]
         },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/segments/{id}",
+              "segments": [
+                {
+                  "lit": "segments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "segments",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "remove": {
           "input": "data",
           "name": "remove",
@@ -9407,13 +9538,203 @@ class Config {
               }
             }
           ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
+              "orig": "/segments/{id}",
+              "segments": [
+                {
+                  "lit": "segments"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "segments",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
         "ancestors": []
       }
     },
-    "remove_suppression_response_success": {
+    "segment_contact": {
+      "fields": [
+        {
+          "name": "created_at",
+          "title": "Created At",
+          "type": "`$STRING`",
+          "short": "Timestamp indicating when the contact was created."
+        },
+        {
+          "name": "email",
+          "title": "Email",
+          "type": "`$STRING`",
+          "short": "Email address of the contact."
+        },
+        {
+          "name": "first_name",
+          "title": "First Name",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "First name of the contact."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "Unique identifier for the contact."
+        },
+        {
+          "name": "last_name",
+          "title": "Last Name",
+          "type": [
+            "`$ONE`",
+            [
+              "`$STRING`",
+              "`$NULL`"
+            ]
+          ],
+          "short": "Last name of the contact."
+        },
+        {
+          "name": "unsubscribed",
+          "title": "Unsubscribed",
+          "type": "`$BOOLEAN`",
+          "short": "Indicates if the contact is unsubscribed."
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "segment_contact",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/segments/{id}/contacts",
+              "segments": [
+                {
+                  "lit": "segments"
+                },
+                {
+                  "var": "segment_id"
+                },
+                {
+                  "lit": "contacts"
+                }
+              ],
+              "parts": [
+                "segments",
+                "{segment_id}",
+                "contacts"
+              ],
+              "rename": {
+                "param": {
+                  "id": "segment_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "segment_id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "segment_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": [
+          [
+            "$.main.kit.entity.segment"
+          ]
+        ]
+      }
+    },
+    "suppression": {
       "fields": [
         {
           "name": "created_at",
@@ -9425,19 +9746,25 @@ class Config {
           "name": "email",
           "title": "Email",
           "type": "`$STRING`",
-          "req": true,
           "op": {
-            "list": {
+            "create": {
+              "req": true,
               "type": "`$STRING`"
             }
           },
-          "short": "Email address to suppress."
+          "short": "Email address that is suppressed."
         },
         {
           "name": "id",
           "title": "Id",
           "type": "`$STRING`",
           "short": "Unique identifier for the suppression."
+        },
+        {
+          "name": "object",
+          "title": "Object",
+          "type": "`$STRING`",
+          "short": "Type of the response object."
         },
         {
           "name": "origin",
@@ -9462,7 +9789,7 @@ class Config {
         "field": "id",
         "name": "id"
       },
-      "name": "remove_suppression_response_success",
+      "name": "suppression",
       "op": {
         "create": {
           "input": "data",
@@ -9552,1234 +9879,6 @@ class Config {
             }
           ]
         },
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/suppressions/{suppression}",
-              "segments": [
-                {
-                  "lit": "suppressions"
-                },
-                {
-                  "var": "suppression"
-                }
-              ],
-              "parts": [
-                "suppressions",
-                "{suppression}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "suppression",
-                    "orig": "suppression",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "suppression"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.suppression"
-          ]
-        ]
-      }
-    },
-    "remove_template_response_success": {
-      "fields": [
-        {
-          "name": "alias",
-          "title": "Alias",
-          "type": "`$STRING`",
-          "short": "The alias of the template."
-        },
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the template was created."
-        },
-        {
-          "name": "from",
-          "title": "From",
-          "type": "`$STRING`",
-          "short": "Sender email address."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The HTML version of the template."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the template."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "op": {
-            "list": {
-              "type": "`$STRING`"
-            }
-          },
-          "short": "The name of the template."
-        },
-        {
-          "name": "published_at",
-          "title": "Published At",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "Timestamp indicating when the template was published."
-        },
-        {
-          "name": "reply_to",
-          "title": "Reply To",
-          "type": "`$ARRAY`",
-          "short": "Reply-to email addresses."
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "`$STRING`",
-          "short": "The publication status of the template."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": "`$STRING`",
-          "short": "Email subject."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": "`$STRING`",
-          "short": "The plain text version of the template."
-        },
-        {
-          "name": "updated_at",
-          "title": "Updated At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the template was last updated."
-        },
-        {
-          "name": "variables",
-          "title": "Variables",
-          "type": "`$ARRAY`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_template_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/templates",
-              "segments": [
-                {
-                  "lit": "templates"
-                }
-              ],
-              "parts": [
-                "templates"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/templates",
-              "segments": [
-                {
-                  "lit": "templates"
-                }
-              ],
-              "parts": [
-                "templates"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/templates/{id}",
-              "segments": [
-                {
-                  "lit": "templates"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "templates",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "remove_topic_response_success": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the topic was created."
-        },
-        {
-          "name": "default_subscription",
-          "title": "Default Subscription",
-          "type": "`$STRING`",
-          "req": true,
-          "op": {
-            "list": {
-              "type": "`$STRING`"
-            }
-          },
-          "short": "The default subscription status for the topic."
-        },
-        {
-          "name": "description",
-          "title": "Description",
-          "type": "`$STRING`",
-          "short": "A description of the topic."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier for the topic."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "op": {
-            "list": {
-              "type": "`$STRING`"
-            }
-          },
-          "short": "The name of the topic."
-        },
-        {
-          "name": "visibility",
-          "title": "Visibility",
-          "type": "`$STRING`",
-          "short": "The visibility of the topic."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "remove_topic_response_success",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/topics",
-              "segments": [
-                {
-                  "lit": "topics"
-                }
-              ],
-              "parts": [
-                "topics"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/topics",
-              "segments": [
-                {
-                  "lit": "topics"
-                }
-              ],
-              "parts": [
-                "topics"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/topics/{id}",
-              "segments": [
-                {
-                  "lit": "topics"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "topics",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "retrieved_attachment": {
-      "fields": [
-        {
-          "name": "content_disposition",
-          "title": "Content Disposition",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "How the attachment should be displayed."
-        },
-        {
-          "name": "content_id",
-          "title": "Content Id",
-          "type": "`$STRING`",
-          "short": "The content ID for inline attachments."
-        },
-        {
-          "name": "content_type",
-          "title": "Content Type",
-          "type": "`$STRING`",
-          "short": "The MIME type of the attachment."
-        },
-        {
-          "name": "download_url",
-          "title": "Download Url",
-          "type": "`$STRING`",
-          "short": "Signed URL to download the attachment content."
-        },
-        {
-          "name": "expires_at",
-          "title": "Expires At",
-          "type": "`$STRING`",
-          "short": "Timestamp when the download URL expires.",
-          "format": "date-time"
-        },
-        {
-          "name": "filename",
-          "title": "Filename",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The filename of the attachment."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the attachment.",
-          "format": "uuid"
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The type of object."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "`$INTEGER`",
-          "short": "Size of the attachment in bytes."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "retrieved_attachment",
-      "op": {
-        "load": {
-          "input": "data",
-          "name": "load",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/emails/{email_id}/attachments/{attachment_id}",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "var": "email_id"
-                },
-                {
-                  "lit": "attachments"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "emails",
-                "{email_id}",
-                "attachments",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "attachment_id": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "email_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "id",
-                    "orig": "attachment_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "email_id",
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/emails/receiving/{email_id}/attachments/{attachment_id}",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "lit": "receiving"
-                },
-                {
-                  "var": "receiving_id"
-                },
-                {
-                  "lit": "attachments"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "emails",
-                "receiving",
-                "{receiving_id}",
-                "attachments",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "attachment_id": "id",
-                  "email_id": "receiving_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "attachment_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "receiving_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id",
-                  "receiving_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.email"
-          ]
-        ]
-      }
-    },
-    "revoke_o_auth_grant": {
-      "fields": [
-        {
-          "name": "client",
-          "title": "Client",
-          "type": "`$OBJECT`",
-          "short": "The OAuth client the grant was issued to."
-        },
-        {
-          "name": "client_id",
-          "title": "Client Id",
-          "type": "`$STRING`",
-          "short": "The ID of the OAuth client the grant was issued to."
-        },
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "The date and time the OAuth grant was created."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the OAuth grant."
-        },
-        {
-          "name": "revoked_at",
-          "title": "Revoked At",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The date and time the OAuth grant was revoked, or null if it is still active."
-        },
-        {
-          "name": "revoked_reason",
-          "title": "Revoked Reason",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The reason the OAuth grant was revoked, or null if it is still active."
-        },
-        {
-          "name": "scopes",
-          "title": "Scopes",
-          "type": "`$ARRAY`",
-          "short": "The scopes granted to the OAuth client."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "revoke_o_auth_grant",
-      "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/oauth/grants",
-              "segments": [
-                {
-                  "lit": "oauth"
-                },
-                {
-                  "lit": "grants"
-                }
-              ],
-              "parts": [
-                "oauth",
-                "grants"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "remove": {
-          "input": "data",
-          "name": "remove",
-          "points": [
-            {
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/oauth/grants/{oauth_grant_id}",
-              "segments": [
-                {
-                  "lit": "oauth"
-                },
-                {
-                  "lit": "grants"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "oauth",
-                "grants",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "oauth_grant_id": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "oauth_grant_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "rotate": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the webhook.",
-          "format": "uuid"
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The type of object."
-        },
-        {
-          "name": "signing_secret",
-          "title": "Signing Secret",
-          "type": "`$STRING`",
-          "short": "The new secret key used to verify webhook payloads."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "rotate",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/webhooks/{webhook_id}/signing-secret/rotate",
-              "segments": [
-                {
-                  "lit": "webhooks"
-                },
-                {
-                  "var": "webhook_id"
-                },
-                {
-                  "lit": "signing-secret"
-                },
-                {
-                  "lit": "rotate"
-                }
-              ],
-              "parts": [
-                "webhooks",
-                "{webhook_id}",
-                "signing-secret",
-                "rotate"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "webhook_id",
-                    "orig": "webhook_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "webhook_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.webhook"
-          ]
-        ]
-      }
-    },
-    "segment": {
-      "fields": [
-        {
-          "name": "audience_id",
-          "title": "Audience Id",
-          "type": "`$STRING`",
-          "short": "The ID of the audience this segment belongs to.",
-          "deprecated": true
-        },
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the segment was created."
-        },
-        {
-          "name": "filter",
-          "title": "Filter",
-          "type": "`$OBJECT`",
-          "short": "Filter conditions for the segment."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the segment."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "The name of the segment."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "segment",
-      "op": {
-        "load": {
-          "input": "data",
-          "name": "load",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/segments/{id}",
-              "segments": [
-                {
-                  "lit": "segments"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "segments",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "set_inbox_thread_labels_response_success": {
-      "fields": [
-        {
-          "name": "data",
-          "title": "Data",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "Every label on the thread after the change."
-        },
-        {
-          "name": "labels",
-          "title": "Labels",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The IDs of the labels the thread carries after the change."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Type of the response object."
-        }
-      ],
-      "name": "set_inbox_thread_labels_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PUT",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                },
-                {
-                  "lit": "labels"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}",
-                "labels"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "suppression": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the suppression was created."
-        },
-        {
-          "name": "email",
-          "title": "Email",
-          "type": "`$STRING`",
-          "short": "Email address that is suppressed."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier for the suppression."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "Type of the response object."
-        },
-        {
-          "name": "origin",
-          "title": "Origin",
-          "type": "`$STRING`",
-          "short": "Origin of the suppression."
-        },
-        {
-          "name": "source_id",
-          "title": "Source Id",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "Identifier of the event that caused the suppression, such as the email that bounced or complained."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "suppression",
-      "op": {
         "load": {
           "input": "data",
           "name": "load",
@@ -10831,6 +9930,179 @@ class Config {
               }
             }
           ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/suppressions/{suppression}",
+              "segments": [
+                {
+                  "lit": "suppressions"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "suppressions",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "suppression": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "suppression",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "suppression_batch_add": {
+      "fields": [
+        {
+          "name": "emails",
+          "title": "Emails",
+          "type": "`$ARRAY`",
+          "req": true,
+          "short": "Email addresses to suppress."
+        }
+      ],
+      "name": "suppression_batch_add",
+      "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/suppressions/batch/add",
+              "segments": [
+                {
+                  "lit": "suppressions"
+                },
+                {
+                  "lit": "batch"
+                },
+                {
+                  "lit": "add"
+                }
+              ],
+              "parts": [
+                "suppressions",
+                "batch",
+                "add"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "suppression_batch_remove": {
+      "fields": [
+        {
+          "name": "data",
+          "title": "Data",
+          "type": "`$ARRAY`",
+          "short": "Array containing the removed suppressions."
+        },
+        {
+          "name": "emails",
+          "title": "Emails",
+          "type": "`$ARRAY`",
+          "short": "Email addresses to remove from the suppression list."
+        },
+        {
+          "name": "ids",
+          "title": "Ids",
+          "type": "`$ARRAY`",
+          "short": "Suppression IDs to remove from the suppression list."
+        }
+      ],
+      "name": "suppression_batch_remove",
+      "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/suppressions/batch/remove",
+              "segments": [
+                {
+                  "lit": "suppressions"
+                },
+                {
+                  "lit": "batch"
+                },
+                {
+                  "lit": "remove"
+                }
+              ],
+              "parts": [
+                "suppressions",
+                "batch",
+                "remove"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
         }
       },
       "relations": {
@@ -10873,6 +10145,12 @@ class Config {
           "name": "html",
           "title": "Html",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The HTML version of the template."
         },
         {
@@ -10885,6 +10163,12 @@ class Config {
           "name": "name",
           "title": "Name",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The name of the template."
         },
         {
@@ -11050,6 +10334,81 @@ class Config {
                 "kind": "json",
                 "media": "application/json"
               }
+            },
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/templates",
+              "segments": [
+                {
+                  "lit": "templates"
+                }
+              ],
+              "parts": [
+                "templates"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/templates",
+              "segments": [
+                {
+                  "lit": "templates"
+                }
+              ],
+              "parts": [
+                "templates"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -11060,6 +10419,102 @@ class Config {
             {
               "kind": "http",
               "method": "GET",
+              "orig": "/templates/{id}",
+              "segments": [
+                {
+                  "lit": "templates"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "templates",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/templates/{id}",
+              "segments": [
+                {
+                  "lit": "templates"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "templates",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
               "orig": "/templates/{id}",
               "segments": [
                 {
@@ -11118,6 +10573,12 @@ class Config {
           "name": "default_subscription",
           "title": "Default Subscription",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The default subscription status for the topic."
         },
         {
@@ -11136,6 +10597,12 @@ class Config {
           "name": "name",
           "title": "Name",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The name of the topic."
         },
         {
@@ -11157,6 +10624,87 @@ class Config {
       },
       "name": "topic",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/topics",
+              "segments": [
+                {
+                  "lit": "topics"
+                }
+              ],
+              "parts": [
+                "topics"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/topics",
+              "segments": [
+                {
+                  "lit": "topics"
+                }
+              ],
+              "parts": [
+                "topics"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "load": {
           "input": "data",
           "name": "load",
@@ -11204,1532 +10752,14 @@ class Config {
               }
             }
           ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_api_key": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the API key."
         },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The API key name."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The type of object."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_api_key",
-      "op": {
-        "update": {
+        "remove": {
           "input": "data",
-          "name": "update",
+          "name": "remove",
           "points": [
             {
               "kind": "http",
-              "method": "PATCH",
-              "orig": "/api-keys/{api_key_id}",
-              "segments": [
-                {
-                  "lit": "api-keys"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "api-keys",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "api_key_id": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "api_key_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_broadcast_response_success": {
-      "fields": [
-        {
-          "name": "audience_id",
-          "title": "Audience Id",
-          "type": "`$STRING`",
-          "short": "Use `segment_id` instead.",
-          "deprecated": true
-        },
-        {
-          "name": "from",
-          "title": "From",
-          "type": "`$STRING`",
-          "short": "The email address of the sender."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": "`$STRING`",
-          "short": "The HTML version of the message."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the broadcast."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "Name of the broadcast."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type of the response."
-        },
-        {
-          "name": "preview_text",
-          "title": "Preview Text",
-          "type": "`$STRING`",
-          "short": "The preview text of the email."
-        },
-        {
-          "name": "reply_to",
-          "title": "Reply To",
-          "type": "`$ARRAY`",
-          "short": "The email addresses to which replies should be sent."
-        },
-        {
-          "name": "segment_id",
-          "title": "Segment Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier of the segment this broadcast will be sent to."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": "`$STRING`",
-          "short": "The subject line of the email."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": "`$STRING`",
-          "short": "The plain text version of the message."
-        },
-        {
-          "name": "topic_id",
-          "title": "Topic Id",
-          "type": "`$STRING`",
-          "short": "The topic ID that the broadcast will be scoped to."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_broadcast_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/broadcasts/{id}",
-              "segments": [
-                {
-                  "lit": "broadcasts"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "broadcasts",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_contact_property_response_success": {
-      "fields": [
-        {
-          "name": "fallback_value",
-          "title": "Fallback Value",
-          "type": "`$ANY`",
-          "short": "The default value to use when the property is not set for a contact."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the contact property."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_contact_property_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/contact-properties/{id}",
-              "segments": [
-                {
-                  "lit": "contact-properties"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "contact-properties",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_contact_response_success": {
-      "fields": [
-        {
-          "name": "email",
-          "title": "Email",
-          "type": "`$STRING`",
-          "short": "Email address of the contact."
-        },
-        {
-          "name": "first_name",
-          "title": "First Name",
-          "type": "`$STRING`",
-          "short": "First name of the contact."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "Unique identifier for the updated contact."
-        },
-        {
-          "name": "last_name",
-          "title": "Last Name",
-          "type": "`$STRING`",
-          "short": "Last name of the contact."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "Type of the response object."
-        },
-        {
-          "name": "properties",
-          "title": "Properties",
-          "type": "`$OBJECT`",
-          "short": "A map of custom property keys and values to update."
-        },
-        {
-          "name": "unsubscribed",
-          "title": "Unsubscribed",
-          "type": "`$BOOLEAN`",
-          "short": "The Contact's global subscription status."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_contact_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/contacts/{id}",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_contact_topics_response_success": {
-      "fields": [
-        {
-          "name": "contact_id",
-          "title": "Contact Id",
-          "type": "`$STRING`",
-          "short": "The ID of the contact."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        },
-        {
-          "name": "topics",
-          "title": "Topics",
-          "type": "`$ARRAY`",
-          "op": {
-            "update": {
-              "req": true,
-              "type": "`$ARRAY`"
-            }
-          },
-          "short": "Array of updated topic subscriptions."
-        }
-      ],
-      "name": "update_contact_topics_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/contacts/{contact_id}/topics",
-              "segments": [
-                {
-                  "lit": "contacts"
-                },
-                {
-                  "var": "contact_id"
-                },
-                {
-                  "lit": "topics"
-                }
-              ],
-              "parts": [
-                "contacts",
-                "{contact_id}",
-                "topics"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "contact_id",
-                    "orig": "contact_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "contact_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.contact"
-          ]
-        ]
-      }
-    },
-    "update_domain_response_success": {
-      "fields": [
-        {
-          "name": "capabilities",
-          "title": "Capabilities",
-          "type": "`$OBJECT`",
-          "short": "Configure the domain capabilities for sending and receiving emails."
-        },
-        {
-          "name": "click_tracking",
-          "title": "Click Tracking",
-          "type": "`$BOOLEAN`",
-          "short": "Track clicks within the body of each HTML email."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the updated domain."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type representing the updated domain."
-        },
-        {
-          "name": "open_tracking",
-          "title": "Open Tracking",
-          "type": "`$BOOLEAN`",
-          "short": "Track the open rate of each email."
-        },
-        {
-          "name": "tls",
-          "title": "Tls",
-          "type": "`$STRING`",
-          "short": "enforced | opportunistic."
-        },
-        {
-          "name": "tracking_subdomain",
-          "title": "Tracking Subdomain",
-          "type": "`$STRING`",
-          "short": "The subdomain to use for click and open tracking."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_domain_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/domains/{domain_id}",
-              "segments": [
-                {
-                  "lit": "domains"
-                },
-                {
-                  "var": "domain_id"
-                }
-              ],
-              "parts": [
-                "domains",
-                "{domain_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "domain_id",
-                    "orig": "domain_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "domain_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.domain"
-          ]
-        ]
-      }
-    },
-    "update_email_option": {
-      "fields": [
-        {
-          "name": "scheduled_at",
-          "title": "Scheduled At",
-          "type": "`$STRING`",
-          "short": "Schedule email to be sent later."
-        }
-      ],
-      "name": "update_email_option",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/emails/{email_id}",
-              "segments": [
-                {
-                  "lit": "emails"
-                },
-                {
-                  "var": "email_id"
-                }
-              ],
-              "parts": [
-                "emails",
-                "{email_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "email_id",
-                    "orig": "email_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "email_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.email"
-          ]
-        ]
-      }
-    },
-    "update_event": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the updated event.",
-          "format": "uuid"
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "Type of the response object."
-        },
-        {
-          "name": "schema",
-          "title": "Schema",
-          "type": [
-            "`$ONE`",
-            [
-              "`$OBJECT`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "A flat key/type map defining the event payload schema."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_event",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/events/{identifier}",
-              "segments": [
-                {
-                  "lit": "events"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "events",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "identifier": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "identifier",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_inbox_draft_response_success": {
-      "fields": [
-        {
-          "name": "attachments",
-          "title": "Attachments",
-          "type": [
-            "`$ONE`",
-            [
-              "`$ARRAY`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "Files to store on the draft."
-        },
-        {
-          "name": "bcc",
-          "title": "Bcc",
-          "type": "`$ANY`",
-          "short": "The BCC recipients."
-        },
-        {
-          "name": "cc",
-          "title": "Cc",
-          "type": "`$ANY`",
-          "short": "The CC recipients."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The HTML body."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the draft.",
-          "format": "uuid"
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The object type."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The subject."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "short": "The plain text body."
-        },
-        {
-          "name": "to",
-          "title": "To",
-          "type": "`$ANY`",
-          "short": "The recipients."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_inbox_draft_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/inboxes/{inbox_id}/drafts/{draft_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "drafts"
-                },
-                {
-                  "var": "draft_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "drafts",
-                "{draft_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "draft_id",
-                    "orig": "draft_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "draft_id",
-                  "inbox_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "update_inbox_label_response_success": {
-      "fields": [
-        {
-          "name": "color",
-          "title": "Color",
-          "type": "`$STRING`",
-          "short": "A new color for the label, as a `#RRGGBB` hex color."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the updated label.",
-          "format": "uuid"
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "A new name for the label."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "Type of the response object."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_inbox_label_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/inboxes/{inbox_id}/labels/{label_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "labels"
-                },
-                {
-                  "var": "label_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "labels",
-                "{label_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "label_id",
-                    "orig": "label_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "label_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "update_inbox_response_success": {
-      "fields": [
-        {
-          "name": "from_name",
-          "title": "From Name",
-          "type": "`$STRING`",
-          "short": "The name recipients see when mail is sent from this inbox."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the inbox.",
-          "format": "uuid"
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "New internal name for the inbox."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The object type."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_inbox_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/inboxes/{inbox_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "update_inbox_thread_response_success": {
-      "fields": [
-        {
-          "name": "folder",
-          "title": "Folder",
-          "type": "`$STRING`",
-          "req": true,
-          "op": {
-            "update": {
-              "type": "`$STRING`"
-            }
-          },
-          "short": "The folder the thread is in."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The ID of the thread.",
-          "format": "uuid"
-        },
-        {
-          "name": "labels",
-          "title": "Labels",
-          "type": "`$ARRAY`",
-          "req": true,
-          "short": "The labels attached to the thread."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The object type."
-        },
-        {
-          "name": "read",
-          "title": "Read",
-          "type": "`$BOOLEAN`",
-          "req": true,
-          "op": {
-            "update": {
-              "type": "`$BOOLEAN`"
-            }
-          },
-          "short": "True only when every email in the thread is read."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": [
-            "`$ONE`",
-            [
-              "`$STRING`",
-              "`$NULL`"
-            ]
-          ],
-          "req": true,
-          "short": "The subject of the thread."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_inbox_thread_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/inboxes/{inbox_id}/threads/{thread_id}",
-              "segments": [
-                {
-                  "lit": "inboxes"
-                },
-                {
-                  "var": "inbox_id"
-                },
-                {
-                  "lit": "threads"
-                },
-                {
-                  "var": "thread_id"
-                }
-              ],
-              "parts": [
-                "inboxes",
-                "{inbox_id}",
-                "threads",
-                "{thread_id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "inbox_id",
-                    "orig": "inbox_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true,
-                    "example": "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
-                  },
-                  {
-                    "name": "thread_id",
-                    "orig": "thread_id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "inbox_id",
-                  "thread_id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "$.main.kit.entity.inbox"
-          ]
-        ]
-      }
-    },
-    "update_segment_response_success": {
-      "fields": [
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the segment."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "req": true,
-          "short": "The name of the segment."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_segment_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/segments/{id}",
-              "segments": [
-                {
-                  "lit": "segments"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "segments",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_template_response_success": {
-      "fields": [
-        {
-          "name": "alias",
-          "title": "Alias",
-          "type": "`$STRING`",
-          "short": "The alias of the template."
-        },
-        {
-          "name": "from",
-          "title": "From",
-          "type": "`$STRING`",
-          "short": "Sender email address."
-        },
-        {
-          "name": "html",
-          "title": "Html",
-          "type": "`$STRING`",
-          "short": "The HTML version of the template."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the template."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "The name of the template."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type of the response."
-        },
-        {
-          "name": "reply_to",
-          "title": "Reply To",
-          "type": "`$ARRAY`",
-          "short": "Reply-to email addresses."
-        },
-        {
-          "name": "subject",
-          "title": "Subject",
-          "type": "`$STRING`",
-          "short": "Email subject."
-        },
-        {
-          "name": "text",
-          "title": "Text",
-          "type": "`$STRING`",
-          "short": "The plain text version of the template."
-        },
-        {
-          "name": "variables",
-          "title": "Variables",
-          "type": "`$ARRAY`"
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_template_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
-              "orig": "/templates/{id}",
-              "segments": [
-                {
-                  "lit": "templates"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "templates",
-                "{id}"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_topic_response_success": {
-      "fields": [
-        {
-          "name": "description",
-          "title": "Description",
-          "type": "`$STRING`",
-          "short": "A description of the topic."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the topic."
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "`$STRING`",
-          "short": "The name of the topic."
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The object type."
-        },
-        {
-          "name": "visibility",
-          "title": "Visibility",
-          "type": "`$STRING`",
-          "short": "The visibility of the topic."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_topic_response_success",
-      "op": {
-        "update": {
-          "input": "data",
-          "name": "update",
-          "points": [
-            {
-              "kind": "http",
-              "method": "PATCH",
+              "method": "DELETE",
               "orig": "/topics/{id}",
               "segments": [
                 {
@@ -12770,162 +10800,6 @@ class Config {
               }
             }
           ]
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "update_webhook": {
-      "fields": [
-        {
-          "name": "created_at",
-          "title": "Created At",
-          "type": "`$STRING`",
-          "short": "Timestamp indicating when the webhook was created."
-        },
-        {
-          "name": "endpoint",
-          "title": "Endpoint",
-          "type": "`$STRING`",
-          "req": true,
-          "op": {
-            "list": {
-              "type": "`$STRING`"
-            },
-            "update": {
-              "type": "`$STRING`"
-            }
-          },
-          "short": "The URL where webhook events will be sent."
-        },
-        {
-          "name": "events",
-          "title": "Events",
-          "type": "`$ARRAY`",
-          "req": true,
-          "op": {
-            "list": {
-              "type": [
-                "`$ONE`",
-                [
-                  "`$ARRAY`",
-                  "`$NULL`"
-                ]
-              ]
-            },
-            "update": {
-              "type": "`$ARRAY`"
-            }
-          },
-          "short": "Array of event types to subscribe to."
-        },
-        {
-          "name": "id",
-          "title": "Id",
-          "type": "`$STRING`",
-          "short": "The ID of the updated webhook.",
-          "format": "uuid"
-        },
-        {
-          "name": "object",
-          "title": "Object",
-          "type": "`$STRING`",
-          "short": "The type of object."
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "`$STRING`",
-          "short": "The status of the webhook."
-        }
-      ],
-      "id": {
-        "field": "id",
-        "name": "id"
-      },
-      "name": "update_webhook",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "kind": "http",
-              "method": "POST",
-              "orig": "/webhooks",
-              "segments": [
-                {
-                  "lit": "webhooks"
-                }
-              ],
-              "parts": [
-                "webhooks"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {},
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
-        },
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/webhooks",
-              "segments": [
-                {
-                  "lit": "webhooks"
-                }
-              ],
-              "parts": [
-                "webhooks"
-              ],
-              "rename": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "args": {
-                "query": [
-                  {
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  },
-                  {
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {},
-              "response": {
-                "kind": "json",
-                "media": "application/json"
-              }
-            }
-          ]
         },
         "update": {
           "input": "data",
@@ -12934,24 +10808,20 @@ class Config {
             {
               "kind": "http",
               "method": "PATCH",
-              "orig": "/webhooks/{webhook_id}",
+              "orig": "/topics/{id}",
               "segments": [
                 {
-                  "lit": "webhooks"
+                  "lit": "topics"
                 },
                 {
                   "var": "id"
                 }
               ],
               "parts": [
-                "webhooks",
+                "topics",
                 "{id}"
               ],
-              "rename": {
-                "param": {
-                  "webhook_id": "id"
-                }
-              },
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -12960,7 +10830,7 @@ class Config {
                 "params": [
                   {
                     "name": "id",
-                    "orig": "webhook_id",
+                    "orig": "id",
                     "type": "`$STRING`",
                     "kind": "param",
                     "reqd": true
@@ -13082,6 +10952,12 @@ class Config {
           "name": "endpoint",
           "title": "Endpoint",
           "type": "`$STRING`",
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$STRING`"
+            }
+          },
           "short": "The URL where webhook events are sent."
         },
         {
@@ -13094,6 +10970,12 @@ class Config {
               "`$NULL`"
             ]
           ],
+          "op": {
+            "create": {
+              "req": true,
+              "type": "`$ARRAY`"
+            }
+          },
           "short": "Array of event types subscribed to."
         },
         {
@@ -13128,6 +11010,142 @@ class Config {
       },
       "name": "webhook",
       "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/webhooks/{webhook_id}/signing-secret/rotate",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "signing-secret"
+                },
+                {
+                  "lit": "rotate"
+                }
+              ],
+              "parts": [
+                "webhooks",
+                "{id}",
+                "signing-secret",
+                "rotate"
+              ],
+              "rename": {
+                "param": {
+                  "webhook_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "webhook_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "$action": "rotate",
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "POST",
+              "orig": "/webhooks",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                }
+              ],
+              "parts": [
+                "webhooks"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/webhooks",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                }
+              ],
+              "parts": [
+                "webhooks"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "load": {
           "input": "data",
           "name": "load",
@@ -13187,6 +11205,58 @@ class Config {
             {
               "kind": "http",
               "method": "DELETE",
+              "orig": "/webhooks/{webhook_id}",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "webhooks",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "webhook_id": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "webhook_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
+        "update": {
+          "input": "data",
+          "name": "update",
+          "points": [
+            {
+              "kind": "http",
+              "method": "PATCH",
               "orig": "/webhooks/{webhook_id}",
               "segments": [
                 {
@@ -13365,6 +11435,72 @@ class Config {
             }
           ]
         },
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/webhooks/{webhook_id}/events",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                },
+                {
+                  "var": "webhook_id"
+                },
+                {
+                  "lit": "events"
+                }
+              ],
+              "parts": [
+                "webhooks",
+                "{webhook_id}",
+                "events"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "webhook_id",
+                    "orig": "webhook_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "webhook_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        },
         "load": {
           "input": "data",
           "name": "load",
@@ -13439,6 +11575,132 @@ class Config {
           [
             "$.main.kit.entity.webhook"
           ],
+          [
+            "$.main.kit.entity.webhook",
+            "$.main.kit.entity.event"
+          ]
+        ]
+      }
+    },
+    "webhook_event_attempt": {
+      "fields": [
+        {
+          "name": "http_status_code",
+          "title": "Http Status Code",
+          "type": "`$INTEGER`",
+          "short": "The HTTP status code returned by the webhook endpoint."
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "The ID of the webhook event attempt."
+        },
+        {
+          "name": "response",
+          "title": "Response",
+          "type": "`$STRING`",
+          "short": "The response body returned by the webhook endpoint."
+        },
+        {
+          "name": "sent_at",
+          "title": "Sent At",
+          "type": "`$STRING`",
+          "short": "Timestamp indicating when the attempt was sent.",
+          "format": "date-time"
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "webhook_event_attempt",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/webhooks/{webhook_id}/events/{event_id}/attempts",
+              "segments": [
+                {
+                  "lit": "webhooks"
+                },
+                {
+                  "var": "webhook_id"
+                },
+                {
+                  "lit": "events"
+                },
+                {
+                  "var": "event_id"
+                },
+                {
+                  "lit": "attempts"
+                }
+              ],
+              "parts": [
+                "webhooks",
+                "{webhook_id}",
+                "events",
+                "{event_id}",
+                "attempts"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "event_id",
+                    "orig": "event_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "webhook_id",
+                    "orig": "webhook_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "event_id",
+                  "webhook_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": [
           [
             "$.main.kit.entity.webhook",
             "$.main.kit.entity.event"

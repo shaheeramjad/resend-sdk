@@ -5,4 +5,355 @@
 @"./base-guide.aontu"
 
 
+# The heuristic names many entities after the response schema of a single
+# operation (RemoveContactResponseSuccess, UpdateWebhook, ...), which splits
+# one Resend resource across several entities. Each block below gathers a
+# resource's routes onto one entity and switches the fragments off.
 
+
+# Emails
+
+guide: entity: email: path: "/emails/{email_id}": op: update: method: "PATCH"
+guide: entity: update_email_option: active: false
+
+guide: entity: email_batch: path: "/emails/batch": op: create: method: "POST"
+guide: entity: create_batch_email: active: false
+
+guide: entity: attachment: path: {
+  "/emails/{email_id}/attachments": op: list: { method: "GET", transform: res: "`body.data`" }
+  "/emails/{email_id}/attachments/{attachment_id}": {
+    rename: param: attachment_id: "id"
+    op: load: method: "GET"
+  }
+}
+guide: entity: received_attachment: path: {
+  "/emails/receiving/{email_id}/attachments": op: list: { method: "GET", transform: res: "`body.data`" }
+  "/emails/receiving/{email_id}/attachments/{attachment_id}": {
+    rename: param: attachment_id: "id"
+    op: load: method: "GET"
+  }
+}
+guide: entity: list_attachment: active: false
+guide: entity: retrieved_attachment: active: false
+
+
+# Domains and API keys
+
+guide: entity: domain: path: "/domains/{domain_id}": op: update: method: "PATCH"
+guide: entity: update_domain_response_success: active: false
+
+guide: entity: api_key: path: {
+  "/api-keys": op: create: method: "POST"
+  "/api-keys/{api_key_id}": op: update: method: "PATCH"
+}
+guide: entity: create_api_key: active: false
+guide: entity: update_api_key: active: false
+
+guide: entity: oauth_grant: path: {
+  "/oauth/grants": op: list: { method: "GET", transform: res: "`body.data`" }
+  "/oauth/grants/{oauth_grant_id}": {
+    rename: param: oauth_grant_id: "id"
+    op: remove: method: "DELETE"
+  }
+}
+guide: entity: revoke_o_auth_grant: active: false
+
+
+# Templates
+
+guide: entity: template: path: {
+  "/templates": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/templates/{id}": op: {
+    update: method: "PATCH"
+    remove: method: "DELETE"
+  }
+}
+guide: entity: remove_template_response_success: active: false
+guide: entity: update_template_response_success: active: false
+
+
+# Audiences, contacts, contact properties, imports
+
+guide: entity: audience: path: "/audiences/{id}": op: remove: method: "DELETE"
+guide: entity: remove_audience_response_success: active: false
+
+guide: entity: contact: path: "/contacts/{id}": op: {
+  update: method: "PATCH"
+  remove: method: "DELETE"
+}
+guide: entity: update_contact_response_success: active: false
+guide: entity: remove_contact_response_success: active: false
+
+guide: entity: contact_property: path: "/contact-properties/{id}": op: {
+  update: method: "PATCH"
+  remove: method: "DELETE"
+}
+guide: entity: update_contact_property_response_success: active: false
+guide: entity: remove_contact_property_response_success: active: false
+
+guide: entity: contact_import: path: {
+  "/contacts/imports": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/contacts/imports/{id}": op: load: method: "GET"
+}
+guide: entity: contact_import_response_success: active: false
+
+guide: entity: contact_topic: path: "/contacts/{contact_id}/topics": {
+  rename: param: contact_id: "contact_id"
+  op: {
+    list: { method: "GET", transform: res: "`body.data`" }
+    update: method: "PATCH"
+  }
+}
+guide: entity: contact_topics_response_success: active: false
+guide: entity: update_contact_topics_response_success: active: false
+
+guide: entity: contact_segment: path: {
+  "/contacts/{contact_id}/segments": op: list: { method: "GET", transform: res: "`body.data`" }
+  "/contacts/{contact_id}/segments/{segment_id}": {
+    rename: param: segment_id: "id"
+    op: {
+      create: method: "POST"
+      remove: method: "DELETE"
+    }
+  }
+}
+guide: entity: list_contact_segments_response_success: active: false
+guide: entity: add_contact_to_segment_response_success: active: false
+guide: entity: remove_contact_from_segment_response_success: active: false
+
+
+# Broadcasts
+
+guide: entity: broadcast: path: {
+  "/broadcasts": op: create: method: "POST"
+  "/broadcasts/{id}": op: {
+    update: method: "PATCH"
+    remove: method: "DELETE"
+  }
+}
+guide: entity: create_broadcast_response_success: active: false
+guide: entity: update_broadcast_response_success: active: false
+guide: entity: remove_broadcast_response_success: active: false
+
+guide: entity: broadcast_recipient: path: "/broadcasts/{id}/recipients": {
+  rename: param: id: "broadcast_id"
+  op: list: { method: "GET", transform: res: "`body.data`" }
+}
+guide: entity: list_broadcast_recipients_response_success: active: false
+
+guide: entity: broadcast_clicked_link: path: "/broadcasts/{id}/clicked-links": {
+  rename: param: id: "broadcast_id"
+  op: list: { method: "GET", transform: res: "`body.data`" }
+}
+guide: entity: list_broadcast_clicked_links_response_success: active: false
+
+
+# Segments and topics
+
+guide: entity: segment: path: {
+  "/segments": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/segments/{id}": op: {
+    update: method: "PATCH"
+    remove: method: "DELETE"
+  }
+}
+guide: entity: remove_segment_response_success: active: false
+guide: entity: update_segment_response_success: active: false
+
+guide: entity: segment_contact: path: "/segments/{id}/contacts": {
+  rename: param: id: "segment_id"
+  op: list: { method: "GET", transform: res: "`body.data`" }
+}
+guide: entity: list_contacts_response_success: active: false
+
+guide: entity: topic: path: {
+  "/topics": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/topics/{id}": op: {
+    update: method: "PATCH"
+    remove: method: "DELETE"
+  }
+}
+guide: entity: remove_topic_response_success: active: false
+guide: entity: update_topic_response_success: active: false
+
+
+# Suppressions
+
+guide: entity: suppression: path: {
+  "/suppressions": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/suppressions/{suppression}": op: remove: method: "DELETE"
+}
+guide: entity: remove_suppression_response_success: active: false
+
+guide: entity: suppression_batch_add: path: "/suppressions/batch/add": op: create: method: "POST"
+guide: entity: batch_add_suppressions_response_success: active: false
+
+guide: entity: suppression_batch_remove: path: "/suppressions/batch/remove": op: create: method: "POST"
+guide: entity: batch_remove_suppressions_response_success: active: false
+
+
+# Webhooks
+
+guide: entity: webhook: path: {
+  "/webhooks": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/webhooks/{webhook_id}": op: update: method: "PATCH"
+  "/webhooks/{webhook_id}/signing-secret/rotate": {
+    action: rotate: {}
+    rename: param: webhook_id: "id"
+    op: create: method: "POST"
+  }
+}
+guide: entity: update_webhook: active: false
+guide: entity: rotate: active: false
+
+guide: entity: webhook_event: path: "/webhooks/{webhook_id}/events": op: list: { method: "GET", transform: res: "`body.data`" }
+guide: entity: list_webhook_event: active: false
+
+guide: entity: webhook_event_attempt: path: "/webhooks/{webhook_id}/events/{event_id}/attempts": op: list: { method: "GET", transform: res: "`body.data`" }
+guide: entity: list_webhook_event_attempt: active: false
+
+
+# Automations and events
+
+guide: entity: automation_run: path: "/automations/{automation_id}/runs": {
+  rename: param: automation_id: "automation_id"
+  op: list: { method: "GET", transform: res: "`body.data`" }
+}
+guide: entity: automation_run_list_item: active: false
+
+guide: entity: event: path: "/events/{identifier}": op: {
+  update: method: "PATCH"
+  remove: method: "DELETE"
+}
+guide: entity: update_event: active: false
+guide: entity: remove_event: active: false
+
+
+# Inboxes
+
+guide: entity: inbox: path: {
+  "/inboxes/{inbox_id}": op: {
+    update: method: "PATCH"
+    remove: method: "DELETE"
+  }
+  "/inboxes/{inbox_id}/agent": active: false
+}
+guide: entity: update_inbox_response_success: active: false
+guide: entity: remove_inbox_response_success: active: false
+
+guide: entity: inbox_agent: path: "/inboxes/{inbox_id}/agent": {
+  rename: param: inbox_id: "inbox_id"
+  op: {
+    load: method: "GET"
+    update: method: "PATCH"
+  }
+}
+guide: entity: inbox_agent_response_success: active: false
+
+guide: entity: inbox_label: path: {
+  "/inboxes/{inbox_id}/labels": {
+    rename: param: inbox_id: "inbox_id"
+    op: create: method: "POST"
+  }
+  "/inboxes/{inbox_id}/labels/{label_id}": {
+    rename: param: label_id: "id"
+    op: {
+      update: method: "PATCH"
+      remove: method: "DELETE"
+    }
+  }
+}
+guide: entity: create_inbox_label_response_success: active: false
+guide: entity: update_inbox_label_response_success: active: false
+guide: entity: remove_inbox_label_response_success: active: false
+
+guide: entity: inbox_thread: path: {
+  "/inboxes/{inbox_id}/threads": rename: param: inbox_id: "inbox_id"
+  "/inboxes/{inbox_id}/threads/search": action: search: {}
+  "/inboxes/{inbox_id}/threads/{thread_id}": {
+    rename: param: thread_id: "id"
+    op: {
+      load: method: "GET"
+      update: method: "PATCH"
+      remove: method: "DELETE"
+    }
+  }
+}
+guide: entity: inbox_thread_response_success: active: false
+guide: entity: update_inbox_thread_response_success: active: false
+guide: entity: remove_inbox_thread_response_success: active: false
+
+guide: entity: inbox_thread_label: path: {
+  "/inboxes/{inbox_id}/threads/{thread_id}/labels": op: {
+    create: method: "POST"
+    update: method: "PUT"
+  }
+  "/inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}": {
+    rename: param: label_id: "id"
+    op: remove: method: "DELETE"
+  }
+}
+guide: entity: add_inbox_thread_labels_response_success: active: false
+guide: entity: set_inbox_thread_labels_response_success: active: false
+guide: entity: remove_inbox_thread_label_response_success: active: false
+
+guide: entity: inbox_thread_email: path: {
+  "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}": {
+    rename: param: email_id: "id"
+    op: load: method: "GET"
+  }
+  "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward": {
+    action: forward: {}
+    rename: param: email_id: "id"
+    op: create: method: "POST"
+  }
+  "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply": {
+    action: reply: {}
+    rename: param: email_id: "id"
+    op: create: method: "POST"
+  }
+}
+guide: entity: inbox_thread_email_response_success: active: false
+
+guide: entity: inbox_draft: path: {
+  "/inboxes/{inbox_id}/drafts": op: {
+    create: method: "POST"
+    list: { method: "GET", transform: res: "`body.data`" }
+  }
+  "/inboxes/{inbox_id}/drafts/{draft_id}": {
+    rename: param: draft_id: "id"
+    op: {
+      load: method: "GET"
+      update: method: "PATCH"
+      remove: method: "DELETE"
+    }
+  }
+  "/inboxes/{inbox_id}/drafts/{draft_id}/send": {
+    action: send: {}
+    rename: param: draft_id: "id"
+    op: create: method: "POST"
+  }
+}
+guide: entity: inbox_draft_list_item: active: false
+guide: entity: create_inbox_draft_response_success: active: false
+guide: entity: inbox_draft_response_success: active: false
+guide: entity: update_inbox_draft_response_success: active: false
+guide: entity: remove_inbox_draft_response_success: active: false

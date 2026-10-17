@@ -23,3 +23,15 @@
 # A published package name that does not follow the derivation:
 #
 #   main: kit: target: ts: publish: registry: package: '@scope/name'
+
+
+main: kit: repo: path: 'shaheeramjad/resend-sdk'
+
+main: kit: publisher: {
+  name: 'shaheeramjad'
+  url: 'https://github.com/shaheeramjad'
+  security: 'https://github.com/shaheeramjad/resend-sdk/security/advisories/new'
+}
+
+main: kit: target: ts: publish: registry: package: '@shaheeramjad/resend-sdk'
+main: kit: target: py: publish: registry: package: 'shaheeramjad-resend-sdk'

@@ -43,6 +43,18 @@ main: kit: entity: event: {
     schema: {
       h: "Schema"
       n: "schema"
+      op: {
+        update: {
+          req: true
+          type: [
+            "`$ONE`"
+            [
+              "`$OBJECT`"
+              "`$NULL`"
+            ]
+          ]
+        }
+      }
       r: false
       sh: "A flat key/type map defining the event payload schema."
       t: [
@@ -213,6 +225,111 @@ main: kit: entity: event: {
             ]
           }
           m: "GET"
+          o: "/events/{identifier}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              identifier: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /events/{identifier}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "identifier"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/events/{identifier}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              identifier: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "schema"
+          ]
+          co: {
+            id: "PATCH /events/{identifier}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "identifier"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
           o: "/events/{identifier}"
           q: {
             exist: [

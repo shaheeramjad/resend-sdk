@@ -37,7 +37,7 @@ class TestInboxLabelEntity:
         client = ResendSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.InboxLabel(None).list({"id": 1}, None)
+            client.InboxLabel(None).list({"inbox_id": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -46,19 +46,74 @@ class TestInboxLabelEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in []:
+        for _op in ["create", "list", "update", "remove"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "inbox_label." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
+        if setup["live"]:
+            for _live_key in ["inbox01"]:
+                if setup.get("synthetic_only") or setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live entity test blocked: needs {_live_key} via RESEND_TEST_INBOX_LABEL_ENTID")
         client = setup["client"]
 
-        # Bootstrap entity data from existing test data.
-        inbox_label_ref01_data_raw = vs.items(helpers.to_map(
-            vs.getpath(setup["data"], "existing.inbox_label")))
-        inbox_label_ref01_data = None
-        if len(inbox_label_ref01_data_raw) > 0:
-            inbox_label_ref01_data = helpers.to_map(inbox_label_ref01_data_raw[0][1])
+        # CREATE
+        inbox_label_ref01_ent = client.InboxLabel(None)
+        inbox_label_ref01_data = helpers.to_map(vs.getprop(
+            vs.getpath(setup["data"], "new.inbox_label"), "inbox_label_ref01"))
+        inbox_label_ref01_data["inbox_id"] = setup["idmap"]["inbox01"]
+
+        inbox_label_ref01_data = helpers.to_map(runner.entity_data(inbox_label_ref01_ent.create(inbox_label_ref01_data, None)))
+        assert inbox_label_ref01_data is not None
+        assert inbox_label_ref01_data["id"] is not None
+
+        # LIST
+        inbox_label_ref01_match = {
+            "inbox_id": setup["idmap"]["inbox01"],
+        }
+
+        inbox_label_ref01_list_result = inbox_label_ref01_ent.list(inbox_label_ref01_match, None)
+        assert isinstance(inbox_label_ref01_list_result, list)
+
+        found_item = vs.select(
+            runner.entity_list_to_data(inbox_label_ref01_list_result),
+            {"id": inbox_label_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
+        # UPDATE
+        inbox_label_ref01_data_up0_up = {
+            "id": inbox_label_ref01_data["id"],
+            "inbox_id": setup["idmap"]["inbox_id"],
+        }
+
+        inbox_label_ref01_markdef_up0_name = "color"
+        inbox_label_ref01_markdef_up0_value = "Mark01-inbox_label_ref01_" + str(setup["now"])
+        inbox_label_ref01_data_up0_up[inbox_label_ref01_markdef_up0_name] = inbox_label_ref01_markdef_up0_value
+
+        inbox_label_ref01_resdata_up0 = helpers.to_map(runner.entity_data(inbox_label_ref01_ent.update(inbox_label_ref01_data_up0_up, None)))
+        assert inbox_label_ref01_resdata_up0 is not None
+        assert inbox_label_ref01_resdata_up0["id"] == inbox_label_ref01_data_up0_up["id"]
+        assert inbox_label_ref01_resdata_up0[inbox_label_ref01_markdef_up0_name] == inbox_label_ref01_markdef_up0_value
+
+        # REMOVE
+        inbox_label_ref01_match_rm0 = {
+            "id": inbox_label_ref01_data["id"],
+        }
+        inbox_label_ref01_match_rm0["inbox_id"] = setup["idmap"].get("inbox_id") or setup["idmap"].get("inbox01")
+        inbox_label_ref01_ent.remove(inbox_label_ref01_match_rm0, None)
+
+        # LIST
+        inbox_label_ref01_match_rt0 = {
+            "inbox_id": setup["idmap"]["inbox01"],
+        }
+
+        inbox_label_ref01_list_rt0_result = inbox_label_ref01_ent.list(inbox_label_ref01_match_rt0, None)
+        assert isinstance(inbox_label_ref01_list_rt0_result, list)
+
+        not_found_item = vs.select(
+            runner.entity_list_to_data(inbox_label_ref01_list_rt0_result),
+            {"id": inbox_label_ref01_data["id"]})
+        assert vs.isempty(not_found_item)
 
 
 
@@ -78,7 +133,7 @@ def _inbox_label_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["inbox_label01", "inbox_label02", "inbox_label03"],
+        ["inbox_label01", "inbox_label02", "inbox_label03", "inbox01", "inbox02", "inbox03"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",
@@ -104,6 +159,8 @@ def _inbox_label_basic_setup(extra):
         env.get("RESEND_TEST_INBOX_LABEL_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
+    if idmap_resolved.get("inbox_id") is None:
+        idmap_resolved["inbox_id"] = idmap_resolved.get("inbox01")
 
     if env.get("RESEND_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([

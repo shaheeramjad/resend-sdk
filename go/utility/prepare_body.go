@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/resend-sdk/go/core"
+import "github.com/shaheeramjad/resend-sdk/go/core"
 
 func prepareBodyUtil(ctx *core.Context) any {
 	op := ctx.Op

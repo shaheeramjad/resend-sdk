@@ -29,6 +29,12 @@ main: kit: entity: inbox_thread: {
     folder: {
       h: "Folder"
       n: "folder"
+      op: {
+        update: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
       r: true
       sh: "The folder the thread is in."
       t: "`$STRING`"
@@ -75,23 +81,22 @@ main: kit: entity: inbox_thread: {
       sh: "The labels attached to the thread."
       t: "`$ARRAY`"
     }
-    matched_email_id: {
-      fo: "uuid"
-      h: "Matched Email Id"
-      n: "matched_email_id"
+    object: {
+      h: "Object"
+      n: "object"
       r: true
-      sh: "The ID of the email in the thread that matched the search."
-      t: [
-        "`$ONE`"
-        [
-          "`$STRING`"
-          "`$NULL`"
-        ]
-      ]
+      sh: "The object type."
+      t: "`$STRING`"
     }
     read: {
       h: "Read"
       n: "read"
+      op: {
+        update: {
+          req: false
+          type: "`$BOOLEAN`"
+        }
+      }
       r: true
       sh: "True only when every email in the thread is read."
       t: "`$BOOLEAN`"
@@ -147,7 +152,7 @@ main: kit: entity: inbox_thread: {
               {
                 ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
                 k: "param"
-                n: "id"
+                n: "inbox_id"
                 or: "inbox_id"
                 r: true
                 t: "`$STRING`"
@@ -209,12 +214,12 @@ main: kit: entity: inbox_thread: {
           o: "/inboxes/{inbox_id}/threads"
           q: {
             exist: [
-              "id"
+              "inbox_id"
             ]
           }
           r: {
             param: {
-              inbox_id: "id"
+              inbox_id: "inbox_id"
             }
           }
           rs: {
@@ -226,7 +231,7 @@ main: kit: entity: inbox_thread: {
               lit: "inboxes"
             }
             {
-              var: "id"
+              var: "inbox_id"
             }
             {
               lit: "threads"
@@ -372,6 +377,7 @@ main: kit: entity: inbox_thread: {
           m: "GET"
           o: "/inboxes/{inbox_id}/threads/search"
           q: {
+            "$action": "search"
             exist: [
               "inbox_id"
             ]
@@ -397,6 +403,208 @@ main: kit: entity: inbox_thread: {
           t: {
             req: "`reqdata`"
             res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /inboxes/{inbox_id}/threads/{thread_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "thread_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "inbox_id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/inboxes/{inbox_id}/threads/{thread_id}"
+          q: {
+            exist: [
+              "id"
+              "inbox_id"
+            ]
+          }
+          r: {
+            param: {
+              thread_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "inboxes"
+            }
+            {
+              var: "inbox_id"
+            }
+            {
+              lit: "threads"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /inboxes/{inbox_id}/threads/{thread_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "thread_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "inbox_id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/inboxes/{inbox_id}/threads/{thread_id}"
+          q: {
+            exist: [
+              "id"
+              "inbox_id"
+            ]
+          }
+          r: {
+            param: {
+              thread_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "inboxes"
+            }
+            {
+              var: "inbox_id"
+            }
+            {
+              lit: "threads"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          bf: [
+            "folder"
+            "read"
+          ]
+          co: {
+            id: "PATCH /inboxes/{inbox_id}/threads/{thread_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "thread_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "b3e2b2b6-3f0e-4c8e-9ad3-2f43a1e2c7f1"
+                k: "param"
+                n: "inbox_id"
+                or: "inbox_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/inboxes/{inbox_id}/threads/{thread_id}"
+          q: {
+            exist: [
+              "id"
+              "inbox_id"
+            ]
+          }
+          r: {
+            param: {
+              thread_id: "id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "inboxes"
+            }
+            {
+              var: "inbox_id"
+            }
+            {
+              lit: "threads"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
           }
         }
       ]

@@ -37,7 +37,7 @@ class TestWebhookEventEntity:
         client = ResendSDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.WebhookEvent(None).load({"id": 1, "webhook_id": "x"}, None)
+            client.WebhookEvent(None).list({"webhook_id": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -46,7 +46,7 @@ class TestWebhookEventEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "load"]:
+        for _op in ["create", "list", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "webhook_event." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -67,6 +67,19 @@ class TestWebhookEventEntity:
         webhook_event_ref01_data = helpers.to_map(runner.entity_data(webhook_event_ref01_ent.create(webhook_event_ref01_data, None)))
         assert webhook_event_ref01_data is not None
         assert webhook_event_ref01_data["id"] is not None
+
+        # LIST
+        webhook_event_ref01_match = {
+            "webhook_id": setup["idmap"]["webhook01"],
+        }
+
+        webhook_event_ref01_list_result = webhook_event_ref01_ent.list(webhook_event_ref01_match, None)
+        assert isinstance(webhook_event_ref01_list_result, list)
+
+        found_item = vs.select(
+            runner.entity_list_to_data(webhook_event_ref01_list_result),
+            {"id": webhook_event_ref01_data["id"]})
+        assert not vs.isempty(found_item)
 
         # LOAD
         webhook_event_ref01_match_dt0 = {
